@@ -1,3 +1,4 @@
+StitchCID1	Name
 CID100000085	carnitine
 CID100000119	gamma-aminobutyric
 CID100000137	5-aminolevulinic
@@ -166,7 +167,7 @@ CID100002512	cabergoline
 CID100002519	caffeine
 CID100002520	verapamil
 CID100002522	calcipotriol
-CID100002524	1,25(OH)2D3
+CID100002524	"1,25(OH)2D3"
 CID100002540	candesartan
 CID100002541	candesartan
 CID100002547	capreomycin
