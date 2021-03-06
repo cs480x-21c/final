@@ -1,0 +1,46 @@
+body {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    text-align: center;
+}
+
+#mainContainer {
+    width: calc(100% - 32px);
+    height: calc(100% - 32px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+}
+
+#upperContainer {
+    width: 75%;
+    flex-grow: 1;
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: row;
+}
+
+#importContainer {
+    width: calc(16.6666% - 16px);
+    height: 20%;
+    margin-right: 16px;
+}
+
+#treeContainer {
+    flex-grow: 1;
+}
+
+#statContainer {
+    width: calc(16.6666% - 16px);
+    margin-left: 16px;
+}
+
+#courseCatalog {
+    width: 50%;
+    height: 40%;
+}
