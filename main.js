@@ -28,33 +28,40 @@ function initTreeMap() {
 
 // initCourseCatalog() sets up the course catalog
 function initCourseCatalog() {
+
     // Will remove variable when loadCourses() is implmented
     let courses = [{ department: "CS" },
         { department: "MA" }, { department: "CS" }, { department: "IMGD" }
     ];
     let departments = new Set(courses.map(course => course.department));
 
-    d3.select("#departmentsNav")
-        .selectAll("li")
+    console.log(mdc);
+
+    const nav = d3.select("#departmentsNav");
+
+    nav.selectAll("li")
         .data(departments)
         .enter()
         .append("li")
-        .attr("class", "mdc-list-item")
+        // .attr("class", "mdc-list-item")
+        .attr("class", (d, i) => "mdc-list-item" + (i === 0 ? " mdc-list-item--selected" : ""))
+        .attr("aria-selected", (d, i) => i === 0 ? true : false)
+        .attr("role", "option")
+        .attr("tabindex", (d, i) => i === 0 ? 0 : "-1")
         .append("span")
         .attr("class", "mdc-list-item__text")
         .text(d => d);
 
-    d3.select("#departmentsNav")
-        .selectAll("li")
+    nav.selectAll("li")
         .append("span")
         .attr("class", "mdc-list-item__ripple");
 
-    d3.select("#departmentsNav")
-        .selectAll("li")
+    nav.selectAll("li")
         .on("click", e => {
             console.log(e.target.innerText);
         });
 
+    mdc.list.MDCList.attachTo(nav.node());
 }
 
 // initStatistics() sets up the statistics view
@@ -69,4 +76,5 @@ function main() {
     initTreeMap();
     initCourseCatalog();
     initStatistics();
+    mdc.autoInit();
 }
