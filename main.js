@@ -30,12 +30,11 @@ function initTreeMap() {
 function initCourseCatalog() {
 
     // Will remove variable when loadCourses() is implmented
-    let courses = [{ department: "CS" },
-        { department: "MA" }, { department: "CS" }, { department: "IMGD" }
+    let courses = [{ department: "CS", id: "2102" },
+        { department: "MA", id: "2100" }, { department: "CS", id: "1101" }, { department: "IMGD", id: "1001" }
     ];
     let departments = new Set(courses.map(course => course.department));
 
-    console.log(mdc);
 
     const nav = d3.select("#departmentsNav");
 
@@ -56,12 +55,36 @@ function initCourseCatalog() {
         .append("span")
         .attr("class", "mdc-list-item__ripple");
 
+    const loadCourses = (department) => {
+        let depCourses = courses.filter(c => c.department === department);
+
+        if (depCourses.length < 1) {
+            return;
+        }
+
+        const courseSectgion = d3.select("#coursesSection");
+
+        courseSectgion.selectAll("div")
+            .remove();
+
+        courseSectgion.selectAll("div")
+            .data(depCourses)
+            .enter()
+            .append("div")
+            .text(d => d.id);
+
+    };
+
+    loadCourses("CS");
+
     nav.selectAll("li")
         .on("click", e => {
-            console.log(e.target.innerText);
+            let dep = e.target.innerText;
+            loadCourses(dep);
         });
 
     mdc.list.MDCList.attachTo(nav.node());
+    console.log(mdc);
 }
 
 // initStatistics() sets up the statistics view

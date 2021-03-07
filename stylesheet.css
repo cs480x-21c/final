@@ -48,3 +48,18 @@ body {
     width: 50%;
     height: 40%;
 }
+
+#catalogContainer {
+    display: flex;
+    height: 100%;
+}
+
+#departmentsNav {
+    width: min-content;
+    overflow-y: auto;
+}
+
+#coursesSection {
+    flex: 1;
+    background-color: aliceblue;
+}
