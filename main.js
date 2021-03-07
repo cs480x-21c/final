@@ -28,17 +28,32 @@ function initTreeMap() {
 
 // initCourseCatalog() sets up the course catalog
 function initCourseCatalog() {
-    let courses = [{ department: "CS" }, { department: "MA" }, { department: "CS" }, { department: "IMGD" }];
+    // Will remove variable when loadCourses() is implmented
+    let courses = [{ department: "CS" },
+        { department: "MA" }, { department: "CS" }, { department: "IMGD" }
+    ];
     let departments = new Set(courses.map(course => course.department));
 
-    console.log(departments);
-
     d3.select("#departmentsNav")
-        .selectAll("span")
+        .selectAll("li")
         .data(departments)
         .enter()
+        .append("li")
+        .attr("class", "mdc-list-item")
         .append("span")
+        .attr("class", "mdc-list-item__text")
         .text(d => d);
+
+    d3.select("#departmentsNav")
+        .selectAll("li")
+        .append("span")
+        .attr("class", "mdc-list-item__ripple");
+
+    d3.select("#departmentsNav")
+        .selectAll("li")
+        .on("click", e => {
+            console.log(e.target.innerText);
+        });
 
 }
 
