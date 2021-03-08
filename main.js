@@ -71,7 +71,10 @@ function initCourseCatalog() {
             .data(depCourses)
             .enter()
             .append("div")
-            .attr("class", "mdc-card")
+            .attr("class", "mdc-card mdc-card__primary-action")
+            .on("click", (e, d) => {
+                console.log(d);
+            })
             .append("h4")
             .text(d => d.id);
 
@@ -86,7 +89,6 @@ function initCourseCatalog() {
         });
 
     mdc.list.MDCList.attachTo(nav.node());
-    console.log(mdc);
 }
 
 // initStatistics() sets up the statistics view
