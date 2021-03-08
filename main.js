@@ -30,7 +30,7 @@ function initTreeMap() {
 function initCourseCatalog() {
 
     // Will remove variable when loadCourses() is implmented
-    let courses = [{ department: "CS", id: "2102" },
+    let courses = [{ department: "CS", id: "2102" }, { department: "CS", id: "2102" }, { department: "CS", id: "2102" }, { department: "CS", id: "2102" }, { department: "CS", id: "2102" }, { department: "CS", id: "2102" }, { department: "CS", id: "2102" }, { department: "CS", id: "2102" }, { department: "CS", id: "2102" }, { department: "CS", id: "2102" }, { department: "CS", id: "2102" }, { department: "CS", id: "2102" }, { department: "CS", id: "2102" }, { department: "CS", id: "2102" }, { department: "CS", id: "2102" }, { department: "CS", id: "2102" }, { department: "CS", id: "2102" }, { department: "CS", id: "2102" }, { department: "CS", id: "2102" }, { department: "CS", id: "2102" }, { department: "CS", id: "2102" }, { department: "CS", id: "2102" }, { department: "CS", id: "2102" }, { department: "CS", id: "2102" }, { department: "CS", id: "2102" },
         { department: "MA", id: "2100" }, { department: "CS", id: "1101" }, { department: "IMGD", id: "1001" }
     ];
     let departments = new Set(courses.map(course => course.department));
@@ -71,11 +71,13 @@ function initCourseCatalog() {
             .data(depCourses)
             .enter()
             .append("div")
+            .attr("class", "mdc-card")
+            .append("h4")
             .text(d => d.id);
 
     };
 
-    loadCourses("CS");
+    loadCourses(departments.values().next().value);
 
     nav.selectAll("li")
         .on("click", e => {

@@ -52,6 +52,7 @@ body {
 #catalogContainer {
     display: flex;
     height: 100%;
+    overflow-y: hidden;
 }
 
 #departmentsNav {
@@ -60,6 +61,17 @@ body {
 }
 
 #coursesSection {
+    overflow-y: auto;
     flex: 1;
+    display: flex;
+    flex-wrap: wrap;
     background-color: aliceblue;
+}
+
+#coursesSection div {
+    margin: 1rem 1rem;
+    height: 3rem;
+    width: 5rem;
+    display: flex;
+    justify-content: center;
 }
