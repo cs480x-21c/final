@@ -113,3 +113,4 @@ References
 ---
 
 - This final project is adapted from https://www.dataviscourse.net/2020/project/
+- Sorted Bar chart: https://www.d3-graph-gallery.com/graph/barplot_ordered.html
