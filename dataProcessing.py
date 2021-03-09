@@ -15,7 +15,20 @@ medFreq = medFreq[medFreq.FrequencyDesc!='frequent']
 newData = pd.merge(medFreq,drugNames,on='StitchCID1')
 
 
-newData = newData.drop(['StitchCID0','UmlsIDLabel','Placebo','MeddraType','UmlsIDMeddraTerm', 'FrequencyDesc'],axis=1)
+newData = newData.drop(['StitchCID0','UmlsIDLabel','Placebo','MeddraType','UmlsIDMeddraTerm', 'FrequencyDesc', 'FrequencyLower','StitchCID1'],axis=1)
 newData = newData.drop_duplicates()
-print(newData)
-newData.to_csv('newData.tsv',sep='\t',index=False)
+result = newData.groupby(['Name','SideEffectName']) #.reset_index()
+resultMean = result.mean().reset_index()
+resultMean.columns = ['Name','SideEffectName',"MeanFrequency"] 
+resultMax = result.max().reset_index()
+resultMax.columns = ['Name','SideEffectName',"MaxFrequency"] 
+resultMin = result.min().reset_index()
+resultMin.columns = ['Name','SideEffectName',"MinFrequency"] 
+resultRange = pd.merge(resultMin,resultMax)
+master = pd.merge(resultRange,resultMean)
+# print(resultMean)
+# print(resultMax)
+# print(resultMin)
+print(master)
+# print(len(list(newData['SideEffectName'])))
+#newData.to_csv('newData.tsv',sep='\t',index=False)
