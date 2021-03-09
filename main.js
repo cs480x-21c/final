@@ -1,16 +1,15 @@
+"use strict";
+
 const EXAMPLE_COURSE = {
-    // Department code (CS for Computer Science)
-    department: "CS",
-    // ID of course (this is a string b/c it could be something like ###x)
-    id: "1101",
-    // Description from course catalog
-    description: "This course introduces principles of computation and programming with an emphasis on program design. Topics include the design, implementation and testing of programs that use a variety of data structures (such as structures, lists, and trees), functions, conditionals, recursion and higher-­‐order functions. Students will be expected to design simple data models, and implement and debug programs in a functional programming language.",
-    // Recommended background (prereqgs / equivalent knowledge)
-    background: "None",
-    // List of courses which this course cannot be taken for credit along with (e.g., cannot receive credit for BOTH 1101 and 1102)
-    exclusive_credit_with: [
-        "1102"
-    ]
+    "title":"ELEMENTARY ARABIC I",
+    "department_code":"AB",
+    "code":"1531",
+    "description":"Cat. I An intensive course to introduce the Arabic language to students with no background in Arabic. Oral language acquisition will stress structures and vocabulary required for basic communicative tasks. Emphasis will be on grammar, vocabulary, and writing system. Cultural aspects of Arabic-speaking countries introduced through course material. This course is closed to native speakers of Arabic and heritage speakers except with written permission from the instructor.",
+    "credits":"2.000 OR 3.000 Credit hours",
+    "levels":"Undergraduate, Graduate",
+    "types":"Lecture, Web",
+    "department_title":"Humanities and Arts Department",
+    "attributes":"Humanities and Arts"
 }
 
 let courses = []; // Array of all courses, following object specified above
@@ -18,7 +17,11 @@ let currCourses = []; // Array of currently slotted in courses
 
 // loadCourses() loads all WPI courses from a JSON file
 function loadCourses() {
-
+    return fetch("courses.json")
+        .then(response => response.json())
+        .then(data => {
+           courses = data["courses"];
+        })
 }
 
 // initTreemap() sets up the tree map
@@ -28,13 +31,7 @@ function initTreeMap() {
 
 // initCourseCatalog() sets up the course catalog
 function initCourseCatalog() {
-
-    // Will remove variable when loadCourses() is implmented
-    let courses = [{ department: "CS", id: "2102" }, { department: "CS", id: "2102" }, { department: "CS", id: "2102" }, { department: "CS", id: "2102" }, { department: "CS", id: "2102" }, { department: "CS", id: "2102" }, { department: "CS", id: "2102" }, { department: "CS", id: "2102" }, { department: "CS", id: "2102" }, { department: "CS", id: "2102" }, { department: "CS", id: "2102" }, { department: "CS", id: "2102" }, { department: "CS", id: "2102" }, { department: "CS", id: "2102" }, { department: "CS", id: "2102" }, { department: "CS", id: "2102" }, { department: "CS", id: "2102" }, { department: "CS", id: "2102" }, { department: "CS", id: "2102" }, { department: "CS", id: "2102" }, { department: "CS", id: "2102" }, { department: "CS", id: "2102" }, { department: "CS", id: "2102" }, { department: "CS", id: "2102" }, { department: "CS", id: "2102" },
-        { department: "MA", id: "2100" }, { department: "CS", id: "1101" }, { department: "IMGD", id: "1001" }
-    ];
-    let departments = new Set(courses.map(course => course.department));
-
+    let departments = new Set(courses.map(course => course.department_code));
 
     const nav = d3.select("#departmentsNav");
 
@@ -56,18 +53,18 @@ function initCourseCatalog() {
         .attr("class", "mdc-list-item__ripple");
 
     const loadCourses = (department) => {
-        let depCourses = courses.filter(c => c.department === department);
+        let depCourses = courses.filter(c => c.department_code === department);
 
         if (depCourses.length < 1) {
             return;
         }
 
-        const courseSectgion = d3.select("#coursesSection");
+        const courseSection = d3.select("#coursesSection");
 
-        courseSectgion.selectAll("div")
+        courseSection.selectAll("div")
             .remove();
 
-        courseSectgion.selectAll("div")
+        courseSection.selectAll("div")
             .data(depCourses)
             .enter()
             .append("div")
@@ -76,7 +73,7 @@ function initCourseCatalog() {
                 console.log(d);
             })
             .append("h4")
-            .text(d => d.id);
+            .text(d => d.code);
 
     };
 
@@ -98,10 +95,10 @@ function initStatistics() {
 
 // main() is run when the body of the page loads
 function main() {
-    loadCourses();
-
-    initTreeMap();
-    initCourseCatalog();
-    initStatistics();
-    mdc.autoInit();
+    loadCourses().then(d => {
+        initTreeMap();
+        initCourseCatalog();
+        initStatistics();
+        mdc.autoInit();
+    });
 }
