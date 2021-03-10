@@ -14,6 +14,7 @@ const EXAMPLE_COURSE = {
 
 let courses = []; // Array of all courses, following object specified above
 let currCourses = []; // Array of currently slotted in courses
+const currCoursesUpdated = new Event('course');
 
 // loadCourses() loads all WPI courses from a JSON file
 function loadCourses() {
