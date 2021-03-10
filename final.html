@@ -43,6 +43,10 @@
     
     <svg width="1400" height="650"></svg>
     
+    <!-- Initialize a select button -->
+    <select id="regionButton"></select>
+    <select id="geneButton"></select>
+
     <div id="vis-container"></div>
 
     <script>
@@ -60,11 +64,29 @@
         const h = svg.append('g')
             .attr('transform', `translate(${margin.left + width/2},${margin.top})`);
 
-        // CHANGE BASED ON DROPDOWN VALUE
+        var regionGroups = ["FrontalCortex", "CerebellarHem", "VisualCortex"]
+        var geneGroups = ["SATB2", "SLC17A7", "GRIN1", "GRIN2B", "GAD1", "GAD2", "SLC6A1", "CLDN11", "MOG", "MOBP", "MBP", "SLC1A2", "SLC1A3", "SLC1A4", "GLUL", "AQP4", "COBLL1", "DUSP1", "FLT1", "PCDH15.1", "OLIG1.1","APBB1IP","P2RY12","APBB1IP.1","P2RY12.1","RYR1","RELN","GRM4","RBFOX3"]
+
+        // add the options to the button
+        d3.select("#regionButton")
+          .selectAll('myOptions')
+     	    .data(regionGroups)
+          .enter()
+            .append('option')
+          .text(function (d) { return d; }) // text showed in the menu
+          .attr("value", function (d) { return d; }) // corresponding value returned by the button
+        
+        d3.select("#geneButton")
+          .selectAll('myOptions')
+            .data(geneGroups)
+          .enter()
+    	    .append('option')
+          .text(function (d) { return d; }) // text showed in the menu
+          .attr("value", function (d) { return d; }) // corresponding value returned by the button
+
         var region = "FrontalCortex"
-
         var gene = "SATB2"
-
+        
         d3.csv('https://nshedd.github.io/final/data/combined.csv')
         .then(data => {
             data = data.filter((d) => {
@@ -96,6 +118,9 @@
             const g = svg.append('g')
                 .attr('transform', `translate(${margin.left},${margin.top})`);
             
+           const h = svg.append('g')
+            .attr('transform', `translate(${margin.left + width/2},${margin.top})`);
+
             const xAxis = d3.axisBottom(xScale);
             
             const yAxis = d3.axisLeft(yScale);
@@ -172,8 +197,246 @@
                 .attr("fill", function(d) { return gene_color(d[gene]); })
         });
 
+        // CHANGE BASED ON DROPDOWN VALUE
+        d3.select("#regionButton").on("change", function(d) {
+            region = d3.select(this).property("value")
+            updateRegion(region)
+        })
+        d3.select("#geneButton").on("change", function(d) {
+            gene = d3.select(this).property("value")
+            updateGene(gene)
+        })
 
+        function updateRegion(region) {
+        d3.selectAll("svg > *").remove();
+        d3.csv('https://nshedd.github.io/final/data/combined.csv')
+        .then(data => {
+            data = data.filter((d) => {
+                return d.brain_region == region;
+            });
+         console.log("Region " + region)
+            data.forEach(d => {
+                d.UMAP_1 = +d.UMAP_1;
+                d.UMAP_2 = +d.UMAP_2;
+                d.celltype = +d.celltype;
+            });
+            const xValue = d => d.UMAP_1;
+            const xAxisLabel = 'UMAP 1';
             
+            const yValue = d => d.UMAP_2;
+            const yAxisLabel = 'UMAP 2';        
+
+            const featValue = d => d[gene];    
+
+            const xScale = d3.scaleLinear()
+                .domain(d3.extent(data, xValue))
+                .range([0, innerWidth])
+                .nice();
+            
+            const yScale = d3.scaleLinear()
+                .domain(d3.extent(data, yValue))
+                .range([innerHeight, 0])
+                .nice();
+            
+            const g = svg.append('g')
+                .attr('transform', `translate(${margin.left},${margin.top})`);
+            
+            const h = svg.append('g')
+            .attr('transform', `translate(${margin.left + width/2},${margin.top})`);
+
+            const xAxis = d3.axisBottom(xScale);
+            
+            const yAxis = d3.axisLeft(yScale);
+
+            var clust_color = d3.scaleOrdinal(["rgb(6,150,104)", "rgb(196,74,137)", "rgb(179,230,28)", "rgb(181,3,209)", "rgb(39,213,61)", "rgb(255,0,135)", "rgb(150,231,154)", "rgb(241,67,48)", "rgb(121,227,249)", "rgb(143,15,18)", "rgb(135,169,253)", "rgb(37,80,38)", "rgb(253,146,250)", "rgb(101,161,14)", "rgb(112,83,217)", "rgb(252,206,106)", "rgb(71,69,86)", "rgb(247,144,100)", "rgb(5,157,197)", "rgb(104,61,13)", "rgb(226,209,203)", "rgb(45,104,199)"]);
+            
+            var gene_color = d3.scaleLinear()
+                .domain(d3.extent(data, featValue))
+                .range(['lightgray','blue']);
+
+            const yAxisG = g.append('g').call(yAxis);
+            yAxisG.selectAll('.domain').remove();
+            
+            yAxisG.append('text')
+                .attr('class', 'axis-label')
+                .attr('y', -93)
+                .attr('x', -innerHeight / 2)
+                .attr('fill', 'black')
+                .attr('transform', `rotate(-90)`)
+                .attr('text-anchor', 'middle')
+                .text(yAxisLabel);
+            
+            const xAxisG = g.append('g').call(xAxis)
+                .attr('transform', `translate(5,${innerHeight})`)
+            
+            xAxisG.select('.domain').remove();
+            
+            xAxisG.append('text')
+                .attr('class', 'axis-label')
+                .attr('y', 75)
+                .attr('x', innerWidth / 2)
+                .attr('fill', 'black')
+                .text(xAxisLabel);
+
+            g.selectAll('circle').data(data)
+                .enter().append('circle')
+                .attr('cy', d => yScale(yValue(d)))
+                .attr('cx', d => xScale(xValue(d)))
+                .attr('r', 2)
+                .attr("fill", function(d) { return clust_color(d.celltype); })
+
+
+
+            const yAxisH = h.append('g').call(yAxis);
+
+            yAxisH.selectAll('.domain').remove();
+            
+            yAxisH.append('text')
+                .attr('class', 'axis-label')
+                .attr('y', -93)
+                .attr('x', -innerHeight / 2)
+                .attr('fill', 'black')
+                .attr('transform', `rotate(-90)`)
+                .attr('text-anchor', 'middle')
+                .text(yAxisLabel);
+            
+            const xAxisH = h.append('g').call(xAxis)
+                .attr('transform', `translate(5,${innerHeight})`)
+            
+            xAxisH.select('.domain').remove();
+            
+            xAxisH.append('text')
+                .attr('class', 'axis-label')
+                .attr('y', 75)
+                .attr('x', innerWidth / 2)
+                .attr('fill', 'black')
+                .text(xAxisLabel);
+
+            h.selectAll('circle').data(data)
+                .enter().append('circle')
+                .attr('cy', d => yScale(yValue(d)))
+                .attr('cx', d => xScale(xValue(d)))
+                .attr('r', 2)
+                .attr("fill", function(d) { return gene_color(d[gene]); })
+        });
+
+        }
+        
+
+
+        function updateGene(gene) {
+           d3.csv('https://nshedd.github.io/final/data/combined.csv')
+        .then(data => {
+            data = data.filter((d) => {
+                return d.brain_region == region;
+            });
+            data.forEach(d => {
+                d.UMAP_1 = +d.UMAP_1;
+                d.UMAP_2 = +d.UMAP_2;
+                d.celltype = +d.celltype;
+            });
+            const xValue = d => d.UMAP_1;
+            const xAxisLabel = 'UMAP 1';
+            
+            const yValue = d => d.UMAP_2;
+            const yAxisLabel = 'UMAP 2';        
+
+            const featValue = d => d[gene];    
+
+            const xScale = d3.scaleLinear()
+                .domain(d3.extent(data, xValue))
+                .range([0, innerWidth])
+                .nice();
+            
+            const yScale = d3.scaleLinear()
+                .domain(d3.extent(data, yValue))
+                .range([innerHeight, 0])
+                .nice();
+            
+            const g = svg.append('g')
+                .attr('transform', `translate(${margin.left},${margin.top})`);
+           
+           const h = svg.append('g')
+            .attr('transform', `translate(${margin.left + width/2},${margin.top})`); 
+ 
+            const xAxis = d3.axisBottom(xScale);
+            
+            const yAxis = d3.axisLeft(yScale);
+
+            var clust_color = d3.scaleOrdinal(["rgb(6,150,104)", "rgb(196,74,137)", "rgb(179,230,28)", "rgb(181,3,209)", "rgb(39,213,61)", "rgb(255,0,135)", "rgb(150,231,154)", "rgb(241,67,48)", "rgb(121,227,249)", "rgb(143,15,18)", "rgb(135,169,253)", "rgb(37,80,38)", "rgb(253,146,250)", "rgb(101,161,14)", "rgb(112,83,217)", "rgb(252,206,106)", "rgb(71,69,86)", "rgb(247,144,100)", "rgb(5,157,197)", "rgb(104,61,13)", "rgb(226,209,203)", "rgb(45,104,199)"]);
+            
+            var gene_color = d3.scaleLinear()
+                .domain(d3.extent(data, featValue))
+                .range(['lightgray','blue']);
+
+            const yAxisG = g.append('g').call(yAxis);
+            yAxisG.selectAll('.domain').remove();
+            
+            yAxisG.append('text')
+                .attr('class', 'axis-label')
+                .attr('y', -93)
+                .attr('x', -innerHeight / 2)
+                .attr('fill', 'black')
+                .attr('transform', `rotate(-90)`)
+                .attr('text-anchor', 'middle')
+                .text(yAxisLabel);
+            
+            const xAxisG = g.append('g').call(xAxis)
+                .attr('transform', `translate(5,${innerHeight})`)
+            
+            xAxisG.select('.domain').remove();
+            
+            xAxisG.append('text')
+                .attr('class', 'axis-label')
+                .attr('y', 75)
+                .attr('x', innerWidth / 2)
+                .attr('fill', 'black')
+                .text(xAxisLabel);
+
+            g.selectAll('circle').data(data)
+                .enter().append('circle')
+                .attr('cy', d => yScale(yValue(d)))
+                .attr('cx', d => xScale(xValue(d)))
+                .attr('r', 2)
+                .attr("fill", function(d) { return clust_color(d.celltype); })
+
+
+
+            const yAxisH = h.append('g').call(yAxis);
+
+            yAxisH.selectAll('.domain').remove();
+            
+            yAxisH.append('text')
+                .attr('class', 'axis-label')
+                .attr('y', -93)
+                .attr('x', -innerHeight / 2)
+                .attr('fill', 'black')
+                .attr('transform', `rotate(-90)`)
+                .attr('text-anchor', 'middle')
+                .text(yAxisLabel);
+            
+            const xAxisH = h.append('g').call(xAxis)
+                .attr('transform', `translate(5,${innerHeight})`)
+            
+            xAxisH.select('.domain').remove();
+            
+            xAxisH.append('text')
+                .attr('class', 'axis-label')
+                .attr('y', 75)
+                .attr('x', innerWidth / 2)
+                .attr('fill', 'black')
+                .text(xAxisLabel);
+
+            h.selectAll('circle').data(data)
+                .enter().append('circle')
+                .attr('cy', d => yScale(yValue(d)))
+                .attr('cx', d => xScale(xValue(d)))
+                .attr('r', 2)
+                .attr("fill", function(d) { return gene_color(d[gene]); })
+        });
+        }
+
+    
     
     </script>
   </body>
