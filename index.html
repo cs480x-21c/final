@@ -43,7 +43,100 @@
         </div>
     </div>
 </body>
+
 <!-- Main JavaScript Source -->
-<script src="main.js"></script>
+<script src="main.js">
+// we hate magic numbers here
+var margin = {top: 10, right: 10, bottom: 10, left: 10},
+  width = 445 - margin.left - margin.right,
+  height = 445 - margin.top - margin.bottom;
+
+// slap down the svg
+var svg = d3.select("#treemap")
+.append("svg")
+  .attr("width", width + margin.left + margin.right)
+  .attr("height", height + margin.top + margin.bottom)
+.append("g")
+  .attr("transform",
+        "translate(" + margin.left + "," + margin.top + ")");
+
+// most of the below referenced from https://www.d3-graph-gallery.com/graph/treemap_custom.html
+// need to fix a lot of it
+d3.json("courses.json", function(data) {
+
+    // Give the data to this cluster layout:
+    var root = d3.hierarchy(data).sum(function(d){ return d.value})
+
+    // Then d3.treemap computes the position of each element of the hierarchy
+    d3.treemap()
+      .size([width, height])
+      .paddingTop(25)
+      .paddingRight(7)
+      .paddingInner(3)
+      (root);
+
+    // Color scale
+    // TODO make the range an actual scale so we don't have to manually pick a color for every department
+    // TODO fix the domain
+    var color = d3.scaleOrdinal()
+      .domain(["boss1", "boss2", "boss3"])
+      .range(["#06c27d", "#04d1bd", "#0296d1"])
+
+    // Opacity scale
+    var opacity = d3.scaleLinear()
+      .domain([10, 30])
+      .range([.5,1])
+
+    // Add rectangles
+    svg.selectAll("rect")
+      .data(root.leaves())
+      .enter()
+      .append("rect")
+      .attr('x', function (d) { return d.x0; })
+      .attr('y', function (d) { return d.y0; })
+      .attr('width', function (d) { return d.x1 - d.x0; })
+      .attr('height', function (d) { return d.y1 - d.y0; })
+      .style("stroke", "black")
+      .style("fill", function(d){ return color(d.parent.data.name)} )
+      .style("opacity", function(d){ return opacity(d.data.value)})
+
+    // Text labels
+    svg.selectAll("text")
+      .data(root.leaves())
+      .enter()
+      .append("text")
+      .attr("x", function(d){ return d.x0+5})    // +10 to adjust position (more right)
+      .attr("y", function(d){ return d.y0+20})    // +20 to adjust position (lower)
+      .text(function(d){ return d.data.name.replace('mister_','') })
+      .attr("font-size", "19px")
+      .attr("font-family", "sans-serif")
+      .attr("fill", "white")
+
+    // Value labels
+    svg.selectAll("vals")
+      .data(root.leaves())
+      .enter()
+      .append("text")
+      .attr("x", function(d){ return d.x0+5})    // +10 to adjust position (more right)
+      .attr("y", function(d){ return d.y0+35})    // +20 to adjust position (lower)
+      .text(function(d){ return d.data.value })
+      .attr("font-size", "11px")
+      .attr("font-family", "sans-serif")
+      .attr("fill", "white")
+
+    // Add title for the 3 groups
+    svg.selectAll("titles")
+      .data(root.descendants().filter(function(d){return d.depth==1}))
+      .enter()
+      .append("text")
+      .attr("x", function(d){ return d.x0})
+      .attr("y", function(d){ return d.y0+21})
+      .text(function(d){ return d.data.name })
+      .attr("font-size", "19px")
+      .attr("font-family", "sans-serif")
+      .attr("fill",  function(d){ return color(d.data.name)} )
+
+})
+</script>
 
 </html>
