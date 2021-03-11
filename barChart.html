@@ -25,17 +25,32 @@
               "translate(" + margin.left + "," + margin.top + ")");
     
     // parsing the data
-    d3.csv("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/7_OneCatOneNum_header.csv").then(function(data) {
-    
-      // sort the data in descending order 
-      data.sort(function(b, a) {
-        return a.Value - b.Value;
-      });
+    d3.tsv("master.tsv").then(function(data) {
+
+      // Converting the string fields to numeric vals
+      data.forEach(function(d) {
+        d.MeanFrequency = +d.MeanFrequency;
+        d.MinFrequency = +d.MinFrequency;
+        d.MaxFrequency = +d.MaxFrequency;
+      })
+
+      var targetSideEffect = "Depression" // level 2
+
+      // Filtering by side effect - level 2
+      var filteredDrugs = data.filter(d => d.SideEffectName == targetSideEffect)
+
+      filteredDrugs.sort(function(a, b) {
+        return b.MeanFrequency - a.MeanFrequency
+      })
+
+      filteredDrugs = filteredDrugs.slice(0,20)
+
+      console.log(filteredDrugs)
     
       // adding x-axis
       var x = d3.scaleBand()
         .range([ 0, width ])
-        .domain(data.map(function(d) { return d.Country; }))
+        .domain(filteredDrugs.map(function(d) { return d.Name; }))
         .padding(0.2);
       svg.append("g")
         .attr("transform", "translate(0," + height + ")")
@@ -46,21 +61,25 @@
     
       // adding y-axis
       var y = d3.scaleLinear()
-        .domain([0, 13000])
+        .domain([0, 1])
         .range([ height, 0]);
       svg.append("g")
         .call(d3.axisLeft(y));
     
       // add bars
       svg.selectAll("mybar")
-        .data(data)
+        .data(filteredDrugs)
         .enter()
         .append("rect")
-          .attr("x", function(d) { return x(d.Country); })
-          .attr("y", function(d) { return y(d.Value); })
+          .attr("x", function(d) { 
+            return x(d.Name); 
+          })
+          .attr("y", function(d) { 
+            return y(d.MeanFrequency); 
+          })
           .attr("width", x.bandwidth())
-          .attr("height", function(d) { return height - y(d.Value); })
-          .attr("fill", "white")
+          .attr("height", function(d) { return height - y(d.MeanFrequency); })
+          .attr("fill", "steelblue")
           .attr('stroke',"black")
     
     })
@@ -83,25 +102,25 @@
         //console.log(data)
 
         // Filtering by drug - level 3
-        var filteredDrugs = data.filter(d => d.Name == targetDrug)
-
-        filteredDrugs.sort(function(a, b) {
-          return b.MeanFrequency - a.MeanFrequency
-        })
-      
-        filteredDrugs = filteredDrugs.slice(0,20)
-        console.log(filteredDrugs)   // Top 20 side effects of the target Drug
-
-
-
-        // Filtering by side effect - level 2
-        var filteredSideEffects = data.filter(d => d.SideEffectName == targetSideEffect)
+        var filteredSideEffects = data.filter(d => d.Name == targetDrug)
 
         filteredSideEffects.sort(function(a, b) {
           return b.MeanFrequency - a.MeanFrequency
         })
-
+      
         filteredSideEffects = filteredSideEffects.slice(0,20)
-        console.log(filteredSideEffects) // Top 20 drugs with target Side effect
+        //console.log(filteredSideEffects)   // Top 20 side effects of the target Drug
+
+
+
+        // Filtering by side effect - level 2
+        var filteredDrugs = data.filter(d => d.SideEffectName == targetSideEffect)
+
+        filteredDrugs.sort(function(a, b) {
+          return b.MeanFrequency - a.MeanFrequency
+        })
+
+        filteredDrugs = filteredDrugs.slice(0,20)
+        //console.log(filteredDrugs) // Top 20 drugs with target Side effect
       })
     </script>
