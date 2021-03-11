@@ -253,10 +253,6 @@
                     .attr('r', 2)
                     .attr("fill", function(d) { return gene_color(d[gene]); })
                     .on("mouseover", function(d, i) {
-                        console.log(i)
-                        console.log(d)
-                        console.log("g_"+ i.barcode)
-
                         d3.select(this)
                             .raise()
                             .attr("stroke", "black")
