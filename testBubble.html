@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<script src="https://d3js.org/d3.v6.min.js"></script>
+
+<html>
+
+    <body>
+        <svg id="vis"></svg>
+    </body>
+
+</html>
+
+<script>
+	console.log(d3);
+
+	var margin = {
+        left: 60,
+        top: 10,
+        right: 10,
+        bottom: 10
+    };
+
+    var height = 480 - margin.top - margin.bottom;
+    var width = 640 - margin.left - margin.right;
+
+    var svg = d3.select('#vis')
+		.style('width', width + margin.left + margin.right)
+		.style('height', height + margin.top + margin.bottom);
+	
+	var file = 'testData.json';
+	
+	var generateChart = data => {
+		var bubble = data => d3.pack()
+			.size([width, height])
+			.padding(2)(d3.hierarchy({ children: data }).sum(d => d.score));
+			
+		var root = bubble(data);
+			
+		var node = svg.selectAll()
+			.data(root.children)
+			.enter().append('g')
+			.attr('transform', d => `translate(${d.x}, ${d.y})`);
+			
+		var circle = node.append('circle')
+			.attr('r', d => d.r)
+			.style('fill', 'blue');
+	
+	}
+	
+	(async () => {
+		data = await d3.json(file).then(data => data);
+		generateChart(data);
+	})();
+
+</script>
