@@ -1,15 +1,15 @@
 "use strict";
 
 const EXAMPLE_COURSE = {
-    "title":"ELEMENTARY ARABIC I",
-    "department_code":"AB",
-    "code":"1531",
-    "description":"Cat. I An intensive course to introduce the Arabic language to students with no background in Arabic. Oral language acquisition will stress structures and vocabulary required for basic communicative tasks. Emphasis will be on grammar, vocabulary, and writing system. Cultural aspects of Arabic-speaking countries introduced through course material. This course is closed to native speakers of Arabic and heritage speakers except with written permission from the instructor.",
-    "credits":"2.000 OR 3.000 Credit hours",
-    "levels":"Undergraduate, Graduate",
-    "types":"Lecture, Web",
-    "department_title":"Humanities and Arts Department",
-    "attributes":"Humanities and Arts"
+    "title": "ELEMENTARY ARABIC I",
+    "department_code": "AB",
+    "code": "1531",
+    "description": "Cat. I An intensive course to introduce the Arabic language to students with no background in Arabic. Oral language acquisition will stress structures and vocabulary required for basic communicative tasks. Emphasis will be on grammar, vocabulary, and writing system. Cultural aspects of Arabic-speaking countries introduced through course material. This course is closed to native speakers of Arabic and heritage speakers except with written permission from the instructor.",
+    "credits": "2.000 OR 3.000 Credit hours",
+    "levels": "Undergraduate, Graduate",
+    "types": "Lecture, Web",
+    "department_title": "Humanities and Arts Department",
+    "attributes": "Humanities and Arts"
 }
 
 let courses = []; // Array of all courses, following object specified above
@@ -21,7 +21,7 @@ function loadCourses() {
     return fetch("courses.json")
         .then(response => response.json())
         .then(data => {
-           courses = data["courses"];
+            courses = data["courses"];
         })
 }
 
@@ -65,14 +65,22 @@ function initCourseCatalog() {
         courseSection.selectAll("div")
             .remove();
 
+        const drag = d3.drag().on("end", e => {
+            let inTree = e.sourceEvent.path
+                .findIndex(el => el.id === "treeContainer") > -1;
+
+            if (inTree) {
+                currCourses.push(e.subject);
+                console.log(currCourses);
+            }
+        });
+
         courseSection.selectAll("div")
             .data(depCourses)
             .enter()
             .append("div")
             .attr("class", "mdc-card mdc-card__primary-action")
-            .on("click", (e, d) => {
-                console.log(d);
-            })
+            .call(drag)
             .append("h4")
             .text(d => d.code);
 
