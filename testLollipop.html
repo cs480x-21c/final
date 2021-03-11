@@ -38,6 +38,10 @@
         {name: 'fifth', val: 5},
     ];
 
+    function activateThirdLevel() {
+        console.log("going to the next level!");
+    }
+
     function createChart(data) {
 
         let xScale = d3.scaleBand()
@@ -74,9 +78,19 @@
         .append('circle')
             .attr('cx', d => xScale(d.name) + margin.left-3)
             .attr('cy', d => yScale(d.val))
-            .attr('r', 3)
+            .attr('r', 5)
             .style('fill', 'steelblue')
             .attr('stroke', 'black')
+            .style('cursor', 'pointer')
+            .on('mouseover', (event, d) => {
+                d3.select(event.target).attr('opacity', 0.4)
+            })
+            .on('mouseout', (event, d) => {
+                d3.select(event.target).attr('opacity', 1)
+            })
+            .on('mousedown', (event, d) => {
+                activateThirdLevel();
+            })
 
     }
 
