@@ -3,7 +3,7 @@ import os
 import csv
 path=os.path.abspath(os.path.dirname(__file__)) + '/allData/'
 dates=[]
-with open('Datasets/dates_all.csv', newline='') as csvfile:
+with open( os.path.join('Datasets','dates_all.csv'), newline='') as csvfile:
     reader = csv.reader(csvfile, delimiter=' ')
     for row in reader:
         dates.append(row)
@@ -37,5 +37,5 @@ for row in range(len(dates)):
 
 
 #save dictionary to json
-with open('Datasets/dict.json', 'w') as outfile:
+with open( os.path.join('Datasets','dict.json'), 'w') as outfile:
    json.dump(data, outfile)

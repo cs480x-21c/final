@@ -1,3 +1,14 @@
+
+
+
+
+
+
+#ignore me
+
+
+
+
 import ssl
 import csv
 import requests
@@ -5,7 +16,7 @@ import os
 
 filename= os.path.abspath(os.path.dirname(__file__)) + '/allData/'
 
-with open('Datasets/dates_all.csv', newline='') as csvfile:
+with open( os.path.join('Datasets','dates_all.csv'), newline='') as csvfile:
     dates = csv.reader(csvfile, delimiter=' ')
     for row in dates:
         date=row[0]
