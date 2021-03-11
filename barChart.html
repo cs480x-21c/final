@@ -70,26 +70,38 @@
     <script>
       d3.tsv("master.tsv").then(function(data){
 
-        var targetDrug = "18F-flutemetamol"
-        var targetSideEffect = "Depression"
+        var targetDrug = "18F-flutemetamol" // level 3
+        var targetSideEffect = "Depression" // level 2
+        
+        // Converting the string fields to numeric vals
         data.forEach(function(d) {
           d.MeanFrequency = +d.MeanFrequency;
           d.MinFrequency = +d.MinFrequency;
           d.MaxFrequency = +d.MaxFrequency;
-        });
+        })
 
         //console.log(data)
 
-        v = data.filter(function(d){
-          return d.SideEffectName == targetSideEffect
-        })
+        // Filtering by drug - level 3
+        var filteredDrugs = data.filter(d => d.Name == targetDrug)
 
-        v.sort(function(a, b) {
+        filteredDrugs.sort(function(a, b) {
+          return b.MeanFrequency - a.MeanFrequency
+        })
+      
+        filteredDrugs = filteredDrugs.slice(0,20)
+        console.log(filteredDrugs)   // Top 20 side effects of the target Drug
+
+
+
+        // Filtering by side effect - level 2
+        var filteredSideEffects = data.filter(d => d.SideEffectName == targetSideEffect)
+
+        filteredSideEffects.sort(function(a, b) {
           return b.MeanFrequency - a.MeanFrequency
         })
 
-        // Top 20 drugs with depression side effect
-        v = v.slice(0,20)
-        console.log(v)
+        filteredSideEffects = filteredSideEffects.slice(0,20)
+        console.log(filteredSideEffects) // Top 20 drugs with target Side effect
       })
     </script>
