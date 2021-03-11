@@ -18,4 +18,24 @@
 </body>
 </html>
 
-<script src="https://d3js.org/d3.v4.js"></script>
+<script src="https://d3js.org/d3.v6.min.js"></script>
+
+<script>
+
+    async function printSideEffects() {
+
+        let masterData = await d3.tsv('master.tsv');
+        //console.log(data);
+        let sideEffects = new Set();
+
+        for(d of masterData) {
+
+            sideEffects.add(d.SideEffectName);
+
+        }
+
+        console.log(sideEffects);
+
+    }
+
+</script>
