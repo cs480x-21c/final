@@ -3,9 +3,9 @@ import os
 import csv
 
 songs={}
+lines=[]
 
 with open('Datasets/flat_dict.csv', newline='') as csvfile:
-    lines=[]
     reader = csv.reader(csvfile, delimiter=',')
     for row in reader:
         lines.append(row)

@@ -9,8 +9,8 @@ countries = []
 dates = []
 weeks = []
 
-# country_path = os.path.join('Datasets','reduced_countries1.csv')
-country_path = os.path.join('Datasets','countries.csv')
+country_path = os.path.join('Datasets','reduced_countries1.csv')
+# country_path = os.path.join('Datasets','countries.csv')
 with open( country_path, newline='') as csvfile:
     country_list = csv.reader(csvfile, delimiter=',')
     for row in country_list:
@@ -41,7 +41,7 @@ for country in countries:
     # create dir for country if non-existent 
     country_path = os.path.join("chart_scrapes",country)
     if os.path.exists(country_path) == False:
-        os.makedires(country_path)
+        os.makedirs(country_path)
 
     # iterate through each week for the current country
     for week in weeks:
