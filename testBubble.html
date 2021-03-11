@@ -4,8 +4,18 @@
 
 <html>
 
+	<head>
+		<link rel="stylesheet" href="styles.css" />
+	</head>
+
     <body>
         <svg id="vis"></svg>
+		<div class="tooltip">
+			<div>
+				<a></a>
+				<span></span>
+			</div>
+		</div>
     </body>
 
 </html>
@@ -35,6 +45,7 @@
 			.padding(2)(d3.hierarchy({ children: data }).sum(d => d.score));
 			
 		var root = bubble(data);
+		var tooltip = d3.select('.tooltip');
 			
 		var node = svg.selectAll()
 			.data(root.children)
@@ -43,7 +54,21 @@
 			
 		var circle = node.append('circle')
 			.attr('r', d => d.r)
-			.style('fill', 'blue');
+			.style('fill', 'orange')
+			.on('mouseover', function (e, d){
+				tooltip.select('a').attr('href', d.data.link).text(d.data.name);
+				tooltip.select('span').attr('class', d.data.category).text(d.data.category);
+				tooltip.style('visibility', 'visible');
+				
+				d3.select(this).style('stroke', '#222');
+			})
+			.on('click', (e, d) => window.open(d.data.link))
+			.on('mousemove', e => tooltip.style('top', `${e.pageY}px`)
+										 .style('left', `${e.pageX + 10}px`));
+			
+		var label = node.append('text')
+			.attr('dy', 2)
+			.text(d => d.data.name.substring(0, d.r / 3));
 	
 	}
 	
