@@ -94,8 +94,9 @@
         var region = "FrontalCortex"
         var gene = "SATB2"
         
-        // initialize the circles for right-hand plot
+        // variables to be used when updating through drop-down menu
         var rightCircles;
+        var gene_color = d3.scaleLinear();
 
         // Plots entire left and right chart
         // runType = 'region' or 'gene'
@@ -142,7 +143,7 @@
 
                 var clust_color = d3.scaleOrdinal(["rgb(6,150,104)", "rgb(196,74,137)", "rgb(179,230,28)", "rgb(181,3,209)", "rgb(39,213,61)", "rgb(255,0,135)", "rgb(150,231,154)", "rgb(241,67,48)", "rgb(121,227,249)", "rgb(143,15,18)", "rgb(135,169,253)", "rgb(37,80,38)", "rgb(253,146,250)", "rgb(101,161,14)", "rgb(112,83,217)", "rgb(252,206,106)", "rgb(71,69,86)", "rgb(247,144,100)", "rgb(5,157,197)", "rgb(104,61,13)", "rgb(226,209,203)", "rgb(45,104,199)"]);
                 
-                var gene_color = d3.scaleLinear()
+                gene_color = d3.scaleLinear()
                     .domain(d3.extent(data, featValue))
                     .range(['lightgray','blue']);
 
@@ -239,6 +240,7 @@
 
                 g.selectAll('circle').data(data)
                     .enter().append('circle')
+                    .attr('id', function (d) { return "g_"+ d.barcode; })
                     .attr('cy', d => yScale(yValue(d)))
                     .attr('cx', d => xScale(xValue(d)))
                     .attr('r', 2)
@@ -250,6 +252,30 @@
                     .attr('cx', d => xScale(xValue(d)))
                     .attr('r', 2)
                     .attr("fill", function(d) { return gene_color(d[gene]); })
+                    .on("mouseover", function(d, i) {
+                        console.log(i)
+                        console.log(d)
+                        console.log("g_"+ i.barcode)
+
+                        d3.select(this)
+                            .raise()
+                            .attr("stroke", "black")
+                            .attr("r", 4)
+
+                        g.select("#g_"+ i.barcode)
+                            .raise()
+                            .attr("stroke", "black")
+                            .attr("r", 4)
+                    })
+                    .on("mouseout", function(d, i) {
+                        d3.select(this)
+                            .attr("stroke", "none")
+                            .attr("r", 2)
+
+                        g.select("#g_"+ i.barcode)
+                            .attr("stroke", "none")
+                            .attr("r", 2)
+                    })
                 }
             });
         }
@@ -276,7 +302,11 @@
         // clears circles, plots new gene expression circles
         function updateGene(gene) {
             // rightCircles.remove()
-            runPlotter('gene')
+            // runPlotter('gene')
+            rightCircles
+                .attr("fill", function(d) { return gene_color(d[gene]); })
+
+
         }
 
     </script>
