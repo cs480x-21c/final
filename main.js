@@ -65,15 +65,33 @@ function initCourseCatalog() {
         courseSection.selectAll("div")
             .remove();
 
-        const drag = d3.drag().on("end", e => {
-            let inTree = e.sourceEvent.path
-                .findIndex(el => el.id === "treeContainer") > -1;
+        const drag = d3.drag()
+            .on("start", function(e) {
+                d3.select(this)
+                    .style("opacity", 0.3)
+                    .style("position", "absolute");
+            })
+            .on("drag", function(e) {
+                d3.select(this)
+                    .style("z-index", 100)
+                    .style("top", `${e.y + 15}px`)
+                    .style("left", `${e.x - 15}px`)
+            })
+            .on("end", function(e) {
 
-            if (inTree) {
-                currCourses.push(e.subject);
-                console.log(currCourses);
-            }
-        });
+                d3.select(this)
+                    .style("opacity", 1)
+                    .style("position", "unset")
+                    .style("top", '0')
+                    .style("left", '0');
+                let inTree = e.sourceEvent.path
+                    .findIndex(el => el.id === "treeContainer") > -1;
+
+                if (inTree) {
+                    currCourses.push(e.subject);
+                    console.log(currCourses);
+                }
+            });
 
         courseSection.selectAll("div")
             .data(depCourses)
