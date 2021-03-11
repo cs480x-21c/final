@@ -5,13 +5,32 @@
         <title>SpotypotyPy</title>
         <!-- Load d3.js -->
         <script src="https://d3js.org/d3.v6.min.js"></script>
+
+        <style>
+            #box{
+            display: flex;
+            flex-direction: row;
+            /* flex-wrap: nowrap; */
+        }
+        div{
+            border: 2px solid pink;
+            width: fit-content;
+            height: fit-content;
+            min-width: 50;
+            min-height: 50;
+            margin: auto;
+            
+        }
+        </style>
     </head>
     <body>
         <h1>SpotypotyPy</h1>
-        <div id="timeline"></div>
-        <div id="modality">
-            <!--Nick will make radio buttons for modality-->
+        <div id="box">
+            <div id="timeline"></div>
+            <div id="modality">
+                <!--Nick will make radio buttons for modality-->
+            </div>
+            <div id="map"></div>
         </div>
-        <div id="map"></div>
     </body>
 </html>
