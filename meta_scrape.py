@@ -1,8 +1,8 @@
 import json
 # import main
 # Scaper for Spotify Meta Data
+import csv
 import spotipy
-import json
 from spotipy.oauth2 import SpotifyClientCredentials
 
 c_id = 'bf02bcb1126f4363b3a4a057c623d182'
@@ -16,11 +16,15 @@ spotify = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials(cl
 # Top Genre, Year, BPM, Energy, Dance, loudness, liveness, valence, mode, speechiness, acousticness, instrumentalness, tempo, duration_ms
 urlLists = []
 metaList = {}
-
-with open('Datasets/unique_songs.json', encoding="utf8") as f:
-    dict= json.load(f)
-
-urltempList = list( dict.keys() )
+urlList = []
+# with open('Datasets/unique_songs.json', encoding="utf8") as f:
+#     dict= json.load(f)
+with open("Datasets/unique_songs.csv") as f:
+    reader = csv.DictReader(f, delimiter=',')
+    for row in reader:
+        urlList.append(row['url'])
+urltempList = urlList
+print(urlList)
 
 x = 0
 y = len( urltempList )
