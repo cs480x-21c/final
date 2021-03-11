@@ -6,11 +6,18 @@
     <script src="backend.js"></script>
     <script src="json/militaryJson.js"></script>
     <script src="json/socialJson.js"></script>
-    <title>Title</title>
+    <link rel="stylesheet" href="style.css">
+
+    <title>Final</title>
 </head>
 <body onload="main()">
+    <h1>USA Military Budget vs. Social Programs Budget </h1>
+
     <div id="military_line_vis"></div>
     <div id="social_line_vis"></div>
+
+    
+
 </body>
 
 <script>
@@ -84,6 +91,7 @@
         .attr("r", 5 )
         .style("fill", function(d) { return assignColor(d.country) })
 
+
     // UGH cant get line to work  (commented out sections from here down)
 
         // ml_svg.append("path")
@@ -132,6 +140,32 @@
         //         .y(y(mData.data))
         //         )
     // })
+
+
+        // define the line
+    var valueline = d3.line()
+        .x(function(d) { return x(d.year); })
+        .y(function(d) { return y(d.data); });
+    // define the line
+    var valueline2 = d3.line()
+        .x(function(d) { return x(d.year); })
+        .y(function(d) { return y(d.data); });
+
+        
+
+//       // Add the valueline path.
+//     ml_svg.append("path")
+//       .data([data])
+//       .attr("class", "line")
+//       .attr("d", valueline);
+//   // Add the valueline path.
+//     ml_svg.append("path")
+//       .data([data])
+//       .attr("class", "line")
+//       .attr("d", valueline2); 
+    
+    
+
 
 
 

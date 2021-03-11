@@ -1,0 +1,19 @@
+body {
+    text-align: center;
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+}
+
+#military_line_vis {
+    width: 700;
+    padding: 10;
+    /* display: inline-block; */
+    margin-bottom: 20px;
+}
+
+#social_line_vis {
+    width: 700;
+    padding: 10;
+    margin-bottom: 20px;;
+    /* display: inline-block; */
+}
