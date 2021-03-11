@@ -55,9 +55,9 @@ d3.queue()
   .await(ready);
 
 function ready(error, topo) {
-  console.log(happyData)
   let mouseOver = function(d) {
     console.log(d)
+    console.log(d.info)
     d3.selectAll(".Country")
       .style("opacity", .5)
     d3.select(this)
@@ -107,6 +107,8 @@ function ready(error, topo) {
 
     }
 
+  //Function that takes in an entry from the combined CSV and adds it to happyData using the countries country code as a key
+  //The data is stored as an array where each index is a year's worth of data
   function setInfo(d){
     if(happyData.get(getCountryName(d.Country)) == undefined){
       happyData.set(getCountryName(d.Country), [d])
