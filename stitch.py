@@ -1,7 +1,16 @@
 import json
 import os
 import csv
-path=os.path.abspath(os.path.dirname(__file__)) + '/allData/'
+path=os.path.abspath(os.path.dirname(__file__)) + "/chart_scrapes"
+# path=os.path.abspath(os.path.dirname(__file__)) + '/allData/'
+print( path )
+for root, subdirectories, files in os.walk(path):
+    # for subdirectory in subdirectories:
+    #     print(os.path.join(root, subdirectory))
+    for file in files:
+        print(os.path.join(root, file))
+
+exit()
 dates=[]
 with open( os.path.join('Datasets','dates_all.csv'), newline='') as csvfile:
     reader = csv.reader(csvfile, delimiter=' ')
