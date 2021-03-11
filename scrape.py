@@ -9,7 +9,7 @@ countries = []
 dates = []
 weeks = []
 
-country_path = os.path.join('Datasets','reduced_countries1.csv')
+country_path = os.path.join('Datasets','reduced_countries3.csv')
 # country_path = os.path.join('Datasets','countries.csv')
 with open( country_path, newline='') as csvfile:
     country_list = csv.reader(csvfile, delimiter=',')
