@@ -66,3 +66,30 @@
     })
     
     </script>
+
+    <script>
+      d3.tsv("master.tsv",function(data){
+
+        var targetDrug = "18F-flutemetamol"
+        var targetSideEffect = "Depression"
+        data.forEach(function(d) {
+          d.MeanFrequency = +d.MeanFrequency;
+          d.MinFrequency = +d.MinFrequency;
+          d.MaxFrequency = +d.MaxFrequency;
+        });
+
+        //console.log(data)
+
+        v = data.filter(function(d){
+          return d.SideEffectName == targetSideEffect
+        })
+
+        v.sort(function(a, b) {
+          return b.MeanFrequency - a.MeanFrequency
+        })
+
+        // Top 20 drugs with depression side effect
+        v = v.slice(0,20)
+        console.log(v)
+      })
+    </script>
