@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 
-<script src="https://d3js.org/d3.v4.js"></script>
+<script src="https://d3js.org/d3.v6.min.js"></script>
 
 <div id="barChart"></div>
 
@@ -25,7 +25,7 @@
               "translate(" + margin.left + "," + margin.top + ")");
     
     // parsing the data
-    d3.csv("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/7_OneCatOneNum_header.csv", function(data) {
+    d3.csv("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/7_OneCatOneNum_header.csv").then(function(data) {
     
       // sort the data in descending order 
       data.sort(function(b, a) {
@@ -65,4 +65,43 @@
     
     })
     
+    </script>
+
+    <script>
+      d3.tsv("master.tsv").then(function(data){
+
+        var targetDrug = "18F-flutemetamol" // level 3
+        var targetSideEffect = "Depression" // level 2
+        
+        // Converting the string fields to numeric vals
+        data.forEach(function(d) {
+          d.MeanFrequency = +d.MeanFrequency;
+          d.MinFrequency = +d.MinFrequency;
+          d.MaxFrequency = +d.MaxFrequency;
+        })
+
+        //console.log(data)
+
+        // Filtering by drug - level 3
+        var filteredDrugs = data.filter(d => d.Name == targetDrug)
+
+        filteredDrugs.sort(function(a, b) {
+          return b.MeanFrequency - a.MeanFrequency
+        })
+      
+        filteredDrugs = filteredDrugs.slice(0,20)
+        console.log(filteredDrugs)   // Top 20 side effects of the target Drug
+
+
+
+        // Filtering by side effect - level 2
+        var filteredSideEffects = data.filter(d => d.SideEffectName == targetSideEffect)
+
+        filteredSideEffects.sort(function(a, b) {
+          return b.MeanFrequency - a.MeanFrequency
+        })
+
+        filteredSideEffects = filteredSideEffects.slice(0,20)
+        console.log(filteredSideEffects) // Top 20 drugs with target Side effect
+      })
     </script>
