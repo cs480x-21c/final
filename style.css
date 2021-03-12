@@ -1,0 +1,17 @@
+#svg {
+    width: 500px;
+    height: 500px;
+}
+
+#textBox {
+    width: 500px;
+    height: 500px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 40px;
+    font-weight: bold;
+
+}
+
+div{
+    white-space: pre;
+}
