@@ -13,10 +13,7 @@
 <body onload="main()">
     <h1>USA Military Budget vs. Social Programs Budget </h1>
 
-    <div id="military_line_vis"></div>
-    <div id="social_line_vis"></div>
-
-    
+    <div id="social_vis"></div>  
 
 </body>
 
@@ -27,37 +24,35 @@
     width = 600 - margin.left - margin.right,
     height = 400 - margin.top - margin.bottom;
 
-    var colorDict = {
-        Japan: "red",
-        UnitedStates: "blue",
-        France: "green",
-        Italy: "yellow",
-        Switzerland: "orange"
-    };
+    // var colorDict = {
+    //     Japan: "red",
+    //     UnitedStates: "blue",
+    //     France: "green",
+    //     Italy: "yellow",
+    //     Switzerland: "orange"
+    // };
 
-    function assignColor (country) {
-        switch (country) {
-            case "United States":
-                return colorDict.UnitedStates
-            case "Japan":
-                return colorDict.Japan
-            case "France":
-                return colorDict.France
-            case "Italy":
-                return colorDict.Italy
-            case "Switzerland":
-                return colorDict.Switzerland
-            default:
-                return "black"
-        };
-    };
-
-
+    // function assignColor (country) {
+    //     switch (country) {
+    //         case "United States":
+    //             return colorDict.UnitedStates
+    //         case "Japan":
+    //             return colorDict.Japan
+    //         case "France":
+    //             return colorDict.France
+    //         case "Italy":
+    //             return colorDict.Italy
+    //         case "Switzerland":
+    //             return colorDict.Switzerland
+    //         default:
+    //             return "black"
+    //     };
+    // };
 
     /*** Military Line Graph ***/
 
     // Append SVG
-    var ml_svg = d3.select("#military_line_vis")
+    var social_svg = d3.select("#social_vis")
     .append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
@@ -65,147 +60,124 @@
         .attr("transform",
             "translate(" + margin.left + "," + margin.top + ")");
 
-    // X axis
-    var ml_x = d3.scaleBand()
-        .domain([1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019])
-        .range([0, width]);
-    ml_svg.append("g")
-        .attr("transform", "translate(0," + height + ")")
-        .call(d3.axisBottom(ml_x).tickValues([1988,1990,1992,1994,1996,1998,2000,2002,2004,2006,2008,2010,2012,2014,2016,2018]).tickFormat(d3.format("d")));
 
-    // Y axis
-    var ml_y = d3.scaleLinear()
-       .domain([0, 16])
-        .range([ height, 0 ]);
-    ml_svg.append("g")
-        .call(d3.axisLeft(ml_y));
+    d3.csv('/csv/social-data.csv').then(function(data){
+        console.log(data)
 
-    // Dots in place of line for now     
-    ml_svg.append('g')
-        .selectAll("dot")
-        .data(militaryData)
-        .enter()
-        .append("circle")
-        .attr("cx", function (d) { return ml_x(d.year) })
-        .attr("cy", function (d) { return ml_y(d.data) })
-        .attr("r", 5 )
-        .style("fill", function(d) { return assignColor(d.country) })
+        //x axis
+        var x = d3.scaleBand()
+            .domain(data.map(function(d) {return d.Year}))
+            .range([0, width])
+            .padding(0.5)
+            social_svg.append("g")
+            .attr("transform", "translate(0, "+ height + ")")
+            .call(d3.axisBottom(x).tickFormat(
+                function(d) {
+                    return d;
+                }
+            ).tickSize(8))
+            .style("stroke-width", "1.5px")
+            .selectAll("text")
+            .style("text-anchor", "end")
+            .attr("dx", "-.8em")
+            .attr("dy", "-.60em")
+            .attr("transform", "rotate(-90)" )
+            // .text("president");
 
+        // y axis
+        var y = d3.scaleLinear()
+            .domain([0, d3.max(data, function(d) { return d.Trillion; })])
+            .range([height, 0])
+            social_svg.append("g")
+            .call(d3.axisLeft(y).tickFormat(function(d) {
+                return d;
+                }).tickSize(3))
+            .style("stroke-width", "1.5px")
 
-    // UGH cant get line to work  (commented out sections from here down)
+        // bar chart
+        var barchart = social_svg.selectAll("bar")
+            .data(data)
+            .enter().append("rect")
+            
+            .attr("class", "bar")
+            .style("fill", "violet")
+            .attr("x", function(d) { return x(d.Year); })
+            .attr("width", 20)
+            
+            .attr("y", function(d) { return y(d.Trillion); })
+            .attr("height", function(d) { return height - y(d.Trillion); })
 
-        // ml_svg.append("path")
-        // .data(militaryData)
-        // .attr("class", "line")
-        // .attr("stroke", "steelblue")
-        // .attr("stroke-width", 1.5)
-        // .attr("d", d3.line()
-        //     .x(x(militaryData.year))
-        //     .y(y(militaryData.data))
-        // )
+        social_svg.append("text")
+            .attr("class", "x label")
+            .attr("text-anchor", "end")
+            .attr("x", width)
+            .attr("y", height)
+            .text("Year");
 
-        // var valueLine  = d3.line()
-        // .x(function(d) { console.log("ahh"); return x(d.year); })
-        // .y(function(d) { return x(d.data); })
+        social_svg.append("text")
+            .attr("class", "y label")
+            .attr("text-anchor", "end")
+            .attr("y", 6)
+            .attr("dy", ".75em")
+            .attr("transform", "rotate(-90)")
+            .text("Spending in Trillions $");
 
-        // var line = d3.line()
-        // .defined(d => !isNaN(d.data))
-        // .x(d => x(d.year))
-        // .y(d => y(d.data))
+    })
 
+    // // X axis
+    // var ml_x = d3.scaleBand()
+    //     .domain([1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019])
+    //     .range([0, width]);
+    // ml_svg.append("g")
+    //     .attr("transform", "translate(0," + height + ")")
+    //     .call(d3.axisBottom(ml_x).tickValues([1988,1990,1992,1994,1996,1998,2000,2002,2004,2006,2008,2010,2012,2014,2016,2018]).tickFormat(d3.format("d")));
 
-        // ml_svg.append("path")
-        // .data(militaryData)
-        // .attr("fill", "none")
-        // .attr("stroke", "steelblue")
-        // .attr("stroke-width", 1.5)
-        // .attr("d", d3.line()
-        //     .x(d => x(d.year))
-        //     .y(d => y(d.data)));
+    // // Y axis
+    // var ml_y = d3.scaleLinear()
+    //    .domain([0, 16])
+    //     .range([ height, 0 ]);
+    // ml_svg.append("g")
+    //     .call(d3.axisLeft(ml_y));
 
-    // militaryData.forEach(mData => {  
-
-        // console.log(data)
-        // ml_svg.append("path")
-        //     .data([mData])
-        //     .attr("class", "line")
-
-        //     // .attr("fill", "none")
-        //     .attr("stroke", "steelblue")
-        //     .attr("stroke-width", 1.5)
-        //     // .attr("stroke-width", function(d) { console.log(d.data) })
-        //     .attr("d", 
-        //         d3.line()
-        //         .x(x(mData.year))
-        //         .y(y(mData.data))
-        //         )
-    // })
-
-
-        // define the line
-    var valueline = d3.line()
-        .x(function(d) { return x(d.year); })
-        .y(function(d) { return y(d.data); });
-    // define the line
-    var valueline2 = d3.line()
-        .x(function(d) { return x(d.year); })
-        .y(function(d) { return y(d.data); });
-
-        
-
-//       // Add the valueline path.
-//     ml_svg.append("path")
-//       .data([data])
-//       .attr("class", "line")
-//       .attr("d", valueline);
-//   // Add the valueline path.
-//     ml_svg.append("path")
-//       .data([data])
-//       .attr("class", "line")
-//       .attr("d", valueline2); 
-    
-    
-
-
-
+    // // Dots in place of line for now     
+    // ml_svg.append('g')
+    //     .selectAll("dot")
+    //     .data(militaryData)
+    //     .enter()
+    //     .append("circle")
+    //     .attr("cx", function (d) { return ml_x(d.year) })
+    //     .attr("cy", function (d) { return ml_y(d.data) })
+        // .attr("r", 5 )
+        // .style("fill", function(d) { return assignColor(d.country) })
 
 
     /*** Social Line Graph ***/
 
     // Append SVG
-    var sl_svg = d3.select("#social_line_vis")
-    .append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-    .append("g")
-        .attr("transform",
-            "translate(" + margin.left + "," + margin.top + ")");
+    // var sl_svg = d3.select("#social_line_vis")
+    // .append("svg")
+    //     .attr("width", width + margin.left + margin.right)
+    //     .attr("height", height + margin.top + margin.bottom)
+    // .append("g")
+    //     .attr("transform",
+    //         "translate(" + margin.left + "," + margin.top + ")");
 
-    // X axis
-    var sl_x = d3.scaleBand()
-        .domain([1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019])
-        .range([0, width]);
-    sl_svg.append("g")
-        .attr("transform", "translate(0," + height + ")")
-        .call(d3.axisBottom(sl_x).tickValues([1990,1992,1994,1996,1998,2000,2002,2004,2006,2008,2010,2012,2014,2016,2018]).tickFormat(d3.format("d")));
+    // // X axis
+    // var sl_x = d3.scaleBand()
+    //     .domain([1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019])
+    //     .range([0, width]);
+    // sl_svg.append("g")
+    //     .attr("transform", "translate(0," + height + ")")
+    //     .call(d3.axisBottom(sl_x).tickValues([1990,1992,1994,1996,1998,2000,2002,2004,2006,2008,2010,2012,2014,2016,2018]).tickFormat(d3.format("d")));
 
-    // Y axis
-    var sl_y = d3.scaleLinear()
-       .domain([0, 40])
-        .range([ height, 0 ]);
-    sl_svg.append("g")
-        .call(d3.axisLeft(sl_y));
+    // // Y axis
+    // var sl_y = d3.scaleLinear()
+    //    .domain([0, 40])
+    //     .range([ height, 0 ]);
+    // sl_svg.append("g")
+    //     .call(d3.axisLeft(sl_y));
 
-    // Dots in place of line for now     
-    sl_svg.append('g')
-        .selectAll("dot")
-        .data(socialData)
-        .enter()
-        .append("circle")
-        .attr("cx", function (d) { return sl_x(d.year) })
-        .attr("cy", function (d) { return sl_y(d.data) })
-        .attr("r", 5 )
-        .style("fill", function(d) { return assignColor(d.country) })
+
     
 
 </script>
