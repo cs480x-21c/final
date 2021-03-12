@@ -14,9 +14,10 @@
 </body>
 
 <script>    
-    var ml_margin = {top: 10, right: 30, bottom: 40, left: 70},
+    var ml_margin = {top: 10, right: 30, bottom: 60, left: 70},
     ml_width = 1000 - ml_margin.left - ml_margin.right,
-    ml_height = 500 - ml_margin.top - ml_margin.bottom;
+    ml_height = 520 - ml_margin.top - ml_margin.bottom;
+
 
     /*** Military Bar Graph ***/
 
@@ -57,11 +58,10 @@
         .attr("transform", "rotate(-90)")
         .attr("class", "label")
         .style("text-anchor", "middle")
-        .text("Total Military Spending History (Billions)")
+        .text("Total Military Spending in Billions (USD)")
 
     // Bars   
-    ml_svg.append('g')
-        .selectAll("bar")
+    ml_svg.selectAll("bar")
         .data(militaryData)
         .enter()
         .append("rect")
@@ -70,7 +70,24 @@
             .attr("width", ml_x.bandwidth())
             .attr("height", function(d) { return ml_height - ml_y(d.budget) })
             .style("padding", "5px")
-            .style("fill", "#004777")
+            .style("fill", "#005CB8") 
+        .on("mouseover", function(d, i) {
+            d3.select(this)
+            	.style("fill", "#1AFFD5");
+            ml_svg.append("text")
+            .attr("x", ml_x(i.year))
+            .attr("y", 490)
+            .attr("class", "hoverLabel")
+            .style("font-size", "14px")
+            .style("font-weight", "bold")
+            .text(i.budget + " B");
+        })
+        .on("mouseout", function() {
+            d3.select(this)
+            	.style("fill", "#005CB8");
+            ml_svg.selectAll(".hoverLabel")
+                .remove()
+        })
 
     // 2003 text
     ml_svg.append("text")
