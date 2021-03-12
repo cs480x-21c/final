@@ -24,32 +24,8 @@
     width = 600 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
-    // var colorDict = {
-    //     Japan: "red",
-    //     UnitedStates: "blue",
-    //     France: "green",
-    //     Italy: "yellow",
-    //     Switzerland: "orange"
-    // };
 
-    // function assignColor (country) {
-    //     switch (country) {
-    //         case "United States":
-    //             return colorDict.UnitedStates
-    //         case "Japan":
-    //             return colorDict.Japan
-    //         case "France":
-    //             return colorDict.France
-    //         case "Italy":
-    //             return colorDict.Italy
-    //         case "Switzerland":
-    //             return colorDict.Switzerland
-    //         default:
-    //             return "black"
-    //     };
-    // };
-
-    /*** Military Line Graph ***/
+    /*** Social Bar Grapj ***/
 
     // Append SVG
     var social_svg = d3.select("#social_vis")
@@ -82,7 +58,7 @@
             .attr("dx", "-.8em")
             .attr("dy", "-.60em")
             .attr("transform", "rotate(-90)" )
-            // .text("president");
+
         social_svg.append("text")
             .attr("x", width/2)
             .attr("y", height + margin.bottom)
@@ -122,7 +98,6 @@
             .attr("y", function(d) { return y(d.Trillion); })
             .attr("height", function(d) { return height - y(d.Trillion); })
 
-    
 
     })
 
