@@ -20,9 +20,9 @@
 <script>
     /*** Shared Variables ***/
     
-    var margin = {top: 10, right: 30, bottom: 30, left: 60},
+    var margin = {top: 10, right: 30, bottom: 50, left: 60},
     width = 600 - margin.left - margin.right,
-    height = 400 - margin.top - margin.bottom;
+    height = 500 - margin.top - margin.bottom;
 
     // var colorDict = {
     //     Japan: "red",
@@ -69,7 +69,7 @@
             .domain(data.map(function(d) {return d.Year}))
             .range([0, width])
             .padding(0.5)
-            social_svg.append("g")
+        social_svg.append("g")
             .attr("transform", "translate(0, "+ height + ")")
             .call(d3.axisBottom(x).tickFormat(
                 function(d) {
@@ -83,6 +83,12 @@
             .attr("dy", "-.60em")
             .attr("transform", "rotate(-90)" )
             // .text("president");
+        social_svg.append("text")
+            .attr("x", width/2)
+            .attr("y", height + margin.bottom)
+            .style("text-anchor", "middle")
+            .attr("class", "label")
+            .text("Years")
 
         // y axis
         var y = d3.scaleLinear()
@@ -93,6 +99,15 @@
                 return d;
                 }).tickSize(3))
             .style("stroke-width", "1.5px")
+
+        social_svg.append("text")
+            .attr("y", 0 - margin.left)
+            .attr("x",0 - (height / 2))
+            .attr("dy", "1em")
+            .attr("transform", "rotate(-90)")
+            .attr("class", "label")
+            .style("text-anchor", "middle")
+            .text("Total Social Spending (Trillions)")
 
         // bar chart
         var barchart = social_svg.selectAll("bar")
@@ -107,78 +122,9 @@
             .attr("y", function(d) { return y(d.Trillion); })
             .attr("height", function(d) { return height - y(d.Trillion); })
 
-        social_svg.append("text")
-            .attr("class", "x label")
-            .attr("text-anchor", "end")
-            .attr("x", width)
-            .attr("y", height)
-            .text("Year");
-
-        social_svg.append("text")
-            .attr("class", "y label")
-            .attr("text-anchor", "end")
-            .attr("y", 6)
-            .attr("dy", ".75em")
-            .attr("transform", "rotate(-90)")
-            .text("Spending in Trillions $");
+    
 
     })
-
-    // // X axis
-    // var ml_x = d3.scaleBand()
-    //     .domain([1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019])
-    //     .range([0, width]);
-    // ml_svg.append("g")
-    //     .attr("transform", "translate(0," + height + ")")
-    //     .call(d3.axisBottom(ml_x).tickValues([1988,1990,1992,1994,1996,1998,2000,2002,2004,2006,2008,2010,2012,2014,2016,2018]).tickFormat(d3.format("d")));
-
-    // // Y axis
-    // var ml_y = d3.scaleLinear()
-    //    .domain([0, 16])
-    //     .range([ height, 0 ]);
-    // ml_svg.append("g")
-    //     .call(d3.axisLeft(ml_y));
-
-    // // Dots in place of line for now     
-    // ml_svg.append('g')
-    //     .selectAll("dot")
-    //     .data(militaryData)
-    //     .enter()
-    //     .append("circle")
-    //     .attr("cx", function (d) { return ml_x(d.year) })
-    //     .attr("cy", function (d) { return ml_y(d.data) })
-        // .attr("r", 5 )
-        // .style("fill", function(d) { return assignColor(d.country) })
-
-
-    /*** Social Line Graph ***/
-
-    // Append SVG
-    // var sl_svg = d3.select("#social_line_vis")
-    // .append("svg")
-    //     .attr("width", width + margin.left + margin.right)
-    //     .attr("height", height + margin.top + margin.bottom)
-    // .append("g")
-    //     .attr("transform",
-    //         "translate(" + margin.left + "," + margin.top + ")");
-
-    // // X axis
-    // var sl_x = d3.scaleBand()
-    //     .domain([1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019])
-    //     .range([0, width]);
-    // sl_svg.append("g")
-    //     .attr("transform", "translate(0," + height + ")")
-    //     .call(d3.axisBottom(sl_x).tickValues([1990,1992,1994,1996,1998,2000,2002,2004,2006,2008,2010,2012,2014,2016,2018]).tickFormat(d3.format("d")));
-
-    // // Y axis
-    // var sl_y = d3.scaleLinear()
-    //    .domain([0, 40])
-    //     .range([ height, 0 ]);
-    // sl_svg.append("g")
-    //     .call(d3.axisLeft(sl_y));
-
-
-    
 
 </script>
 </html>
