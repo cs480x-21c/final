@@ -3,6 +3,21 @@
 <script src="https://d3js.org/d3.v6.min.js"></script>
 
 <html>
+    <style>
+
+        .tooltip {
+          position: absolute;
+          /*font-size: 20px;*/
+          /*pointer-events: none;*/
+          background-color: #111;
+          visibility: hidden;
+          display: flex;
+          font-family: sans-serif;
+          max-width: 500px;
+          color: white;
+      }
+      
+      </style>
 
         <div id="lolChart"></div>
 
@@ -26,6 +41,12 @@
       .append("g")
       .attr("transform",
             "translate(" + margin.left + "," + margin.top + ")");
+
+    // Tool tip
+    var tooltip = d3.select("#lolChart") 
+        .append("div")
+        //.style("opacity", 0)
+        .attr("class", "tooltip")
 
 
     //svg.append("g")
@@ -113,9 +134,16 @@
             .style('cursor', 'pointer')
             .on('mouseover', (event, d) => {
                 d3.select(event.target).attr('opacity', 0.4)
+                tooltip.text(d.Name)
+                .style("left", (event.pageX) + "px")
+                .style("top", (event.pageY - 30) + "px")
+                .transition()
+                .duration(200)
+                .style('visibility','visible')
             })
             .on('mouseout', (event, d) => {
                 d3.select(event.target).attr('opacity', 1)
+                tooltip.style('visibility','hidden')
             })
             .on('mousedown', (event, d) => {
                 activateThirdLevel();
@@ -133,9 +161,16 @@
                 .style('cursor', 'pointer')
                 .on('mouseover', (event, d) => {
                     d3.select(event.target).attr('opacity', 0.4)
+                    tooltip.text(d.Name)
+                    .style("left", (event.pageX) + "px")
+                    .style("top", (event.pageY - 30) + "px")
+                    .transition()
+                    .duration(200)
+                    .style('visibility','visible')
                 })
                 .on('mouseout', (event, d) => {
                     d3.select(event.target).attr('opacity', 1)
+                    tooltip.style('visibility','hidden')
                 })
                 .on('mousedown', (event, d) => {
                     activateThirdLevel();
