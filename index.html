@@ -20,8 +20,8 @@
 <script>
     /*** Shared Variables ***/
     
-    var margin = {top: 10, right: 30, bottom: 50, left: 60},
-    width = 600 - margin.left - margin.right,
+    var margin = {top: 90, right: 30, bottom: 70, left: 70},
+    width = 1000 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
 
@@ -93,10 +93,38 @@
             .attr("class", "bar")
             .style("fill", "violet")
             .attr("x", function(d) { return x(d.Year); })
-            .attr("width", 20)
+            .attr("width", 46)
             
             .attr("y", function(d) { return y(d.Trillion); })
             .attr("height", function(d) { return height - y(d.Trillion); })
+
+
+           // 2008 text
+        social_svg.append("text")
+            .attr("x", 230)
+            .attr("y", 40)
+            .attr("class", "label")
+            .text("Stock Market Crash")
+        social_svg.append("text")
+            .attr("x", 273)
+            .attr("y", 60)
+            .attr("class", "label")
+            .text("(2008)")
+        social_svg.append('line')
+            .attr('x1', 335)
+            .attr('y1', 70)
+            .attr('x2', 335)
+            .attr('y2', 110)
+        social_svg.append('line')
+            .attr('x1', 335)
+            .attr('y1', 110)
+            .attr('x2', 400)
+            .attr('y2', 110)  
+        social_svg.append('line')
+            .attr('x1', 400)
+            .attr('y1', 110)
+            .attr('x2', 400)
+            .attr('y2', 140)
 
 
     })
