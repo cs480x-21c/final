@@ -245,6 +245,36 @@
                     .attr('cx', d => xScale(xValue(d)))
                     .attr('r', 2)
                     .attr("fill", function(d) { return clust_color(d.celltype); })
+                    .on("mouseover", function(d, i) {
+                        d3.select(this)
+                            .raise()
+                            .attr("stroke", "black")
+                            .attr("r", 5)
+
+                        h.select("#h_"+ i.barcode)
+                            .raise()
+                            .attr("stroke", "black")
+                            .attr("r", 5)
+
+                        d3.selectAll('circle')
+                            .filter(function(d){ return d['celltype'] != i['celltype']; })
+                            .attr("fill", "lightgray")
+                    })
+                    .on("mouseout", function(d, i) {
+                        d3.select(this)
+                            .attr("stroke", "none")
+                            .attr("r", 2)
+
+                        h.select("#h_"+ i.barcode)
+                            .attr("stroke", "none")
+                            .attr("r", 2)
+
+                        g.selectAll('circle')
+                            .attr("fill", function(d) { return clust_color(d.celltype); })
+
+                        h.selectAll('circle')
+                            .attr("fill", function(d) { return gene_color(d[gene]); })
+                    })
 
                 rightCircles = h.selectAll('circle').data(data)
                     .enter().append('circle')
@@ -262,6 +292,7 @@
                             .raise()
                             .attr("stroke", "black")
                             .attr("r", 5)
+                        
                     })
                     .on("mouseout", function(d, i) {
                         d3.select(this)
