@@ -90,6 +90,8 @@ function initCourseCatalog() {
                 if (inTree) {
                     currCourses.push(e.subject);
                     console.log(currCourses);
+                    // Reloading Tree Map Here
+                    initTreeMap();
                 }
             });
 
