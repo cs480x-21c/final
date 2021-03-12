@@ -15,13 +15,99 @@
     <h2>Explore the side effects of a certain drug</h2>
     <svg id="Lolipop"></svg>
     Text description
-    <button onclick="printSideEffectsMap()">Click me</button>
+    <svg id="transition"></svg><br><br>
+    <button onclick="nextLevel()">Next Level</button>
+    <button onclick="prevLevel()">Previous Level</button>
 </body>
 </html>
 
 <script src="https://d3js.org/d3.v6.min.js"></script>
 
 <script>
+
+    topSvg = d3.select('#transition')
+    .style('height', 460)
+    .style('width', 400);
+
+    //these can be renamed
+    g1 = topSvg.append('g').attr('opacity', 1);
+    g2 = topSvg.append('g').attr('opacity', 0);
+    g3 = topSvg.append('g').attr('opacity', 0);
+
+    g1.append('text')
+    .attr('x', 400/2)
+    .attr('y', 460/2)
+    .text('one')
+    .attr('fill', 'black')
+
+    g2.append('text')
+    .attr('x', 400/2 + 20)
+    .attr('y', 460/2 + 20)
+    .text('two')
+    .attr('fill', 'black')
+
+    g3.append('text')
+    .attr('x', 400/2 + 40)
+    .attr('y', 460/2 + 40)
+    .text('three')
+    .attr('fill', 'black')
+
+    groupCursor = 0;
+    svgGroups = [g1, g2, g3];
+
+    function nextLevel() {
+
+        if(groupCursor == svgGroups.length - 1) {
+            return;
+        }
+
+        let current = svgGroups[groupCursor];
+
+        //fade out the current level.
+
+        current.transition()
+        .duration(500)
+        .attr('opacity', 0);
+        current.attr('pointer-events', 'none');
+
+        //fade in the next level.
+        groupCursor += 1;
+        current = svgGroups[groupCursor];
+
+        current.attr('pointer-events', 'auto');
+        
+        current.transition()
+        .duration(500)
+        .attr('opacity', 1);
+
+    }
+
+    function prevLevel() {
+
+        if(groupCursor == 0) {
+            return;
+        }
+
+        let current = svgGroups[groupCursor];
+
+        //fade out the current level.
+
+        current.transition()
+        .duration(500)
+        .attr('opacity', 0);
+        current.attr('pointer-events', 'none');
+
+        //fade in the previous level.
+        groupCursor -= 1;
+        current = svgGroups[groupCursor];
+
+        current.attr('pointer-events', 'auto');
+
+        current.transition()
+        .duration(500)
+        .attr('opacity', 1);
+
+    }
 
     async function printSideEffects() {
 
