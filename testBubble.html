@@ -90,19 +90,19 @@
             }
 
         }
-		console.log(seMap);
+		//console.log(seMap);
 		
 		var seMapSort = new Map([...seMap.entries()].sort((a, b) => b[1] - a[1]));
 		
-		console.log(seMapSort);
+		//console.log(seMapSort);
 		
-		var arrayTmp = Array.from(seMapSort).slice(0, 500);
+		var arrayTmp = Array.from(seMapSort).slice(0, 200);
 		
-		console.log(arrayTmp);
+		//console.log(arrayTmp);
 		
 		var seMapSortSlice = new Map(arrayTmp);
 		
-		console.log(seMapSortSlice);
+		//console.log(seMapSortSlice);
 		
 		var count = 0;
 		var seJSON = [];
@@ -114,7 +114,7 @@
 			count++;
 		}
 		
-		console.log(seJSON);
+		//console.log(seJSON);
         generateChart(seJSON);
 		
 
