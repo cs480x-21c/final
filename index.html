@@ -17,8 +17,8 @@
 
     <div class="svgContainer">
         <svg id="transition"></svg><br>
-        <button onclick="nextLevel()">Next Level</button>
         <button onclick="prevLevel()">Previous Level</button>
+        <button onclick="nextLevel()">Next Level</button>
     </div>
 
     <div class="section">
@@ -200,6 +200,8 @@
     console.log(temp);
     $(document).ready(function() {
         $("#SE").select2({
+            placeholder: 'Choose a Side Effect',
+            allowClear: true,
             data: sides,
             width: 'resolve' // need to override the changed default
         })
