@@ -3,13 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <title>CS480X datavis final project</title>
-
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 </head>
 <body>
     <h1>Drug Side Effects Visualization</h1>
     <p>CS480x Final by Joshua McKeen, Suryansh Goyal, Jean-Philippe Pierre, and Remy Allegro</p>
+    <select style="width: 100%" name="sideEffects" id="SE"></select>
+
     <div class="svgContainer">
         <svg id="transition"></svg><br>
         <button onclick="nextLevel()">Next Level</button>
@@ -38,7 +43,6 @@
 </body>
 </html>
 
-<script src="https://d3js.org/d3.v6.min.js"></script>
 
 <script>
 
@@ -140,6 +144,8 @@
 
         console.log(sideEffects);
 
+        return sideEffects
+
     }
 
     async function printSideEffectsMap() {
@@ -160,10 +166,49 @@
 
         console.log(seMap);
 
+        return seMap
     }
 
-</script>
+    var sides = [
+        {
+            id: 'enhancement',
+            text: 'enhancement'
+        },
+        {
+            id: 'bug',
+            text: 'bug'
+        },
+        {
+            id: 'duplicate',
+            text: 'duplicate'
+        },
+        {
+            id: 'invalid',
+            text: 'invalid'
+        },
+        {
+            id: 'wontfix',
+            text: 'wontfix'
+        }
+    ];
+    var stemp = printSideEffects()
+    var temp = [];
+    for (i = 0; i < stemp.length; i++) {
+        temp.push({id:toString(stemp[i]),text:toString(stemp[i])})
+    }
+    console.log(stemp)
+    console.log(temp);
+    $(document).ready(function() {
+        $("#SE").select2({
+            data: sides,
+            width: 'resolve' // need to override the changed default
+        })
+    });
 
+
+
+
+</script>
 <style>
     body {
         font-family: 'IBM Plex Serif', serif;
