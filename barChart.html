@@ -46,50 +46,57 @@
       //.style("opacity", 0)
       .attr("class", "tooltip")
     
-    // parsing the data
-    d3.tsv("master.tsv").then(function(data) {
+    // Function to make changes to third level
+    function activateThirdLevel(newDrug){
+      console.log("Third Level: Change the global variable for target drug to ",newDrug)
+    }
 
-      // Converting the string fields to numeric vals
-      data.forEach(function(d) {
-        d.MeanFrequency = +d.MeanFrequency;
-        d.MinFrequency = +d.MinFrequency;
-        d.MaxFrequency = +d.MaxFrequency;
-      })
+    // Function to create a bar chart for a particular side effect
+    function createBarChart(sideEffect){
+          // parsing the data
+          d3.tsv("master.tsv").then(function(data) {
 
-      var targetSideEffect = "Hypercalciuria" // level 2
+         // Converting the string fields to numeric vals
+        data.forEach(function(d) {
+          d.MeanFrequency = +d.MeanFrequency;
+          d.MinFrequency = +d.MinFrequency;
+          d.MaxFrequency = +d.MaxFrequency;
+        })
 
-      // Filtering by side effect - level 2
-      var filteredDrugs = data.filter(d => d.SideEffectName == targetSideEffect)
+        var targetSideEffect = sideEffect // level 2
 
-      filteredDrugs.sort(function(a, b) {
-        return b.MeanFrequency - a.MeanFrequency
-      })
+        // Filtering by side effect - level 2
+        var filteredDrugs = data.filter(d => d.SideEffectName == targetSideEffect)
 
-      filteredDrugs = filteredDrugs.slice(0,20)
+        filteredDrugs.sort(function(a, b) {
+          return b.MeanFrequency - a.MeanFrequency
+        })
 
-      console.log(filteredDrugs)
+        filteredDrugs = filteredDrugs.slice(0,20)
+
+        console.log(filteredDrugs)
     
-      // adding x-axis
-      var x = d3.scaleBand()
+        // adding x-axis
+        var x = d3.scaleBand()
         .range([ 0, width ])
         .domain(filteredDrugs.map(function(d) { return d.Name; }))
         .padding(0.2);
-      svg.append("g")
+        svg.append("g")
         .attr("transform", "translate(0," + height + ")")
         .call(d3.axisBottom(x))
         .selectAll("text")
           .attr("transform", "translate(0,0)rotate(-45)")
           .style("text-anchor", "end");
     
-      // adding y-axis
-      var y = d3.scaleLinear()
+        // adding y-axis
+        var y = d3.scaleLinear()
         .domain([0, 1])
         .range([ height, 0]);
-      svg.append("g")
+        svg.append("g")
         .call(d3.axisLeft(y));
     
-      // add bars
-      svg.selectAll("mybar")
+        // add bars
+        svg.selectAll("mybar")
         .data(filteredDrugs)
         .enter()
         .append("rect")
@@ -120,8 +127,17 @@
 
             tooltip.style('visibility','hidden')
           })
+          .on("mousedown",function(e,d){
+            activateThirdLevel(d.Name)
+          })
     
     })
+
+    }
+
+    var sideEffect = "Depression"
+    createBarChart(sideEffect)
+
     
     </script>
 

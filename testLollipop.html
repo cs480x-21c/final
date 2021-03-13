@@ -49,46 +49,32 @@
         .attr("class", "tooltip")
 
 
-    //svg.append("g")
-    //.attr("transform",
-    //      "translate(" + margin.left + "," + margin.top + ")");
+    function activateSecondLevel(newSideEffect) {
+        console.log("Second Level: Change the global variable for target side effect to ",newSideEffect);
+    }
 
-    let testData = [
-        {name: 'first', val: 1},
-        {name: 'second', val: 2},
-        {name: 'third', val: 3},
-        {name: 'fourth', val: 4},
-        {name: 'fifth', val: 5},
-    ];
+    function createLolChart(drug) {
+        d3.tsv("master.tsv").then(function(masterData) {
+            var targetDrug = drug // level 3
+        
+            // Converting the string fields to numeric vals
+            masterData.forEach(function(d) {
+                d.MeanFrequency = +d.MeanFrequency;
+                d.MinFrequency = +d.MinFrequency;
+                d.MaxFrequency = +d.MaxFrequency;
+            })
+        
+            // Filtering by drug - level 3
+            var filteredSideEffects = masterData.filter(d => d.Name == targetDrug)
+        
+            filteredSideEffects.sort(function(a, b) {
+                return b.MeanFrequency - a.MeanFrequency
+            })
+               
+            filteredSideEffects = filteredSideEffects.slice(0,20)
+            console.log(filteredSideEffects)   // Top 20 side effects of the target Drug
 
-    d3.tsv("master.tsv").then(function(data) {
-
-        var targetDrug = "17-hydroxyprogesterone" // level 3
-
-        // Converting the string fields to numeric vals
-        data.forEach(function(d) {
-            d.MeanFrequency = +d.MeanFrequency;
-            d.MinFrequency = +d.MinFrequency;
-            d.MaxFrequency = +d.MaxFrequency;
-          })
-
-         // Filtering by drug - level 3
-         var filteredSideEffects = data.filter(d => d.Name == targetDrug)
-
-         filteredSideEffects.sort(function(a, b) {
-           return b.MeanFrequency - a.MeanFrequency
-         })
-       
-         filteredSideEffects = filteredSideEffects.slice(0,20)
-         console.log(filteredSideEffects)   // Top 20 side effects of the target Drug
-
-
-
-        function activateThirdLevel() {
-            console.log("going to the next level!");
-        }
-
-        function createChart(data) {
+            data = filteredSideEffects
 
             let xScale = d3.scaleBand()
             .range([0, width])
@@ -120,7 +106,7 @@
             .attr("x2", d => { return xScale(d.SideEffectName)  + xScale.bandwidth()/2 })
             .attr("y1", d => { return yScale(d.MaxFrequency); })
             .attr("y2", d => { return yScale(d.MinFrequency); })
-            .attr('stroke', 'grey')
+            .attr('stroke', 'black')
         
             svg.selectAll('lolCircle1') // upper circle for upper limit
             .data(data)
@@ -134,7 +120,7 @@
             .style('cursor', 'pointer')
             .on('mouseover', (event, d) => {
                 d3.select(event.target).attr('opacity', 0.4)
-                tooltip.text(d.Name)
+                tooltip.text(d.SideEffectName)
                 .style("left", (event.pageX) + "px")
                 .style("top", (event.pageY - 30) + "px")
                 .transition()
@@ -146,7 +132,7 @@
                 tooltip.style('visibility','hidden')
             })
             .on('mousedown', (event, d) => {
-                activateThirdLevel();
+                activateSecondLevel(d.SideEffectName);
             })
         
             svg.selectAll('lolCircle2') // lower circle for lower limit
@@ -161,7 +147,7 @@
                 .style('cursor', 'pointer')
                 .on('mouseover', (event, d) => {
                     d3.select(event.target).attr('opacity', 0.4)
-                    tooltip.text(d.Name)
+                    tooltip.text(d.SideEffectName)
                     .style("left", (event.pageX) + "px")
                     .style("top", (event.pageY - 30) + "px")
                     .transition()
@@ -173,17 +159,20 @@
                     tooltip.style('visibility','hidden')
                 })
                 .on('mousedown', (event, d) => {
-                    activateThirdLevel();
+                    activateSecondLevel(d.SideEffectName);
                 })
 
-        }
+        })
 
-    createChart(filteredSideEffects);
+            
+    
+    }
+
+    var currentDrug = "17-hydroxyprogesterone"
+    createLolChart(currentDrug);
 
 
-    })
 
 
 </script>
 
-<style></style>
