@@ -13,7 +13,7 @@
 <body>
     <h1>Drug Side Effects Visualization</h1>
     <p>CS480x Final by Joshua McKeen, Suryansh Goyal, Jean-Philippe Pierre, and Remy Allegro</p>
-    <select style="width: 100%" name="sideEffects" id="SE"></select>
+    <select style="width: 100%" name="sideEffects" id="SE" onchange="SideSelect(this.value)"></select>
 
     <div class="svgContainer">
         <svg id="transition"></svg><br>
@@ -128,6 +128,10 @@
         .duration(500)
         .attr('opacity', 1);
 
+    }
+
+    function SideSelect(val){
+        console.log("you chose " + val)
     }
 
     async function printSideEffects() {
