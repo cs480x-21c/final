@@ -3,21 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <title>CS480X datavis final project</title>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>Exploring Medicine Side Effects with d3</h1>
-    <h2>Most common side effects</h2>
-    <svg id="Bubbles"></svg>
-    Text description
-    <h2>Explore drugs by their side effects</h2>
-    <svg id="Bar"></svg>
-    Text description
-    <h2>Explore the side effects of a certain drug</h2>
-    <svg id="Lolipop"></svg>
-    Text description
-    <svg id="transition"></svg><br><br>
-    <button onclick="nextLevel()">Next Level</button>
-    <button onclick="prevLevel()">Previous Level</button>
+    <h1>Drug Side Effects Visualization</h1>
+    <p>CS480x Final by Joshua McKeen, Suryansh Goyal, Jean-Philippe Pierre, and Remy Allegro</p>
+    <div class="svgContainer">
+        <svg id="transition"></svg><br><br>
+        <button onclick="nextLevel()">Next Level</button>
+        <button onclick="prevLevel()">Previous Level</button>
+    </div>
+
+    <div class="section">
+        <h2>Project Summary</h2>
+        <p>INSERT SUMMARY HERE</p>
+
+        <p>Link to process book: INSERT LINK HERE</p>
+        <p>The data used in this visualization was obtained from the <a href="http://sideeffects.embl.de/">SIDER 4 Side Effects Database</a>.
+        The side effects in this database were extracted from the MedDRA database which classifies them into primary terms (the preferred name
+        for a given side effect) and lowest-level terms (different names for the same side effect). We filtered the dataset by removing all lowest-level
+        terms from the dataset, removing side effect frequencies for placebos, and removing side effect frequencies recorded in a non-numerical format. 
+        We also transformed the dataset by deriving the mean frequency and frequency range for each pair of drug and side effect.
+        </p>
+        <p>A link to our filtered and transformed dataset can be found at: INSERT LINK HERE</p>
+    </div>
+
+    <div class="section">
+        <h2>Project Screencast</h2>
+        <p>EMBED VIDEO HERE</p>
+    </div>
+
 </body>
 </html>
 
@@ -146,3 +163,21 @@
     }
 
 </script>
+
+<style>
+    body {
+        font-family: 'IBM Plex Serif', serif;
+    }
+    .svgContainer {
+        width: 100%;
+        background-color: rgb(233, 233, 233);
+        text-align: center;
+    }
+    #transition {
+        background-color: white;
+        margin: 5px;
+    }
+    .section {
+        margin: 50px 0;
+    }
+</style>
