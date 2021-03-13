@@ -12,7 +12,7 @@ For your final project you must hand in the following items.
 * Project Website: https://bearl.dev/final/
 * Project Screen-Cast:
 
-Non-Obvious Features of Our Interface (We could probably delete this part of the readme, but I'm keeping it for now just in case)
+Non-Obvious Features of Our Interface
 ---
 When hovering over some countries on the choropleth map, 'null' shows up as the text that represents the happiness score for that country. This means that no data was available in the raw dataset we used.
 
