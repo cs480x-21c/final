@@ -256,9 +256,13 @@
                             .attr("stroke", "black")
                             .attr("r", 5)
 
-                        d3.selectAll('circle')
+                        g.selectAll('circle')
                             .filter(function(d){ return d['celltype'] != i['celltype']; })
                             .attr("fill", "lightgray")
+                        
+                        h.selectAll('circle')
+                            .filter(function(d){ return d['celltype'] != i['celltype']; })
+                            .attr("opacity", 0.2)
                     })
                     .on("mouseout", function(d, i) {
                         d3.select(this)
@@ -273,7 +277,7 @@
                             .attr("fill", function(d) { return clust_color(d.celltype); })
 
                         h.selectAll('circle')
-                            .attr("fill", function(d) { return gene_color(d[gene]); })
+                            .attr("opacity", 1)
                     })
 
                 rightCircles = h.selectAll('circle').data(data)
