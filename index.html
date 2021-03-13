@@ -25,7 +25,7 @@
     height = 500 - margin.top - margin.bottom;
 
 
-    /*** Social Bar Grapj ***/
+    /*** Social Bar Graph ***/
 
     // Append SVG
     var social_svg = d3.select("#social_vis")
@@ -111,21 +111,57 @@
             .attr("class", "label")
             .text("(2008)")
         social_svg.append('line')
-            .attr('x1', 335)
+            .attr('x1', 300)
             .attr('y1', 70)
-            .attr('x2', 335)
+            .attr('x2', 300)
             .attr('y2', 110)
         social_svg.append('line')
-            .attr('x1', 335)
+            .attr('x1', 300)
             .attr('y1', 110)
-            .attr('x2', 400)
+            .attr('x2', 310)
             .attr('y2', 110)  
         social_svg.append('line')
-            .attr('x1', 400)
+            .attr('x1', 310)
             .attr('y1', 110)
-            .attr('x2', 400)
-            .attr('y2', 140)
+            .attr('x2', 310)
+            .attr('y2', 135)
 
+
+        // trade war text
+        social_svg.append("text")
+            .attr("x", 730)
+            .attr("y", -30)
+            .attr("class", "label")
+            .text("Trade War Begins")
+        social_svg.append("text")
+            .attr("x", 760)
+            .attr("y", -10)
+            .attr("class", "label")
+            .text("(2018)")
+        social_svg.append('line')
+            .attr('x1', 820)
+            .attr('y1', -20)
+            .attr('x2', 820)
+            .attr('y2', 23)
+    
+        // fiscal cliff text
+        social_svg.append("text")
+            .attr("x", 475)
+            .attr("y", 10)
+            .attr("class", "label")
+            .text("Fiscal Cliff")
+        social_svg.append("text")
+            .attr("x", 475)
+            .attr("y", 30)
+            .attr("class", "label")
+            .text("(2012)")
+        social_svg.append('line')
+            .attr('x1', 500)
+            .attr('y1', 34)
+            .attr('x2', 500)
+            .attr('y2', 85)
+      
+            
 
     })
 

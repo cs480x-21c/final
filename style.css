@@ -4,11 +4,9 @@ body {
     font-weight: 400;
 }
 
-#military_line_vis {
-    width: 700;
-    padding: 10;
-    /* display: inline-block; */
-    margin-bottom: 20px;
+line {
+    stroke-width: 1;
+    stroke: black;
 }
 
 #social_line_vis {
