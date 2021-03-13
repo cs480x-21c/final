@@ -41,13 +41,13 @@
         console.log(data)
 
         //x axis
-        var x = d3.scaleBand()
+        var social_x = d3.scaleBand()
             .domain(data.map(function(d) {return d.Year}))
             .range([0, width])
             .padding(0.5)
         social_svg.append("g")
             .attr("transform", "translate(0, "+ height + ")")
-            .call(d3.axisBottom(x).tickFormat(
+            .call(d3.axisBottom(social_x).tickFormat(
                 function(d) {
                     return d;
                 }
@@ -67,11 +67,11 @@
             .text("Years")
 
         // y axis
-        var y = d3.scaleLinear()
+        var social_y = d3.scaleLinear()
             .domain([0, d3.max(data, function(d) { return d.Trillion; })])
             .range([height, 0])
             social_svg.append("g")
-            .call(d3.axisLeft(y).tickFormat(function(d) {
+            .call(d3.axisLeft(social_y).tickFormat(function(d) {
                 return d;
                 }).tickSize(3))
             .style("stroke-width", "1.5px")
@@ -92,11 +92,31 @@
             
             .attr("class", "bar")
             .style("fill", "violet")
-            .attr("x", function(d) { return x(d.Year); })
+            .attr("x", function(d) { return social_x(d.Year); })
             .attr("width", 46)
             
-            .attr("y", function(d) { return y(d.Trillion); })
-            .attr("height", function(d) { return height - y(d.Trillion); })
+            .attr("y", function(d) { return social_y(d.Trillion); })
+            .attr("height", function(d) { return height - social_y(d.Trillion); })
+            .on("mouseover", function(d, i) {
+                d3.select(this)
+            	    .style("fill", "#93BEDF");
+                social_svg.append("text")
+                .attr("x", social_x(i.Year))
+                console.log(social_x(i.Year))
+                .attr("y", 600)
+
+                .attr("class", "hoverLabel")
+                .style("font-size", "14px")
+                .style("font-weight", "bold")
+                .text(i.Trillion + " $")
+                console.log(i.Trillion + " B");
+        })
+        .on("mouseout", function() {
+                d3.select(this)
+            	    .style("fill", "violet");
+                social_svg.selectAll(".hoverLabel")
+                    .remove()
+        })
 
 
            // 2008 text
