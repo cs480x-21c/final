@@ -12,7 +12,7 @@
         <svg id="vis"></svg>
 		<div class="tooltip">
 			<div>
-				<a></a>
+				<h1></h1>
 				<span></span>
 			</div>
 		</div>
@@ -42,9 +42,10 @@
 	var color = d3.scaleOrdinal(d3.schemeAccent);
 	
 	var generateChart = data => {
+	
 		var bubble = data => d3.pack()
 			.size([width, height])
-			.padding(2)(d3.hierarchy({ children: data }).sum(d => d.score));
+			.padding(2)(d3.hierarchy({ children: data }).sum(d => d.num));
 			
 		var root = bubble(data);
 		var tooltip = d3.select('.tooltip');
@@ -58,25 +59,66 @@
 			.attr('r', d => d.r)
 			.style('fill', function(d,i){return color(i);})
 			.on('mouseover', function (e, d){
-				tooltip.select('a').attr('href', d.data.link).text(d.data.name);
+				tooltip.select('h1').text(d.data.seName);
 				//tooltip.select('span').attr('class', d.data.category).text(d.data.category);
 				tooltip.style('visibility', 'visible');
 				
 				d3.select(this).style('stroke', '#222');
 			})
-			.on('click', (e, d) => window.open(d.data.link))
+			//.on('click', (e, d) => window.open(d.data.link))
 			.on('mousemove', e => tooltip.style('top', `${e.pageY}px`)
 										 .style('left', `${e.pageX + 10}px`));
 			
 		var label = node.append('text')
 			.attr('dy', 2)
-			.text(d => d.data.name.substring(0, d.r / 3));
+			.text(d => d.data.seName.substring(0, d.r / 3));
 	
 	}
 	
-	(async () => {
-		data = await d3.json(file).then(data => data);
-		generateChart(data);
-	})();
+	async function printSideEffectsMap() {
+
+        let masterData = await d3.tsv('master.tsv');
+
+        let seMap = new Map();
+
+        for(d of masterData) {
+
+            if(seMap.has(d.SideEffectName)) {
+                seMap.set(d.SideEffectName, seMap.get(d.SideEffectName) + 1);
+            } else {
+                seMap.set(d.SideEffectName, 1);
+            }
+
+        }
+		console.log(seMap);
+		
+		var seMapSort = new Map([...seMap.entries()].sort((a, b) => b[1] - a[1]));
+		
+		console.log(seMapSort);
+		
+		var arrayTmp = Array.from(seMapSort).slice(0, 500);
+		
+		console.log(arrayTmp);
+		
+		var seMapSortSlice = new Map(arrayTmp);
+		
+		console.log(seMapSortSlice);
+		
+		var count = 0;
+		var seJSON = [];
+		
+		for (let [key,value] of seMapSortSlice){
+			
+			seJSON[count] = {"seName": key, "num": value};
+			
+			count++;
+		}
+		
+		console.log(seJSON);
+        generateChart(seJSON);
+		
+
+    }
+	printSideEffectsMap();
 
 </script>
