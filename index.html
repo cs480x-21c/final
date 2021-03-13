@@ -14,7 +14,6 @@
     <h1>USA Military Budget vs. Social Programs Budget </h1>
 
     <div id="social_vis"></div>  
-
 </body>
 
 <script>
@@ -102,14 +101,14 @@
             	    .style("fill", "#93BEDF");
                 social_svg.append("text")
                 .attr("x", social_x(i.Year))
-                console.log(social_x(i.Year))
-                .attr("y", 600)
-
+                
+                .attr("y", 400)
                 .attr("class", "hoverLabel")
                 .style("font-size", "14px")
                 .style("font-weight", "bold")
-                .text(i.Trillion + " $")
-                console.log(i.Trillion + " B");
+                .text(" $" + i.Trillion + " trillion")
+                console.log(i.Trillion);
+                // console.log(i.Trillion + " B");
         })
         .on("mouseout", function() {
                 d3.select(this)
