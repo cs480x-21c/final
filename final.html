@@ -278,6 +278,7 @@
 
                 rightCircles = h.selectAll('circle').data(data)
                     .enter().append('circle')
+                    .attr('id', function (d) { return "h_"+ d.barcode; })
                     .attr('cy', d => yScale(yValue(d)))
                     .attr('cx', d => xScale(xValue(d)))
                     .attr('r', 2)
