@@ -3,24 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <title>CS480X datavis final project</title>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>Exploring Medicine Side Effects with d3</h1>
-    <h2>Most common side effects</h2>
-    <svg id="Bubbles"></svg>
-    Text description
-    <h2>Explore drugs by their side effects</h2>
-    <svg id="Bar"></svg>
-    Text description
-    <h2>Explore the side effects of a certain drug</h2>
-    <svg id="Lolipop"></svg>
-    Text description
+    <h1>Drug Side Effects Visualization</h1>
+    <p>CS480x Final by Joshua McKeen, Suryansh Goyal, Jean-Philippe Pierre, and Remy Allegro</p>
+    <div class="svgContainer">
+        <svg id="transition"></svg><br>
+        <button onclick="nextLevel()">Next Level</button>
+        <button onclick="prevLevel()">Previous Level</button>
+    </div>
+
+    <div class="section">
+        <h2>Project Summary</h2>
+        <p>INSERT SUMMARY HERE</p>
+
+        <p>Link to process book: INSERT LINK HERE</p>
+        <p>The data used in this visualization was obtained from the <a href="http://sideeffects.embl.de/">SIDER 4 Side Effects Database</a>.
+        The side effects in this database were extracted from the MedDRA database which classifies them into primary terms (the preferred name
+        for a given side effect) and lowest-level terms (different names for the same side effect). We filtered the dataset by removing all lowest-level
+        terms from the dataset, removing side effect frequencies for placebos, and removing side effect frequencies recorded in a non-numerical format. 
+        We also transformed the dataset by deriving the mean frequency and frequency range for each pair of drug and side effect.
+        </p>
+        <p>A link to our filtered and transformed dataset can be found at: INSERT LINK HERE</p>
+    </div>
+
+    <div class="section">
+        <h2>Project Screencast</h2>
+        <p>EMBED VIDEO HERE</p>
+    </div>
+
 </body>
 </html>
 
 <script src="https://d3js.org/d3.v6.min.js"></script>
 
 <script>
+
+    topSvg = d3.select('#transition')
+    .style('height', 460)
+    .style('width', 400);
+
+    //these can be renamed
+    g1 = topSvg.append('g').attr('opacity', 1);
+    g2 = topSvg.append('g').attr('opacity', 0);
+    g3 = topSvg.append('g').attr('opacity', 0);
+
+    g1.append('text')
+    .attr('x', 400/2)
+    .attr('y', 460/2)
+    .text('one')
+    .attr('fill', 'black')
+
+    g2.append('text')
+    .attr('x', 400/2 + 20)
+    .attr('y', 460/2 + 20)
+    .text('two')
+    .attr('fill', 'black')
+
+    g3.append('text')
+    .attr('x', 400/2 + 40)
+    .attr('y', 460/2 + 40)
+    .text('three')
+    .attr('fill', 'black')
+
+    groupCursor = 0;
+    svgGroups = [g1, g2, g3];
+
+    function nextLevel() {
+
+        if(groupCursor == svgGroups.length - 1) {
+            return;
+        }
+
+        let current = svgGroups[groupCursor];
+
+        //fade out the current level.
+
+        current.transition()
+        .duration(500)
+        .attr('opacity', 0);
+        current.attr('pointer-events', 'none');
+
+        //fade in the next level.
+        groupCursor += 1;
+        current = svgGroups[groupCursor];
+
+        current.attr('pointer-events', 'auto');
+        
+        current.transition()
+        .duration(500)
+        .attr('opacity', 1);
+
+    }
+
+    function prevLevel() {
+
+        if(groupCursor == 0) {
+            return;
+        }
+
+        let current = svgGroups[groupCursor];
+
+        //fade out the current level.
+
+        current.transition()
+        .duration(500)
+        .attr('opacity', 0);
+        current.attr('pointer-events', 'none');
+
+        //fade in the previous level.
+        groupCursor -= 1;
+        current = svgGroups[groupCursor];
+
+        current.attr('pointer-events', 'auto');
+
+        current.transition()
+        .duration(500)
+        .attr('opacity', 1);
+
+    }
 
     async function printSideEffects() {
 
@@ -38,4 +142,42 @@
 
     }
 
+    async function printSideEffectsMap() {
+
+        let masterData = await d3.tsv('master.tsv');
+
+        let seMap = new Map();
+
+        for(d of masterData) {
+
+            if(seMap.has(d.SideEffectName)) {
+                seMap.set(d.SideEffectName, seMap.get(d.SideEffectName) + 1);
+            } else {
+                seMap.set(d.SideEffectName, 1);
+            }
+
+        }
+
+        console.log(seMap);
+
+    }
+
 </script>
+
+<style>
+    body {
+        font-family: 'IBM Plex Serif', serif;
+    }
+    .svgContainer {
+        width: 100%;
+        background-color: rgb(233, 233, 233);
+        text-align: center;
+    }
+    #transition {
+        background-color: white;
+        margin: 5px;
+    }
+    .section {
+        margin: 50px 0;
+    }
+</style>

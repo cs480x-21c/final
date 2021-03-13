@@ -30,14 +30,16 @@
         bottom: 10
     };
 
-    var height = 480 - margin.top - margin.bottom;
-    var width = 640 - margin.left - margin.right;
+    var height = 400 - margin.top - margin.bottom;
+    var width = 460 - margin.left - margin.right;
 
     var svg = d3.select('#vis')
 		.style('width', width + margin.left + margin.right)
 		.style('height', height + margin.top + margin.bottom);
 	
 	var file = 'testData.json';
+	
+	var color = d3.scaleOrdinal(d3.schemeAccent);
 	
 	var generateChart = data => {
 		var bubble = data => d3.pack()
@@ -54,10 +56,10 @@
 			
 		var circle = node.append('circle')
 			.attr('r', d => d.r)
-			.style('fill', 'orange')
+			.style('fill', function(d,i){return color(i);})
 			.on('mouseover', function (e, d){
 				tooltip.select('a').attr('href', d.data.link).text(d.data.name);
-				tooltip.select('span').attr('class', d.data.category).text(d.data.category);
+				//tooltip.select('span').attr('class', d.data.category).text(d.data.category);
 				tooltip.style('visibility', 'visible');
 				
 				d3.select(this).style('stroke', '#222');
