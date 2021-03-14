@@ -3,23 +3,29 @@
 
 <script src="https://d3js.org/d3.v6.min.js"></script>
 
-<div id="barChart"></div>
+<html>
+  <div id="barChart">
+    <div class="bcToolTip"></div>
+  </div>
+  
+  <style>
+  
+    .bcToolTip {
+      position: absolute;
+      /*font-size: 20px;*/
+      /*pointer-events: none;*/
+      background-color: #111;
+      visibility: hidden;
+      display: flex;
+      font-family: sans-serif;
+      max-width: 500px;
+      color: white;
+      padding: 4px;
+  }
+  
+  </style>
 
-<style>
-
-  .tooltip {
-    position: absolute;
-    /*font-size: 20px;*/
-    /*pointer-events: none;*/
-    background-color: #111;
-    visibility: hidden;
-    display: flex;
-    font-family: sans-serif;
-    max-width: 500px;
-    color: white;
-}
-
-</style>
+</html>
 
 <script>
 
@@ -41,10 +47,10 @@
               "translate(" + margin.left + "," + margin.top + ")");
 
     // Tool tip
-    var tooltip = d3.select("#barChart") 
-      .append("div")
+    var tooltip = d3.select(".bcToolTip") 
+      //.append("div")
       //.style("opacity", 0)
-      .attr("class", "tooltip")
+      //.attr("class", "tooltip")
     
     // Function to make changes to third level
     function activateThirdLevel(newDrug){
@@ -141,6 +147,8 @@
     
     </script>
 
+
+    <!-- Separate Script for testing and querying master data, no need to copy this -->
     <script>
       d3.tsv("master.tsv").then(function(data){
 

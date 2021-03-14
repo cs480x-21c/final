@@ -2,10 +2,15 @@
 
 <script src="https://d3js.org/d3.v6.min.js"></script>
 
+
+
 <html>
+    <div id="lolChart">
+        <div class="lolToolTip"></div>
+    </div>
     <style>
 
-        .tooltip {
+        .lolToolTip {
           position: absolute;
           /*font-size: 20px;*/
           /*pointer-events: none;*/
@@ -15,12 +20,10 @@
           font-family: sans-serif;
           max-width: 500px;
           color: white;
+          padding: 4px;
       }
       
       </style>
-
-        <div id="lolChart"></div>
-
 </html>
 
 <script>
@@ -43,10 +46,10 @@
             "translate(" + margin.left + "," + margin.top + ")");
 
     // Tool tip
-    var tooltip = d3.select("#lolChart") 
-        .append("div")
+    var tooltip = d3.select(".lolToolTip") 
+        //.append("div")
         //.style("opacity", 0)
-        .attr("class", "tooltip")
+        //.attr("class", "tooltip")
 
 
     function activateSecondLevel(newSideEffect) {
