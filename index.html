@@ -209,6 +209,15 @@
         
         var tooltip = d3.select(".lolToolTip")
 
+        group.append("text")
+        .attr("y",height/2)
+        .attr("x",-35)
+        .attr("transform",function(){  
+           return "rotate(-90,-35,"+height/2+")"
+        })
+        .style("text-anchor","middle")
+        .text("Frequency")
+
         d3.tsv("master.tsv").then(function(masterData) {
             var targetDrug = drugName // level 3
         
@@ -364,7 +373,16 @@
         let group = g2.append("g")
         .attr("transform",
               "translate(" + margin.left + "," + margin.top + ")");
-        
+
+        group.append("text")
+            .attr("y",height/2)
+            .attr("x",-35)
+            .attr("transform",function(){  
+                return "rotate(-90,-35,"+height/2+")"
+            })
+            .style("text-anchor","middle")
+            .text("Frequency")
+    
         var tooltip = d3.select(".bcToolTip");
 
         d3.tsv("master.tsv").then(function(data) {
