@@ -12,8 +12,8 @@
         <svg id="vis"></svg>
 		<div class="tooltip">
 			<div>
-				<h1></h1>
-				<span></span>
+				<h3></h3>
+				<p id="seNum"></p>
 			</div>
 		</div>
     </body>
@@ -59,15 +59,19 @@
 			.attr('r', d => d.r)
 			.style('fill', function(d,i){return color(i);})
 			.on('mouseover', function (e, d){
-				tooltip.select('h1').text(d.data.seName);
-				//tooltip.select('span').attr('class', d.data.category).text(d.data.category);
+				tooltip.select('h3').text(d.data.seName);
+				tooltip.select('#seNum').text(d.data.num + " drugs");
 				tooltip.style('visibility', 'visible');
 				
 				d3.select(this).style('stroke', '#222');
 			})
 			//.on('click', (e, d) => window.open(d.data.link))
 			.on('mousemove', e => tooltip.style('top', `${e.pageY}px`)
-										 .style('left', `${e.pageX + 10}px`));
+										 .style('left', `${e.pageX + 10}px`))
+			.on('mouseout', function (e, d){
+				tooltip.style('visibility', 'hidden');
+				d3.select(this).style('stroke', 'none');
+			})
 			
 		var label = node.append('text')
 			.attr('dy', 2)
