@@ -32,7 +32,7 @@ Our project website contains many sections. First, we felt it was important to c
 Next we have our section on U.S. military spending, with a bar chart and a treemap. The bar chart shows data on the total military spending from 2003 - 2021 (2021 projected). Important events are denoted to give the user an informed idea of global events that impacted spending, and to clarify the y-values, the cost of each year is displayed under the x-axis when that bar is hovered on. To take a further look into U.S. budget, we have our tree map. [Explain more abt treemap when merged in]
 
 Our next section focuses on U.S. social spending, and like the military section, contains a bar graph and a treemap. 
-
+[will come back to]
 
 Code
 ---
