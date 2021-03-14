@@ -195,21 +195,27 @@
             text: 'wontfix'
         }
     ];
-    var stemp = printSideEffects()
-    var temp = [];
-    for (i = 0; i < stemp.length; i++) {
-        temp.push({id:toString(stemp[i]),text:toString(stemp[i])})
-    }
-    console.log(stemp)
-    console.log(temp);
-    $(document).ready(function() {
-        $("#SE").select2({
-            placeholder: 'Choose a Side Effect',
-            allowClear: true,
-            data: sides,
-            width: 'resolve' // need to override the changed default
-        })
-    });
+
+    async function loadValues(){
+        let masterData =await d3.tsv('master.tsv');
+        let sideEffects = new Set();
+        for(d of masterData) {
+            sideEffects.add(d.SideEffectName);
+        }
+        var sideOptions = [];
+        for (let [key, value] of sideEffects.entries()) {
+            sideOptions.push({id:key,text:value})
+        }
+        //console.log(temp)
+        $(document).ready(function() {
+            $("#SE").select2({
+                placeholder: 'Choose a Side Effect',
+                data: sideOptions,
+                width: 'resolve' // need to override the changed default
+            })
+    })}
+
+    loadValues()
 
 
 
