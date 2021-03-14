@@ -12,6 +12,8 @@ const EXAMPLE_COURSE = {
     "attributes": "Humanities and Arts"
 }
 
+const BANNER_CRAWLER_TRIGGER_URL = "https://us-east4-ageless-accord-307519.cloudfunctions.net/bannerCrawler";
+
 let courses = []; // Array of all courses, following object specified above
 let currCourses = []; // Array of currently slotted in courses
 const currCoursesUpdated = new Event('course');
@@ -122,6 +124,41 @@ function initStatistics() {
 
 }
 
+// populateCoursesFromBanner() populates currently slotted in courses from Banner
+function populateCoursesFromBanner() {
+    // Disable import button
+    document.getElementById("import").disabled = true;
+
+    let user = document.getElementById("userIn").value;
+    let pass = document.getElementById("passIn").value;
+
+    let content = {
+        "sid": user,
+        "PIN": pass
+    };
+
+    fetch(BANNER_CRAWLER_TRIGGER_URL, {
+        method: "POST",
+        body: JSON.stringify(content),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }).then(data => data.json()).then(bannerCourses => {
+        document.getElementById("import").disabled = false;
+
+        // Crummy quadratic code
+        bannerCourses.forEach(transcriptCourse => {
+            for (let i = 0; i < courses.length; i++) {
+                let course = courses[i];
+                if ((course["department_code"] === transcriptCourse.dep) && (course.code === transcriptCourse.code)) {
+                    currCourses.push(course);
+                    break;
+                }
+            }
+        })
+    });
+}
+
 // main() is run when the body of the page loads
 function main() {
     loadCourses().then(d => {
@@ -130,4 +167,18 @@ function main() {
         initStatistics();
         mdc.autoInit();
     });
+
+    // Set up callback for button to import courses from Banner
+    document.getElementById("import").onclick = populateCoursesFromBanner;
+    document.getElementById("userIn").onkeypress = (e) => {
+        if (e.code === "Enter") {
+            document.getElementById("passIn").focus();
+        }
+    }
+    document.getElementById("passIn").onkeypress = (e) => {
+        if (e.code === "Enter") {
+            e.target.blur();
+            populateCoursesFromBanner();
+        }
+    }
 }

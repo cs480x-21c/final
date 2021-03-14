@@ -31,8 +31,12 @@ body {
 
 #importContainer {
     width: calc(16.6666% - 16px);
-    height: 20%;
+    height: 40%;
     margin-right: 16px;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
 }
 
 #treeContainer {
