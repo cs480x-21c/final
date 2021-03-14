@@ -132,6 +132,27 @@
 
     }
 
+    function goToSecondLevel() {
+        let current = svgGroups[groupCursor];
+
+        //fade out the current level.
+
+        current.transition()
+        .duration(500)
+        .attr('opacity', 0);
+        current.attr('pointer-events', 'none');
+
+        //fade in the previous level.
+        groupCursor = 1;
+        current = svgGroups[groupCursor];
+
+        current.attr('pointer-events', 'auto');
+
+        current.transition()
+        .duration(500)
+        .attr('opacity', 1);
+    }
+
     function SideSelect(val){
         console.log("you chose " + val)
     }
