@@ -8,6 +8,8 @@ import os
 import csv
 import json
 import pandas as pd
+basepath = os.path.abspath(os.path.dirname(__file__))
+path= basepath + "/chart_scrapes"
 
 
 def main(function,overwrite_old):
@@ -30,6 +32,8 @@ def main(function,overwrite_old):
         unique_songs()
     elif function=="meta_add":
         meta_add()
+    elif function=="weekly_meta_calc":
+        weekly_meta_calc(weeks, countries)
     else:
         assert False, f"failed to run function {function}"
     
@@ -197,13 +201,49 @@ def meta_add():
     # print(songsWithMeta.head())
     songsWithMeta.to_csv("Datasets/uniqueSongsWithMeta.csv")
 
+def weekly_meta_calc(weeks, countries):
+    songsMeta = pd.read_csv("Datasets/flat_meta.csv")
+    print(songsMeta.head())
+    for country in countries:
+        print(country)
+        flatWriter = csv.writer(open('Datasets/Countries/' + country + '/average.csv', 'w', newline=''), delimiter=',')
+        flatWriter.writerow(["week", "danceability", "energy", "key", "loudness", "mode", "speechiness", "acousticness", "instrumentalness",
+        "liveness", "valence", "tempo", "duration_ms", "time_signature"])    
+        country_path = os.path.join("Datasets/Countries",country)
+        if os.path.exists(country_path) == False:
+            os.makedirs(country_path)
+
+        for week in weeks:
+            day_file = os.path.join(path,country,week+country+".csv")
+            # print(str(day_file))
+            with open(day_file) as f:
+                first_line = f.readline()
+                # print(first_line)
+                if '<!doctype html>' in first_line:
+                    continue
+                else:
+                    weekData = pd.read_csv(day_file, header=1)
+                    # print(weekData.head())
+                    weekWithMeta = weekData.join(songsMeta.set_index('track_ref'), on='URL')
+                    weekWithMeta.reset_index(drop=True, inplace=True)
+                    # print(weekWithMeta.head())
+                    outputPath = os.path.join(basepath,"Datasets/Countries", country, week+country )
+                    weekWithMeta.to_csv(outputPath+"_meta.csv")
+
+                    weekAverages = weekWithMeta.mean()
+                    outputPath = os.path.join(basepath,"Datasets/Countries", country, "average_"+country )
+                    flatWriter.writerow([week,weekAverages["danceability"],weekAverages["energy"],weekAverages["key"],
+                    weekAverages["loudness"], weekAverages["mode"],weekAverages["speechiness"],weekAverages["acousticness"],
+                    weekAverages["instrumentalness"], weekAverages["liveness"],weekAverages["valence"],weekAverages["tempo"], weekAverages["duration_ms"],weekAverages["time_signature"]])
+                    
+                    # weekAverages.to_csv(outputPath + "_average_meta.csv")
 def parser():
     arg_parser = argparse.ArgumentParser()
     arg_parser.add_argument(
         "--function",
         type=str,
         required= True,
-        choices=["scrape","stitch","flatten","meta_scrape","meta_flatten", "unique_songs", "meta_add"],
+        choices=["scrape","stitch","flatten","meta_scrape","meta_flatten", "unique_songs", "meta_add", "weekly_meta_calc"],
         help="feature type 1 to extract, either audio, text or gps"
     )
     arg_parser.add_argument(
