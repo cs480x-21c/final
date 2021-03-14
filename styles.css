@@ -1,5 +1,4 @@
 body {
-    margin: 0;
     width: 100vw;
     height: 100vh;  
 }
@@ -25,11 +24,6 @@ h3 {
     font: 16px sans-serif;
 }
 
-p {
-	color: #FFF;
-	font: 12px sans-serif;
-}
-
 span {
     display: inline-block;
     margin-top: 1px;
@@ -50,6 +44,7 @@ span {
     display: flex;
     font-family: sans-serif;
     max-width: 500px;
+    color: white;
 }
 
 .tooltip div {
@@ -71,6 +66,7 @@ rect {
     max-width: 500px;
     color: white;
     padding: 4px;
+    pointer-events: none;
 }
 
 .lolToolTip {
@@ -84,4 +80,5 @@ rect {
     max-width: 500px;
     color: white;
     padding: 4px;
+    pointer-events: none;
 }

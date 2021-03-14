@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
     <h1>Drug Side Effects Visualization</h1>
@@ -19,9 +20,17 @@
 
     <div class="svgContainer">
         <svg id="transition"></svg><br>
-        <button onclick="prevLevel()">Previous Level</button>
-        <button onclick="nextLevel()">Next Level</button>
     </div>
+
+    <div class="tooltip">
+        <div>
+            <h3></h3>
+            <p id="seNum"></p>
+        </div>
+    </div>
+
+    <div class="bcToolTip"></div>
+    <div class="lolToolTip"></div>
 
     <div class="section">
         <h2>Project Summary</h2>
@@ -49,31 +58,13 @@
 <script>
 
     topSvg = d3.select('#transition')
-    .style('height', 460)
-    .style('width', 400);
+    .style('height', 400)
+    .style('width', 460);
 
     //these can be renamed
     g1 = topSvg.append('g').attr('opacity', 1);
     g2 = topSvg.append('g').attr('opacity', 0);
     g3 = topSvg.append('g').attr('opacity', 0);
-
-    g1.append('text')
-    .attr('x', 400/2)
-    .attr('y', 460/2)
-    .text('one')
-    .attr('fill', 'black')
-
-    g2.append('text')
-    .attr('x', 400/2 + 20)
-    .attr('y', 460/2 + 20)
-    .text('two')
-    .attr('fill', 'black')
-
-    g3.append('text')
-    .attr('x', 400/2 + 40)
-    .attr('y', 460/2 + 40)
-    .text('three')
-    .attr('fill', 'black')
 
     groupCursor = 0;
     svgGroups = [g1, g2, g3];
@@ -132,6 +123,29 @@
 
     }
 
+    function goToFirstLevel() {
+
+        let current = svgGroups[groupCursor];
+
+        //fade out the current level.
+
+        current.transition()
+        .duration(500)
+        .attr('opacity', 0);
+        current.attr('pointer-events', 'none');
+
+        //fade in the previous level.
+        groupCursor = 0;
+        current = svgGroups[groupCursor];
+
+        current.attr('pointer-events', 'auto');
+
+        current.transition()
+        .duration(500)
+        .attr('opacity', 1);
+
+    }
+
     function goToSecondLevel() {
         let current = svgGroups[groupCursor];
 
@@ -154,7 +168,13 @@
     }
 
     function SideSelect(val){
-        console.log("you chose " + val)
+        
+        if(val.length == 0) {
+            goToFirstLevel();
+        } else {
+            initBarChart(val);
+        }
+
     }
 
     async function printSideEffects() {
@@ -175,6 +195,321 @@
 
     }
 
+    function createLollipopChart(drugName) {
+
+        g3.select('*').remove();
+
+        var margin = {top: 30, right: 30, bottom: 80, left: 80},
+        width = 460 - margin.left - margin.right,
+        height = 400 - margin.top - margin.bottom;
+
+        let group = g3.append("g")
+        .attr("transform",
+                "translate(" + margin.left + "," + margin.top + ")");
+        
+        var tooltip = d3.select(".lolToolTip")
+
+        d3.tsv("master.tsv").then(function(masterData) {
+            var targetDrug = drugName // level 3
+        
+            // Converting the string fields to numeric vals
+            masterData.forEach(function(d) {
+                d.MeanFrequency = +d.MeanFrequency;
+                d.MinFrequency = +d.MinFrequency;
+                d.MaxFrequency = +d.MaxFrequency;
+            })
+        
+            // Filtering by drug - level 3
+            var filteredSideEffects = masterData.filter(d => d.Name == targetDrug)
+        
+            filteredSideEffects.sort(function(a, b) {
+                return b.MeanFrequency - a.MeanFrequency
+            })
+               
+            filteredSideEffects = filteredSideEffects.slice(0,20)
+            console.log(filteredSideEffects)   // Top 20 side effects of the target Drug
+
+            data = filteredSideEffects
+
+            let xScale = d3.scaleBand()
+            .range([0, width])
+            .domain(data.map(function(d){ return d.SideEffectName}))
+            .padding(0.2)
+
+            let yScale = d3.scaleLinear()
+            .domain([0, 1])
+            .range([height, 0]);
+
+            //create x axis
+            group.append('g')
+            .attr('transform', `translate(${0}, ${height})`)
+            .call(d3.axisBottom(xScale))
+            .selectAll("text")
+            .attr("transform", "translate(0,0)rotate(-45)")
+            .style("text-anchor", "end");
+
+            //create y axis
+            group.append('g')
+            //.attr('transform', `translate(${margin.left}, ${margin.top})`)
+            .call(d3.axisLeft(yScale))
+            .selectAll("text")
+            .attr("transform", "translate(-5,0)rotate(0)")
+            .style("text-anchor", "end");
+
+            group.selectAll('lolLine')
+            .data(data)
+            .enter()
+            .append('line')
+            .attr("x1", d => { return xScale(d.SideEffectName)  + xScale.bandwidth()/2 })
+            .attr("x2", d => { return xScale(d.SideEffectName)  + xScale.bandwidth()/2 })
+            .attr("y1", d => { return yScale(d.MaxFrequency); })
+            .attr("y2", d => { return yScale(d.MinFrequency); })
+            .attr('stroke', 'black')
+            
+        
+            group.selectAll('lolCircle1') // upper circle for upper limit
+            .data(data)
+            .enter()
+            .append('circle')
+            .attr('cx', d => xScale(d.SideEffectName) + xScale.bandwidth()/2)
+            .attr('cy', d => yScale(d.MaxFrequency))
+            .attr('r', 5)
+            .style('fill', 'steelblue')
+            .attr('stroke', 'black')
+            .style('cursor', 'pointer')
+            .on('mouseover', (event, d) => {
+                d3.select(event.target).attr('opacity', 0.4)
+                tooltip.text(d.SideEffectName)
+                .style("left", (event.pageX) + "px")
+                .style("top", (event.pageY - 30) + "px")
+                .transition()
+                .duration(200)
+                .style('visibility','visible')
+            })
+            .on('mousemove', (event, d) => {
+                tooltip.text(d.SideEffectName)
+                .style("left", (event.pageX) + "px")
+                .style("top", (event.pageY - 30) + "px")
+            })
+            .on('mouseout', (event, d) => {
+                d3.select(event.target).attr('opacity', 1)
+                tooltip.style('visibility','hidden')
+            })
+            .on('mousedown', (event, d) => {
+                tooltip.style('visibility','hidden')
+                $('#SE').val(d.SideEffectName);
+                $('#SE').trigger('change');
+            })
+        
+            group.selectAll('lolCircle2') // lower circle for lower limit
+            .data(data)
+            .enter()
+            .append('circle')
+                .attr('cx', d => xScale(d.SideEffectName) + xScale.bandwidth()/2 )
+                .attr('cy', d => yScale(d.MinFrequency))
+                .attr('r', 5)
+                .style('fill', 'steelblue')
+                .attr('stroke', 'black')
+                .style('cursor', 'pointer')
+                .on('mouseover', (event, d) => {
+                    d3.select(event.target).attr('opacity', 0.4)
+                    tooltip.text(d.SideEffectName)
+                    .style("left", (event.pageX) + "px")
+                    .style("top", (event.pageY - 30) + "px")
+                    .transition()
+                    .duration(200)
+                    .style('visibility','visible')
+                })
+                .on('mouseout', (event, d) => {
+                    d3.select(event.target).attr('opacity', 1)
+                    tooltip.style('visibility','hidden')
+                })
+                .on('mousedown', (event, d) => {
+                    tooltip.style('visibility','hidden')
+                    $('#SE').val(d.SideEffectName);
+                    $('#SE').trigger('change');
+                })
+                .on('mousemove', (event, d) => {
+                tooltip.text(d.SideEffectName)
+                .style("left", (event.pageX) + "px")
+                .style("top", (event.pageY - 30) + "px")
+            })
+
+        })
+
+    }
+
+    function initLollipopChart(drugName) {
+
+        createLollipopChart(drugName);
+        nextLevel();
+
+    }
+
+    function initBarChart(sideEffectName) {
+
+        createBarChart(sideEffectName);
+        goToSecondLevel();
+
+    }
+
+    function createBarChart(sideEffect) {
+
+        g2.select('*').remove();
+
+        var margin = {top: 30, right: 30, bottom: 60, left: 60},
+        width = 460 - margin.left - margin.right,
+        height = 400 - margin.top - margin.bottom;
+
+        let group = g2.append("g")
+        .attr("transform",
+              "translate(" + margin.left + "," + margin.top + ")");
+        
+        var tooltip = d3.select(".bcToolTip");
+
+        d3.tsv("master.tsv").then(function(data) {
+
+            // Converting the string fields to numeric vals
+            data.forEach(function(d) {
+                d.MeanFrequency = +d.MeanFrequency;
+                d.MinFrequency = +d.MinFrequency;
+                d.MaxFrequency = +d.MaxFrequency;
+            })
+
+            var targetSideEffect = sideEffect // level 2
+
+            // Filtering by side effect - level 2
+            var filteredDrugs = data.filter(d => d.SideEffectName == targetSideEffect)
+
+            filteredDrugs.sort(function(a, b) {
+                return b.MeanFrequency - a.MeanFrequency
+            })
+
+            filteredDrugs = filteredDrugs.slice(0,20)
+
+            console.log(filteredDrugs)
+
+            // adding x-axis
+            var x = d3.scaleBand()
+            .range([ 0, width ])
+            .domain(filteredDrugs.map(function(d) { return d.Name; }))
+            .padding(0.2);
+            group.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x))
+            .selectAll("text")
+            .attr("transform", "translate(0,0)rotate(-45)")
+            .style("text-anchor", "end");
+
+            // adding y-axis
+            var y = d3.scaleLinear()
+            .domain([0, 1])
+            .range([ height, 0]);
+            group.append("g")
+            .call(d3.axisLeft(y))
+            .selectAll("text")
+            .attr("transform", "translate(-5,0)rotate(0)")
+            //.attr("text-anchor","end")
+
+            // add bars
+            group.selectAll("mybar")
+            .data(filteredDrugs)
+            .enter()
+            .append("rect")
+            .attr("x", function(d) { 
+            return x(d.Name); 
+            })
+            .attr("y", function(d) { 
+            return y(d.MeanFrequency); 
+            })
+            .attr("width", x.bandwidth())
+            .attr("height", function(d) { return height - y(d.MeanFrequency); })
+            .attr("fill", "steelblue")
+            .attr('stroke',"black")
+            .on("mouseover",function(e,d){
+            d3.select(this)
+            .attr('opacity',0.5)
+
+            tooltip.text(d.Name)
+            .style("left", (e.pageX) + "px")
+            .style("top", (e.pageY - 30) + "px")
+            .transition()
+            .duration(200)
+            .style('visibility','visible')
+            })
+            .on("mousemove",function(e,d){
+
+            tooltip.text(d.Name)
+            .style("left", (e.pageX) + "px")
+            .style("top", (e.pageY - 30) + "px")
+            })
+            .on("mouseout",function(d){
+            d3.select(this)
+            .attr('opacity',1)
+
+            tooltip.style('visibility','hidden')
+            })
+            .on("mousedown",function(e,d){
+            initLollipopChart(d.Name)
+            })
+
+        })
+
+    }
+
+    function generateBubbleChart(data) {
+
+        var margin = {
+            left: 10,
+            top: 10,
+            right: 10,
+            bottom: 10
+        };
+
+        var height = 400 - margin.top - margin.bottom;
+        var width = 460 - margin.left - margin.right;
+
+        var color = d3.scaleOrdinal(d3.schemeAccent);
+
+        var bubble = data => d3.pack()
+			.size([width, height])
+			.padding(2)(d3.hierarchy({ children: data }).sum(d => d.num));
+			
+		var root = bubble(data);
+		var tooltip = d3.select('.tooltip');
+			
+		var node = g1.selectAll()
+			.data(root.children)
+			.enter().append('g')
+			.attr('transform', d => `translate(${d.x}, ${d.y})`);
+			
+		var circle = node.append('circle')
+			.attr('r', d => d.r)
+			.style('fill', function(d,i){return color(i);})
+			.on('mouseover', function (e, d){
+				tooltip.select('h3').text(d.data.seName);
+				tooltip.select('#seNum').text(d.data.num + " drugs");
+				tooltip.style('visibility', 'visible');
+				
+				d3.select(this).style('stroke', '#222');
+			})
+			.on('click', (e, d) =>  {
+                $('#SE').val(d.data.seName);
+                $('#SE').trigger('change');
+            })
+			.on('mousemove', e => tooltip.style('top', `${e.pageY}px`)
+										 .style('left', `${e.pageX + 10}px`))
+			.on('mouseout', function (e, d){
+				tooltip.style('visibility', 'hidden');
+				d3.select(this).style('stroke', 'none');
+			})
+			
+		var label = node.append('text')
+			.attr('dy', 2)
+			.text(d => d.data.seName.substring(0, d.r / 3));
+
+    }
+
     async function printSideEffectsMap() {
 
         let masterData = await d3.tsv('master.tsv');
@@ -190,11 +525,37 @@
             }
 
         }
+        //console.log(seMap);
 
-        console.log(seMap);
+        var seMapSort = new Map([...seMap.entries()].sort((a, b) => b[1] - a[1]));
 
-        return seMap
+        //console.log(seMapSort);
+
+        var arrayTmp = Array.from(seMapSort).slice(0, 200);
+
+        //console.log(arrayTmp);
+
+        var seMapSortSlice = new Map(arrayTmp);
+
+        //console.log(seMapSortSlice);
+
+        var count = 0;
+        var seJSON = [];
+
+        for (let [key,value] of seMapSortSlice){
+            
+            seJSON[count] = {"seName": key, "num": value};
+            
+            count++;
+        }
+
+        //console.log(seJSON);
+        generateBubbleChart(seJSON);
+
+
     }
+
+    
 
     var sides = [
         {
@@ -240,7 +601,7 @@
     })}
 
     loadValues()
-
+    printSideEffectsMap()
 
 
 
