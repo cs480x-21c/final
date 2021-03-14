@@ -125,11 +125,13 @@ def unique_songs():
 def meta_add():
     print( "Adding metadata to unique songs")
     uniqueSongs = pd.read_csv("Datasets/unique_songs.csv")
-    print(uniqueSongs.columns)
+    # print(uniqueSongs.head())
     metaData = pd.read_csv("Datasets/flat_meta.csv")
 
-    print(metaData.columns)
-
+    # print(metaData.head())
+    songsWithMeta = uniqueSongs.join(metaData.set_index('track_ref'), on='url')
+    # print(songsWithMeta.head())
+    songsWithMeta.to_csv("Datasets/uniqueSongsWithMeta.csv")
 
 def parser():
     arg_parser = argparse.ArgumentParser()
