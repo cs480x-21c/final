@@ -9,11 +9,19 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Lato&family=Shippori+Mincho:wght@400;600;800&display=swap" rel="stylesheet">    <title>Final</title>
 </head>
-<body onload="main()">
+<body onload="main()" id="body" class="light">
     <div class="titleDiv">
         <h1>United States Spending</h1>
         <h3>Military vs Social Programs</h3>
     </div>
+
+    <!-- <div> -->
+        <label class="switch">
+            <input type="checkbox" id="sliderId">
+            <span class="slider round"></span>
+        </label>
+        <span class="switchLabel">Light/Dark Toggle</span>
+    <!-- </div>   -->
     
     <p>
         Over the past 20 years, the United States has faced some of the worst economic crises in history. 
@@ -72,13 +80,13 @@
 
 </body>
 
-<script>    
+<script>   
+
+    /*** Military Bar Graph ***/
+
     var ml_margin = {top: 10, right: 30, bottom: 60, left: 70},
     ml_width = 1000 - ml_margin.left - ml_margin.right,
     ml_height = 520 - ml_margin.top - ml_margin.bottom;
-
-
-    /*** Military Bar Graph ***/
 
     // Append SVG
     var ml_svg = d3.select("#military_line_vis")
@@ -139,6 +147,10 @@
             .attr("class", "hoverLabel")
             .style("font-size", "14px")
             .style("font-weight", "bold")
+            .style("fill", function(d) {
+                if (document.getElementById("body").className === "dark") return "#F9F9F9"
+                else return "#373E40"
+            })
             .text("$" + i.budget + " B");
         })
         .on("mouseout", function() {
@@ -405,6 +417,10 @@
                 .attr("x", social_x(i.Year))
                 .attr("y", 490)
                 .attr("class", "hoverLabel")
+                .style("fill", function(d) {
+                    if (document.getElementById("body").className === "dark") return "#F9F9F9"
+                    else return "#373E40"
+                })
                 .style("font-size", "14px")
                 .style("font-weight", "bold")
                 .text("$" + i.Trillion + " T");
@@ -467,9 +483,22 @@
             .attr('y1', 70)
             .attr('x2', 822)
             .attr('y2', 170)
-      
-            
+    })
 
+    /*** Light / Dark Slider ***/
+    var slider = document.getElementById("sliderId")
+    var body = document.getElementById("body")
+    
+    slider.addEventListener('change', function() {
+        if (slider.checked) {
+            body.className = "dark"
+            d3.selectAll(".label").style("fill", "#F9F9F9")
+            d3.selectAll("line").style("stroke", "#F9F9F9")
+        } else {
+            body.className = "light"
+            d3.selectAll(".label").style("fill", "#373E40")
+            d3.selectAll("line").style("stroke", "#373E40")
+        }        
     })
 
 
