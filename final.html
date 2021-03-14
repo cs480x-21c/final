@@ -262,7 +262,7 @@
                         
                         h.selectAll('circle')
                             .filter(function(d){ return d['celltype'] != i['celltype']; })
-                            .attr("opacity", 0.2)
+                            .attr("opacity", 0.05)
                     })
                     .on("mouseout", function(d, i) {
                         d3.select(this)
