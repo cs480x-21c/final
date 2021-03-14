@@ -5,7 +5,6 @@
     <script src="https://d3js.org/d3.v6.min.js"></script>
     <script src="backend.js"></script>
     <script src="json/militaryJson.js"></script>
-    <link href="index.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Lato&family=Shippori+Mincho:wght@400;600;800&display=swap" rel="stylesheet">    <title>Final</title>
@@ -47,7 +46,16 @@
     <div id="military_line_vis"></div>  
 
     <p>
-        [Wait until social is finished to write anything]
+        Below you can see the total social spending for the US from the past 17 years. 
+        <br>[Talk abt social security (6.2% of income investopedia.com/retirement/social-security-faqs/)]<br>
+        (is the majority really just for admisinistrative costs? confused https://www.ssa.gov/budget/)<br>
+
+        An important aspect to note is that unlike the military budget, which is reactionary and increases dramatically, 
+        the budget for social programs responds only to inflation. This means that despite the multiple finanical crises 
+        that have hit the United States in our lifetime, the governement does not offer additional economic support to 
+        its citizens. 
+
+        <br>[Make another point that fits in here - coporate bailouts? banks in 2008 / airplanes in 2020? ]
     </p>
 
     <div id="social_vis"></div>  
@@ -131,7 +139,7 @@
             .attr("class", "hoverLabel")
             .style("font-size", "14px")
             .style("font-weight", "bold")
-            .text(i.budget + " B");
+            .text("$" + i.budget + " B");
         })
         .on("mouseout", function() {
             d3.select(this)
@@ -328,14 +336,12 @@
         .attr('y2', 120)
 
 
-    /*** Shared Variables ***/
-    
-    var margin = {top: 90, right: 30, bottom: 70, left: 70},
-    width = 1000 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
-
 
     /*** Social Bar Graph ***/
+    var margin = {top: 10, right: 30, bottom: 60, left: 70},
+    width = 1000 - margin.left - margin.right,
+    height = 520 - margin.top - margin.bottom;
+
 
     // Append SVG
     var social_svg = d3.select("#social_vis")
@@ -343,153 +349,124 @@
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
     .append("g")
-        .attr("transform",
-            "translate(" + margin.left + "," + margin.top + ")");
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+        
 
+    //x axis
+    var social_x = d3.scaleBand()
+        .domain([2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019])
+        .range([0, width])
+        .paddingInner(0.1);
+    social_svg.append("g")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(social_x).tickValues([2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019]).tickFormat(d3.format("d")));
+
+    social_svg.append("text")
+        .attr("x", width/2)
+        .attr("y", height + margin.bottom)
+        .style("text-anchor", "middle")
+        .attr("class", "label")
+        .text("Years")
+
+    // y axis
+    var social_y = d3.scaleLinear()
+        .domain([0, 6])
+        .range([height, 0])
+    social_svg.append("g")
+        .call(d3.axisLeft(social_y).tickFormat(function(d) { return d; })
+        .tickSize(3))
+        .style("stroke-width", "1.5px")
+
+    social_svg.append("text")
+        .attr("y", 0 - margin.left)
+        .attr("x",0 - (height / 2))
+        .attr("dy", "1em")
+        .attr("transform", "rotate(-90)")
+        .attr("class", "label")
+        .style("text-anchor", "middle")
+        .text("Total Social Spending in Trillions (USD)")
 
     d3.csv('/csv/social-data.csv').then(function(data){
-        console.log(data)
-
-        //x axis
-        var social_x = d3.scaleBand()
-            .domain(data.map(function(d) {return d.Year}))
-            .range([0, width])
-            .padding(0.5)
-        social_svg.append("g")
-            .attr("transform", "translate(0, "+ height + ")")
-            .call(d3.axisBottom(social_x).tickFormat(
-                function(d) {
-                    return d;
-                }
-            ).tickSize(8))
-            .style("stroke-width", "1.5px")
-            .selectAll("text")
-            .style("text-anchor", "end")
-            .attr("dx", "-.8em")
-            .attr("dy", "-.60em")
-            .attr("transform", "rotate(-90)" )
-
-        social_svg.append("text")
-            .attr("x", width/2)
-            .attr("y", height + margin.bottom)
-            .style("text-anchor", "middle")
-            .attr("class", "label")
-            .text("Years")
-
-        // y axis
-        var social_y = d3.scaleLinear()
-            .domain([0, d3.max(data, function(d) { return d.Trillion; })])
-            .range([height, 0])
-            social_svg.append("g")
-            .call(d3.axisLeft(social_y).tickFormat(function(d) {
-                return d;
-                }).tickSize(3))
-            .style("stroke-width", "1.5px")
-
-        social_svg.append("text")
-            .attr("y", 0 - margin.left)
-            .attr("x",0 - (height / 2))
-            .attr("dy", "1em")
-            .attr("transform", "rotate(-90)")
-            .attr("class", "label")
-            .style("text-anchor", "middle")
-            .text("Total Social Spending (Trillions)")
 
         // bar chart
         var barchart = social_svg.selectAll("bar")
             .data(data)
             .enter().append("rect")
-            
             .attr("class", "bar")
-            .style("fill", "violet")
+            .style("fill", "#93BEDF")
             .attr("x", function(d) { return social_x(d.Year); })
-            .attr("width", 46)
-            
+            .attr("width", social_x.bandwidth())
             .attr("y", function(d) { return social_y(d.Trillion); })
             .attr("height", function(d) { return height - social_y(d.Trillion); })
             .on("mouseover", function(d, i) {
                 d3.select(this)
-            	    .style("fill", "#93BEDF");
+            	    .style("fill", "#6EAF73");
                 social_svg.append("text")
                 .attr("x", social_x(i.Year))
-                
-                .attr("y", 400)
+                .attr("y", 490)
                 .attr("class", "hoverLabel")
                 .style("font-size", "14px")
                 .style("font-weight", "bold")
-                .text(" $" + i.Trillion + " trillion")
-                console.log(i.Trillion);
-                // console.log(i.Trillion + " B");
+                .text("$" + i.Trillion + " T");
         })
         .on("mouseout", function() {
                 d3.select(this)
-            	    .style("fill", "violet");
+            	    .style("fill", "#93BEDF");
                 social_svg.selectAll(".hoverLabel")
                     .remove()
         })
 
 
-           // 2008 text
+        // 2008 text
         social_svg.append("text")
-            .attr("x", 230)
+            .attr("x", 220)
             .attr("y", 40)
             .attr("class", "label")
             .text("Stock Market Crash")
         social_svg.append("text")
-            .attr("x", 273)
+            .attr("x", 270)
             .attr("y", 60)
             .attr("class", "label")
             .text("(2008)")
         social_svg.append('line')
-            .attr('x1', 300)
+            .attr('x1', 290)
             .attr('y1', 70)
-            .attr('x2', 300)
-            .attr('y2', 110)
-        social_svg.append('line')
-            .attr('x1', 300)
-            .attr('y1', 110)
-            .attr('x2', 310)
-            .attr('y2', 110)  
-        social_svg.append('line')
-            .attr('x1', 310)
-            .attr('y1', 110)
-            .attr('x2', 310)
-            .attr('y2', 135)
+            .attr('x2', 290)
+            .attr('y2', 271)
 
-
-        // trade war text
-        social_svg.append("text")
-            .attr("x", 730)
-            .attr("y", -30)
-            .attr("class", "label")
-            .text("Trade War Begins")
-        social_svg.append("text")
-            .attr("x", 760)
-            .attr("y", -10)
-            .attr("class", "label")
-            .text("(2018)")
-        social_svg.append('line')
-            .attr('x1', 820)
-            .attr('y1', -20)
-            .attr('x2', 820)
-            .attr('y2', 23)
-    
         // fiscal cliff text
         social_svg.append("text")
-            .attr("x", 475)
-            .attr("y", 10)
+            .attr("x", 470)
+            .attr("y", 40)
             .attr("class", "label")
             .text("Fiscal Cliff")
         social_svg.append("text")
-            .attr("x", 475)
-            .attr("y", 30)
+            .attr("x", 485)
+            .attr("y", 60)
             .attr("class", "label")
             .text("(2012)")
         social_svg.append('line')
-            .attr('x1', 500)
-            .attr('y1', 34)
-            .attr('x2', 500)
-            .attr('y2', 85)
+            .attr('x1', 505)
+            .attr('y1', 70)
+            .attr('x2', 505)
+            .attr('y2', 227)
+
+         // trade war text
+         social_svg.append("text")
+            .attr("x", 760)
+            .attr("y", 40)
+            .attr("class", "label")
+            .text("Trade War Begins")
+        social_svg.append("text")
+            .attr("x", 800)
+            .attr("y", 60)
+            .attr("class", "label")
+            .text("(2018)")
+        social_svg.append('line')
+            .attr('x1', 822)
+            .attr('y1', 70)
+            .attr('x2', 822)
+            .attr('y2', 170)
       
             
 
