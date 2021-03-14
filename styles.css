@@ -55,3 +55,33 @@ span {
 .tooltip div {
     padding: 4px;
 }
+
+rect {
+    cursor: pointer;
+}
+
+.bcToolTip {
+    position: absolute;
+    /*font-size: 20px;*/
+    /*pointer-events: none;*/
+    background-color: #111;
+    visibility: hidden;
+    display: flex;
+    font-family: sans-serif;
+    max-width: 500px;
+    color: white;
+    padding: 4px;
+}
+
+.lolToolTip {
+    position: absolute;
+    /*font-size: 20px;*/
+    /*pointer-events: none;*/
+    background-color: #111;
+    visibility: hidden;
+    display: flex;
+    font-family: sans-serif;
+    max-width: 500px;
+    color: white;
+    padding: 4px;
+}
