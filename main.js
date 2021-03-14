@@ -18,6 +18,8 @@ let courses = []; // Array of all courses, following object specified above
 let currCourses = []; // Array of currently slotted in courses
 const currCoursesUpdated = new Event('course');
 
+let snackbar;
+
 // loadCourses() loads all WPI courses from a JSON file
 function loadCourses() {
     return fetch("courses.json")
@@ -129,6 +131,10 @@ function populateCoursesFromBanner() {
     // Disable import button
     document.getElementById("import").disabled = true;
 
+    // Show snackbar saying we are importing
+    snackbar.labelText = "Importing from Banner...";
+    snackbar.open();
+
     let user = document.getElementById("userIn").value;
     let pass = document.getElementById("passIn").value;
 
@@ -147,6 +153,7 @@ function populateCoursesFromBanner() {
         document.getElementById("import").disabled = false;
 
         // Crummy quadratic code
+        currCourses = [];
         bannerCourses.forEach(transcriptCourse => {
             for (let i = 0; i < courses.length; i++) {
                 let course = courses[i];
@@ -156,6 +163,13 @@ function populateCoursesFromBanner() {
                 }
             }
         })
+
+        snackbar.labelText = currCourses.length + " courses imported from Banner";
+        snackbar.open();
+    }).catch(e => {
+        console.log(e);
+        snackbar.labelText = "Failed to import from Banner";
+        snackbar.open();
     });
 }
 
@@ -167,6 +181,9 @@ function main() {
         initStatistics();
         mdc.autoInit();
     });
+
+    // Initialize snackbar
+    snackbar = new mdc.snackbar.MDCSnackbar(document.querySelector('.mdc-snackbar'));
 
     // Set up callback for button to import courses from Banner
     document.getElementById("import").onclick = populateCoursesFromBanner;
