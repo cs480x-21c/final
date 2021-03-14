@@ -28,6 +28,8 @@ def main(function,overwrite_old):
         meta_flatten()
     elif  function=="unique_songs":
         unique_songs()
+    elif function=="meta_add":
+        meta_add()
     else:
         assert False, f"failed to run function {function}"
     
@@ -120,7 +122,13 @@ def unique_songs():
     print("Length: " + str(uniqueSongs.size ))
     uniqueSongs.to_csv("Datasets/unique_songs.csv")
 
+def meta_add():
+    print( "Adding metadata to unique songs")
+    uniqueSongs = pd.read_csv("Datasets/unique_songs.csv")
+    print(uniqueSongs.columns)
+    metaData = pd.read_csv("Datasets/flat_meta.csv")
 
+    print(metaData.columns)
 
 
 def parser():
@@ -129,7 +137,7 @@ def parser():
         "--function",
         type=str,
         required= True,
-        choices=["scrape","stitch","flatten","meta_scrape","meta_flatten", "unique_songs"],
+        choices=["scrape","stitch","flatten","meta_scrape","meta_flatten", "unique_songs", "meta_add"],
         help="feature type 1 to extract, either audio, text or gps"
     )
     arg_parser.add_argument(
