@@ -13,7 +13,9 @@
 <body>
     <h1>Drug Side Effects Visualization</h1>
     <p>CS480x Final by Joshua McKeen, Suryansh Goyal, Jean-Philippe Pierre, and Remy Allegro</p>
-    <select style="width: 100%" name="sideEffects" id="SE" onchange="SideSelect(this.value)"></select>
+    <select style="width: 100%" name="sideEffects" id="SE" onchange="SideSelect(this.value)">
+        <option></option>
+    </select>
 
     <div class="svgContainer">
         <svg id="transition"></svg><br>
@@ -210,6 +212,7 @@
         $(document).ready(function() {
             $("#SE").select2({
                 placeholder: 'Choose a Side Effect',
+                allowClear: true,
                 data: sideOptions,
                 width: 'resolve' // need to override the changed default
             })
