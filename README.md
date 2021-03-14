@@ -15,11 +15,12 @@ Given the economic upheaval of the past year, our team wanted to choose a projec
 ### Data
 We sifted through multiple databases and other data sources to find the information necessary for our project. We changed courses a few times based on much data was available, how specific it was, and the points we were trying to convey to our reader. Although not all of the following data sources are represented in our final version, all of them were helpful in our research and understanding of this topic. 
 
-[links here] 
+
 <a href="https://www.sipri.org/databases/milex">SIPRI</a><br>
 <a href="https://www.oecd.org/social/expenditure.htm">OECD</a><br>
 <a href="https://www.thebalance.com/u-s-military-budget-components-challenges-growth-3306320">The Balance</a><br>
 <a href="https://www.usgovernmentrevenue.com/download">US Government Revenue</a><br>
+[add sources for treemap if different]
 
 For most of our data we had to employ some about of cleaning. This involving downloading spreadsheets or CSV files, selecting the data we wished to use, and converting into our desired format (CSV or JSON). 
 
