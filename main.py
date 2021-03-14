@@ -110,10 +110,74 @@ def flatten():
 
 def meta_scrape():
     print("running meta_scrape")
+    c_id = 'bf02bcb1126f4363b3a4a057c623d182'
+    c_secret = '6c563e24a4ff4700a2e25adc0a662d80'
 
+    birdy_uri = 'spotify:artist:2WX2uTcsvV5OnS0inACecP'
+    spotify = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials(client_id=c_id, client_secret=c_secret))
+
+
+    # Meta Data that will be harvested for each song:
+    # Top Genre, Year, BPM, Energy, Dance, loudness, liveness, valence, mode, speechiness, acousticness, instrumentalness, tempo, duration_ms
+    urlLists = []
+    metaList = {}
+    urlList = []
+    # with open('Datasets/unique_songs.json', encoding="utf8") as f:
+    #     dict= json.load(f)
+    with open("Datasets/unique_songs.csv") as f:
+        reader = csv.DictReader(f, delimiter=',')
+        for row in reader:
+            urlList.append(row['url'])
+    urltempList = urlList
+    # print(urlList)
+
+    x = 0
+    y = len( urltempList )
+
+    for i in range(x, y,100):
+        print(i)
+        trackMetas = spotify.audio_features( urltempList[x:x+100] )
+        for row in range(len(trackMetas)):
+            metaList[urltempList[x+row]]=trackMetas[row]
+        x+=100
+
+    # write song meta data to a json for further use
+    with open( 'Datasets/songMeta.json', 'w' ) as outfile:
+        json.dump( metaList, outfile )
 def meta_flatten():
     print("running meta_flatten")
+    with open('Datasets/songMeta.json', encoding="utf8") as f:
+        dict=json.load(f)
 
+
+    flatWriter = csv.writer(open('Datasets/flat_meta.csv', 'w', newline=''), delimiter=',')
+    flatWriter.writerow(["track_ref", "danceability", "energy", "key", "loudness", "mode", "speechiness", "acousticness", "instrumentalness",
+    "liveness", "valence", "tempo","type", "id", "uri", "analysis_url", "duration_ms", "time_signature"])
+    for record in dict:
+        print(dict[record])
+        if dict[record] == None:
+            continue
+        else:
+            track_ref=[record][0]
+            danceability=dict[record]['danceability']
+            energy=dict[record]['energy']
+            key=dict[record]['key']
+            loudness=dict[record]['loudness']
+            mode=dict[record]['mode']
+            speechiness=dict[record]['speechiness']
+            acousticness=dict[record]['acousticness']
+            instrumentalness=dict[record]['instrumentalness']
+            liveness=dict[record]['liveness']
+            valence=dict[record]['valence']
+            tempo=dict[record]['tempo']
+            type=dict[record]['type']
+            id=dict[record]['id']
+            uri=dict[record]['uri']
+            analysis_url=dict[record]['analysis_url']
+            duration_ms=dict[record]['duration_ms']
+            time_signature=dict[record]['time_signature']
+
+            flatWriter.writerow([track_ref,danceability,energy,key,loudness,mode,speechiness,acousticness,instrumentalness,liveness,valence,tempo,type,id,uri,analysis_url,duration_ms,time_signature])
 def unique_songs():
     print("running unique_songs")
     allSongs = pd.read_csv("Datasets/songs.csv")
