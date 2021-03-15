@@ -7,12 +7,12 @@ import subprocess
 
 def lambda_handler(event, context):
     # TODO implement
-    word = event["word"]
+    words = event["word"]
     print("test print")
-    print(word)
+    print(words)
     return {
         'statusCode': 200,
-        'body': runQuery(word),
+        'body': runQuery(words),
         'event': event
     }
 
