@@ -22,7 +22,6 @@ We sifted through multiple databases and other data sources to find the informat
 <a href="https://www.oecd.org/social/expenditure.htm">OECD</a><br>
 <a href="https://www.thebalance.com/u-s-military-budget-components-challenges-growth-3306320">The Balance</a><br>
 <a href="https://www.usgovernmentrevenue.com/download">US Government Revenue</a><br>
-[add sources for treemap if different]
 
 For most of our data we had to employ some about of cleaning. This involving downloading spreadsheets or CSV files, selecting the data we wished to use, and converting into our desired format (CSV or JSON). 
 
@@ -38,6 +37,14 @@ Next we have our section on U.S. military spending, with a bar chart and a treem
 Our next section focuses on U.S. social spending, and like the military section, contains a bar graph and a treemap. The bar chart shows the total spending of the U.S. government on social programs, such as social security, education, and healthcare. Events that significantly impacted Americans financial state, such as the 2008 stock market crash, have been donated above the years they occur, similarly to our other bar graph. This graph also made to be interactive by changing color and showing the cost per year of the bar when hovered on. To look more in-depth at the United States' social spending, we have a treemap. [Explain more abt treemap when merged in]
 
 <img src="./assets/social_bar.png" alt="social bar graph">
+
+The next section features a Treemap with an accompanying Pie chart showing the spread of military spending from the years 2017 to 2019. Users can select a year, and it will update the pie chart and treemap accordingly.
+
+<img src="./assets/treemappie.png" alt="social bar graph">
+
+The final section features an animated line graph of the U.S. military spending by year from 2000 to 2019. Clicking "Reset" will restart the animation.
+
+<img src="./assets/animatedline.png" alt="social bar graph">
 
 Code
 ---
