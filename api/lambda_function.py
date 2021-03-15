@@ -10,8 +10,10 @@ def lambda_handler(event, context):
     word = event["word"]
     return {
         'statusCode': 200,
-        'body': json.dumps(event)
+        'body': runQuery(word)
     }
+
+# TAKEN FROM https://github.com/econpy/google-ngrams
 
 corpora = dict(eng_us_2012=17, eng_us_2009=5, eng_gb_2012=18, eng_gb_2009=6,
                chi_sim_2012=23, chi_sim_2009=11, eng_2012=15, eng_2009=0,
@@ -137,11 +139,12 @@ def runQuery(argumentString):
             word_case = 'caseSensitive'
         filename = '%s-%s-%d-%d-%d-%s.csv' % (queries, corpus, startYear,
                                               endYear, smoothing, word_case)
-        if toSave:
-            for col in df.columns:
-                if '&gt;' in col:
-                    df[col.replace('&gt;', '>')] = df.pop(col)
-            df.to_csv(filename, index=False)
-            print(('Data saved to %s' % filename))
+
+        for col in df.columns:
+            if '&gt;' in col:
+                df[col.replace('&gt;', '>')] = df.pop(col)
+        return df.to_json(index=False)
+
+        print(('Data saved to %s' % filename))
         if notifyUser:
             print(warningMessage)
