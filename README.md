@@ -48,10 +48,10 @@ The final section features an animated line graph of the U.S. military spending 
 
 Code
 ---
-The majority of our code can be found in our index.html file, which is commented and organized by graph and feature. 
+The majority of our code can be found in our backend.js file, which is commented and organized by graph and feature. 
 
 ### Libraries
-We did not use any additional libraries for this project, apart from d3. [Unless you did roman?]
+We did not use any additional libraries for this project, apart from d3.
 
 ### Features
 Apart from our four visualizations, we have some additional features, many of which are included below in the achievements section.
@@ -72,8 +72,9 @@ Achievements
 ### Technical
 - Implemented a light / dark theme option using CSS and a stylized input checkbox located in the top right corner of the page (further detail and images are included in the features section)
 - Created interactive bar charts, changing colors of bars and including the amounts on each hover
-- Made a zoomable treemap to display multiple "nested" treemaps
-
+- Made a  treemap to display the scale of how much more the U.S. spends
+- Made a Treemap and Pie chart that is updated from a selection dropdown
+- Created an animated line graph that resets when "Reset" button is clicked
 
 Resources
 ---
