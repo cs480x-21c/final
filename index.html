@@ -168,6 +168,9 @@
     }
 
     function SideSelect(val){
+
+        //"Drugs" or "Side Effects"
+        let groupName = $('#SE').select2('data')[0].element.parentNode.label;
         
         if(val.length == 0) {
             goToFirstLevel();
