@@ -40,9 +40,44 @@ var projection = d3.geoMercator()
 // Data and color scale
 var data = d3.map();
 var happyData = d3.map();
+
+var happyDataCategories = ["Economy (GDP per Capita)", "Family/Social Support", "Health (Life Expectancy)",
+                            "Freedom", "Trust (Government Corruption)", "Generosity"]
+
 var colorScale = d3.scaleThreshold()
   .domain([100000, 1000000, 10000000, 30000000, 100000000, 500000000])
   .range(d3.schemeBlues[7]);
+
+
+//setup second svg and scale
+var svg2 = d3.select("#viz2")
+    .attr("width", 400)
+    .attr("height", 400);
+
+var rScale = d3.scaleLinear()
+    .domain(0, 10)
+    .range(0, 150);
+
+for (let i = 5; i > 0; i--) {
+    svg2.append("circle")
+        .attr("cx", 200)
+        .attr("cy", 200)
+        .attr("r", i*30)
+        .attr("fill", "white")
+        .attr("stroke", "black")
+}
+
+for (let i = 0; i < 6; i++) {
+    connectedX = 200 + (150 * Math.sin(Math.PI*i/3));
+    connectedY = 200 - (150 * Math.cos(Math.PI*i/3));
+
+    svg2.append("line")
+        .attr("x1", 200)
+        .attr("y1", 200)
+        .attr("x2", connectedX)
+        .attr("y2", connectedY)
+        .attr("stroke", "black")
+}
 
 // Load external data and boot
 d3.queue()
@@ -56,27 +91,78 @@ d3.queue()
 
 function ready(error, topo) {
   let mouseOver = function(d) {
-    console.log(d)
-    console.log(d.info)
+    console.log(d);
+    console.log(d.info);
     d3.selectAll(".Country")
-      .style("opacity", .5)
+      .style("opacity", .5);
     d3.select(this)
       .style("opacity", 1)
-      .style("stroke", "black")
+      .style("stroke", "black");
 
     d3.select("#CountryName")
-      .text(d.properties.name)
+      .text(d.properties.name);
+
+    country = countryListAlpha3[d.id];
+    countryData = happyData.get(d.id);
+    console.log(countryData[3])
+
+      for (let i = 0; i < 6; i++) {
+
+
+          cX = 200 + (15 * Math.sin(Math.PI*i/3));
+          cY = 200 + (-15 * Math.cos(Math.PI*i/3));
+
+          svg2.append("circle")
+            .attr("r", 5)
+            .attr("cx", cX)
+            .attr("cy", cY)
+            .attr("fill", "CornflowerBlue")
+            .attr("stroke", "black")
+      }
 
     d3.select("#Population")
-      .text(d.total)
-  }
+      .text(d.total);
+  };
 
   let mouseLeave = function(d) {
     d3.selectAll(".Country")
-      .style("opacity", .8)
+      .style("opacity", .8);
     d3.select(this)
-      .style("stroke", "transparent")
-  }
+      .style("stroke", "transparent");
+  };
+
+  //parse data and normalize for graph
+    maxCat1 = 0;
+    maxCat2 = 0;
+    maxCat3 = 0;
+    maxCat4 = 0;
+    maxCat5 = 0;
+    maxCat6 = 0;
+    for (let i = 0; i < happyData.values().length; i++) {
+        console.log(happyData.values()[i]);
+        for (let j = 0; j < happyData.values()[i].length; j++) {
+            console.log(happyData.values()[i][j]);
+            console.log(happyData.values()[i][j].Generosity);
+            if(happyData.values()[i][j].Generosity > maxCat1){
+                maxcat1 = happyData.values()[i][j].Generosity;
+            }
+            if(happyData.values()[i][j].Generosity > maxCat2){
+                maxcat1 = happyData.values()[i][j].Generosity;
+            }
+            if(happyData.values()[i][j].Generosity > maxCat3){
+                maxcat1 = happyData.values()[i][j].Generosity;
+            }
+            if(happyData.values()[i][j].Generosity > maxCat4){
+                maxcat1 = happyData.values()[i][j].Generosity;
+            }
+            if(happyData.values()[i][j].Generosity > maxCat5){
+                maxcat1 = happyData.values()[i][j].Generosity;
+            }
+            if(happyData.values()[i][j].Generosity > maxCat6){
+                maxcat1 = happyData.values()[i][j].Generosity;
+            }
+        }
+    }
 
   // Draw the map
   svg.append("g")
