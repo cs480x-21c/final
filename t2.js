@@ -64,6 +64,11 @@ function parseSortFilter(data, impFilter, aggFilter) {
 }
 
 
+function validNextLayer(aggLevel, aggFilter) {
+	return aggLevel < 3 && Object.keys(parseSortFilter(_aggData[aggLevel+1], true, aggFilter)[0]).length > 1
+}
+
+
 function buildChart(aggLevel, impFilter, aggFilter) {
 	var margin = {top: 60, right: 250, bottom: 50, left: 70},
    	width = 1000 - margin.left - margin.right,
@@ -133,18 +138,18 @@ function buildChart(aggLevel, impFilter, aggFilter) {
 		.data(stack)
 		.enter()
 		.append("path")
-			.attr("class", "myArea")
+			.attr("class", d => "myArea" + (validNextLayer(aggLevel, d.key) ? ' pointer' : ''))
 			.attr('id', d => 'area_'+d.key)
 			.style("fill", d => color(d.key))
 			.attr("d", area)
 			//.attr('stroke-width', 0.5)
 			//.attr('stroke', '#252525')
-			.on('mouseover', (d, i) => highlight(d, i.key))
+			.on('mouseover', (d, i) =>	highlight(d, i.key))
 			.on('mouseout', (d, i) => noHighlight(d, i.key))
 			.on('click', function(d, i) {
-				if (aggLevel < 3 && Object.keys(parseSortFilter(_aggData[aggLevel+1], true, i.key)[0]).length > 1) {
+				if (validNextLayer(aggLevel, i.key)) {
 					buildChart(aggLevel+1, impFilter, i.key)
-				}
+				} 
 			})
 			.on('contextmenu', function(d, i) {
 				d.preventDefault();
@@ -159,7 +164,7 @@ function buildChart(aggLevel, impFilter, aggFilter) {
    //		.call(brush);
 
 	var highlight = function(d, i){
-   	// reduce opacity of all groups
+		// reduce opacity of all groups
    	d3.selectAll(".myArea,.legendBox,.legendText").style("opacity", .25)
 		// expect the one that is hovered
    	d3.selectAll("#area_"+i+',#legBox_'+i+',#legText_'+i).style("opacity", 1)
@@ -180,13 +185,13 @@ function buildChart(aggLevel, impFilter, aggFilter) {
    		.attr("y", (d,i) => 10 + i*(size+5)) // 100 is where the first dot appears. 25 is the distance between dots
    		.attr("width", size)
    		.attr("height", size)
-			.attr('class', 'legendBox')
+			.attr('class', d => 'legendBox' + (validNextLayer(aggLevel, d) ? ' pointer' : ''))
 			.attr('id', d => 'legBox_'+d)
    		.style("fill", d => color(d))
    		.on("mouseover", highlight)
    		.on("mouseleave", noHighlight)
 			.on('click', function(d,i) {
-				if (aggLevel < 3 && Object.keys(parseSortFilter(_aggData[aggLevel+1], true, i)[0]).length > 1) {
+				if (validNextLayer(aggLevel, i)) {
 					buildChart(aggLevel+1, impFilter, i)
 				}
 			})
@@ -204,7 +209,7 @@ function buildChart(aggLevel, impFilter, aggFilter) {
       .append("text")
       	.attr("x", width + margin.right/20 + size*1.2)
       	.attr("y", (d,i) => 10 + i*(size+5) + (size/2)) // 100 is where the first dot appears. 25 is the distance between dots
-			.attr('class', 'legendText')
+			.attr('class', d => 'legendText' + (validNextLayer(aggLevel, d) ? ' pointer' : ''))
 			.attr('id', d => 'legText_'+d)
       	.style("fill", d => color(d))
       	.text(d => _sicTable[d])
@@ -213,7 +218,7 @@ function buildChart(aggLevel, impFilter, aggFilter) {
       	.on("mouseover", highlight)
       	.on("mouseleave", noHighlight)
 			.on('click', function(d,i) {
-				if (aggLevel < 3 && Object.keys(parseSortFilter(_aggData[aggLevel+1], true, i)[0]).length > 1) {
+				if (validNextLayer(aggLevel, i)) {
 					buildChart(aggLevel+1, impFilter, i)
 				}
 			})
@@ -221,6 +226,8 @@ function buildChart(aggLevel, impFilter, aggFilter) {
 				d.preventDefault();
 				if (aggLevel > 0) {
 					buildChart(aggLevel-1, impFilter, i.substring(0,i.length-2))
+				} else {
+
 				}
 			})
 
