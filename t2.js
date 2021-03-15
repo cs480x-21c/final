@@ -159,8 +159,7 @@ function buildChart(aggLevel, impFilter, aggFilter) {
 			.attr('stroke-width', 0.5)
 			.attr('stroke', '#252525')
 			.on('click', function(d, i) {
-				if (aggLevel < 4) {
-					console.log(i)
+				if (aggLevel < 3 && Object.keys(parseSortFilter(aggData[aggLevel+1], true, i.key)[0]).length > 1) {
 					buildChart(aggLevel+1, true, i.key)
 				}
 			})
