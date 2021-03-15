@@ -5,6 +5,7 @@
     <script src="https://d3js.org/d3.v6.min.js"></script>
     <script src="backend.js"></script>
     <script src="json/militaryJson.js"></script>
+    <script src="json/socialJson.js"></script>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Lato&family=Shippori+Mincho:wght@400;600;800&display=swap" rel="stylesheet">    <title>Final</title>
@@ -397,23 +398,21 @@
         .style("text-anchor", "middle")
         .text("Total Social Spending in Trillions (USD)")
 
-    d3.csv('/csv/social-data.csv').then(function(data){
-
-        // bar chart
-        var barchart = social_svg.selectAll("bar")
-            .data(data)
-            .enter().append("rect")
+    social_svg.selectAll("bar")
+        .data(socialData)
+        .enter()
+        .append("rect")
             .attr("class", "bar")
             .style("fill", "#93BEDF")
-            .attr("x", function(d) { return social_x(d.Year); })
+            .attr("x", function(d) { return social_x(d.year); })
             .attr("width", social_x.bandwidth())
-            .attr("y", function(d) { return social_y(d.Trillion); })
-            .attr("height", function(d) { return height - social_y(d.Trillion); })
+            .attr("y", function(d) { return social_y(d.trillion); })
+            .attr("height", function(d) { return height - social_y(d.trillion); })
             .on("mouseover", function(d, i) {
                 d3.select(this)
             	    .style("fill", "#6EAF73");
                 social_svg.append("text")
-                .attr("x", social_x(i.Year))
+                .attr("x", social_x(i.year))
                 .attr("y", 490)
                 .attr("class", "hoverLabel")
                 .style("fill", function(d) {
@@ -422,7 +421,7 @@
                 })
                 .style("font-size", "14px")
                 .style("font-weight", "bold")
-                .text("$" + i.Trillion + " T");
+                .text("$" + i.trillion + " T");
         })
         .on("mouseout", function() {
                 d3.select(this)
@@ -430,7 +429,6 @@
                 social_svg.selectAll(".hoverLabel")
                     .remove()
         })
-
 
         // 2008 text
         social_svg.append("text")
@@ -482,7 +480,7 @@
             .attr('y1', 70)
             .attr('x2', 822)
             .attr('y2', 170)
-    })
+    // })
 
     /*** Light / Dark Slider ***/
     var slider = document.getElementById("sliderId")
