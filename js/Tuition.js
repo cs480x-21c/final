@@ -108,7 +108,8 @@
                 d3.select(this).style("fill", "#1100ff");
                 var div = document.getElementById("tuitionTextDiv");
                 div.innerHTML += d.Year + "<br>";
-                div.innerHTML += "Tuition and Fees: $" + (d.TF * 1000).toLocaleString("en") + "<br>";
+                div.innerHTML += "Tuition and Fees: $" + (d.TF * 1000).toLocaleString("en") + "<br>" + "Total students: " +
+                    d.TS + "<br>";
             })
             .on('mouseout', function (d) {
                 d3.select(this).style("fill", "#b8b3ff");
