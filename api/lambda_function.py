@@ -18,13 +18,6 @@ def lambda_handler(event, context):
 
 # TAKEN FROM https://github.com/zslwyuan/google-ngrams
 
-from ast import literal_eval
-from pandas import DataFrame  # http://github.com/pydata/pandas
-import re
-import requests               # http://github.com/kennethreitz/requests
-import subprocess
-import sys
-
 corpora = dict(eng_us_2012=17, eng_us_2009=5, eng_us_2019=28,
                eng_gb_2012=18, eng_gb_2009=6, eng_gb_2019=26,
                chi_sim_2019=34, chi_sim_2012=23, chi_sim_2009=11,
