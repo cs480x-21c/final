@@ -161,11 +161,13 @@
         d3.json('Datasets/Master_JSON.json')
     ]).then(([countries, cities, weeks, master]) => {
         master_json = master
-        console.log(master)
+        console.log(master_json)
+
         createTimeline(weeks)
         createMap(countries, cities)
     })
 
+    console.log(master_json)
     function createTimeline(weeks){
         // var timeline = d3.select("#timeline")
         // console.log(weeks)
@@ -184,9 +186,10 @@
             });
     }
 
-    function createMap(countries, cities) {
+    function createMap(countries, cities, master_json) {
         console.log(countries)
         console.log(cities)
+        console.log(master_json)
 
         var proj = d3.geoMercator()
             .translate([250, 250])
