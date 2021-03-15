@@ -97,8 +97,8 @@ function main(){
         d3.select("#svgTreemap").remove();
 
         let margin = {top: 10, right: 10, bottom: 10, left: 10},
-            width = 845 - margin.left - margin.right,
-            height = 845 - margin.top - margin.bottom;
+            width = 745 - margin.left - margin.right,
+            height = 645 - margin.top - margin.bottom;
 
         // append the svg object to the body of the page
         let svg = d3.select("#treemap")

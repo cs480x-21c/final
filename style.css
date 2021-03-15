@@ -68,17 +68,11 @@ line {
     margin-bottom: 20px;
 }
 
-#treemap {
-    width: 500px;
-}
-
-#piechart {
-    width: 400px;
-}
-
 .treePieDiv {
     display: flex;
-
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;    
 }
 
 .switchLabel {
