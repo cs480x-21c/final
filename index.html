@@ -9,7 +9,7 @@
 </head>
 
 <div id="Intro"></div>
-<svg class="svg" id="svg"></svg>
+<div class="svgdiv" id="TLNAsvgDiv"></div>
 <div class="textbox" id="textBox"></div>
 
 <body>
@@ -21,13 +21,13 @@
 
 
     var margin = { top: 20, right: 20, bottom: 80, left: 100 },
-        width = 500 - margin.left - margin.right,
+        width = 800 - margin.left - margin.right,
         height = 500 - margin.top - margin.bottom;
 
     var xScale = d3.scaleBand().range([0, width]).padding(0.4),
         yScale = d3.scaleLinear().range([height, 0]);
 
-    var svg = d3.select("#svg")
+    var svg = d3.select("#TLNAsvgDiv")
         .append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
