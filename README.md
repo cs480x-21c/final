@@ -31,7 +31,13 @@ Our project website contains many sections. First, we felt it was important to c
 
 Next we have our section on U.S. military spending, with a bar chart and a treemap. The bar chart shows data on the total military spending from 2003 - 2021 (2021 projected). Important events are denoted to give the user an informed idea of global events that impacted spending, and to clarify the y-values, the cost of each year is displayed under the x-axis when that bar is hovered on. To take a further look into U.S. budget, we have our tree map. [Explain more abt treemap when merged in]
 
+<img src="./assets/military_bar.png" alt="military bar graph">
+
+
 Our next section focuses on U.S. social spending, and like the military section, contains a bar graph and a treemap. The bar chart shows the total spending of the U.S. government on social programs, such as social security, education, and healthcare. Events that significantly impacted American's financial state, such as the 2008 stock market crash, have been donated above the years they occur similarly to our other bar graph. This graph also made to be interactive by changing color and showing the cost per year of the bar when hovered on. To look more in-depth at the United States' social spending, we have a treemap. [Explain more abt treemap when merged in]
+
+<img src="./assets/social_bar.png" alt="social bar graph">
+
 
 Code
 ---
@@ -43,7 +49,9 @@ We did not use any additional libraries for this project, apart from d3. [Unless
 ### Features
 Apart from our four visualizations, we have some additional features, many of which are included below in the achievements section.
 
-First, we have an optional light / dark theme, which users can toggle using the switch in the upper right corner. These themes, which are true to our color palette, allow the user to interact with our site in a unique way, and includes a gentle CSS transition. All parts of this page comply to selected theme, including the d3 elements. 
+First, we have an optional light / dark theme, which users can toggle using the switch in the upper right corner. These themes, which are true to our color palette, allow the user to interact with our site in a unique way, and includes a gentle CSS transition. All parts of this page comply to selected theme, including the d3 elements. Below are examples of this light/dark option. 
+<img src="./assets/light.png" alt="light theme" style="width: 48%">
+<img src="./assets/dark.png" alt="dark theme" style="width: 48%">
 
 [Add more as we add in features, if any] 
 
@@ -52,6 +60,7 @@ Achievements
 ---
 ### Design
 - Consistently used a color scheme appropriate to the subject matter, as researched with resource 1
+<img src="./assets/color.png" alt="color scheme">
 
 ### Technical
 - Implemented a light / dark theme option using CSS and a stylized input checkbox located in the top right corner of the page
