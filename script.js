@@ -15,7 +15,7 @@ function buildScatter(data) {
 			left: 60}
 	}
 
-	var svg = d3.select('body').select('#scatter')
+	var svg = d3.select('body').select('#chart')
 		.attr('width', dim.width + dim.margin.left + dim.margin.right)
 		.attr('height', dim.height + dim.margin.top + dim.margin.bottom)
 		.append("g")
@@ -30,7 +30,7 @@ function buildScatter(data) {
 		.call(d3.axisBottom(x))
 
 	var y = d3.scaleLinear()
-		.domain([d3.min(data.map(d => parseInt(d.TradeValueK))), d3.max(data.map(d => parseInt(d.TradeValueK)))])
+		.domain([d3.min(data.map(d => parseInt(d.TradeValueK))), d3.max(data.map(d => parseInt(d.TradeValueK)))]) //d3.extent?
 		.range([dim.height, 0])
 	svg.append('g')
 		.call(d3.axisLeft(y))
