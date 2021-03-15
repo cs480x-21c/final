@@ -229,7 +229,7 @@ function buildChart(aggLevel, impFilter, aggFilter) {
 	// AXES
 	svg.append('g')
 		.attr("transform", "translate(0," + height + ")")
-		.call(d3.axisBottom(x).ticks(5))
+		.call(d3.axisBottom(x))
 	
 	svg.append("text")
 		.attr("text-anchor", "end")
@@ -238,7 +238,7 @@ function buildChart(aggLevel, impFilter, aggFilter) {
 		.text("Time (year)");
 	
 	svg.append("g")
-		.call(d3.axisLeft(y).ticks(5))
+		.call(d3.axisLeft(y).ticks(7))
 	
 	svg.append("text")
 		.attr("text-anchor", "end")
