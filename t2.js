@@ -61,7 +61,7 @@ function parseSortFilter(data, impFilter, aggFilter) {
 
 
 function buildChart(aggLevel, impFilter, aggFilter) {
-	var margin = {top: 60, right: 230, bottom: 50, left: 70},
+	var margin = {top: 60, right: 100, bottom: 50, left: 70},
    	width = 800 - margin.left - margin.right,
    	height = 400 - margin.top - margin.bottom;
 
@@ -88,39 +88,17 @@ function buildChart(aggLevel, impFilter, aggFilter) {
 
 	var color = d3.scaleOrdinal()
 		.domain(keys)
-		.range(d3.schemeCategory10)
+		.range(d3.schemeTableau10)
 
 	//ref: https://www.d3-graph-gallery.com/graph/stackedarea_template.html
 	var x = d3.scaleLinear()
 		.domain(d3.extent(data, d => d.Year))
 		.range([0, width])
 	
-	var xAxis = svg.append('g')
-		.attr("transform", "translate(0," + height + ")")
-		.call(d3.axisBottom(x).ticks(5))
-
-	svg.append("text")
-      .attr("text-anchor", "end")
-      .attr("x", width)
-      .attr("y", height+40 )
-      .text("Time (year)");
-
-
-
 	var y = d3.scaleLinear()
 		.domain([0, d3.max(flattenStack(stack))]) 
 		.range([height, 0]);
-	svg.append("g")
-		.call(d3.axisLeft(y).ticks(5))
 
-	svg.append("text")
-      .attr("text-anchor", "end")
-      .attr("x", -65)
-      .attr("y", -20 )
-      .text("Thousand Dollars")
-      .attr("text-anchor", "start")
-
-	
 	
 	// Add a clipPath: everything out of this area won't be drawn.
 	var clip = svg.append("defs").append("svg:clipPath")
@@ -151,11 +129,12 @@ function buildChart(aggLevel, impFilter, aggFilter) {
 		.data(stack)
 		.enter()
 		.append("path")
-			.attr("class", d => "myArea " + d.key)
+			.attr("class", "myArea")
+			.attr('id', d => 'area_'+d.key)
 			.style("fill", d => color(d.key))
 			.attr("d", area)
-			.attr('stroke-width', 0.5)
-			.attr('stroke', '#252525')
+			//.attr('stroke-width', 0.5)
+			//.attr('stroke', '#252525')
 			.on('click', function(d, i) {
 				if (aggLevel < 3 && Object.keys(parseSortFilter(aggData[aggLevel+1], true, i.key)[0]).length > 1) {
 					buildChart(aggLevel+1, impFilter, i.key)
@@ -172,4 +151,67 @@ function buildChart(aggLevel, impFilter, aggFilter) {
 	//areaChart.append("g")
    //		.attr("class", "brush")
    //		.call(brush);
+
+	// What to do when one group is hovered
+	var highlight = function(d, i){
+   	// reduce opacity of all groups
+   	d3.selectAll(".myArea").style("opacity", .25)
+   	// expect the one that is hovered
+   	d3.select("#area_"+i).style("opacity", 1)
+   }
+
+    // And when it is not hovered anymore
+   var noHighlight = function() {
+   	d3.selectAll(".myArea").style("opacity", 1)
+   }
+
+
+	 // Add one dot in the legend for each name.
+   var size = 20
+   svg.selectAll("myrect")
+   	.data(keys)
+   	.enter()
+   	.append("rect")
+   		.attr("x", width + margin.right/4)
+   		.attr("y", (d,i) => 10 + i*(size+5)) // 100 is where the first dot appears. 25 is the distance between dots
+   		.attr("width", size)
+   		.attr("height", size)
+   		.style("fill", d => color(d))
+   		.on("mouseover", highlight)
+   		.on("mouseleave", noHighlight)
+
+   // Add one dot in the legend for each name.
+   svg.selectAll("mylabels")
+      .data(keys)
+      .enter()
+      .append("text")
+      	.attr("x", width + margin.right/4 + size*1.2)
+      	.attr("y", (d,i) => 10 + i*(size+5) + (size/2)) // 100 is where the first dot appears. 25 is the distance between dots
+      	.style("fill", d => color(d))
+      	.text(d => d)
+      	.attr("text-anchor", "left")
+      	.style("alignment-baseline", "middle")
+      	.on("mouseover", highlight)
+      	.on("mouseleave", noHighlight)
+
+
+	svg.append('g')
+		.attr("transform", "translate(0," + height + ")")
+		.call(d3.axisBottom(x).ticks(5))
+	
+	svg.append("text")
+		.attr("text-anchor", "end")
+		.attr("x", width)
+		.attr("y", height+40 )
+		.text("Time (year)");
+	
+	svg.append("g")
+		.call(d3.axisLeft(y).ticks(5))
+	
+	svg.append("text")
+		.attr("text-anchor", "end")
+		.attr("x", -65)
+		.attr("y", -20 )
+		.text("Thousand Dollars")
+		.attr("text-anchor", "start")
 }
