@@ -8,11 +8,14 @@
 <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
 
 <!-- Create an element where the map will take place -->
-<svg id="viz"></svg>
-<svg id="viz2"></svg>
-<h1 id = "CountryName">TEST</h1>
-<h1 id = "Population">TEST</h1>
-
+<center><h1>WORLD HAPPINESS REPORT</h1></center>
+<center><p>HELLO<br>HELLO<br>HELLO</p></center>
+<center>
+  <a href="placeholder">Video</a>
+  <a href="placefolder">Process Book</a>
+</center>
+<center><svg id="viz"></svg></center>
+<center><svg id="viz2"></svg></center>
 
 <script>
 
@@ -63,12 +66,6 @@ function ready(error, topo) {
     d3.select(this)
       .style("opacity", 1)
       .style("stroke", "black")
-
-    d3.select("#CountryName")
-      .text(d.properties.name)
-
-    d3.select("#Population")
-      .text(d.total)
   }
 
   let mouseLeave = function(d) {
