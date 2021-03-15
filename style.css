@@ -1,32 +1,43 @@
-input{
-    position: absolute;
-    width: 618px;
-    height: 89px;
-    left: 411px;
-    top: 105px;
-    font-size:20px;
-    background: #FFFFFF;
-    border: 2px solid #000000;
-    box-sizing: border-box;
-    border-radius: 30px;
-}
-#output{
-    position: absolute;
-    width: 749px;
-    height: 222px;
-    left: 337px;
-    top: 236px;
-
-    background: #FFFFFF;
-    border: 2px solid #000000;
-    box-sizing: border-box;
-    border-radius: 30px;
-    text-align:center;
-}
-h2{
+h1{
     text-align:center;
     font-family: 'Merienda', cursive;
+    margin-top: 5%;
 }
 body{
     background-image:url('old-paper.jpg')
 }
+
+input{
+    width: 618px;
+    font-size:18px;
+    font-family: 'Merienda', cursive;
+    background: #FFFFFF;
+    border: 2px solid #000000;
+    padding:10px;
+    box-sizing: border-box;
+    border-radius: 30px;
+    margin-left:auto;
+    margin-right:auto;
+}
+form{
+    width: 618px;
+    font-size:20px;
+    padding:10px;
+    box-sizing: border-box;
+    border-radius: 30px;
+    margin-left:auto;
+    margin-right:auto;
+}
+#output{
+    font-family: 'Merienda', cursive;
+    width: 50%;
+    background: #FFFFFF;
+    border: 2px solid #000000;
+    box-sizing: border-box;
+    border-radius: 30px;
+    text-align:center;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+
