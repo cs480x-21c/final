@@ -220,11 +220,39 @@
 		
 		group.append("text")
 			.attr("y", -13)
-			.attr("x", width/2)
+			.attr("x", width/3)
 			.style("text-anchor", "middle")
 			.style("font-weight", "bold")
 			.style("font-size", "15px")
 			.text(drugName);
+		
+		//building legend
+		group.append("circle")
+			.attr("cy", -16)
+			.attr("cx", 265)
+			.attr('r', 5)
+            .style('fill', 'red')
+            .attr('stroke', 'black')
+			
+		group.append("text")
+			.attr("y", -13)
+			.attr("x", 230)
+			.style("text-anchor", "middle")
+			.text("Mean Freq.");
+			
+		group.append("circle")
+			.attr("cy", -16)
+			.attr("cx", 367)
+			.attr('r', 4)
+            .style('fill', 'steelblue')
+            .attr('stroke', 'black')
+			
+		group.append("text")
+			.attr("y", -13)
+			.attr("x", 325)
+			.style("text-anchor", "middle")
+			.text("High/Low Freq.");
+			
 
         d3.tsv("master.tsv").then(function(masterData) {
             var targetDrug = drugName // level 3
@@ -397,7 +425,7 @@
                 $('#SE').trigger('change');
             })
 			
-			//.group.select
+			
 
         })
 
