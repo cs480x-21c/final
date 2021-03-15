@@ -1,15 +1,19 @@
-var aggData = []
+var _aggData = []
+var _sicTable = {}
 
 Promise.all([
 	d3.csv('data/BrazilTradeAggregationL0.csv'),
 	d3.csv('data/BrazilTradeAggregationL1.csv'),
 	d3.csv('data/BrazilTradeAggregationL2.csv'),
-	d3.csv('data/BrazilTradeAggregationL3.csv')
-]).then(([l0, l1, l2, l3]) => {
-	aggData.push(l0,l1,l2,l3)
+	d3.csv('data/BrazilTradeAggregationL3.csv'),
+	d3.csv('data/SIC_table.csv')
+]).then(([l0, l1, l2, l3, sicTable]) => {
+	_aggData.push(l0,l1,l2,l3)
+	sicTable.forEach(d => {
+		_sicTable[d.ProductCode] = d.ProductDescription
+	})
 	buildChart(0, true, '')
 })
-
 
 
 function flattenStack(arr) {
@@ -61,8 +65,8 @@ function parseSortFilter(data, impFilter, aggFilter) {
 
 
 function buildChart(aggLevel, impFilter, aggFilter) {
-	var margin = {top: 60, right: 100, bottom: 50, left: 70},
-   	width = 800 - margin.left - margin.right,
+	var margin = {top: 60, right: 250, bottom: 50, left: 70},
+   	width = 1000 - margin.left - margin.right,
    	height = 400 - margin.top - margin.bottom;
 
 	d3.selectAll("#chart > *").remove() //to reset the SVG
@@ -75,7 +79,7 @@ function buildChart(aggLevel, impFilter, aggFilter) {
   	   	"translate(" + margin.left + "," + margin.top + ")");
 
 
-	var data = parseSortFilter(aggData[aggLevel], impFilter, aggFilter)
+	var data = parseSortFilter(_aggData[aggLevel], impFilter, aggFilter)
 	
 	var keys = Object.keys(data[0]).filter(d => d != 'Year')
 
@@ -136,7 +140,7 @@ function buildChart(aggLevel, impFilter, aggFilter) {
 			//.attr('stroke-width', 0.5)
 			//.attr('stroke', '#252525')
 			.on('click', function(d, i) {
-				if (aggLevel < 3 && Object.keys(parseSortFilter(aggData[aggLevel+1], true, i.key)[0]).length > 1) {
+				if (aggLevel < 3 && Object.keys(parseSortFilter(_aggData[aggLevel+1], true, i.key)[0]).length > 1) {
 					buildChart(aggLevel+1, impFilter, i.key)
 				}
 			})
@@ -172,7 +176,7 @@ function buildChart(aggLevel, impFilter, aggFilter) {
    	.data(keys)
    	.enter()
    	.append("rect")
-   		.attr("x", width + margin.right/4)
+   		.attr("x", width + margin.right/20)
    		.attr("y", (d,i) => 10 + i*(size+5)) // 100 is where the first dot appears. 25 is the distance between dots
    		.attr("width", size)
    		.attr("height", size)
@@ -182,7 +186,7 @@ function buildChart(aggLevel, impFilter, aggFilter) {
    		.on("mouseover", highlight)
    		.on("mouseleave", noHighlight)
 			.on('click', function(d,i) {
-				if (aggLevel < 3 && Object.keys(parseSortFilter(aggData[aggLevel+1], true, i)[0]).length > 1) {
+				if (aggLevel < 3 && Object.keys(parseSortFilter(_aggData[aggLevel+1], true, i)[0]).length > 1) {
 					buildChart(aggLevel+1, impFilter, i)
 				}
 			})
@@ -198,18 +202,18 @@ function buildChart(aggLevel, impFilter, aggFilter) {
       .data(keys)
       .enter()
       .append("text")
-      	.attr("x", width + margin.right/4 + size*1.2)
+      	.attr("x", width + margin.right/20 + size*1.2)
       	.attr("y", (d,i) => 10 + i*(size+5) + (size/2)) // 100 is where the first dot appears. 25 is the distance between dots
 			.attr('class', 'legendText')
 			.attr('id', d => 'legText_'+d)
       	.style("fill", d => color(d))
-      	.text(d => d)
+      	.text(d => _sicTable[d])
       	.attr("text-anchor", "left")
       	.style("alignment-baseline", "middle")
       	.on("mouseover", highlight)
       	.on("mouseleave", noHighlight)
 			.on('click', function(d,i) {
-				if (aggLevel < 3 && Object.keys(parseSortFilter(aggData[aggLevel+1], true, i)[0]).length > 1) {
+				if (aggLevel < 3 && Object.keys(parseSortFilter(_aggData[aggLevel+1], true, i)[0]).length > 1) {
 					buildChart(aggLevel+1, impFilter, i)
 				}
 			})
