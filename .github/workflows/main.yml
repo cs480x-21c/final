@@ -43,5 +43,5 @@ jobs:
           aws_key_id: ${{ secrets.AWS_ACCESS_KEY }}
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
           aws_bucket: philologybot
-          source_dir: 'package.zip'
+          source_dir: './package.zip'
 
