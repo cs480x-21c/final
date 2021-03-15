@@ -417,28 +417,39 @@
             filteredDrugs = filteredDrugs.slice(0,20)
 
             console.log(filteredDrugs)
+			
+			function truncateLabel(text){
+				text.each(function() {
+					seName = d3.select(this).text();
+					if(seName.length > 11){
+						seName = seName.slice(0, 11) + "...";
+					}
+					d3.select(this).text(seName);
+				})
+			}
 
             // adding x-axis
             var x = d3.scaleBand()
-            .range([ 0, width ])
-            .domain(filteredDrugs.map(function(d) { return d.Name; }))
-            .padding(0.2);
-            group.append("g")
-            .attr("transform", "translate(0," + height + ")")
-            .call(d3.axisBottom(x))
-            .selectAll("text")
-            .attr("transform", "translate(0,0)rotate(-45)")
-            .style("text-anchor", "end");
+				.range([ 0, width ])
+				.domain(filteredDrugs.map(function(d) { return d.Name; }))
+				.padding(0.2);
+				group.append("g")
+				.attr("transform", "translate(0," + height + ")")
+				.call(d3.axisBottom(x))
+				.selectAll(".tick text")
+				.call(truncateLabel)
+				.attr("transform", "translate(0,0)rotate(-45)")
+				.style("text-anchor", "end");
 
             // adding y-axis
             var y = d3.scaleLinear()
-            .domain([0, 1])
-            .range([ height, 0]);
-            group.append("g")
-            .call(d3.axisLeft(y))
-            .selectAll("text")
-            .attr("transform", "translate(-5,0)rotate(0)")
-            //.attr("text-anchor","end")
+				.domain([0, 1])
+				.range([ height, 0]);
+				group.append("g")
+				.call(d3.axisLeft(y))
+				.selectAll("text")
+				.attr("transform", "translate(-5,0)rotate(0)")
+				//.attr("text-anchor","end")
 
             // add bars
             group.selectAll("mybar")
