@@ -36,9 +36,19 @@ Our next section focuses on U.S. social spending, and like the military section,
 
 Code
 ---
-
-
 - any libraries used?
+
+
+
+Achievements
+---
+### Design
+- Consistantly ssed a color scheme appropriate to the subject matter (https://visme.co/blog/how-to-choose-a-color-scheme/)
+
+### Technical
+- Implemented a light / dark theme option using CSS and a stylized input checkbox located in the top right corner of the page
+- Created interactive bar charts, changing colors of bars and including the amounts on each hover
+- Made a zoomable treemap to display multiple "nested" treemaps
 
 
 Resources
