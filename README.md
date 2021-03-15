@@ -114,3 +114,4 @@ References
 
 - This final project is adapted from https://www.dataviscourse.net/2020/project/
 - Sorted Bar chart: https://www.d3-graph-gallery.com/graph/barplot_ordered.html
+- Interactive Bubble Chart: https://www.webtips.dev/how-to-make-interactive-bubble-charts-in-d3-js
