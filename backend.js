@@ -18,9 +18,9 @@ function main(){
     function createPieChart(selector){
         d3.select("#svgPie").remove();
 
-        let margin = {top: 100, right: 100, bottom: 10, left: 100},
+        let margin = {top: 150, right: 160, bottom: 150, left: 150},
             width = 545 - margin.left - margin.right,
-            height = 445 - margin.top - margin.bottom;
+            height = 545 - margin.top - margin.bottom;
 
         // append the svg object to the body of the page
         let svg = d3.select("#piechart")
@@ -79,14 +79,14 @@ function main(){
         arcs.append("text")
             .attr("transform",(d)=>{
                 let _d = arc.centroid(d);
-                _d[0] *= 2.3;	//multiply by a constant factor
-                _d[1] *= 2.3;	//multiply by a constant factor
+                _d[0] *= 2.5;	//multiply by a constant factor
+                _d[1] *= 2.5;	//multiply by a constant factor
                 return "translate(" + _d + ")";
             })
             .attr("dy", ".50em")
             .style("text-anchor", "middle")
             .text(function(d){
-                return d.data.country;
+                return d.data.country + " " + d.data.value;
             });
 
     }
@@ -97,7 +97,7 @@ function main(){
         d3.select("#svgTreemap").remove();
 
         let margin = {top: 10, right: 10, bottom: 10, left: 10},
-            width = 845 - margin.left - margin.right,
+            width = 1045 - margin.left - margin.right,
             height = 645 - margin.top - margin.bottom;
 
         // append the svg object to the body of the page
@@ -157,7 +157,7 @@ function main(){
                 .append("text")
                 .attr("x", function(d){ return d.x0 + 1})    // +10 to adjust position (more right)
                 .attr("y", function(d){ return d.y0 + 20})    // +20 to adjust position (lower)
-                .text(function(d){ return d.data.country + " " + d.data.spending})
+                .text(function(d){ return d.data.country + " $" + d.data.spending})
                 .attr("font-size", "10px")
                 .attr("fill", "black")
 
