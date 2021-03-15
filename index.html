@@ -301,7 +301,7 @@
             .append('circle')
             .attr('cx', d => xScale(d.SideEffectName) + xScale.bandwidth()/2)
             .attr('cy', d => yScale(d.MaxFrequency))
-            .attr('r', 5)
+            .attr('r', 4)
             .style('fill', 'steelblue')
             .attr('stroke', 'black')
             .style('cursor', 'pointer')
@@ -335,7 +335,7 @@
             .append('circle')
                 .attr('cx', d => xScale(d.SideEffectName) + xScale.bandwidth()/2 )
                 .attr('cy', d => yScale(d.MinFrequency))
-                .attr('r', 5)
+                .attr('r', 4)
                 .style('fill', 'steelblue')
                 .attr('stroke', 'black')
                 .style('cursor', 'pointer')
@@ -362,6 +362,42 @@
                 .style("left", (event.pageX) + "px")
                 .style("top", (event.pageY - 30) + "px")
             })
+			
+			group.selectAll('lolCircle3') // Mean marker
+            .data(data)
+            .enter()
+            .append('circle')
+            .attr('cx', d => xScale(d.SideEffectName) + xScale.bandwidth()/2)
+            .attr('cy', d => yScale(d.MeanFrequency))
+            .attr('r', 5)
+            .style('fill', 'red')
+            .attr('stroke', 'black')
+            .style('cursor', 'pointer')
+            .on('mouseover', (event, d) => {
+                d3.select(event.target).attr('opacity', 0.4)
+                tooltip.text(d.SideEffectName)
+                .style("left", (event.pageX) + "px")
+                .style("top", (event.pageY - 30) + "px")
+                .transition()
+                .duration(200)
+                .style('visibility','visible')
+            })
+            .on('mousemove', (event, d) => {
+                tooltip.text(d.SideEffectName)
+                .style("left", (event.pageX) + "px")
+                .style("top", (event.pageY - 30) + "px")
+            })
+            .on('mouseout', (event, d) => {
+                d3.select(event.target).attr('opacity', 1)
+                tooltip.style('visibility','hidden')
+            })
+            .on('mousedown', (event, d) => {
+                tooltip.style('visibility','hidden')
+                $('#SE').val(d.SideEffectName);
+                $('#SE').trigger('change');
+            })
+			
+			//.group.select
 
         })
 
