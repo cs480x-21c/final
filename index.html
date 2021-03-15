@@ -4,478 +4,89 @@
     <meta charset="UTF-8">
     <script src="https://d3js.org/d3.v6.min.js"></script>
     <script src="backend.js"></script>
-    <script src="json/militaryJson.js"></script>
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Lato&family=Shippori+Mincho:wght@400;600;800&display=swap" rel="stylesheet">    <title>Final</title>
+    <link rel="stylesheet" type="text/css" href="stylesheet.css">
+    <title>Final Project</title>
 </head>
 <body onload="main()">
-    <div class="titleDiv">
-        <h1>United States Spending</h1>
-        <h3>Military vs Social Programs</h3>
-    </div>
-    
-    <p>
-        Over the past 20 years, the United States has faced some of the worst economic crises in history. 
-        From the Great Recession of 2007 - 2009 to the 2020 Recession (the worst since the 
-        Great Depression [1]), Americans have been struggling. Currently, we are battling the 
-        physical, emotional, and economic toll of COVID-19. In the past year unemployment has peaked at 
-        an unprecedented 14.8% [2], and many Americans who were lucky enough to survive a COVID infection 
-        (and some family members whose loved ones did not) have been plunged into medical debt, even with
-        private insurance [3].
-    </p>
-    <p>
-        Despite these struggles, the United States has seen its budget become increasingly militarized. 
-        The US is the largest military spender in the world, larger than the next 10 highest spenders 
-        combined [4]. Within the military budget itself, programs such as Veterans Affairs is dwarfed by spending
-        by the Department of Defense and overseas contingency operations (OCO). The OCO, which includes 
-        the cost of wars, has spent over $2 trillion financing the War on Terror [5]: a war which is conservatively
-        estimated to have displaced 37 million people and left over 800,000 dead [6]. 
-    </p>
+<div class="titleDiv">
+    <h1>United States Spending</h1>
+    <h3>Military vs Social Programs</h3>
+</div>
 
-    <hr/>
+<!-- <div> -->
+<label class="switch">
+    <input type="checkbox" id="sliderId">
+    <span class="slider round"></span>
+</label>
+<span class="switchLabel">Light/Dark Toggle</span>
+<!-- </div>   -->
 
-    <p>
-        Below, you can see the total military spending for the US from the past 19 years. This visualization
-        shows a distinct upwards trend, despite troop withdrawal from both Afghanistan and Iraq [7], and an 
-        announcement by President Obama in 2013 that the War on Terror was over [6]. Also note how the U.S. 
-        military budget is reactionary to external events: increasing and decreasing as necessary in response
-        to outside circumstances. 
-    </p>
+<p>
+    Over the past 20 years, the United States has faced some of the worst economic crises in history.
+    From the Great Recession of 2007 - 2009 to the 2020 Recession (the worst since the
+    Great Depression [1]), Americans have been struggling. Currently, we are battling the
+    physical, emotional, and economic toll of COVID-19. In the past year unemployment has peaked at
+    an unprecedented 14.8% [2], and many Americans who were lucky enough to survive a COVID infection
+    (and some family members whose loved ones did not) have been plunged into medical debt, even with
+    private insurance [3].
+</p>
+<p>
+    Despite these struggles, the United States has seen its budget become increasingly militarized.
+    The US is the largest military spender in the world, larger than the next 10 highest spenders
+    combined [4]. Within the military budget itself, programs such as Veterans Affairs is dwarfed by spending
+    by the Department of Defense and overseas contingency operations (OCO). The OCO, which includes
+    the cost of wars, has spent over $2 trillion financing the War on Terror [5]: a war which is conservatively
+    estimated to have displaced 37 million people and left over 800,000 dead [6].
+</p>
 
-    <div id="military_line_vis"></div>  
+<hr/>
 
-    <p>
-        Below you can see the total social spending for the US from the past 17 years. 
-        <br>[Talk abt social security (6.2% of income investopedia.com/retirement/social-security-faqs/)]<br>
-        (is the majority really just for admisinistrative costs? confused https://www.ssa.gov/budget/)<br>
+<p>
+    Below, you can see the total military spending for the US from the past 19 years. This visualization
+    shows a distinct upwards trend, despite troop withdrawal from both Afghanistan and Iraq [7], and an
+    announcement by President Obama in 2013 that the War on Terror was over [6]. Also note how the U.S.
+    military budget is reactionary to external events: increasing and decreasing as necessary in response
+    to outside circumstances.
+</p>
 
-        An important aspect to note is that unlike the military budget, which is reactionary and increases dramatically, 
-        the budget for social programs responds only to inflation. This means that despite the multiple finanical crises 
-        that have hit the United States in our lifetime, the governement does not offer additional economic support to 
-        its citizens. 
+<div id="military_line_vis"></div>
 
-        <br>[Make another point that fits in here - coporate bailouts? banks in 2008 / airplanes in 2020? ]
-    </p>
+<p>
+    Below you can see the total social spending for the US from the past 17 years. An important aspect to note
+    is that unlike the military budget, which is reactionary and increases dramatically, the budget for social
+    programs responds only to inflation. This means that despite the multiple financial crises that have hit the
+    United States in our lifetime, the government does not offer additional economic support to its citizens.
+    This is in stark contrast to the U.S. government’s history of corporate bailouts, which occur in amounts
+    of billions to trillions of dollars, and a luxury only afforded to Americans recently at the height of the
+    pandemic [8].
+</p>
 
-    <div id="social_vis"></div>  
+<div id="social_vis"></div>
 
-    <div style="margin-top: 100px;">
-        <a href="https://www.thebalance.com/the-history-of-recessions-in-the-united-states-3306011">[1]</a>
-        <a href="https://tradingeconomics.com/united-states/unemployment-rate">[2]</a>
-        <a href="https://www.bmj.com/content/370/bmj.m3097">[3]</a>
-        <a href="https://www.nationalpriorities.org/analysis/2020/militarized-budget-2020/">[4]</a>
-        <a href="https://www.thebalance.com/u-s-military-budget-components-challenges-growth-3306320">[5]</a>
-        <a href="https://en.wikipedia.org/wiki/War_on_terror#:~:text=U.S.%20President%20Barack%20Obama%20announced,the%20Obama%20administration%20announced%20the">[6]</a>
-        <a href="https://en.wikipedia.org/wiki/Withdrawal_of_U.S._troops_from_Iraq_(2020%E2%80%932021)">[7]</a>
-    </div>
+<div style="margin-top: 100px;">
+    <a href="https://www.thebalance.com/the-history-of-recessions-in-the-united-states-3306011">[1]</a>
+    <a href="https://tradingeconomics.com/united-states/unemployment-rate">[2]</a>
+    <a href="https://www.bmj.com/content/370/bmj.m3097">[3]</a>
+    <a href="https://www.nationalpriorities.org/analysis/2020/militarized-budget-2020/">[4]</a>
+    <a href="https://www.thebalance.com/u-s-military-budget-components-challenges-growth-3306320">[5]</a>
+    <a href="https://en.wikipedia.org/wiki/War_on_terror#:~:text=U.S.%20President%20Barack%20Obama%20announced,the%20Obama%20administration%20announced%20the">[6]</a>
+    <a href="https://en.wikipedia.org/wiki/Withdrawal_of_U.S._troops_from_Iraq_(2020%E2%80%932021)">[7]</a>
+    <a href="https://projects.propublica.org/bailout/list">[8]</a>
 
+</div>
+<div id="treemap" style="display: inline-block"></div>
+<div id="piechart" style="display: inline-block"></div>
+<div class="box">
+    <label for="select">Select a Year:</label>
+        <select name="select" id="select">
+            <option>2019</option>
+            <option>2018</option>
+            <option>2017</option>
+        </select>
+</div>
+<div id="linegraph"></div>
+<div>
+    <button id ="resetbutton"> Reset </button>
+</div>
 </body>
-
-
-<script>    
-    var ml_margin = {top: 10, right: 30, bottom: 60, left: 70},
-    ml_width = 1000 - ml_margin.left - ml_margin.right,
-    ml_height = 520 - ml_margin.top - ml_margin.bottom;
-
-
-    /*** Military Bar Graph ***/
-
-    // Append SVG
-    var ml_svg = d3.select("#military_line_vis")
-    .append("svg")
-        .attr("width", ml_width + ml_margin.left + ml_margin.right)
-        .attr("height", ml_height + ml_margin.top + ml_margin.bottom)
-    .append("g")
-        .attr("transform",
-            "translate(" + ml_margin.left + "," + ml_margin.top + ")");
-
-    // X axis
-    var ml_x = d3.scaleBand()
-        .domain([2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021])
-        .range([0, ml_width])
-        .paddingInner(0.1);
-    ml_svg.append("g")
-        .attr("transform", "translate(0," + ml_height + ")")
-        .call(d3.axisBottom(ml_x).tickValues([2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021]).tickFormat(d3.format("d")));
-    ml_svg.append("text")
-        .attr("x", ml_width/2)
-        .attr("y", ml_height + ml_margin.bottom)
-        .style("text-anchor", "middle")
-        .attr("class", "label")
-        .text("Years")
-
-    // Y axis
-    var ml_y = d3.scaleLinear()
-       .domain([300, 1100])
-        .range([ ml_height, 0 ]);
-    ml_svg.append("g")
-        .call(d3.axisLeft(ml_y));
-    ml_svg.append("text")
-        .attr("y", 0 - ml_margin.left)
-        .attr("x",0 - (ml_height / 2))
-        .attr("dy", "1em")
-        .attr("transform", "rotate(-90)")
-        .attr("class", "label")
-        .style("text-anchor", "middle")
-        .text("Total Military Spending in Billions (USD)")
-
-    // Bars   
-    ml_svg.selectAll("bar")
-        .data(militaryData)
-        .enter()
-        .append("rect")
-            .attr("x", function (d) { return ml_x(d.year) })
-            .attr("y", function (d) { return ml_y(d.budget) })
-            .attr("width", ml_x.bandwidth())
-            .attr("height", function(d) { return ml_height - ml_y(d.budget) })
-            .style("padding", "5px")
-            .style("fill", "#6EAF73") 
-        .on("mouseover", function(d, i) {
-            d3.select(this)
-            	.style("fill", "#93BEDF");
-            ml_svg.append("text")
-            .attr("x", ml_x(i.year))
-            .attr("y", 490)
-            .attr("class", "hoverLabel")
-            .style("font-size", "14px")
-            .style("font-weight", "bold")
-            .text("$" + i.budget + " B");
-        })
-        .on("mouseout", function() {
-            d3.select(this)
-            	.style("fill", "#6EAF73");
-            ml_svg.selectAll(".hoverLabel")
-                .remove()
-        })
-
-    // 2003 text
-    ml_svg.append("text")
-        .attr("x", 53)
-        .attr("y", 20)
-        .attr("class", "label")
-        .text("Start of")  
-    ml_svg.append("text")
-        .attr("x", 50)
-        .attr("y", 40)
-        .attr("class", "label")
-        .text("Iraq War")
-    ml_svg.append("text")
-        .attr("x", 53)
-        .attr("y", 60)
-        .attr("class", "label")
-        .text("(2003)")
-    ml_svg.append('line')
-        .attr('x1', 75)
-        .attr('y1', 70)
-        .attr('x2', 75)
-        .attr('y2', 200)
-    ml_svg.append('line')
-        .attr('x1', 75)
-        .attr('y1', 199.5)
-        .attr('x2', 19.5)
-        .attr('y2', 199.5) 
-    ml_svg.append('line')
-        .attr('x1', 20)
-        .attr('y1', 199.5)
-        .attr('x2', 20)
-        .attr('y2', 373)
-
-    // 2006 text
-    ml_svg.append("text")
-        .attr("x", 170)
-        .attr("y", 20)
-        .attr("class", "label")
-        .text("Costs rise")
-    ml_svg.append("text")
-        .attr("x", 180)
-        .attr("y", 40)
-        .attr("class", "label")
-        .text("in Iraq")
-    ml_svg.append("text")
-        .attr("x", 180)
-        .attr("y", 60)
-        .attr("class", "label")
-        .text("(2006)")
-    ml_svg.append('line')
-        .attr('x1', 200)
-        .attr('y1', 70)
-        .attr('x2', 200)
-        .attr('y2', 150)
-    ml_svg.append('line')
-        .attr('x1', 200)
-        .attr('y1', 149.5)
-        .attr('x2', 160)
-        .attr('y2', 149.5)  
-    ml_svg.append('line')
-        .attr('x1', 160.5)
-        .attr('y1', 150)
-        .attr('x2', 160.5)
-        .attr('y2', 256.5)
-
-    // 2011 text
-    ml_svg.append("text")
-        .attr("x", 295)
-        .attr("y", 40)
-        .attr("class", "label")
-        .text("Iraq War ends")
-    ml_svg.append("text")
-        .attr("x", 317)
-        .attr("y", 60)
-        .attr("class", "label")
-        .text("(2011)")
-    ml_svg.append('line')
-        .attr('x1', 335)
-        .attr('y1', 70)
-        .attr('x2', 335)
-        .attr('y2', 110)
-    ml_svg.append('line')
-        .attr('x1', 335)
-        .attr('y1', 110)
-        .attr('x2', 400)
-        .attr('y2', 110)  
-    ml_svg.append('line')
-        .attr('x1', 400)
-        .attr('y1', 110)
-        .attr('x2', 400)
-        .attr('y2', 140)
-
-    // 2012 text
-    ml_svg.append("text")
-        .attr("x", 455)
-        .attr("y", 20)
-        .attr("class", "label")
-        .text("Troop withdrawal in")
-    ml_svg.append("text")
-        .attr("x", 465)
-        .attr("y", 40)
-        .attr("class", "label")
-        .text("Afghanistan War")
-    ml_svg.append("text")
-        .attr("x", 495)
-        .attr("y", 60)
-        .attr("class", "label")
-        .text("(2012)")
-    ml_svg.append('line')
-        .attr('x1', 515)
-        .attr('y1', 70)
-        .attr('x2', 515)
-        .attr('y2', 130)
-    ml_svg.append('line')
-        .attr('x1', 515)
-        .attr('y1', 130)
-        .attr('x2', 450)
-        .attr('y2', 130) 
-    ml_svg.append('line')
-        .attr('x1', 450)
-        .attr('y1', 130)
-        .attr('x2', 450)
-        .attr('y2', 160)
-
-    // 2016 text
-    ml_svg.append("text")
-        .attr("x", 635)
-        .attr("y", 20)
-        .attr("class", "label")
-        .text("Resurgence")
-    ml_svg.append("text")
-        .attr("x", 646)
-        .attr("y", 40)
-        .attr("class", "label")
-        .text("of ISIS")
-    ml_svg.append("text")
-        .attr("x", 647)
-        .attr("y", 60)
-        .attr("class", "label")
-        .text("(2016)")
-    ml_svg.append('line')
-        .attr('x1', 665)
-        .attr('y1', 70)
-        .attr('x2', 665)
-        .attr('y2', 120)
-    ml_svg.append('line')
-        .attr('x1', 665)
-        .attr('y1', 120)
-        .attr('x2', 640)
-        .attr('y2', 120)  
-    ml_svg.append('line')
-        .attr('x1', 640)
-        .attr('y1', 120)
-        .attr('x2', 640)
-        .attr('y2', 188)
-
-    // 2018 text
-    ml_svg.append("text")
-        .attr("x", 775)
-        .attr("y", 20)
-        .attr("class", "label")
-        .text("Trump requests")
-    ml_svg.append("text")
-        .attr("x", 765)
-        .attr("y", 40)
-        .attr("class", "label")
-        .text("a spending increase")
-    ml_svg.append("text")
-        .attr("x", 800)
-        .attr("y", 60)
-        .attr("class", "label")
-        .text("(2018)")
-    ml_svg.append('line')
-        .attr('x1', 820)
-        .attr('y1', 70)
-        .attr('x2', 820)
-        .attr('y2', 80)
-    ml_svg.append('line')
-        .attr('x1', 820)
-        .attr('y1', 80)
-        .attr('x2', 735)
-        .attr('y2', 80)  
-    ml_svg.append('line')
-        .attr('x1', 735)
-        .attr('y1', 80)
-        .attr('x2', 735)
-        .attr('y2', 120)
-
-
-
-    /*** Social Bar Graph ***/
-    var margin = {top: 10, right: 30, bottom: 60, left: 70},
-    width = 1000 - margin.left - margin.right,
-    height = 520 - margin.top - margin.bottom;
-
-
-    // Append SVG
-    var social_svg = d3.select("#social_vis")
-    .append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-    .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-        
-
-    //x axis
-    var social_x = d3.scaleBand()
-        .domain([2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019])
-        .range([0, width])
-        .paddingInner(0.1);
-    social_svg.append("g")
-        .attr("transform", "translate(0," + height + ")")
-        .call(d3.axisBottom(social_x).tickValues([2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019]).tickFormat(d3.format("d")));
-
-    social_svg.append("text")
-        .attr("x", width/2)
-        .attr("y", height + margin.bottom)
-        .style("text-anchor", "middle")
-        .attr("class", "label")
-        .text("Years")
-
-    // y axis
-    var social_y = d3.scaleLinear()
-        .domain([0, 6])
-        .range([height, 0])
-    social_svg.append("g")
-        .call(d3.axisLeft(social_y).tickFormat(function(d) { return d; })
-        .tickSize(3))
-        .style("stroke-width", "1.5px")
-
-    social_svg.append("text")
-        .attr("y", 0 - margin.left)
-        .attr("x",0 - (height / 2))
-        .attr("dy", "1em")
-        .attr("transform", "rotate(-90)")
-        .attr("class", "label")
-        .style("text-anchor", "middle")
-        .text("Total Social Spending in Trillions (USD)")
-
-    d3.csv('/csv/social-data.csv').then(function(data){
-
-        // bar chart
-        var barchart = social_svg.selectAll("bar")
-            .data(data)
-            .enter().append("rect")
-            .attr("class", "bar")
-            .style("fill", "#93BEDF")
-            .attr("x", function(d) { return social_x(d.Year); })
-            .attr("width", social_x.bandwidth())
-            .attr("y", function(d) { return social_y(d.Trillion); })
-            .attr("height", function(d) { return height - social_y(d.Trillion); })
-            .on("mouseover", function(d, i) {
-                d3.select(this)
-            	    .style("fill", "#6EAF73");
-                social_svg.append("text")
-                .attr("x", social_x(i.Year))
-                .attr("y", 490)
-                .attr("class", "hoverLabel")
-                .style("font-size", "14px")
-                .style("font-weight", "bold")
-                .text("$" + i.Trillion + " T");
-        })
-        .on("mouseout", function() {
-                d3.select(this)
-            	    .style("fill", "#93BEDF");
-                social_svg.selectAll(".hoverLabel")
-                    .remove()
-        })
-
-
-        // 2008 text
-        social_svg.append("text")
-            .attr("x", 220)
-            .attr("y", 40)
-            .attr("class", "label")
-            .text("Stock Market Crash")
-        social_svg.append("text")
-            .attr("x", 270)
-            .attr("y", 60)
-            .attr("class", "label")
-            .text("(2008)")
-        social_svg.append('line')
-            .attr('x1', 290)
-            .attr('y1', 70)
-            .attr('x2', 290)
-            .attr('y2', 271)
-
-        // fiscal cliff text
-        social_svg.append("text")
-            .attr("x", 470)
-            .attr("y", 40)
-            .attr("class", "label")
-            .text("Fiscal Cliff")
-        social_svg.append("text")
-            .attr("x", 485)
-            .attr("y", 60)
-            .attr("class", "label")
-            .text("(2012)")
-        social_svg.append('line')
-            .attr('x1', 505)
-            .attr('y1', 70)
-            .attr('x2', 505)
-            .attr('y2', 227)
-
-         // trade war text
-         social_svg.append("text")
-            .attr("x", 760)
-            .attr("y", 40)
-            .attr("class", "label")
-            .text("Trade War Begins")
-        social_svg.append("text")
-            .attr("x", 800)
-            .attr("y", 60)
-            .attr("class", "label")
-            .text("(2018)")
-        social_svg.append('line')
-            .attr('x1', 822)
-            .attr('y1', 70)
-            .attr('x2', 822)
-            .attr('y2', 170)
-      
-            
-
-    })
-
-
-        
-</script>
 </html>
-
-
