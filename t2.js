@@ -7,7 +7,7 @@ Promise.all([
 	d3.csv('data/BrazilTradeAggregationL3.csv')
 ]).then(([l0, l1, l2, l3]) => {
 	aggData.push(l0,l1,l2,l3)
-	buildChart(0, true, null)
+	buildChart(0, true, '')
 })
 
 
@@ -43,16 +43,14 @@ function filterData(data, impFilter, aggFilter) { //impfilter = true gets only i
 	var workingData = JSON.parse(JSON.stringify(data.filter(d => d.TradeFlowName == (impFilter ? 'Import' : 'Export'))))
 	workingData.forEach(d => delete d.TradeFlowName); //dont need this anymore. we know what we gave it
 
-	if (aggFilter != null) { //no aggregation if aggFilter is null
-		workingData = workingData.map(d => {
-			return Object.keys(d) //https://stackoverflow.com/questions/38750705/filter-object-properties-by-key-in-es6
-				.filter(key => key.substring(0, aggFilter.length) == aggFilter || key == 'Year')
-				.reduce((obj, key) => {
-					obj[key] = d[key]
-					return obj
-				}, {})
-		})
-	}
+	workingData = workingData.map(d => {
+		return Object.keys(d) //https://stackoverflow.com/questions/38750705/filter-object-properties-by-key-in-es6
+			.filter(key => key.substring(0, aggFilter.length) == aggFilter || key == 'Year')
+			.reduce((obj, key) => {
+				obj[key] = d[key]
+				return obj
+			}, {})
+	})
 
 	return workingData
 }
@@ -160,7 +158,13 @@ function buildChart(aggLevel, impFilter, aggFilter) {
 			.attr('stroke', '#252525')
 			.on('click', function(d, i) {
 				if (aggLevel < 3 && Object.keys(parseSortFilter(aggData[aggLevel+1], true, i.key)[0]).length > 1) {
-					buildChart(aggLevel+1, true, i.key)
+					buildChart(aggLevel+1, impFilter, i.key)
+				}
+			})
+			.on('contextmenu', function(d, i) {
+				d.preventDefault();
+				if (aggLevel > 0) {
+					buildChart(aggLevel-1, impFilter, i.key.substring(0,i.key.length-2))
 				}
 			})
 
