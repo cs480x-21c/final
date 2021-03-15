@@ -258,7 +258,8 @@ def weekly_meta_calc(weeks, countries):
                     
                     # weekAverages.to_csv(outputPath + "_average_meta.csv")
         country_data.append(
-            {str(country):data}
+            {"country":country,
+            "data":data}
         )
     with open('Datasets/Master_JSON.json', 'w') as json_file:
         json.dump(country_data, json_file) 
