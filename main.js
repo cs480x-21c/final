@@ -30,6 +30,26 @@ function loadData() {
         .then(response => response.json())
         .then(data => {
             courses = data["courses"];
+
+            // Janky credit hour transformation
+            for (let i = 0; i < courses.length; i++) {
+                let course = courses[i];
+
+                // Use regex to extract numbers from credit hours
+                let numbers = course.credits.match(/[+-]?([0-9]*[.])?[0-9]+/g);
+
+                if (numbers === null) {
+                    // Default to 3 credit hours
+                    course.credits = 3;
+
+                } else {
+                    // Convert strings to numbers
+                    numbers.map(num => parseFloat(num));
+
+                    // Set credit hours of course equal to the highest number we found in the credit string
+                    course.credits = numbers.sort((a, b) => (b - a))[0];
+                }
+            }
         });
 
     let p1 = fetch("cstracking.json")
@@ -63,31 +83,61 @@ function drawTreeMap() {
             "translate(" + TREEMAP_MARGINS.LEFT + "," + TREEMAP_MARGINS.TOP + ")");
 
     // Manipulate data to work with treemap
-    let catData = [{"name": "root", "parent": null, "value": null}];
+    let treeNodes = [{"name": "root", "parent": null, "value": null}];
     trackingCategories.forEach(val => {
-        catData.push({"name": val.name, "parent": "root", "value": val.value});
+        treeNodes.push({
+            "name": val.name,
+            "parent": "root",
+            "value": val.value
+        });
     });
+
+    // Categorize current courses
+    // TODO; Still needs logic to: *Not slot courses into full categories
+    currCourses.forEach(course => {
+        // Identify first category that we can slot this course into
+        // TODO; This is highly inefficient
+        let categories = trackingCategories.filter(cat => (cat.accepts.includes(course.department_code)));
+        let parentName;
+        if (categories === null || categories === undefined) {
+            // Use free elective category
+            parentName = "FREE";
+        } else {
+            parentName = categories[0].name;
+
+            // Subtract credits for this course from category total
+            // TODO; Also inefficient!
+            let parentNode = treeNodes.filter(node => (node.name === parentName))[0].value -= course.credits;
+        }
+
+        treeNodes.push({
+            "name": course.department_code + " " + course.code,
+            "parent": parentName,
+            "value": course.credits
+        })
+    })
 
     // Transform data to be used in tree map
     let root = d3.stratify()
         .id(d => d.name)
         .parentId(d => d.parent)
-        (catData);
+        (treeNodes)
+        .sum(d => d.value);
 
-    // Sum values to determine root leaf size
-    root.sum(d => d.value);
-
-    // Calculate tree map leaves
+    // Calculate tree map
     d3.treemap()
         .size([width, height])
         .padding(4)
+        .paddingTop(16)
+        .round(true)
         (root);
 
-    // Add rectangles to tree map
+    // Draw category boxes
     svg.selectAll("g")
-        .data(root.leaves())
+        .data(root.children)
         .enter()
         .append("rect")
+        .filter(d => (d.depth === 1))
         .attr("x", d => d.x0)
         .attr("y", d => d.y0)
         .attr("width", d => d.x1 - d.x0)
@@ -95,15 +145,63 @@ function drawTreeMap() {
         .style("stroke", "black")
         .style("fill", "none");
 
-    // Add text labels to tree map
+    // Draw course boxes
     svg.selectAll("g")
         .data(root.leaves())
         .enter()
+        .append("rect")
+        .filter(d => (d.depth === 2))
+        .attr("x", d => d.x0)
+        .attr("y", d => d.y0)
+        .attr("width", d => d.x1 - d.x0)
+        .attr("height", d => d.y1 - d.y0)
+        .style("stroke", "black")
+        .style("fill", "none");
+
+    // Add category text labels to tree map
+    svg.selectAll("g")
+        .data(root.descendants())
+        .enter()
         .append("text")
+        .filter(d => (d.depth === 1))
         .attr("x", d => (d.x0 + d.x1) / 2)
-        .attr("y", d => (d.y0 + d.y1) / 2)
+        .attr("y", d => d.y0 + 2)
         .attr("text-anchor", "middle")
+        .attr("dominant-baseline", "hanging")
         .text(d => d.data.name);
+
+    // Add course text labels to tree map
+    new d3plus.TextBox()
+        .data(root.descendants().filter(d => d.depth === 2).map(d => {
+            return {
+                text: d.data.name,
+                x: d.x0,
+                y: d.y0,
+                width: d.x1 - d.x0,
+                height: d.y1 - d.y0
+            }
+        }))
+        .fontSize(16)
+        .width(d => d.width)
+        .height(d => d.height)
+        .x(d => d.x)
+        .y(d => d.y)
+        .textAnchor("middle")
+        .verticalAlign("middle")
+        .select(svg.node())
+        .render();
+    /*
+    svg.selectAll("g")
+        .data(root.descendants())
+        .enter()
+        .append("text")
+        .filter(d => (d.depth === 2))
+        .attr("x", d => d.x0)
+        .attr("y", d => d.y0)
+        .attr("width", d => d.x1 - d.x0)
+        .attr("height", d => d.y1 - d.y0)
+        .attr("text-anchor", "middle")
+        .text(d => d.data.name);*/
 }
 
 // initCourseCatalog() sets up the course catalog
@@ -238,6 +336,9 @@ function populateCoursesFromBanner() {
 
         snackbar.labelText = currCourses.length + " courses imported from Banner";
         snackbar.open();
+
+        // Fire event to indicate that currently slotted in courses have been updated
+        document.dispatchEvent(currCoursesUpdated);
     }).catch(e => {
         console.log(e);
         snackbar.labelText = "Failed to import from Banner";
@@ -270,4 +371,7 @@ function main() {
             populateCoursesFromBanner();
         }
     }
+
+    // Set up callback to redraw treemap when current courses are updated
+    document.addEventListener("course", e => drawTreeMap());
 }

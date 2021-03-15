@@ -2,35 +2,91 @@
   "categories": [
     {
       "name": "HUA",
-      "value": 18
+      "value": 18,
+      "accepts": [
+        "AR",
+        "TH",
+        "MU",
+        "AB",
+        "CN",
+        "EN",
+        "GN",
+        "SP",
+        "WR",
+        "RH",
+        "HI",
+        "HU",
+        "INTL",
+        "PY",
+        "RE"
+      ]
     },
     {
       "name": "PE",
-      "value": 3
+      "value": 3,
+      "accepts": [
+        "PE"
+      ]
     },
     {
       "name": "SS",
-      "value": 6
+      "value": 6,
+      "accepts": [
+        "ECON",
+        "ENV",
+        "GOV",
+        "PSY",
+        "SD",
+        "SOC",
+        "SS",
+        "STS",
+        "ID"
+      ]
     },
     {
       "name": "IQP",
-      "value": 9
-    },
-    {
-      "name": "FREE",
-      "value": 9
+      "value": 9,
+      "accepts": [
+        "IQP"
+      ]
     },
     {
       "name": "CS",
-      "value": 54
+      "value": 54,
+      "accepts": [
+        "CS"
+      ]
     },
     {
       "name": "MA",
-      "value": 21
+      "value": 21,
+      "accepts": [
+        "MA"
+      ]
     },
     {
       "name": "SCI",
-      "value": 15
+      "value": 15,
+      "accepts": [
+        "BB",
+        "BME",
+        "CE",
+        "CH",
+        "CHE",
+        "ECE",
+        "ES",
+        "GE",
+        "ME",
+        "PH",
+        "RBE"
+      ]
+    },
+    {
+      "name": "FREE",
+      "value": 9,
+      "accepts": [
+        "*"
+      ]
     }
   ]
 }

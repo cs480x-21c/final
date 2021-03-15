@@ -15,6 +15,9 @@
     <!-- d3 -->
     <script src="https://d3js.org/d3.v6.js"></script>
 
+    <!-- d3plus, used for text wrapping -->
+    <script src="https://cdn.jsdelivr.net/npm/d3plus@2"></script>
+
     <!-- Main JavaScript Source -->
     <script src="main.js"></script>
 </head>
@@ -35,8 +38,8 @@
                     <input class="mdc-text-field__input" type="password" aria-labelledby="passLbl" id="passIn">
                     <span class="mdc-line-ripple"></span>
                 </label>
-                <button class="mdc-button mdc-button--raised">
-                    <span class="mdc-button__label" id="import">Import</span>
+                <button class="mdc-button mdc-button--raised" id="import">
+                    <span class="mdc-button__label">Import</span>
                 </button>
             </div>
             <div id="treeContainer" class="mdc-card mdc-card-outlined mdc-elevation--z3"></div>
