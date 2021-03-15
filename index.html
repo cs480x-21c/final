@@ -167,15 +167,38 @@
         .attr('opacity', 1);
     }
 
+    function goToThirdLevel() {
+        let current = svgGroups[groupCursor];
+
+        //fade out the current level.
+
+        current.transition()
+            .duration(500)
+            .attr('opacity', 0);
+        current.attr('pointer-events', 'none');
+
+        //fade in the previous level.
+        groupCursor = 2;
+        current = svgGroups[groupCursor];
+
+        current.attr('pointer-events', 'auto');
+
+        current.transition()
+            .duration(500)
+            .attr('opacity', 1);
+    }
+
     function SideSelect(val){
 
         //"Drugs" or "Side Effects"
         let groupName = $('#SE').select2('data')[0].element.parentNode.label;
         
-        if(val.length == 0) {
+        if(val.length === 0) {
             goToFirstLevel();
-        } else {
+        } else if (groupName === "Side Effects") {
             initBarChart(val);
+        } else {
+            initLollipopChart(val);
         }
 
     }
@@ -389,7 +412,7 @@
     function initLollipopChart(drugName) {
 
         createLollipopChart(drugName);
-        nextLevel();
+        goToThirdLevel();
 
     }
 
@@ -525,7 +548,8 @@
             tooltip.style('visibility','hidden')
             })
             .on("mousedown",function(e,d){
-            initLollipopChart(d.Name)
+                $('#SE').val(d.Name);
+                $('#SE').trigger('change');
             })
 
         })
@@ -656,9 +680,6 @@
                 "children" : drugOptions
             }
         ];
-
-
-        //console.log(temp)
         $(document).ready(function() {
             $("#SE").select2({
                 placeholder: 'Choose a Drug or Side Effect',
