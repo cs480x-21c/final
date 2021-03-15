@@ -82,7 +82,7 @@ function buildChart(aggLevel, impFilter, aggFilter) {
 	var stack = d3.stack()
 		.keys(keys)
 		.offset(d3.stackOffsetNone)
-		.order(d3.stackOrderDescending)
+		.order(d3.stackOrderReverse)
 
 	var stack = stack(data)
 
@@ -155,14 +155,14 @@ function buildChart(aggLevel, impFilter, aggFilter) {
 	// What to do when one group is hovered
 	var highlight = function(d, i){
    	// reduce opacity of all groups
-   	d3.selectAll(".myArea").style("opacity", .25)
-   	// expect the one that is hovered
-   	d3.select("#area_"+i).style("opacity", 1)
+   	d3.selectAll(".myArea,.legendBox,.legendText").style("opacity", .25)
+		// expect the one that is hovered
+   	d3.selectAll("#area_"+i+',#legBox_'+i+',#legText_'+i).style("opacity", 1)
    }
 
     // And when it is not hovered anymore
    var noHighlight = function() {
-   	d3.selectAll(".myArea").style("opacity", 1)
+   	d3.selectAll(".myArea,.legendBox,.legendText").style("opacity", 1)
    }
 
 
@@ -176,9 +176,22 @@ function buildChart(aggLevel, impFilter, aggFilter) {
    		.attr("y", (d,i) => 10 + i*(size+5)) // 100 is where the first dot appears. 25 is the distance between dots
    		.attr("width", size)
    		.attr("height", size)
+			.attr('class', 'legendBox')
+			.attr('id', d => 'legBox_'+d)
    		.style("fill", d => color(d))
    		.on("mouseover", highlight)
    		.on("mouseleave", noHighlight)
+			.on('click', function(d,i) {
+				if (aggLevel < 3 && Object.keys(parseSortFilter(aggData[aggLevel+1], true, i)[0]).length > 1) {
+					buildChart(aggLevel+1, impFilter, i)
+				}
+			})
+			.on('contextmenu', function(d, i) {
+				d.preventDefault();
+				if (aggLevel > 0) {
+					buildChart(aggLevel-1, impFilter, i.substring(0,i.length-2))
+				}
+			})
 
    // Add one dot in the legend for each name.
    svg.selectAll("mylabels")
@@ -187,14 +200,29 @@ function buildChart(aggLevel, impFilter, aggFilter) {
       .append("text")
       	.attr("x", width + margin.right/4 + size*1.2)
       	.attr("y", (d,i) => 10 + i*(size+5) + (size/2)) // 100 is where the first dot appears. 25 is the distance between dots
+			.attr('class', 'legendText')
+			.attr('id', d => 'legText_'+d)
       	.style("fill", d => color(d))
       	.text(d => d)
       	.attr("text-anchor", "left")
       	.style("alignment-baseline", "middle")
       	.on("mouseover", highlight)
       	.on("mouseleave", noHighlight)
+			.on('click', function(d,i) {
+				if (aggLevel < 3 && Object.keys(parseSortFilter(aggData[aggLevel+1], true, i)[0]).length > 1) {
+					buildChart(aggLevel+1, impFilter, i)
+				}
+			})
+			.on('contextmenu', function(d, i) {
+				d.preventDefault();
+				if (aggLevel > 0) {
+					buildChart(aggLevel-1, impFilter, i.substring(0,i.length-2))
+				}
+			})
 
 
+
+	// AXES
 	svg.append('g')
 		.attr("transform", "translate(0," + height + ")")
 		.call(d3.axisBottom(x).ticks(5))
