@@ -14,7 +14,7 @@
 <body>
     <h1>Drug Side Effects Visualization</h1>
     <p>CS480x Final by Joshua McKeen, Suryansh Goyal, Jean-Philippe Pierre, and Remy Allegro</p>
-    <select style="width: 100%" name="sideEffects" id="SE" onchange="SideSelect(this.value)">
+    <select style="width: 80%" name="sideEffects" id="SE" onchange="SideSelect(this.value)">
         <option></option>
     </select>
 
@@ -627,47 +627,40 @@
 
     }
 
-    
-
-    var sides = [
-        {
-            id: 'enhancement',
-            text: 'enhancement'
-        },
-        {
-            id: 'bug',
-            text: 'bug'
-        },
-        {
-            id: 'duplicate',
-            text: 'duplicate'
-        },
-        {
-            id: 'invalid',
-            text: 'invalid'
-        },
-        {
-            id: 'wontfix',
-            text: 'wontfix'
-        }
-    ];
-
     async function loadValues(){
         let masterData =await d3.tsv('master.tsv');
         let sideEffects = new Set();
+        let drugs = new Set();
         for(d of masterData) {
             sideEffects.add(d.SideEffectName);
+            drugs.add(d.Name)
         }
         var sideOptions = [];
+        var drugOptions = [];
         for (let [key, value] of sideEffects.entries()) {
             sideOptions.push({id:key,text:value})
         }
+        for (let [key, value] of drugs.entries()) {
+            drugOptions.push({id:key,text:value})
+        }
+        let data = [
+            {
+                "text": "Side Effects",
+                "children" : sideOptions
+            },
+            {
+                "text": "Drugs",
+                "children" : drugOptions
+            }
+        ];
+
+
         //console.log(temp)
         $(document).ready(function() {
             $("#SE").select2({
-                placeholder: 'Choose a Side Effect',
+                placeholder: 'Choose a Drug or Side Effect',
                 allowClear: true,
-                data: sideOptions,
+                data: data,
                 width: 'resolve' // need to override the changed default
             })
     })}
