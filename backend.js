@@ -97,7 +97,7 @@ function main(){
         d3.select("#svgTreemap").remove();
 
         let margin = {top: 10, right: 10, bottom: 10, left: 10},
-            width = 745 - margin.left - margin.right,
+            width = 845 - margin.left - margin.right,
             height = 645 - margin.top - margin.bottom;
 
         // append the svg object to the body of the page
@@ -260,7 +260,7 @@ function main(){
             .attr("height", 300)
             .attr("id", "svgLine")
             .attr("width", 600);
-        const margin = { top: 0, bottom: 20, left: 30, right: 20 };
+        const margin = { top: 0, bottom: 20, left: 70, right: 20 };
         const chart = svg.append("g").attr("transform", `translate(${margin.left},0)`);
         const width = +svg.attr("width") - margin.left - margin.right;
         const height = +svg.attr("height") - margin.top - margin.bottom;
@@ -269,7 +269,7 @@ function main(){
             .attr("transform", `translate(-${margin.left},-${margin.top})`);
         
         svg.append("text")
-            .attr("x", width/2 + 15)
+            .attr("x", width/2 + 50)
             .attr("y", height + margin.bottom - 30)
             .style("text-anchor", "middle")
             .attr("class", "label")
