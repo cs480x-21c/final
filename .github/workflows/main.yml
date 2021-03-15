@@ -45,5 +45,5 @@ jobs:
           AWS_REGION: 'us-east-2'
           S3_BUCKET: philiogybot
           S3_KEY: package.zip
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
