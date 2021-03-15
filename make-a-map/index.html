@@ -1,0 +1,112 @@
+<script src="https://d3js.org/d3.v6.min.js"></script>
+<script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+
+
+
+<svg width=960 height=600>
+</svg>
+
+<div id="info">
+</div>
+
+<script>
+
+// adapted for d3v6 from book, d3js in action
+
+Promise.all([
+  d3.json('world.geojson'),
+  d3.csv('cities.csv')
+]).then( ([countries, cities]) => {
+  createMap(countries,cities)
+})
+
+function createMap(countries, cities) {
+  console.log(countries)
+  console.log(cities)
+
+  var proj = d3.geoPolyhedralWaterman()
+    .translate([250, 250])
+    .scale(120);
+
+//  var proj = d3.geoSatellite()
+//      .scale(1330)
+//      .translate([250,250])
+//      .rotate([-30.24, -31, -56])
+//      .tilt(15)
+//      .distance(1.150)
+//      .clipAngle(45);
+
+  var gpath = d3.geoPath()
+    .projection(proj);
+
+  console.log(gpath.area(countries.features[1]));
+
+  // TODO define color later
+  var ccolor = 
+    d3.scaleSequential( d3.interpolateBlues )
+    .domain( 
+      d3.extent( countries.features, d => gpath.area(d))
+      );
+
+  console.log(gpath.area(countries.features[1]));
+
+  // draw country boundaries
+
+  d3.select('svg')
+    .selectAll('path')
+    .data(countries.features)
+    .enter()
+    .append('path')
+      .attr('d', function(d) { return gpath(d); })
+      .attr('stroke-width', 1)
+      .attr('stroke', '#252525')
+      .attr('country', d => d.id)
+      .attr('fill', d => ccolor( gpath.area(d)) );
+
+    d3.select('svg')
+      .selectAll('circle')
+      .data(cities)
+      .enter()
+      .append('circle')
+      .attr('r', 3)
+      .attr('cx', d => proj([d.x, d.y])[0])
+      .attr('cy', d => proj([d.x, d.y])[1])
+      .attr('stroke-width', 1)
+      .attr('stroke', '#4F442B')
+      .attr('fill', '#FCBC34')
+      .on('mouseover', function(e, d) {
+        console.log(d);
+              d3.select('#info').text(d.label);
+            })
+
+   var mapZoom = d3.zoom()
+    .on('zoom', zoomed);
+
+  var zoomSettings = d3.zoomIdentity
+    .translate(250, 250)
+    .scale(120);
+
+  d3.select('svg')
+    .call(mapZoom)
+    .call(mapZoom.transform, zoomSettings);
+
+  function zoomed(e) {
+    proj
+      .translate([e.transform.x, e.transform.y])
+      .scale(e.transform.k);
+
+    console.log(e.transform.k);
+    if( e.transform.k > 400 ) 
+      console.log('toggle adaptive map feature');
+
+    // redraw map with new projection settings
+    d3.selectAll('path')
+      .attr('d', gpath);
+
+    d3.selectAll('circle')
+      .attr('cx', d => proj([d.x, d.y])[0])
+      .attr('cy', d => proj([d.x, d.y])[1])
+  }
+    
+}
+</script>
