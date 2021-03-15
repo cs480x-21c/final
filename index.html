@@ -31,7 +31,7 @@
                 <!--Nick will make radio buttons for modality-->
                 <script>
                     // Example code taken from http://bl.ocks.org/nikhilNathwani/5dca6c63a53934185d05
-                    var width = 160
+                    var width = 200
                     var height = 375
 
                     var svg = d3.select("#modality").append("svg")
@@ -57,7 +57,7 @@
                     var hoverColor= "#1db954"
                     var pressedColor= "#116e32"
 
-                    var labels = ['danceability', 'energy', 'loudness', 'speachiness', 'acousticness', 'instrumentalness', 'liveness', 'valence', 'tempo'];
+                    var labels = ['danceability 💃', 'energy ⚡', 'loudness 🔊', 'speachiness 🗣️', 'acousticness 🎹', 'instrumentalness 🎺', 'liveness 🎤', 'valence 😊', 'tempo 🕰️'];
 
                     // groups for each button, holding rectangle and text
                     var buttonGroups = buttons.selectAll("g.button")
@@ -83,7 +83,7 @@
                             }
                         });
 
-                    var bWidth = 130; // button width
+                    var bWidth = width - 30; // button width
                     var bHeight = 30; // button height
                     var bSpace = 10; // space between buttons
                     var x0 = 15; // x offset
@@ -109,6 +109,7 @@
                         .attr("text-anchor", "middle")
                         .attr("dominant-baseline", "central")
                         .attr("fill", "white")
+                        .style("font-size", bWidth/10 + "px")
                         .text(function(d) { return d; })
                     
                     function updateButtons(button, parent) {
