@@ -158,7 +158,12 @@ function buildChart(aggLevel, impFilter, aggFilter) {
 			.attr("d", area)
 			.attr('stroke-width', 0.5)
 			.attr('stroke', '#252525')
-			.on('click', (d, i) => buildChart(aggLevel+1, true, i.key))
+			.on('click', function(d, i) {
+				if (aggLevel < 4) {
+					console.log(i)
+					buildChart(aggLevel+1, true, i.key)
+				}
+			})
 
 	// Add the brushing
 	//areaChart.append("g")
