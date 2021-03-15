@@ -3,6 +3,8 @@ Final Project - Interactive Data Visualization
 
 ### Project Website
 
+https://romanwicky.github.io/final/index.html
+
 ### Screencast Video
 
 
