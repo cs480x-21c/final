@@ -8,11 +8,14 @@
 <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
 
 <!-- Create an element where the map will take place -->
-<svg id="viz"></svg>
-<svg id="viz2"></svg>
-<h1 id = "CountryName">TEST</h1>
-<h1 id = "Population">TEST</h1>
-
+<center><h1>WORLD HAPPINESS REPORT</h1></center>
+<center><p>HELLO<br>HELLO<br>HELLO</p></center>
+<center>
+  <a href="placeholder">Video</a>
+  <a href="placefolder">Process Book</a>
+</center>
+<center><svg id="viz"></svg></center>
+<center><svg id="viz2"></svg></center>
 
 <script>
 
@@ -102,67 +105,97 @@ function ready(error, topo) {
     d3.select("#CountryName")
       .text(d.properties.name);
 
-    country = countryListAlpha3[d.id];
-    countryData = happyData.get(d.id);
-    console.log(countryData[3])
-
-      for (let i = 0; i < 6; i++) {
-
-
-          cX = 200 + (15 * Math.sin(Math.PI*i/3));
-          cY = 200 + (-15 * Math.cos(Math.PI*i/3));
-
-          svg2.append("circle")
-            .attr("r", 5)
-            .attr("cx", cX)
-            .attr("cy", cY)
-            .attr("fill", "CornflowerBlue")
-            .attr("stroke", "black")
-      }
-
     d3.select("#Population")
       .text(d.total);
+
+    d3.selectAll("circle").each(function(m, n) {
+        if(d3.select(this).attr("country") === "true"){
+            d3.select(this).remove();
+        }
+    })
+
+      if (d.info !== null) {
+          countryDataYear = d.info[d.info.length - 1]
+          // console.log(countryData[countryData.length-1])
+
+          for (let i = 0; i < 6; i++) {
+              var column;
+              var maxCat;
+
+              if (i === 0) {
+                  column = countryDataYear.Economy_GDP_per_Capita;
+                  maxCat = maxCat1;
+              } else if (i === 1) {
+                  column = countryDataYear.Family_Social_Support;
+                  maxCat = maxCat2;
+              } else if (i === 2) {
+                  column = countryDataYear.Health_Life_Expectancy;
+                  maxCat = maxCat3;
+              } else if (i === 3) {
+                  column = countryDataYear.Freedom;
+                  maxCat = maxCat4;
+              } else if (i === 4) {
+                  column = countryDataYear.Trust__Government_Corruption;
+                  maxCat = maxCat5;
+              } else if (i === 5) {
+                  column = countryDataYear.Generosity;
+                  maxCat = maxCat6;
+              }
+
+              // console.log(maxCat);
+              // console.log(column);
+              // console.log(column/maxCat);
+
+              cX = 200 + (column / maxCat * 150 * Math.sin(Math.PI * i / 3));
+              cY = 200 - (column / maxCat * 150 * Math.cos(Math.PI * i / 3));
+
+              svg2.append("circle")
+                  .attr("r", 5)
+                  .attr("cx", cX)
+                  .attr("cy", cY)
+                  .attr("fill", "CornflowerBlue")
+                  .attr("stroke", "black")
+                  .attr("country", "true");
+          }
+      }
   };
 
-  let mouseLeave = function(d) {
-    d3.selectAll(".Country")
-      .style("opacity", .8);
-    d3.select(this)
-      .style("stroke", "transparent");
-  };
+    let mouseLeave = function(d) {
+        d3.selectAll(".Country")
+            .style("opacity", .8);
+        d3.select(this)
+            .style("stroke", "transparent");
+    };
 
-  //parse data and normalize for graph
-    maxCat1 = 0;
-    maxCat2 = 0;
-    maxCat3 = 0;
-    maxCat4 = 0;
-    maxCat5 = 0;
-    maxCat6 = 0;
+    //parse data and normalize for graph using data from year 2019
     for (let i = 0; i < happyData.values().length; i++) {
-        console.log(happyData.values()[i]);
-        for (let j = 0; j < happyData.values()[i].length; j++) {
-            console.log(happyData.values()[i][j]);
-            console.log(happyData.values()[i][j].Generosity);
-            if(happyData.values()[i][j].Generosity > maxCat1){
-                maxcat1 = happyData.values()[i][j].Generosity;
+        if(happyData.values()[i][4] !== undefined) {
+            if(happyData.values()[i][4].Economy_GDP_per_Capita > maxCat1){
+                maxCat1 = happyData.values()[i][4].Economy_GDP_per_Capita;
             }
-            if(happyData.values()[i][j].Generosity > maxCat2){
-                maxcat1 = happyData.values()[i][j].Generosity;
+            if(happyData.values()[i][4].Family_Social_Support > maxCat2){
+                maxCat2 = happyData.values()[i][4].Family_Social_Support;
             }
-            if(happyData.values()[i][j].Generosity > maxCat3){
-                maxcat1 = happyData.values()[i][j].Generosity;
+            if(happyData.values()[i][4].Health_Life_Expectancy > maxCat3){
+                maxCat3 = happyData.values()[i][4].Health_Life_Expectancy;
             }
-            if(happyData.values()[i][j].Generosity > maxCat4){
-                maxcat1 = happyData.values()[i][j].Generosity;
+            if(happyData.values()[i][4].Freedom > maxCat4){
+                maxCat4 = happyData.values()[i][4].Freedom;
             }
-            if(happyData.values()[i][j].Generosity > maxCat5){
-                maxcat1 = happyData.values()[i][j].Generosity;
+            if(happyData.values()[i][4].Trust__Government_Corruption > maxCat5){
+                maxCat5 = happyData.values()[i][4].Trust__Government_Corruption;
             }
-            if(happyData.values()[i][j].Generosity > maxCat6){
-                maxcat1 = happyData.values()[i][j].Generosity;
+            if(happyData.values()[i][4].Generosity > maxCat6 && happyData.values()[i][4].Generosity !== "N/A"){
+                maxCat6 = happyData.values()[i][4].Generosity;
             }
         }
     }
+    console.log(maxCat1);
+    console.log(maxCat2);
+    console.log(maxCat3);
+    console.log(maxCat4);
+    console.log(maxCat5);
+    console.log(maxCat6);
 
   // Draw the map
   svg.append("g")
