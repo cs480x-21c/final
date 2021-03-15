@@ -38,12 +38,10 @@ jobs:
           pip3 install -r requirements.txt -t .
           zip -r ../package.zip .
 
-      - uses: yvesgurcan/deploy-lambda-function@v0.0.5
+      - uses: shallwefootball/s3-upload-action@master
         with:
-          package: package.zip
-          function-name: getOneGram
-          AWS_REGION: us-east-2
-          AWS_SECRET_ID: ${{ secrets.AWS_ACCESS_KEY }}
-          AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-
+          aws_key_id: ${{ secrets.AWS_ACCESS_KEY }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
+          aws_bucket: philologybot
+          source_dir: 'package.zip'
 
