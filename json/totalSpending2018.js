@@ -1,5 +1,8 @@
 let json2018 = [
     {
+        country: 2018
+    },
+    {
         country: "USA", 
         spending: 682.4,
         parent: 2018
