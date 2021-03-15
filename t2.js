@@ -1,11 +1,15 @@
+var aggData = []
+
 Promise.all([
+	d3.csv('data/BrazilTradeAggregationL0.csv'),
 	d3.csv('data/BrazilTradeAggregationL1.csv'),
 	d3.csv('data/BrazilTradeAggregationL2.csv'),
-	d3.csv('data/BrazilTradeAggregationL3.csv'),
-	d3.csv('data/BrazilTradeAggregationL4.csv')
-]).then(([l1, l2, l3, l4]) => {
-	buildChart(l1)
+	d3.csv('data/BrazilTradeAggregationL3.csv')
+]).then(([l0, l1, l2, l3]) => {
+	aggData.push(l0,l1,l2,l3)
+	buildChart(0, true, null)
 })
+
 
 
 function flattenStack(arr) {
@@ -21,10 +25,49 @@ function flattenStack(arr) {
 }
 
 
-function buildChart(data) {
+function parseData(data) {
+	return data.map(d => Object.keys(d)
+			.reduce((obj, key) => {
+				obj[key] = isNaN(d[key]) ? d[key] : parseFloat(d[key])
+				return obj
+			}, {})
+	)
+}
+
+function sortData(data) {
+	return data.sort((a,b) => a.Year - b.Year)
+}
+
+
+function filterData(data, impFilter, aggFilter) { //impfilter = true gets only import data, false is export data
+	var workingData = JSON.parse(JSON.stringify(data.filter(d => d.TradeFlowName == (impFilter ? 'Import' : 'Export'))))
+	workingData.forEach(d => delete d.TradeFlowName); //dont need this anymore. we know what we gave it
+
+	if (aggFilter != null) { //no aggregation if aggFilter is null
+		workingData = workingData.map(d => {
+			return Object.keys(d) //https://stackoverflow.com/questions/38750705/filter-object-properties-by-key-in-es6
+				.filter(key => key.substring(0, aggFilter.length) == aggFilter || key == 'Year')
+				.reduce((obj, key) => {
+					obj[key] = d[key]
+					return obj
+				}, {})
+		})
+	}
+
+	return workingData
+}
+
+function parseSortFilter(data, impFilter, aggFilter) {
+	return filterData(sortData(parseData(data)), impFilter, aggFilter)
+}
+
+
+function buildChart(aggLevel, impFilter, aggFilter) {
 	var margin = {top: 60, right: 230, bottom: 50, left: 70},
    	width = 800 - margin.left - margin.right,
    	height = 400 - margin.top - margin.bottom;
+
+	d3.selectAll("#chart > *").remove() //to reset the SVG
 
 	var svg = d3.select("#chart")
   		.attr("width", width + margin.left + margin.right)
@@ -34,24 +77,16 @@ function buildChart(data) {
   	   	"translate(" + margin.left + "," + margin.top + ")");
 
 
-	data = data.sort((a,b) => parseInt(a.Year) - parseInt(b.Year))
-
-	var keys = data.columns.filter(d => d != 'Year' && d != 'TradeFlowName')
+	var data = parseSortFilter(aggData[aggLevel], impFilter, aggFilter)
+	
+	var keys = Object.keys(data[0]).filter(d => d != 'Year')
 
 	var stack = d3.stack()
 		.keys(keys)
 		.offset(d3.stackOffsetNone)
 		.order(d3.stackOrderDescending)
 
-	//JSON stringify/parse is for deep copy
-	var importData = JSON.parse(JSON.stringify(data.filter(d => d.TradeFlowName == 'Import')))
-	importData.forEach(d => delete d.TradeFlowName);
-	
-	var exportData = JSON.parse(JSON.stringify(data.filter(d => d.TradeFlowName == 'Export')))
-	exportData.forEach(d => delete d.TradeFlowName);
-	
-	var importStack = stack(importData)
-	var exportStack = stack(exportData)
+	var stack = stack(data)
 
 	var color = d3.scaleOrdinal()
 		.domain(keys)
@@ -75,8 +110,8 @@ function buildChart(data) {
 
 
 	var y = d3.scaleLinear()
-		.domain([0, d3.max(flattenStack(importStack))]) 
-		.range([ height, 0 ]);
+		.domain([0, d3.max(flattenStack(stack))]) 
+		.range([height, 0]);
 	svg.append("g")
 		.call(d3.axisLeft(y).ticks(5))
 
@@ -115,12 +150,15 @@ function buildChart(data) {
 
 	// Show the areas
 	areaChart.selectAll("mylayers")
-		.data(importStack)
+		.data(stack)
 		.enter()
 		.append("path")
-		  .attr("class", d => "myArea " + d.key)
-		  .style("fill", d => color(d.key))
-		  .attr("d", area)
+			.attr("class", d => "myArea " + d.key)
+			.style("fill", d => color(d.key))
+			.attr("d", area)
+			.attr('stroke-width', 0.5)
+			.attr('stroke', '#252525')
+			.on('click', (d, i) => buildChart(aggLevel+1, true, i.key))
 
 	// Add the brushing
 	//areaChart.append("g")
