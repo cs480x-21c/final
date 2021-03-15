@@ -19,7 +19,7 @@ function main(){
         d3.select("#svgPie").remove();
 
         let margin = {top: 100, right: 100, bottom: 10, left: 100},
-            width = 945 - margin.left - margin.right,
+            width = 545 - margin.left - margin.right,
             height = 445 - margin.top - margin.bottom;
 
         // append the svg object to the body of the page

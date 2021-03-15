@@ -65,7 +65,20 @@ line {
 #social_line_vis {
     width: 700;
     padding: 10;
-    margin-bottom: 20px;;
+    margin-bottom: 20px;
+}
+
+#treemap {
+    width: 500px;
+}
+
+#piechart {
+    width: 400px;
+}
+
+.treePieDiv {
+    display: flex;
+
 }
 
 .switchLabel {
