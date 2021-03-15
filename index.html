@@ -1,125 +1,236 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>SpotypotyPy</title>
-        <!-- Load d3.js -->
-        <script src="https://d3js.org/d3.v6.min.js"></script>
 
-        <style>
-            #box{
+<head>
+    <meta charset="utf-8">
+    <title>SpotypotyPy</title>
+    <!-- Load d3.js -->
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+    <style>
+        #box {
             display: flex;
             flex-direction: row;
             /* flex-wrap: nowrap; */
         }
-        div{
+
+        div {
             border: 2px solid pink;
             width: fit-content;
             height: fit-content;
             min-width: 50;
             min-height: 50;
             margin: auto;
-            
+
         }
-        </style>
-    </head>
-    <body>
-        <h1>SpotypotyPy</h1>
-        <div id="box">
-            <div id="timeline"></div>
-            <div id="modality">
-                <!--Nick will make radio buttons for modality-->
-                <script>
-                    // Example code taken from http://bl.ocks.org/nikhilNathwani/5dca6c63a53934185d05
-                    var width = 200
-                    var height = 375
+    </style>
+</head>
 
-                    var svg = d3.select("#modality").append("svg")
-                        .attr("width", width)
-                        .attr("height", height);
+<body>
 
-                    // radio background
-                    var background = svg.append("rect")
-                        .attr("width", "100%")
-                        .attr("height", "100%")
-                        .attr("x",0)
-                        .attr("y",0)
-                        .attr("rx", 5) // rx and ry give the buttons rounded corners
-                        .attr("ry", 5)
-                        .attr("fill","#191414");
-                    
-                    // container for buttons
-                    var buttons = svg.append("g")
-                        .attr("id", "buttons");
-                    
-                    // colors for different button states 
-                    var defaultColor= "#189a46"
-                    var hoverColor= "#1db954"
-                    var pressedColor= "#116e32"
+    <h1>SpotypotyPy</h1>
+    <svg width=960 height=600>
+    </svg>
+    <div id="box">
+        <div id="timeline"></div>
+        <div id="modality">
+            <!--Nick will make radio buttons for modality-->
 
-                    var labels = ['danceability 💃', 'energy ⚡', 'loudness 🔊', 'speachiness 🗣️', 'acousticness 🎹', 'instrumentalness 🎺', 'liveness 🎤', 'valence 😊', 'tempo 🕰️'];
-
-                    // groups for each button, holding rectangle and text
-                    var buttonGroups = buttons.selectAll("g.button")
-                        .data(labels)
-                        .enter()
-                        .append("g")
-                        .style("cursor","pointer")
-                        .on("click",function(d,i) {
-                            updateButtons(d3.select(this), d3.select(this.parentNode))
-                        })
-                        .on("mouseover", function() {
-                            if (d3.select(this).select("rect").attr("fill") != pressedColor) {
-                                d3.select(this)
-                                    .select("rect")
-                                    .attr("fill",hoverColor);
-                            }
-                        })
-                        .on("mouseout", function() {
-                            if (d3.select(this).select("rect").attr("fill") != pressedColor) {
-                                d3.select(this)
-                                    .select("rect")
-                                    .attr("fill",defaultColor);
-                            }
-                        });
-
-                    var bWidth = width - 30; // button width
-                    var bHeight = 30; // button height
-                    var bSpace = 10; // space between buttons
-                    var x0 = 15; // x offset
-                    var y0 = 10; // y offset
-
-                    // adding a rect to each button group
-                    buttonGroups.append("rect")
-                        .attr("width", bWidth)
-                        .attr("height", bHeight)
-                        .attr("x", x0)
-                        .attr("y", function(d,i) { return y0 + (bHeight + bSpace) * i; })
-                        .attr("rx", 5) // rx and ry give the buttons rounded corners
-                        .attr("ry", 5)
-                        .attr("fill", defaultColor)
-
-                    // add text to each button group
-                    buttonGroups.append("text")
-                        .attr("font-family","Tahoma")
-                        .attr("y", function(d,i) {
-                            return y0 + (bHeight + bSpace) * i + bHeight/2;
-                        })
-                        .attr("x", x0 + bWidth/2)
-                        .attr("text-anchor", "middle")
-                        .attr("dominant-baseline", "central")
-                        .attr("fill", "white")
-                        .style("font-size", bWidth/10 + "px")
-                        .text(function(d) { return d; })
-                    
-                    function updateButtons(button, parent) {
-                        parent.selectAll("rect").attr("fill",defaultColor)
-                        button.select("rect").attr("fill",pressedColor)
-                    }
-                    
-                </script>
-            </div>
-            <div id="map"></div>
         </div>
-    </body>
+
+        <div id="map">
+
+
+        </div>
+    </div>
+</body>
+<script>
+    // Example code taken from http://bl.ocks.org/nikhilNathwani/5dca6c63a53934185d05
+    var width = 200
+    var height = 375
+
+    var svg = d3.select("#modality").append("svg")
+        .attr("width", width)
+        .attr("height", height);
+
+    // radio background
+    var background = svg.append("rect")
+        .attr("width", "100%")
+        .attr("height", "100%")
+        .attr("x", 0)
+        .attr("y", 0)
+        .attr("rx", 5) // rx and ry give the buttons rounded corners
+        .attr("ry", 5)
+        .attr("fill", "#191414");
+
+    // container for buttons
+    var buttons = svg.append("g")
+        .attr("id", "buttons");
+
+    // colors for different button states 
+    var defaultColor = "#189a46"
+    var hoverColor = "#1db954"
+    var pressedColor = "#116e32"
+
+    var labels = ['danceability 💃', 'energy ⚡', 'loudness 🔊', 'speachiness 🗣️', 'acousticness 🎹', 'instrumentalness 🎺', 'liveness 🎤', 'valence 😊', 'tempo 🕰️'];
+
+    // groups for each button, holding rectangle and text
+    var buttonGroups = buttons.selectAll("g.button")
+        .data(labels)
+        .enter()
+        .append("g")
+        .style("cursor", "pointer")
+        .on("click", function (d, i) {
+            updateButtons(d3.select(this), d3.select(this.parentNode))
+        })
+        .on("mouseover", function () {
+            if (d3.select(this).select("rect").attr("fill") != pressedColor) {
+                d3.select(this)
+                    .select("rect")
+                    .attr("fill", hoverColor);
+            }
+        })
+        .on("mouseout", function () {
+            if (d3.select(this).select("rect").attr("fill") != pressedColor) {
+                d3.select(this)
+                    .select("rect")
+                    .attr("fill", defaultColor);
+            }
+        });
+
+    var bWidth = width - 30; // button width
+    var bHeight = 30; // button height
+    var bSpace = 10; // space between buttons
+    var x0 = 15; // x offset
+    var y0 = 10; // y offset
+
+    // adding a rect to each button group
+    buttonGroups.append("rect")
+        .attr("width", bWidth)
+        .attr("height", bHeight)
+        .attr("x", x0)
+        .attr("y", function (d, i) { return y0 + (bHeight + bSpace) * i; })
+        .attr("rx", 5) // rx and ry give the buttons rounded corners
+        .attr("ry", 5)
+        .attr("fill", defaultColor)
+
+    // add text to each button group
+    buttonGroups.append("text")
+        .attr("font-family", "Tahoma")
+        .attr("y", function (d, i) {
+            return y0 + (bHeight + bSpace) * i + bHeight / 2;
+        })
+        .attr("x", x0 + bWidth / 2)
+        .attr("text-anchor", "middle")
+        .attr("dominant-baseline", "central")
+        .attr("fill", "white")
+        .style("font-size", bWidth / 10 + "px")
+        .text(function (d) { return d; })
+
+    function updateButtons(button, parent) {
+        parent.selectAll("rect").attr("fill", defaultColor)
+        button.select("rect").attr("fill", pressedColor)
+    }
+
+
+    // adapted for d3v6 from book, d3js in action
+
+    Promise.all([
+        d3.json('world.geojson'),
+        d3.csv('cities.csv')
+    ]).then(([countries, cities]) => {
+        createMap(countries, cities)
+    })
+
+    function createMap(countries, cities) {
+        console.log(countries)
+        console.log(cities)
+
+        var proj = d3.geoMercator()
+            .translate([250, 250])
+            .scale(120);
+
+        //  var proj = d3.geoSatellite()
+        //      .scale(1330)
+        //      .translate([250,250])
+        //      .rotate([-30.24, -31, -56])
+        //      .tilt(15)
+        //      .distance(1.150)
+        //      .clipAngle(45);
+
+        var gpath = d3.geoPath()
+            .projection(proj);
+
+        console.log(gpath.area(countries.features[1]));
+
+        // TODO define color later
+        var ccolor =
+            d3.scaleSequential(d3.interpolateBlues)
+                .domain(
+                    d3.extent(countries.features, d => gpath.area(d))
+                );
+
+        console.log(gpath.area(countries.features[1]));
+
+        // draw country boundaries
+
+        d3.select('svg')
+            .selectAll('path')
+            .data(countries.features)
+            .enter()
+            .append('path')
+            .attr('d', function (d) { return gpath(d); })
+            .attr('stroke-width', 1)
+            .attr('stroke', '#252525')
+            .attr('country', d => d.id)
+            .attr('fill', d => ccolor(gpath.area(d)));
+
+        d3.select('svg')
+            .selectAll('circle')
+            .data(cities)
+            .enter()
+            .append('circle')
+            .attr('r', 3)
+            .attr('cx', d => proj([d.x, d.y])[0])
+            .attr('cy', d => proj([d.x, d.y])[1])
+            .attr('stroke-width', 1)
+            .attr('stroke', '#4F442B')
+            .attr('fill', '#FCBC34')
+            .on('mouseover', function (e, d) {
+                console.log(d);
+                d3.select('#info').text(d.label);
+            })
+
+        var mapZoom = d3.zoom()
+            .on('zoom', zoomed);
+
+        var zoomSettings = d3.zoomIdentity
+            .translate(250, 250)
+            .scale(120);
+
+        d3.select('svg')
+            .call(mapZoom)
+            .call(mapZoom.transform, zoomSettings);
+
+        function zoomed(e) {
+            proj
+                .translate([e.transform.x, e.transform.y])
+                .scale(e.transform.k);
+
+            console.log(e.transform.k);
+            if (e.transform.k > 400)
+                console.log('toggle adaptive map feature');
+
+            // redraw map with new projection settings
+            d3.selectAll('path')
+                .attr('d', gpath);
+
+            d3.selectAll('circle')
+                .attr('cx', d => proj([d.x, d.y])[0])
+                .attr('cy', d => proj([d.x, d.y])[1])
+        }
+
+    }
+</script>
+
 </html>
