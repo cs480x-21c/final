@@ -4,10 +4,15 @@
     <meta charset="UTF-8">
     <script src="https://d3js.org/d3.v6.min.js"></script>
     <script src="backend.js"></script>
-    <link rel="stylesheet" type="text/css" href="stylesheet.css">
+    <script src="json/militaryJson.js"></script>
+    <script src="json/socialJson.js"></script>
+    <script src="json/totalSpending2017.js"></script>
+    <script src="json/totalSpending2018.js"></script>
+    <script src="json/totalSpending2019.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
     <title>Final Project</title>
 </head>
-<body onload="main()">
+<body onload="main()" id="body" class="light">
 <div class="titleDiv">
     <h1>United States Spending</h1>
     <h3>Military vs Social Programs</h3>
@@ -63,17 +68,6 @@
 
 <div id="social_vis"></div>
 
-<div style="margin-top: 100px;">
-    <a href="https://www.thebalance.com/the-history-of-recessions-in-the-united-states-3306011">[1]</a>
-    <a href="https://tradingeconomics.com/united-states/unemployment-rate">[2]</a>
-    <a href="https://www.bmj.com/content/370/bmj.m3097">[3]</a>
-    <a href="https://www.nationalpriorities.org/analysis/2020/militarized-budget-2020/">[4]</a>
-    <a href="https://www.thebalance.com/u-s-military-budget-components-challenges-growth-3306320">[5]</a>
-    <a href="https://en.wikipedia.org/wiki/War_on_terror#:~:text=U.S.%20President%20Barack%20Obama%20announced,the%20Obama%20administration%20announced%20the">[6]</a>
-    <a href="https://en.wikipedia.org/wiki/Withdrawal_of_U.S._troops_from_Iraq_(2020%E2%80%932021)">[7]</a>
-    <a href="https://projects.propublica.org/bailout/list">[8]</a>
-
-</div>
 <div id="treemap" style="display: inline-block"></div>
 <div id="piechart" style="display: inline-block"></div>
 <div class="box">
@@ -87,6 +81,17 @@
 <div id="linegraph"></div>
 <div>
     <button id ="resetbutton"> Reset </button>
+</div>
+<div style="margin-top: 100px;">
+    <a href="https://www.thebalance.com/the-history-of-recessions-in-the-united-states-3306011">[1]</a>
+    <a href="https://tradingeconomics.com/united-states/unemployment-rate">[2]</a>
+    <a href="https://www.bmj.com/content/370/bmj.m3097">[3]</a>
+    <a href="https://www.nationalpriorities.org/analysis/2020/militarized-budget-2020/">[4]</a>
+    <a href="https://www.thebalance.com/u-s-military-budget-components-challenges-growth-3306320">[5]</a>
+    <a href="https://en.wikipedia.org/wiki/War_on_terror#:~:text=U.S.%20President%20Barack%20Obama%20announced,the%20Obama%20administration%20announced%20the">[6]</a>
+    <a href="https://en.wikipedia.org/wiki/Withdrawal_of_U.S._troops_from_Iraq_(2020%E2%80%932021)">[7]</a>
+    <a href="https://projects.propublica.org/bailout/list">[8]</a>
+
 </div>
 </body>
 </html>
