@@ -1,4 +1,4 @@
-"Nomenclature","ReporterISO3","ProductCode","ReporterName","PartnerISO3","PartnerName","Year","TradeFlowName","TradeFlowCode","TradeValue in 1000 USD","Quantity","ProductDescription","QtyUnit","NetWeight in KGM"
+"Nomenclature","ReporterISO3","ProductCode","ReporterName","PartnerISO3","PartnerName","Year","TradeFlowName","TradeFlowCode","TradeValueK","Quantity","ProductDescription","QtyUnit","NetWeightKG"
 "IU","BRA","0","Brazil","USA","United States",2008,"Export",6,3837.731,2062221,"Agricultural, forestry, and fishery","Item",637283
 "IU","BRA","0","Brazil","USA","United States",2008,"Export",6,1274135.992,448581150,"Agricultural, forestry, and fishery","Kg",448581150
 "IU","BRA","0","Brazil","USA","United States",2008,"Import",5,7630.047,174721,"Agricultural, forestry, and fishery","Item",219246
@@ -2057,156 +2057,156 @@
 "IU","BRA","2","Brazil","USA","United States",2008,"Export",6,173420.566,6675824,"Manufactured commodities","Item",42199042
 "IU","BRA","2","Brazil","USA","United States",2008,"Export",6,4760704.532,4633358564,"Manufactured commodities","Kg",4633358564
 "IU","BRA","2","Brazil","USA","United States",2008,"Export",6,855557.532,3401840860,"Manufactured commodities","Liter",1384166530
-"IU","BRA","2","Brazil","USA","United States",2008,"Export",6,235823.045,902522,"Manufactured commodities","m³",425871420
+"IU","BRA","2","Brazil","USA","United States",2008,"Export",6,235823.045,902522,"Manufactured commodities","mï¿½",425871420
 "IU","BRA","2","Brazil","USA","United States",2008,"Export",6,587.358,362445,"Manufactured commodities","u  (jeu/pack)",45944
 "IU","BRA","2","Brazil","USA","United States",2008,"Import",5,15495.972,1115537,"Manufactured commodities","Area  SM",3649242
 "IU","BRA","2","Brazil","USA","United States",2008,"Import",5,100511.751,315985,"Manufactured commodities","Item",1905955
 "IU","BRA","2","Brazil","USA","United States",2008,"Import",5,8412097.765,8003470816,"Manufactured commodities","Kg",8003470816
 "IU","BRA","2","Brazil","USA","United States",2008,"Import",5,3175.204,843412,"Manufactured commodities","Liter",855519
-"IU","BRA","2","Brazil","USA","United States",2008,"Import",5,11200.41,2422558,"Manufactured commodities","m³",2605910
+"IU","BRA","2","Brazil","USA","United States",2008,"Import",5,11200.41,2422558,"Manufactured commodities","mï¿½",2605910
 "IU","BRA","2","Brazil","USA","United States",2008,"Import",5,4279.259,,"Manufactured commodities","N.Q.",121
 "IU","BRA","2","Brazil","USA","United States",2008,"Import",5,306.109,342467,"Manufactured commodities","u  (jeu/pack)",33055
 "IU","BRA","2","Brazil","USA","United States",2009,"Export",6,3230.123,1371611,"Manufactured commodities","Area  SM",578153
 "IU","BRA","2","Brazil","USA","United States",2009,"Export",6,95558.737,3184047,"Manufactured commodities","Item",28156711
 "IU","BRA","2","Brazil","USA","United States",2009,"Export",6,3691708.778,4199672354,"Manufactured commodities","Kg",4199672354
 "IU","BRA","2","Brazil","USA","United States",2009,"Export",6,157714.439,669300145,"Manufactured commodities","Liter",256035022
-"IU","BRA","2","Brazil","USA","United States",2009,"Export",6,134895.239,2245552,"Manufactured commodities","m³",293093359
+"IU","BRA","2","Brazil","USA","United States",2009,"Export",6,134895.239,2245552,"Manufactured commodities","mï¿½",293093359
 "IU","BRA","2","Brazil","USA","United States",2009,"Export",6,723.01,,"Manufactured commodities","N.Q.",58369
 "IU","BRA","2","Brazil","USA","United States",2009,"Import",5,10039.588,723636,"Manufactured commodities","Area  SM",2246417
 "IU","BRA","2","Brazil","USA","United States",2009,"Import",5,67425.665,331669,"Manufactured commodities","Item",1229729
 "IU","BRA","2","Brazil","USA","United States",2009,"Import",5,6880017.46,7871744928,"Manufactured commodities","Kg",7871744928
 "IU","BRA","2","Brazil","USA","United States",2009,"Import",5,2979.962,2029485,"Manufactured commodities","Liter",1791232
-"IU","BRA","2","Brazil","USA","United States",2009,"Import",5,15913.999,2232814,"Manufactured commodities","m³",7728807
+"IU","BRA","2","Brazil","USA","United States",2009,"Import",5,15913.999,2232814,"Manufactured commodities","mï¿½",7728807
 "IU","BRA","2","Brazil","USA","United States",2009,"Import",5,3906.224,,"Manufactured commodities","N.Q.",
 "IU","BRA","2","Brazil","USA","United States",2009,"Import",5,200.891,194635,"Manufactured commodities","u  (jeu/pack)",16702
 "IU","BRA","2","Brazil","USA","United States",2010,"Export",6,2441.762,760942,"Manufactured commodities","Area  SM",341402
 "IU","BRA","2","Brazil","USA","United States",2010,"Export",6,93564.528,2953755,"Manufactured commodities","Item",29559780
 "IU","BRA","2","Brazil","USA","United States",2010,"Export",6,4310118.774,4453633989,"Manufactured commodities","Kg",4453633989
 "IU","BRA","2","Brazil","USA","United States",2010,"Export",6,215690.696,352667511,"Manufactured commodities","Liter",282306344
-"IU","BRA","2","Brazil","USA","United States",2010,"Export",6,121646.642,511409,"Manufactured commodities","m³",210274361
+"IU","BRA","2","Brazil","USA","United States",2010,"Export",6,121646.642,511409,"Manufactured commodities","mï¿½",210274361
 "IU","BRA","2","Brazil","USA","United States",2010,"Export",6,862.679,532344,"Manufactured commodities","u  (jeu/pack)",72832
 "IU","BRA","2","Brazil","USA","United States",2010,"Import",5,14027.526,1137793,"Manufactured commodities","Area  SM",3493316
 "IU","BRA","2","Brazil","USA","United States",2010,"Import",5,73122.234,617693,"Manufactured commodities","Item",2417295
 "IU","BRA","2","Brazil","USA","United States",2010,"Import",5,8865409.715,9911646017,"Manufactured commodities","Kg",9911646017
 "IU","BRA","2","Brazil","USA","United States",2010,"Import",5,41645.232,75229719,"Manufactured commodities","Liter",59647433
-"IU","BRA","2","Brazil","USA","United States",2010,"Import",5,11208.644,1688053,"Manufactured commodities","m³",686292
+"IU","BRA","2","Brazil","USA","United States",2010,"Import",5,11208.644,1688053,"Manufactured commodities","mï¿½",686292
 "IU","BRA","2","Brazil","USA","United States",2010,"Import",5,3220.984,,"Manufactured commodities","N.Q.",
 "IU","BRA","2","Brazil","USA","United States",2010,"Import",5,190.862,178611,"Manufactured commodities","u  (jeu/pack)",18490
 "IU","BRA","2","Brazil","USA","United States",2011,"Export",6,1959.719,87026,"Manufactured commodities","Area  SM",113167
 "IU","BRA","2","Brazil","USA","United States",2011,"Export",6,94087.01,2351238,"Manufactured commodities","Item",26209402
 "IU","BRA","2","Brazil","USA","United States",2011,"Export",6,5012648.757,4374462428,"Manufactured commodities","Kg",4374462428
 "IU","BRA","2","Brazil","USA","United States",2011,"Export",6,591084.688,687751950,"Manufactured commodities","Liter",545669561
-"IU","BRA","2","Brazil","USA","United States",2011,"Export",6,106432.158,430547,"Manufactured commodities","m³",185812127
+"IU","BRA","2","Brazil","USA","United States",2011,"Export",6,106432.158,430547,"Manufactured commodities","mï¿½",185812127
 "IU","BRA","2","Brazil","USA","United States",2011,"Export",6,938.949,,"Manufactured commodities","N.Q.",74847
 "IU","BRA","2","Brazil","USA","United States",2011,"Import",5,15973.264,4659770,"Manufactured commodities","Area  SM",3841789
 "IU","BRA","2","Brazil","USA","United States",2011,"Import",5,88449.37,790003,"Manufactured commodities","Item",2853225
 "IU","BRA","2","Brazil","USA","United States",2011,"Import",5,10376871.329,9872947193,"Manufactured commodities","Kg",9872947193
 "IU","BRA","2","Brazil","USA","United States",2011,"Import",5,799743.141,1103751457,"Manufactured commodities","Liter",874790855
-"IU","BRA","2","Brazil","USA","United States",2011,"Import",5,21770.755,991420,"Manufactured commodities","m³",15128681
+"IU","BRA","2","Brazil","USA","United States",2011,"Import",5,21770.755,991420,"Manufactured commodities","mï¿½",15128681
 "IU","BRA","2","Brazil","USA","United States",2011,"Import",5,3375.552,,"Manufactured commodities","N.Q.",
 "IU","BRA","2","Brazil","USA","United States",2011,"Import",5,95.7,83956,"Manufactured commodities","u  (jeu/pack)",5357
 "IU","BRA","2","Brazil","USA","United States",2012,"Export",6,1723.139,27864,"Manufactured commodities","Area  SM",54223
 "IU","BRA","2","Brazil","USA","United States",2012,"Export",6,94111.956,2922536,"Manufactured commodities","Item",26310848
 "IU","BRA","2","Brazil","USA","United States",2012,"Export",6,4754115.706,4274767257,"Manufactured commodities","Kg",4274767257
 "IU","BRA","2","Brazil","USA","United States",2012,"Export",6,1524686.333,2060910740,"Manufactured commodities","Liter",1660576890
-"IU","BRA","2","Brazil","USA","United States",2012,"Export",6,105851.033,540260,"Manufactured commodities","m³",180557655
+"IU","BRA","2","Brazil","USA","United States",2012,"Export",6,105851.033,540260,"Manufactured commodities","mï¿½",180557655
 "IU","BRA","2","Brazil","USA","United States",2012,"Export",6,676.817,,"Manufactured commodities","N.Q.",52676
 "IU","BRA","2","Brazil","USA","United States",2012,"Import",5,15635.919,1039419,"Manufactured commodities","Area  SM",3829970
 "IU","BRA","2","Brazil","USA","United States",2012,"Import",5,76035.04,800048,"Manufactured commodities","Item",2296342
 "IU","BRA","2","Brazil","USA","United States",2012,"Import",5,10027346.961,9435876484,"Manufactured commodities","Kg",9435876484
 "IU","BRA","2","Brazil","USA","United States",2012,"Import",5,386414.775,556789120,"Manufactured commodities","Liter",439757798
-"IU","BRA","2","Brazil","USA","United States",2012,"Import",5,35897.416,1206960,"Manufactured commodities","m³",29283324
+"IU","BRA","2","Brazil","USA","United States",2012,"Import",5,35897.416,1206960,"Manufactured commodities","mï¿½",29283324
 "IU","BRA","2","Brazil","USA","United States",2012,"Import",5,3678.199,,"Manufactured commodities","N.Q.",3127
 "IU","BRA","2","Brazil","USA","United States",2012,"Import",5,53.424,32817,"Manufactured commodities","u  (jeu/pack)",2945
 "IU","BRA","2","Brazil","USA","United States",2013,"Export",6,1306.649,17223,"Manufactured commodities","Area  SM",45809
 "IU","BRA","2","Brazil","USA","United States",2013,"Export",6,105144.925,3925420,"Manufactured commodities","Item",30152231
 "IU","BRA","2","Brazil","USA","United States",2013,"Export",6,4891548.23,4425866316,"Manufactured commodities","Kg",4425866316
 "IU","BRA","2","Brazil","USA","United States",2013,"Export",6,1111275.7,1678174636,"Manufactured commodities","Liter",1328058993
-"IU","BRA","2","Brazil","USA","United States",2013,"Export",6,157122.873,728200,"Manufactured commodities","m³",262733297
+"IU","BRA","2","Brazil","USA","United States",2013,"Export",6,157122.873,728200,"Manufactured commodities","mï¿½",262733297
 "IU","BRA","2","Brazil","USA","United States",2013,"Export",6,371.335,,"Manufactured commodities","N.Q.",33140
 "IU","BRA","2","Brazil","USA","United States",2013,"Import",5,15051.303,971344,"Manufactured commodities","Area  SM",3480378
 "IU","BRA","2","Brazil","USA","United States",2013,"Import",5,81110.215,544386,"Manufactured commodities","Item",2475292
 "IU","BRA","2","Brazil","USA","United States",2013,"Import",5,11232886.673,10162200670,"Manufactured commodities","Kg",10162200670
 "IU","BRA","2","Brazil","USA","United States",2013,"Import",5,99766.839,134401995,"Manufactured commodities","Liter",106925787
-"IU","BRA","2","Brazil","USA","United States",2013,"Import",5,20961.096,2323760,"Manufactured commodities","m³",5673648
+"IU","BRA","2","Brazil","USA","United States",2013,"Import",5,20961.096,2323760,"Manufactured commodities","mï¿½",5673648
 "IU","BRA","2","Brazil","USA","United States",2013,"Import",5,5127.555,,"Manufactured commodities","N.Q.",
 "IU","BRA","2","Brazil","USA","United States",2013,"Import",5,29.718,18255,"Manufactured commodities","u  (jeu/pack)",1520
 "IU","BRA","2","Brazil","USA","United States",2014,"Export",6,1154.847,11155,"Manufactured commodities","Area  SM",25519
 "IU","BRA","2","Brazil","USA","United States",2014,"Export",6,121947.873,4205482,"Manufactured commodities","Item",37359133
 "IU","BRA","2","Brazil","USA","United States",2014,"Export",6,5095737.699,5001034205,"Manufactured commodities","Kg",5001034205
 "IU","BRA","2","Brazil","USA","United States",2014,"Export",6,496683.859,735201696,"Manufactured commodities","Liter",582782711
-"IU","BRA","2","Brazil","USA","United States",2014,"Export",6,179594.848,691291,"Manufactured commodities","m³",294741240
+"IU","BRA","2","Brazil","USA","United States",2014,"Export",6,179594.848,691291,"Manufactured commodities","mï¿½",294741240
 "IU","BRA","2","Brazil","USA","United States",2014,"Export",6,391.127,,"Manufactured commodities","N.Q.",37324
 "IU","BRA","2","Brazil","USA","United States",2014,"Import",5,13911.457,863957,"Manufactured commodities","Area  SM",3020230
 "IU","BRA","2","Brazil","USA","United States",2014,"Import",5,72807.331,736720,"Manufactured commodities","Item",2406561
 "IU","BRA","2","Brazil","USA","United States",2014,"Import",5,10958381.012,10886767673,"Manufactured commodities","Kg",10886767673
 "IU","BRA","2","Brazil","USA","United States",2014,"Import",5,224848.03,406450431,"Manufactured commodities","Liter",321890855
-"IU","BRA","2","Brazil","USA","United States",2014,"Import",5,28796.173,3144003,"Manufactured commodities","m³",13103189
+"IU","BRA","2","Brazil","USA","United States",2014,"Import",5,28796.173,3144003,"Manufactured commodities","mï¿½",13103189
 "IU","BRA","2","Brazil","USA","United States",2014,"Import",5,2747.834,,"Manufactured commodities","N.Q.",
 "IU","BRA","2","Brazil","USA","United States",2014,"Import",5,150.816,102115,"Manufactured commodities","u  (jeu/pack)",16956
 "IU","BRA","2","Brazil","USA","United States",2015,"Export",6,429.269,3170,"Manufactured commodities","Area  SM",8145
 "IU","BRA","2","Brazil","USA","United States",2015,"Export",6,134638.527,4628593,"Manufactured commodities","Item",44811442
 "IU","BRA","2","Brazil","USA","United States",2015,"Export",6,4850069.254,5194391788,"Manufactured commodities","Kg",5194391788
 "IU","BRA","2","Brazil","USA","United States",2015,"Export",6,458462.108,931553463,"Manufactured commodities","Liter",739384761
-"IU","BRA","2","Brazil","USA","United States",2015,"Export",6,232244.123,852697,"Manufactured commodities","m³",397313707
+"IU","BRA","2","Brazil","USA","United States",2015,"Export",6,232244.123,852697,"Manufactured commodities","mï¿½",397313707
 "IU","BRA","2","Brazil","USA","United States",2015,"Export",6,0.002,,"Manufactured commodities","N.Q.",1
 "IU","BRA","2","Brazil","USA","United States",2015,"Export",6,522.517,322438,"Manufactured commodities","u  (jeu/pack)",47767
 "IU","BRA","2","Brazil","USA","United States",2015,"Import",5,9543.07,614403,"Manufactured commodities","Area  SM",2043270
 "IU","BRA","2","Brazil","USA","United States",2015,"Import",5,72095.65,1170357,"Manufactured commodities","Item",1659990
 "IU","BRA","2","Brazil","USA","United States",2015,"Import",5,9358996.35,9237511887,"Manufactured commodities","Kg",9237511887
 "IU","BRA","2","Brazil","USA","United States",2015,"Import",5,271018.428,500021263,"Manufactured commodities","Liter",412463024
-"IU","BRA","2","Brazil","USA","United States",2015,"Import",5,33867.686,7284245,"Manufactured commodities","m³",13899071
+"IU","BRA","2","Brazil","USA","United States",2015,"Import",5,33867.686,7284245,"Manufactured commodities","mï¿½",13899071
 "IU","BRA","2","Brazil","USA","United States",2015,"Import",5,2596.377,,"Manufactured commodities","N.Q.",
 "IU","BRA","2","Brazil","USA","United States",2015,"Import",5,23.013,18214,"Manufactured commodities","u  (jeu/pack)",1512
 "IU","BRA","2","Brazil","USA","United States",2016,"Export",6,538.798,20676,"Manufactured commodities","Area  SM",24347
 "IU","BRA","2","Brazil","USA","United States",2016,"Export",6,142098.149,5013943,"Manufactured commodities","Item",48792191
 "IU","BRA","2","Brazil","USA","United States",2016,"Export",6,4960731.726,5770329647,"Manufactured commodities","Kg",5770330047
 "IU","BRA","2","Brazil","USA","United States",2016,"Export",6,429279.744,802943586,"Manufactured commodities","Liter",637310546
-"IU","BRA","2","Brazil","USA","United States",2016,"Export",6,300301.924,1257797,"Manufactured commodities","m³",598870151
+"IU","BRA","2","Brazil","USA","United States",2016,"Export",6,300301.924,1257797,"Manufactured commodities","mï¿½",598870151
 "IU","BRA","2","Brazil","USA","United States",2016,"Export",6,710.549,419782,"Manufactured commodities","u  (jeu/pack)",63776
 "IU","BRA","2","Brazil","USA","United States",2016,"Import",5,7397.399,470567,"Manufactured commodities","Area  SM",1537045
 "IU","BRA","2","Brazil","USA","United States",2016,"Import",5,69134.713,652165,"Manufactured commodities","Item",1142263
 "IU","BRA","2","Brazil","USA","United States",2016,"Import",5,8115902.357,9404513359,"Manufactured commodities","Kg",9404513359
 "IU","BRA","2","Brazil","USA","United States",2016,"Import",5,407896.955,834420191,"Manufactured commodities","Liter",660167794
-"IU","BRA","2","Brazil","USA","United States",2016,"Import",5,31912.886,3529519,"Manufactured commodities","m³",13126590
+"IU","BRA","2","Brazil","USA","United States",2016,"Import",5,31912.886,3529519,"Manufactured commodities","mï¿½",13126590
 "IU","BRA","2","Brazil","USA","United States",2016,"Import",5,1715.647,,"Manufactured commodities","N.Q.",
 "IU","BRA","2","Brazil","USA","United States",2016,"Import",5,4.895,2964,"Manufactured commodities","u  (jeu/pack)",343
 "IU","BRA","2","Brazil","USA","United States",2017,"Export",6,519.56,7627.54,"Manufactured commodities","Area  SM",8616
 "IU","BRA","2","Brazil","USA","United States",2017,"Export",6,165118.888,5917238.317,"Manufactured commodities","Item",53850425
 "IU","BRA","2","Brazil","USA","United States",2017,"Export",6,5468801.975,6231718502.249,"Manufactured commodities","Kg",6231662603
 "IU","BRA","2","Brazil","USA","United States",2017,"Export",6,587259.516,951027525.337,"Manufactured commodities","Liter",790589929
-"IU","BRA","2","Brazil","USA","United States",2017,"Export",6,418267.551,1662795.188,"Manufactured commodities","m³",774035347
+"IU","BRA","2","Brazil","USA","United States",2017,"Export",6,418267.551,1662795.188,"Manufactured commodities","mï¿½",774035347
 "IU","BRA","2","Brazil","USA","United States",2017,"Export",6,1151.337,0,"Manufactured commodities","N.Q.",0
 "IU","BRA","2","Brazil","USA","United States",2017,"Import",5,6237.831,638127,"Manufactured commodities","Area  SM",1452727
 "IU","BRA","2","Brazil","USA","United States",2017,"Import",5,21706.821,293063,"Manufactured commodities","Item",762813
 "IU","BRA","2","Brazil","USA","United States",2017,"Import",5,8193709.108,9796171347.76,"Manufactured commodities","Kg",5160373622
 "IU","BRA","2","Brazil","USA","United States",2017,"Import",5,924455.477,2509675932,"Manufactured commodities","Liter",1490239877
-"IU","BRA","2","Brazil","USA","United States",2017,"Import",5,11776.035,15040,"Manufactured commodities","m³",6878144
+"IU","BRA","2","Brazil","USA","United States",2017,"Import",5,11776.035,15040,"Manufactured commodities","mï¿½",6878144
 "IU","BRA","2","Brazil","USA","United States",2017,"Import",5,20386.083,0,"Manufactured commodities","N.Q.",389012
 "IU","BRA","2","Brazil","USA","United States",2017,"Import",5,0.016,6,"Manufactured commodities","Pair",
 "IU","BRA","2","Brazil","USA","United States",2018,"Export",6,1088.073,14861.25,"Manufactured commodities","Area  SM",40255
 "IU","BRA","2","Brazil","USA","United States",2018,"Export",6,215781.27,7668550.197,"Manufactured commodities","Item",74814279
 "IU","BRA","2","Brazil","USA","United States",2018,"Export",6,5790749.313,6410235922.554,"Manufactured commodities","Kg",6401719860
 "IU","BRA","2","Brazil","USA","United States",2018,"Export",6,521963.459,944520445,"Manufactured commodities","Liter",749032562
-"IU","BRA","2","Brazil","USA","United States",2018,"Export",6,506812.27,2151935.845,"Manufactured commodities","m³",870488129
+"IU","BRA","2","Brazil","USA","United States",2018,"Export",6,506812.27,2151935.845,"Manufactured commodities","mï¿½",870488129
 "IU","BRA","2","Brazil","USA","United States",2018,"Export",6,1673.186,0,"Manufactured commodities","N.Q.",9238
 "IU","BRA","2","Brazil","USA","United States",2018,"Import",5,116.102,38174,"Manufactured commodities","Area  SM",9965
 "IU","BRA","2","Brazil","USA","United States",2018,"Import",5,24672.238,302221,"Manufactured commodities","Item",561460
 "IU","BRA","2","Brazil","USA","United States",2018,"Import",5,9385378.731,10500265109.04,"Manufactured commodities","Kg",5458004427
 "IU","BRA","2","Brazil","USA","United States",2018,"Import",5,768047.229,1783124541,"Manufactured commodities","Liter",1412233494
-"IU","BRA","2","Brazil","USA","United States",2018,"Import",5,4429.899,7258,"Manufactured commodities","m³",5581782
+"IU","BRA","2","Brazil","USA","United States",2018,"Import",5,4429.899,7258,"Manufactured commodities","mï¿½",5581782
 "IU","BRA","2","Brazil","USA","United States",2018,"Import",5,32024.983,0,"Manufactured commodities","N.Q.",1583805
 "IU","BRA","2","Brazil","USA","United States",2019,"Export",6,1654.387,16539.782,"Manufactured commodities","Area  SM",90242
 "IU","BRA","2","Brazil","USA","United States",2019,"Export",6,243509.375,12133081.79,"Manufactured commodities","Item",89347061
 "IU","BRA","2","Brazil","USA","United States",2019,"Export",6,5639504.367,6590346528.231,"Manufactured commodities","Kg",6590282703
 "IU","BRA","2","Brazil","USA","United States",2019,"Export",6,642213.045,1227895967,"Manufactured commodities","Liter",974461142
-"IU","BRA","2","Brazil","USA","United States",2019,"Export",6,440846.933,2904110.489,"Manufactured commodities","m³",908640513
+"IU","BRA","2","Brazil","USA","United States",2019,"Export",6,440846.933,2904110.489,"Manufactured commodities","mï¿½",908640513
 "IU","BRA","2","Brazil","USA","United States",2019,"Export",6,664.156,0,"Manufactured commodities","N.Q.",8003
 "IU","BRA","2","Brazil","USA","United States",2019,"Import",5,202.718,3391,"Manufactured commodities","Area  SM",4285
 "IU","BRA","2","Brazil","USA","United States",2019,"Import",5,22478.837,306785,"Manufactured commodities","Item",696865
 "IU","BRA","2","Brazil","USA","United States",2019,"Import",5,9232852.31,11113086192.1,"Manufactured commodities","Kg",7503914126
 "IU","BRA","2","Brazil","USA","United States",2019,"Import",5,572410.752,1333780831,"Manufactured commodities","Liter",12316213
-"IU","BRA","2","Brazil","USA","United States",2019,"Import",5,11042.41,16865,"Manufactured commodities","m³",8549741
+"IU","BRA","2","Brazil","USA","United States",2019,"Import",5,11042.41,16865,"Manufactured commodities","mï¿½",8549741
 "IU","BRA","2","Brazil","USA","United States",2019,"Import",5,29153.72,0,"Manufactured commodities","N.Q.",370918
 "IU","BRA","20","Brazil","USA","United States",2008,"Export",6,1356749.846,905253253,"Food and kindred products","Kg",905253253
 "IU","BRA","20","Brazil","USA","United States",2008,"Export",6,854459.215,3399815086,"Food and kindred products","Liter",1382561415
@@ -5718,241 +5718,241 @@
 "IU","BRA","2399","Brazil","USA","United States",2019,"Import",5,532.692,0,"Fabricated textile products, nspf","N.Q.",0
 "IU","BRA","24","Brazil","USA","United States",2008,"Export",6,3766.659,422306,"Lumber and wood products, except fu","Item",3281667
 "IU","BRA","24","Brazil","USA","United States",2008,"Export",6,576576.192,433898344,"Lumber and wood products, except fu","Kg",433898344
-"IU","BRA","24","Brazil","USA","United States",2008,"Export",6,235806.805,902466,"Lumber and wood products, except fu","m³",425871222
+"IU","BRA","24","Brazil","USA","United States",2008,"Export",6,235806.805,902466,"Lumber and wood products, except fu","mï¿½",425871222
 "IU","BRA","24","Brazil","USA","United States",2008,"Import",5,7.315,304,"Lumber and wood products, except fu","Item",4171
 "IU","BRA","24","Brazil","USA","United States",2008,"Import",5,5374.495,841185,"Lumber and wood products, except fu","Kg",841185
-"IU","BRA","24","Brazil","USA","United States",2008,"Import",5,3680.461,16008,"Lumber and wood products, except fu","m³",2252853
+"IU","BRA","24","Brazil","USA","United States",2008,"Import",5,3680.461,16008,"Lumber and wood products, except fu","mï¿½",2252853
 "IU","BRA","24","Brazil","USA","United States",2009,"Export",6,2116.363,313010,"Lumber and wood products, except fu","Item",1771085
 "IU","BRA","24","Brazil","USA","United States",2009,"Export",6,382298.936,309575692,"Lumber and wood products, except fu","Kg",309575692
-"IU","BRA","24","Brazil","USA","United States",2009,"Export",6,134656.793,1574265,"Lumber and wood products, except fu","m³",293085076
+"IU","BRA","24","Brazil","USA","United States",2009,"Export",6,134656.793,1574265,"Lumber and wood products, except fu","mï¿½",293085076
 "IU","BRA","24","Brazil","USA","United States",2009,"Import",5,116.556,215,"Lumber and wood products, except fu","Item",17577
 "IU","BRA","24","Brazil","USA","United States",2009,"Import",5,3588.864,958994,"Lumber and wood products, except fu","Kg",958994
-"IU","BRA","24","Brazil","USA","United States",2009,"Import",5,6078.806,22035,"Lumber and wood products, except fu","m³",7260459
+"IU","BRA","24","Brazil","USA","United States",2009,"Import",5,6078.806,22035,"Lumber and wood products, except fu","mï¿½",7260459
 "IU","BRA","24","Brazil","USA","United States",2010,"Export",6,5413.456,492234,"Lumber and wood products, except fu","Item",5705073
 "IU","BRA","24","Brazil","USA","United States",2010,"Export",6,469898.779,396275834,"Lumber and wood products, except fu","Kg",396275834
-"IU","BRA","24","Brazil","USA","United States",2010,"Export",6,121044.97,415636,"Lumber and wood products, except fu","m³",210258497
+"IU","BRA","24","Brazil","USA","United States",2010,"Export",6,121044.97,415636,"Lumber and wood products, except fu","mï¿½",210258497
 "IU","BRA","24","Brazil","USA","United States",2010,"Import",5,174.146,637,"Lumber and wood products, except fu","Item",204873
 "IU","BRA","24","Brazil","USA","United States",2010,"Import",5,4431.156,981609,"Lumber and wood products, except fu","Kg",981609
-"IU","BRA","24","Brazil","USA","United States",2010,"Import",5,1247.972,52894,"Lumber and wood products, except fu","m³",323622
+"IU","BRA","24","Brazil","USA","United States",2010,"Import",5,1247.972,52894,"Lumber and wood products, except fu","mï¿½",323622
 "IU","BRA","24","Brazil","USA","United States",2011,"Export",6,4325.246,116664,"Lumber and wood products, except fu","Item",3572504
 "IU","BRA","24","Brazil","USA","United States",2011,"Export",6,425976.337,280612915,"Lumber and wood products, except fu","Kg",280612915
-"IU","BRA","24","Brazil","USA","United States",2011,"Export",6,106123.312,362840,"Lumber and wood products, except fu","m³",185801409
+"IU","BRA","24","Brazil","USA","United States",2011,"Export",6,106123.312,362840,"Lumber and wood products, except fu","mï¿½",185801409
 "IU","BRA","24","Brazil","USA","United States",2011,"Import",5,182.202,4413,"Lumber and wood products, except fu","Item",51164
 "IU","BRA","24","Brazil","USA","United States",2011,"Import",5,5363.255,1478214,"Lumber and wood products, except fu","Kg",1478214
-"IU","BRA","24","Brazil","USA","United States",2011,"Import",5,10693.933,78286,"Lumber and wood products, except fu","m³",14714851
+"IU","BRA","24","Brazil","USA","United States",2011,"Import",5,10693.933,78286,"Lumber and wood products, except fu","mï¿½",14714851
 "IU","BRA","24","Brazil","USA","United States",2012,"Export",6,3524.043,94594,"Lumber and wood products, except fu","Item",2254729
 "IU","BRA","24","Brazil","USA","United States",2012,"Export",6,517585.119,331677935,"Lumber and wood products, except fu","Kg",331677935
-"IU","BRA","24","Brazil","USA","United States",2012,"Export",6,104815.276,349831,"Lumber and wood products, except fu","m³",180516044
+"IU","BRA","24","Brazil","USA","United States",2012,"Export",6,104815.276,349831,"Lumber and wood products, except fu","mï¿½",180516044
 "IU","BRA","24","Brazil","USA","United States",2012,"Import",5,212.83,1745,"Lumber and wood products, except fu","Item",27424
 "IU","BRA","24","Brazil","USA","United States",2012,"Import",5,5542.34,1585505,"Lumber and wood products, except fu","Kg",1585505
-"IU","BRA","24","Brazil","USA","United States",2012,"Import",5,22123.705,223107,"Lumber and wood products, except fu","m³",28808578
+"IU","BRA","24","Brazil","USA","United States",2012,"Import",5,22123.705,223107,"Lumber and wood products, except fu","mï¿½",28808578
 "IU","BRA","24","Brazil","USA","United States",2013,"Export",6,3299.986,413021,"Lumber and wood products, except fu","Item",2830374
 "IU","BRA","24","Brazil","USA","United States",2013,"Export",6,584551.882,382669860,"Lumber and wood products, except fu","Kg",382669860
-"IU","BRA","24","Brazil","USA","United States",2013,"Export",6,155713.284,513575,"Lumber and wood products, except fu","m³",262691156
+"IU","BRA","24","Brazil","USA","United States",2013,"Export",6,155713.284,513575,"Lumber and wood products, except fu","mï¿½",262691156
 "IU","BRA","24","Brazil","USA","United States",2013,"Import",5,136.919,4813,"Lumber and wood products, except fu","Item",20066
 "IU","BRA","24","Brazil","USA","United States",2013,"Import",5,4688.193,1059291,"Lumber and wood products, except fu","Kg",1059291
-"IU","BRA","24","Brazil","USA","United States",2013,"Import",5,5525.265,363200,"Lumber and wood products, except fu","m³",5144252
+"IU","BRA","24","Brazil","USA","United States",2013,"Import",5,5525.265,363200,"Lumber and wood products, except fu","mï¿½",5144252
 "IU","BRA","24","Brazil","USA","United States",2014,"Export",6,5438.289,893840,"Lumber and wood products, except fu","Item",5436090
 "IU","BRA","24","Brazil","USA","United States",2014,"Export",6,655064.699,416708555,"Lumber and wood products, except fu","Kg",416708555
-"IU","BRA","24","Brazil","USA","United States",2014,"Export",6,178060.145,585596,"Lumber and wood products, except fu","m³",294705233
+"IU","BRA","24","Brazil","USA","United States",2014,"Export",6,178060.145,585596,"Lumber and wood products, except fu","mï¿½",294705233
 "IU","BRA","24","Brazil","USA","United States",2014,"Import",5,511.884,7140,"Lumber and wood products, except fu","Item",41576
 "IU","BRA","24","Brazil","USA","United States",2014,"Import",5,5997.833,1473894,"Lumber and wood products, except fu","Kg",1473894
-"IU","BRA","24","Brazil","USA","United States",2014,"Import",5,9290.55,60706,"Lumber and wood products, except fu","m³",12596641
+"IU","BRA","24","Brazil","USA","United States",2014,"Import",5,9290.55,60706,"Lumber and wood products, except fu","mï¿½",12596641
 "IU","BRA","24","Brazil","USA","United States",2015,"Export",6,7615.976,548099,"Lumber and wood products, except fu","Item",8127426
 "IU","BRA","24","Brazil","USA","United States",2015,"Export",6,638520.982,436488700,"Lumber and wood products, except fu","Kg",436488700
-"IU","BRA","24","Brazil","USA","United States",2015,"Export",6,229752.441,799460,"Lumber and wood products, except fu","m³",397248434
+"IU","BRA","24","Brazil","USA","United States",2015,"Export",6,229752.441,799460,"Lumber and wood products, except fu","mï¿½",397248434
 "IU","BRA","24","Brazil","USA","United States",2015,"Import",5,229.214,1972,"Lumber and wood products, except fu","Item",35043
 "IU","BRA","24","Brazil","USA","United States",2015,"Import",5,3742.914,797531,"Lumber and wood products, except fu","Kg",797531
-"IU","BRA","24","Brazil","USA","United States",2015,"Import",5,10749.677,6194825,"Lumber and wood products, except fu","m³",13386885
+"IU","BRA","24","Brazil","USA","United States",2015,"Import",5,10749.677,6194825,"Lumber and wood products, except fu","mï¿½",13386885
 "IU","BRA","24","Brazil","USA","United States",2016,"Export",6,7228.721,450809,"Lumber and wood products, except fu","Item",7097034
 "IU","BRA","24","Brazil","USA","United States",2016,"Export",6,657757.358,571116283,"Lumber and wood products, except fu","Kg",571116283
-"IU","BRA","24","Brazil","USA","United States",2016,"Export",6,299637.81,1203569,"Lumber and wood products, except fu","m³",598847012
+"IU","BRA","24","Brazil","USA","United States",2016,"Export",6,299637.81,1203569,"Lumber and wood products, except fu","mï¿½",598847012
 "IU","BRA","24","Brazil","USA","United States",2016,"Import",5,262.29,571,"Lumber and wood products, except fu","Item",26012
 "IU","BRA","24","Brazil","USA","United States",2016,"Import",5,3579.314,735866,"Lumber and wood products, except fu","Kg",735866
-"IU","BRA","24","Brazil","USA","United States",2016,"Import",5,14620.882,1299682,"Lumber and wood products, except fu","m³",12733551
+"IU","BRA","24","Brazil","USA","United States",2016,"Import",5,14620.882,1299682,"Lumber and wood products, except fu","mï¿½",12733551
 "IU","BRA","24","Brazil","USA","United States",2017,"Export",6,3251.746,974322,"Lumber and wood products, except fu","Item",3128372
 "IU","BRA","24","Brazil","USA","United States",2017,"Export",6,729774.787,596454653.879,"Lumber and wood products, except fu","Kg",596454072
-"IU","BRA","24","Brazil","USA","United States",2017,"Export",6,416786.655,1603418.188,"Lumber and wood products, except fu","m³",774014075
+"IU","BRA","24","Brazil","USA","United States",2017,"Export",6,416786.655,1603418.188,"Lumber and wood products, except fu","mï¿½",774014075
 "IU","BRA","24","Brazil","USA","United States",2017,"Export",6,1151.337,0,"Lumber and wood products, except fu","N.Q.",0
 "IU","BRA","24","Brazil","USA","United States",2017,"Import",5,624.673,110,"Lumber and wood products, except fu","Item",72528
 "IU","BRA","24","Brazil","USA","United States",2017,"Import",5,3934.478,932911,"Lumber and wood products, except fu","Kg",915909
-"IU","BRA","24","Brazil","USA","United States",2017,"Import",5,11776.035,15040,"Lumber and wood products, except fu","m³",6878144
+"IU","BRA","24","Brazil","USA","United States",2017,"Import",5,11776.035,15040,"Lumber and wood products, except fu","mï¿½",6878144
 "IU","BRA","24","Brazil","USA","United States",2018,"Export",6,10190.554,2318478,"Lumber and wood products, except fu","Item",13138001
 "IU","BRA","24","Brazil","USA","United States",2018,"Export",6,768590.09,622777843.938,"Lumber and wood products, except fu","Kg",620877118
-"IU","BRA","24","Brazil","USA","United States",2018,"Export",6,505500.356,2096810.845,"Lumber and wood products, except fu","m³",870468757
+"IU","BRA","24","Brazil","USA","United States",2018,"Export",6,505500.356,2096810.845,"Lumber and wood products, except fu","mï¿½",870468757
 "IU","BRA","24","Brazil","USA","United States",2018,"Import",5,743.993,601,"Lumber and wood products, except fu","Item",80907
 "IU","BRA","24","Brazil","USA","United States",2018,"Import",5,4172.604,951784,"Lumber and wood products, except fu","Kg",942416
-"IU","BRA","24","Brazil","USA","United States",2018,"Import",5,4429.899,7258,"Lumber and wood products, except fu","m³",5581782
+"IU","BRA","24","Brazil","USA","United States",2018,"Import",5,4429.899,7258,"Lumber and wood products, except fu","mï¿½",5581782
 "IU","BRA","24","Brazil","USA","United States",2018,"Import",5,5803.552,0,"Lumber and wood products, except fu","N.Q.",434732
 "IU","BRA","24","Brazil","USA","United States",2019,"Export",6,12451.148,5873380.69,"Lumber and wood products, except fu","Item",14755049
 "IU","BRA","24","Brazil","USA","United States",2019,"Export",6,757646.526,645120359.323,"Lumber and wood products, except fu","Kg",645653327
-"IU","BRA","24","Brazil","USA","United States",2019,"Export",6,440295.87,2851302.489,"Lumber and wood products, except fu","m³",908615321
+"IU","BRA","24","Brazil","USA","United States",2019,"Export",6,440295.87,2851302.489,"Lumber and wood products, except fu","mï¿½",908615321
 "IU","BRA","24","Brazil","USA","United States",2019,"Export",6,1.893,0,"Lumber and wood products, except fu","N.Q.",
 "IU","BRA","24","Brazil","USA","United States",2019,"Import",5,959.695,127,"Lumber and wood products, except fu","Item",103414
 "IU","BRA","24","Brazil","USA","United States",2019,"Import",5,4616.041,1193279,"Lumber and wood products, except fu","Kg",1183277
-"IU","BRA","24","Brazil","USA","United States",2019,"Import",5,11035.173,15485,"Lumber and wood products, except fu","m³",8549741
+"IU","BRA","24","Brazil","USA","United States",2019,"Import",5,11035.173,15485,"Lumber and wood products, except fu","mï¿½",8549741
 "IU","BRA","24","Brazil","USA","United States",2019,"Import",5,0.105,0,"Lumber and wood products, except fu","N.Q.",0
 "IU","BRA","241","Brazil","USA","United States",2008,"Export",6,300426.294,209763859,"Logs, pulpwood, timber, poles, etc","Kg",209763859
-"IU","BRA","241","Brazil","USA","United States",2008,"Export",6,212.9,326,"Logs, pulpwood, timber, poles, etc","m³",421000
+"IU","BRA","241","Brazil","USA","United States",2008,"Export",6,212.9,326,"Logs, pulpwood, timber, poles, etc","mï¿½",421000
 "IU","BRA","241","Brazil","USA","United States",2008,"Import",5,453.055,76579,"Logs, pulpwood, timber, poles, etc","Kg",76579
-"IU","BRA","241","Brazil","USA","United States",2008,"Import",5,1179.13,10582,"Logs, pulpwood, timber, poles, etc","m³",1819551
+"IU","BRA","241","Brazil","USA","United States",2008,"Import",5,1179.13,10582,"Logs, pulpwood, timber, poles, etc","mï¿½",1819551
 "IU","BRA","241","Brazil","USA","United States",2009,"Export",6,219079.668,163253007,"Logs, pulpwood, timber, poles, etc","Kg",163253007
-"IU","BRA","241","Brazil","USA","United States",2009,"Export",6,0.957,4,"Logs, pulpwood, timber, poles, etc","m³",4532
+"IU","BRA","241","Brazil","USA","United States",2009,"Export",6,0.957,4,"Logs, pulpwood, timber, poles, etc","mï¿½",4532
 "IU","BRA","241","Brazil","USA","United States",2009,"Import",5,274.756,58375,"Logs, pulpwood, timber, poles, etc","Kg",58375
-"IU","BRA","241","Brazil","USA","United States",2009,"Import",5,4172.346,6627,"Logs, pulpwood, timber, poles, etc","m³",6907709
+"IU","BRA","241","Brazil","USA","United States",2009,"Import",5,4172.346,6627,"Logs, pulpwood, timber, poles, etc","mï¿½",6907709
 "IU","BRA","241","Brazil","USA","United States",2010,"Export",6,293229.489,258995330,"Logs, pulpwood, timber, poles, etc","Kg",258995330
-"IU","BRA","241","Brazil","USA","United States",2010,"Export",6,1.333,5,"Logs, pulpwood, timber, poles, etc","m³",3885
+"IU","BRA","241","Brazil","USA","United States",2010,"Export",6,1.333,5,"Logs, pulpwood, timber, poles, etc","mï¿½",3885
 "IU","BRA","241","Brazil","USA","United States",2010,"Import",5,367.953,84975,"Logs, pulpwood, timber, poles, etc","Kg",84975
-"IU","BRA","241","Brazil","USA","United States",2010,"Import",5,0.1,1,"Logs, pulpwood, timber, poles, etc","m³",135
+"IU","BRA","241","Brazil","USA","United States",2010,"Import",5,0.1,1,"Logs, pulpwood, timber, poles, etc","mï¿½",135
 "IU","BRA","241","Brazil","USA","United States",2011,"Export",6,266083.808,157052923,"Logs, pulpwood, timber, poles, etc","Kg",157052923
 "IU","BRA","241","Brazil","USA","United States",2011,"Import",5,604.952,128188,"Logs, pulpwood, timber, poles, etc","Kg",128188
-"IU","BRA","241","Brazil","USA","United States",2011,"Import",5,9561.9,75303,"Logs, pulpwood, timber, poles, etc","m³",14476095
+"IU","BRA","241","Brazil","USA","United States",2011,"Import",5,9561.9,75303,"Logs, pulpwood, timber, poles, etc","mï¿½",14476095
 "IU","BRA","241","Brazil","USA","United States",2012,"Export",6,319806.754,176694175,"Logs, pulpwood, timber, poles, etc","Kg",176694175
 "IU","BRA","241","Brazil","USA","United States",2012,"Import",5,614.069,120338,"Logs, pulpwood, timber, poles, etc","Kg",120338
-"IU","BRA","241","Brazil","USA","United States",2012,"Import",5,18656.87,200447,"Logs, pulpwood, timber, poles, etc","m³",28402553
+"IU","BRA","241","Brazil","USA","United States",2012,"Import",5,18656.87,200447,"Logs, pulpwood, timber, poles, etc","mï¿½",28402553
 "IU","BRA","241","Brazil","USA","United States",2013,"Export",6,320462.79,171881062,"Logs, pulpwood, timber, poles, etc","Kg",171881062
 "IU","BRA","241","Brazil","USA","United States",2013,"Import",5,415.801,86824,"Logs, pulpwood, timber, poles, etc","Kg",86824
-"IU","BRA","241","Brazil","USA","United States",2013,"Import",5,3009.256,355754,"Logs, pulpwood, timber, poles, etc","m³",4694517
+"IU","BRA","241","Brazil","USA","United States",2013,"Import",5,3009.256,355754,"Logs, pulpwood, timber, poles, etc","mï¿½",4694517
 "IU","BRA","241","Brazil","USA","United States",2014,"Export",6,357366.25,187438965,"Logs, pulpwood, timber, poles, etc","Kg",187438965
 "IU","BRA","241","Brazil","USA","United States",2014,"Import",5,555.917,119286,"Logs, pulpwood, timber, poles, etc","Kg",119286
-"IU","BRA","241","Brazil","USA","United States",2014,"Import",5,7615.92,41849,"Logs, pulpwood, timber, poles, etc","m³",12167204
+"IU","BRA","241","Brazil","USA","United States",2014,"Import",5,7615.92,41849,"Logs, pulpwood, timber, poles, etc","mï¿½",12167204
 "IU","BRA","241","Brazil","USA","United States",2015,"Export",6,318685.783,175239321,"Logs, pulpwood, timber, poles, etc","Kg",175239321
 "IU","BRA","241","Brazil","USA","United States",2015,"Import",5,376.485,80172,"Logs, pulpwood, timber, poles, etc","Kg",80172
-"IU","BRA","241","Brazil","USA","United States",2015,"Import",5,9133.293,6172058,"Logs, pulpwood, timber, poles, etc","m³",12907724
+"IU","BRA","241","Brazil","USA","United States",2015,"Import",5,9133.293,6172058,"Logs, pulpwood, timber, poles, etc","mï¿½",12907724
 "IU","BRA","241","Brazil","USA","United States",2016,"Export",6,316364.056,202567894,"Logs, pulpwood, timber, poles, etc","Kg",202567894
-"IU","BRA","241","Brazil","USA","United States",2016,"Export",6,8.817,21,"Logs, pulpwood, timber, poles, etc","m³",18965
+"IU","BRA","241","Brazil","USA","United States",2016,"Export",6,8.817,21,"Logs, pulpwood, timber, poles, etc","mï¿½",18965
 "IU","BRA","241","Brazil","USA","United States",2016,"Import",5,532.525,128862,"Logs, pulpwood, timber, poles, etc","Kg",128862
-"IU","BRA","241","Brazil","USA","United States",2016,"Import",5,9577.776,1126359,"Logs, pulpwood, timber, poles, etc","m³",12259172
+"IU","BRA","241","Brazil","USA","United States",2016,"Import",5,9577.776,1126359,"Logs, pulpwood, timber, poles, etc","mï¿½",12259172
 "IU","BRA","241","Brazil","USA","United States",2017,"Export",6,342539.874,199078804,"Logs, pulpwood, timber, poles, etc","Kg",199078804
-"IU","BRA","241","Brazil","USA","United States",2017,"Export",6,17.349,73,"Logs, pulpwood, timber, poles, etc","m³",32900
+"IU","BRA","241","Brazil","USA","United States",2017,"Export",6,17.349,73,"Logs, pulpwood, timber, poles, etc","mï¿½",32900
 "IU","BRA","241","Brazil","USA","United States",2017,"Import",5,713.122,297582,"Logs, pulpwood, timber, poles, etc","Kg",297582
-"IU","BRA","241","Brazil","USA","United States",2017,"Import",5,4494.267,6796,"Logs, pulpwood, timber, poles, etc","m³",6188617
+"IU","BRA","241","Brazil","USA","United States",2017,"Import",5,4494.267,6796,"Logs, pulpwood, timber, poles, etc","mï¿½",6188617
 "IU","BRA","241","Brazil","USA","United States",2018,"Export",6,339541.489,204142575,"Logs, pulpwood, timber, poles, etc","Kg",204142575
-"IU","BRA","241","Brazil","USA","United States",2018,"Export",6,12.768,102,"Logs, pulpwood, timber, poles, etc","m³",8946
+"IU","BRA","241","Brazil","USA","United States",2018,"Export",6,12.768,102,"Logs, pulpwood, timber, poles, etc","mï¿½",8946
 "IU","BRA","241","Brazil","USA","United States",2018,"Import",5,656.08,270471,"Logs, pulpwood, timber, poles, etc","Kg",270471
-"IU","BRA","241","Brazil","USA","United States",2018,"Import",5,3662.169,5614,"Logs, pulpwood, timber, poles, etc","m³",5137430
+"IU","BRA","241","Brazil","USA","United States",2018,"Import",5,3662.169,5614,"Logs, pulpwood, timber, poles, etc","mï¿½",5137430
 "IU","BRA","241","Brazil","USA","United States",2019,"Export",6,355486.029,208463539.707,"Logs, pulpwood, timber, poles, etc","Kg",208463540
-"IU","BRA","241","Brazil","USA","United States",2019,"Export",6,308.82,1251,"Logs, pulpwood, timber, poles, etc","m³",781441
+"IU","BRA","241","Brazil","USA","United States",2019,"Export",6,308.82,1251,"Logs, pulpwood, timber, poles, etc","mï¿½",781441
 "IU","BRA","241","Brazil","USA","United States",2019,"Import",5,998.82,460292,"Logs, pulpwood, timber, poles, etc","Kg",460292
-"IU","BRA","241","Brazil","USA","United States",2019,"Import",5,5635.735,8213,"Logs, pulpwood, timber, poles, etc","m³",7654654
+"IU","BRA","241","Brazil","USA","United States",2019,"Import",5,5635.735,8213,"Logs, pulpwood, timber, poles, etc","mï¿½",7654654
 "IU","BRA","2411","Brazil","USA","United States",2008,"Export",6,300426.294,209763859,"Logs, pulpwood, timber, poles, etc","Kg",209763859
-"IU","BRA","2411","Brazil","USA","United States",2008,"Export",6,212.9,326,"Logs, pulpwood, timber, poles, etc","m³",421000
+"IU","BRA","2411","Brazil","USA","United States",2008,"Export",6,212.9,326,"Logs, pulpwood, timber, poles, etc","mï¿½",421000
 "IU","BRA","2411","Brazil","USA","United States",2008,"Import",5,453.055,76579,"Logs, pulpwood, timber, poles, etc","Kg",76579
-"IU","BRA","2411","Brazil","USA","United States",2008,"Import",5,1179.13,10582,"Logs, pulpwood, timber, poles, etc","m³",1819551
+"IU","BRA","2411","Brazil","USA","United States",2008,"Import",5,1179.13,10582,"Logs, pulpwood, timber, poles, etc","mï¿½",1819551
 "IU","BRA","2411","Brazil","USA","United States",2009,"Export",6,219079.668,163253007,"Logs, pulpwood, timber, poles, etc","Kg",163253007
-"IU","BRA","2411","Brazil","USA","United States",2009,"Export",6,0.957,4,"Logs, pulpwood, timber, poles, etc","m³",4532
+"IU","BRA","2411","Brazil","USA","United States",2009,"Export",6,0.957,4,"Logs, pulpwood, timber, poles, etc","mï¿½",4532
 "IU","BRA","2411","Brazil","USA","United States",2009,"Import",5,274.756,58375,"Logs, pulpwood, timber, poles, etc","Kg",58375
-"IU","BRA","2411","Brazil","USA","United States",2009,"Import",5,4172.346,6627,"Logs, pulpwood, timber, poles, etc","m³",6907709
+"IU","BRA","2411","Brazil","USA","United States",2009,"Import",5,4172.346,6627,"Logs, pulpwood, timber, poles, etc","mï¿½",6907709
 "IU","BRA","2411","Brazil","USA","United States",2010,"Export",6,293229.489,258995330,"Logs, pulpwood, timber, poles, etc","Kg",258995330
-"IU","BRA","2411","Brazil","USA","United States",2010,"Export",6,1.333,5,"Logs, pulpwood, timber, poles, etc","m³",3885
+"IU","BRA","2411","Brazil","USA","United States",2010,"Export",6,1.333,5,"Logs, pulpwood, timber, poles, etc","mï¿½",3885
 "IU","BRA","2411","Brazil","USA","United States",2010,"Import",5,367.953,84975,"Logs, pulpwood, timber, poles, etc","Kg",84975
-"IU","BRA","2411","Brazil","USA","United States",2010,"Import",5,0.1,1,"Logs, pulpwood, timber, poles, etc","m³",135
+"IU","BRA","2411","Brazil","USA","United States",2010,"Import",5,0.1,1,"Logs, pulpwood, timber, poles, etc","mï¿½",135
 "IU","BRA","2411","Brazil","USA","United States",2011,"Export",6,266083.808,157052923,"Logs, pulpwood, timber, poles, etc","Kg",157052923
 "IU","BRA","2411","Brazil","USA","United States",2011,"Import",5,604.952,128188,"Logs, pulpwood, timber, poles, etc","Kg",128188
-"IU","BRA","2411","Brazil","USA","United States",2011,"Import",5,9561.9,75303,"Logs, pulpwood, timber, poles, etc","m³",14476095
+"IU","BRA","2411","Brazil","USA","United States",2011,"Import",5,9561.9,75303,"Logs, pulpwood, timber, poles, etc","mï¿½",14476095
 "IU","BRA","2411","Brazil","USA","United States",2012,"Export",6,319806.754,176694175,"Logs, pulpwood, timber, poles, etc","Kg",176694175
 "IU","BRA","2411","Brazil","USA","United States",2012,"Import",5,614.069,120338,"Logs, pulpwood, timber, poles, etc","Kg",120338
-"IU","BRA","2411","Brazil","USA","United States",2012,"Import",5,18656.87,200447,"Logs, pulpwood, timber, poles, etc","m³",28402553
+"IU","BRA","2411","Brazil","USA","United States",2012,"Import",5,18656.87,200447,"Logs, pulpwood, timber, poles, etc","mï¿½",28402553
 "IU","BRA","2411","Brazil","USA","United States",2013,"Export",6,320462.79,171881062,"Logs, pulpwood, timber, poles, etc","Kg",171881062
 "IU","BRA","2411","Brazil","USA","United States",2013,"Import",5,415.801,86824,"Logs, pulpwood, timber, poles, etc","Kg",86824
-"IU","BRA","2411","Brazil","USA","United States",2013,"Import",5,3009.256,355754,"Logs, pulpwood, timber, poles, etc","m³",4694517
+"IU","BRA","2411","Brazil","USA","United States",2013,"Import",5,3009.256,355754,"Logs, pulpwood, timber, poles, etc","mï¿½",4694517
 "IU","BRA","2411","Brazil","USA","United States",2014,"Export",6,357366.25,187438965,"Logs, pulpwood, timber, poles, etc","Kg",187438965
 "IU","BRA","2411","Brazil","USA","United States",2014,"Import",5,555.917,119286,"Logs, pulpwood, timber, poles, etc","Kg",119286
-"IU","BRA","2411","Brazil","USA","United States",2014,"Import",5,7615.92,41849,"Logs, pulpwood, timber, poles, etc","m³",12167204
+"IU","BRA","2411","Brazil","USA","United States",2014,"Import",5,7615.92,41849,"Logs, pulpwood, timber, poles, etc","mï¿½",12167204
 "IU","BRA","2411","Brazil","USA","United States",2015,"Export",6,318685.783,175239321,"Logs, pulpwood, timber, poles, etc","Kg",175239321
 "IU","BRA","2411","Brazil","USA","United States",2015,"Import",5,376.485,80172,"Logs, pulpwood, timber, poles, etc","Kg",80172
-"IU","BRA","2411","Brazil","USA","United States",2015,"Import",5,9133.293,6172058,"Logs, pulpwood, timber, poles, etc","m³",12907724
+"IU","BRA","2411","Brazil","USA","United States",2015,"Import",5,9133.293,6172058,"Logs, pulpwood, timber, poles, etc","mï¿½",12907724
 "IU","BRA","2411","Brazil","USA","United States",2016,"Export",6,316364.056,202567894,"Logs, pulpwood, timber, poles, etc","Kg",202567894
-"IU","BRA","2411","Brazil","USA","United States",2016,"Export",6,8.817,21,"Logs, pulpwood, timber, poles, etc","m³",18965
+"IU","BRA","2411","Brazil","USA","United States",2016,"Export",6,8.817,21,"Logs, pulpwood, timber, poles, etc","mï¿½",18965
 "IU","BRA","2411","Brazil","USA","United States",2016,"Import",5,532.525,128862,"Logs, pulpwood, timber, poles, etc","Kg",128862
-"IU","BRA","2411","Brazil","USA","United States",2016,"Import",5,9577.776,1126359,"Logs, pulpwood, timber, poles, etc","m³",12259172
+"IU","BRA","2411","Brazil","USA","United States",2016,"Import",5,9577.776,1126359,"Logs, pulpwood, timber, poles, etc","mï¿½",12259172
 "IU","BRA","2411","Brazil","USA","United States",2017,"Export",6,342539.874,199078804,"Logs, pulpwood, timber, poles, etc","Kg",199078804
-"IU","BRA","2411","Brazil","USA","United States",2017,"Export",6,17.349,73,"Logs, pulpwood, timber, poles, etc","m³",32900
+"IU","BRA","2411","Brazil","USA","United States",2017,"Export",6,17.349,73,"Logs, pulpwood, timber, poles, etc","mï¿½",32900
 "IU","BRA","2411","Brazil","USA","United States",2017,"Import",5,713.122,297582,"Logs, pulpwood, timber, poles, etc","Kg",297582
-"IU","BRA","2411","Brazil","USA","United States",2017,"Import",5,4494.267,6796,"Logs, pulpwood, timber, poles, etc","m³",6188617
+"IU","BRA","2411","Brazil","USA","United States",2017,"Import",5,4494.267,6796,"Logs, pulpwood, timber, poles, etc","mï¿½",6188617
 "IU","BRA","2411","Brazil","USA","United States",2018,"Export",6,339541.489,204142575,"Logs, pulpwood, timber, poles, etc","Kg",204142575
-"IU","BRA","2411","Brazil","USA","United States",2018,"Export",6,12.768,102,"Logs, pulpwood, timber, poles, etc","m³",8946
+"IU","BRA","2411","Brazil","USA","United States",2018,"Export",6,12.768,102,"Logs, pulpwood, timber, poles, etc","mï¿½",8946
 "IU","BRA","2411","Brazil","USA","United States",2018,"Import",5,656.08,270471,"Logs, pulpwood, timber, poles, etc","Kg",270471
-"IU","BRA","2411","Brazil","USA","United States",2018,"Import",5,3662.169,5614,"Logs, pulpwood, timber, poles, etc","m³",5137430
+"IU","BRA","2411","Brazil","USA","United States",2018,"Import",5,3662.169,5614,"Logs, pulpwood, timber, poles, etc","mï¿½",5137430
 "IU","BRA","2411","Brazil","USA","United States",2019,"Export",6,355486.029,208463539.707,"Logs, pulpwood, timber, poles, etc","Kg",208463540
-"IU","BRA","2411","Brazil","USA","United States",2019,"Export",6,308.82,1251,"Logs, pulpwood, timber, poles, etc","m³",781441
+"IU","BRA","2411","Brazil","USA","United States",2019,"Export",6,308.82,1251,"Logs, pulpwood, timber, poles, etc","mï¿½",781441
 "IU","BRA","2411","Brazil","USA","United States",2019,"Import",5,998.82,460292,"Logs, pulpwood, timber, poles, etc","Kg",460292
-"IU","BRA","2411","Brazil","USA","United States",2019,"Import",5,5635.735,8213,"Logs, pulpwood, timber, poles, etc","m³",7654654
+"IU","BRA","2411","Brazil","USA","United States",2019,"Import",5,5635.735,8213,"Logs, pulpwood, timber, poles, etc","mï¿½",7654654
 "IU","BRA","242","Brazil","USA","United States",2008,"Export",6,28376.705,10381176,"Lumber, hardwood dimension stock an","Kg",10381176
-"IU","BRA","242","Brazil","USA","United States",2008,"Export",6,143424.7,597110,"Lumber, hardwood dimension stock an","m³",286967828
+"IU","BRA","242","Brazil","USA","United States",2008,"Export",6,143424.7,597110,"Lumber, hardwood dimension stock an","mï¿½",286967828
 "IU","BRA","242","Brazil","USA","United States",2008,"Import",5,649.572,154693,"Lumber, hardwood dimension stock an","Kg",154693
-"IU","BRA","242","Brazil","USA","United States",2008,"Import",5,2496.609,5379,"Lumber, hardwood dimension stock an","m³",433281
+"IU","BRA","242","Brazil","USA","United States",2008,"Import",5,2496.609,5379,"Lumber, hardwood dimension stock an","mï¿½",433281
 "IU","BRA","242","Brazil","USA","United States",2009,"Export",6,17319.987,6039619,"Lumber, hardwood dimension stock an","Kg",6039619
-"IU","BRA","242","Brazil","USA","United States",2009,"Export",6,100723.199,455971,"Lumber, hardwood dimension stock an","m³",225615019
+"IU","BRA","242","Brazil","USA","United States",2009,"Export",6,100723.199,455971,"Lumber, hardwood dimension stock an","mï¿½",225615019
 "IU","BRA","242","Brazil","USA","United States",2009,"Import",5,1387.153,439314,"Lumber, hardwood dimension stock an","Kg",439314
-"IU","BRA","242","Brazil","USA","United States",2009,"Import",5,1829.164,12992,"Lumber, hardwood dimension stock an","m³",352178
+"IU","BRA","242","Brazil","USA","United States",2009,"Import",5,1829.164,12992,"Lumber, hardwood dimension stock an","mï¿½",352178
 "IU","BRA","242","Brazil","USA","United States",2010,"Export",6,15638.802,5805841,"Lumber, hardwood dimension stock an","Kg",5805841
-"IU","BRA","242","Brazil","USA","United States",2010,"Export",6,92932.169,341183,"Lumber, hardwood dimension stock an","m³",173200133
+"IU","BRA","242","Brazil","USA","United States",2010,"Export",6,92932.169,341183,"Lumber, hardwood dimension stock an","mï¿½",173200133
 "IU","BRA","242","Brazil","USA","United States",2010,"Import",5,817.915,269886,"Lumber, hardwood dimension stock an","Kg",269886
-"IU","BRA","242","Brazil","USA","United States",2010,"Import",5,686.701,51207,"Lumber, hardwood dimension stock an","m³",318974
+"IU","BRA","242","Brazil","USA","United States",2010,"Import",5,686.701,51207,"Lumber, hardwood dimension stock an","mï¿½",318974
 "IU","BRA","242","Brazil","USA","United States",2011,"Export",6,11642.817,3220220,"Lumber, hardwood dimension stock an","Kg",3220220
-"IU","BRA","242","Brazil","USA","United States",2011,"Export",6,92772.521,330514,"Lumber, hardwood dimension stock an","m³",169501700
+"IU","BRA","242","Brazil","USA","United States",2011,"Export",6,92772.521,330514,"Lumber, hardwood dimension stock an","mï¿½",169501700
 "IU","BRA","242","Brazil","USA","United States",2011,"Import",5,954.728,315250,"Lumber, hardwood dimension stock an","Kg",315250
-"IU","BRA","242","Brazil","USA","United States",2011,"Import",5,567.821,1247,"Lumber, hardwood dimension stock an","m³",224004
+"IU","BRA","242","Brazil","USA","United States",2011,"Import",5,567.821,1247,"Lumber, hardwood dimension stock an","mï¿½",224004
 "IU","BRA","242","Brazil","USA","United States",2012,"Export",6,13080.488,4637700,"Lumber, hardwood dimension stock an","Kg",4637700
-"IU","BRA","242","Brazil","USA","United States",2012,"Export",6,84262.988,296744,"Lumber, hardwood dimension stock an","m³",153953110
+"IU","BRA","242","Brazil","USA","United States",2012,"Export",6,84262.988,296744,"Lumber, hardwood dimension stock an","mï¿½",153953110
 "IU","BRA","242","Brazil","USA","United States",2012,"Import",5,754.208,303057,"Lumber, hardwood dimension stock an","Kg",303057
-"IU","BRA","242","Brazil","USA","United States",2012,"Import",5,2084.055,19402,"Lumber, hardwood dimension stock an","m³",309578
+"IU","BRA","242","Brazil","USA","United States",2012,"Import",5,2084.055,19402,"Lumber, hardwood dimension stock an","mï¿½",309578
 "IU","BRA","242","Brazil","USA","United States",2013,"Export",6,13360.317,4196190,"Lumber, hardwood dimension stock an","Kg",4196190
-"IU","BRA","242","Brazil","USA","United States",2013,"Export",6,107218.131,374886,"Lumber, hardwood dimension stock an","m³",193356749
+"IU","BRA","242","Brazil","USA","United States",2013,"Export",6,107218.131,374886,"Lumber, hardwood dimension stock an","mï¿½",193356749
 "IU","BRA","242","Brazil","USA","United States",2013,"Import",5,1005.908,334573,"Lumber, hardwood dimension stock an","Kg",334573
-"IU","BRA","242","Brazil","USA","United States",2013,"Import",5,423.7,1489,"Lumber, hardwood dimension stock an","m³",279748
+"IU","BRA","242","Brazil","USA","United States",2013,"Import",5,423.7,1489,"Lumber, hardwood dimension stock an","mï¿½",279748
 "IU","BRA","242","Brazil","USA","United States",2014,"Export",6,15129.095,9375298,"Lumber, hardwood dimension stock an","Kg",9375298
-"IU","BRA","242","Brazil","USA","United States",2014,"Export",6,129077.293,447184,"Lumber, hardwood dimension stock an","m³",226138598
+"IU","BRA","242","Brazil","USA","United States",2014,"Export",6,129077.293,447184,"Lumber, hardwood dimension stock an","mï¿½",226138598
 "IU","BRA","242","Brazil","USA","United States",2014,"Import",5,740.818,132102,"Lumber, hardwood dimension stock an","Kg",132102
-"IU","BRA","242","Brazil","USA","United States",2014,"Import",5,573.916,16216,"Lumber, hardwood dimension stock an","m³",248500
+"IU","BRA","242","Brazil","USA","United States",2014,"Import",5,573.916,16216,"Lumber, hardwood dimension stock an","mï¿½",248500
 "IU","BRA","242","Brazil","USA","United States",2015,"Export",6,17861.812,11421487,"Lumber, hardwood dimension stock an","Kg",11421487
-"IU","BRA","242","Brazil","USA","United States",2015,"Export",6,136594.477,504013,"Lumber, hardwood dimension stock an","m³",249281014
+"IU","BRA","242","Brazil","USA","United States",2015,"Export",6,136594.477,504013,"Lumber, hardwood dimension stock an","mï¿½",249281014
 "IU","BRA","242","Brazil","USA","United States",2015,"Import",5,791.651,150190,"Lumber, hardwood dimension stock an","Kg",150190
-"IU","BRA","242","Brazil","USA","United States",2015,"Import",5,381.744,18434,"Lumber, hardwood dimension stock an","m³",259050
+"IU","BRA","242","Brazil","USA","United States",2015,"Import",5,381.744,18434,"Lumber, hardwood dimension stock an","mï¿½",259050
 "IU","BRA","242","Brazil","USA","United States",2016,"Export",6,16058.29,11559659,"Lumber, hardwood dimension stock an","Kg",11559659
-"IU","BRA","242","Brazil","USA","United States",2016,"Export",6,162841.219,672688,"Lumber, hardwood dimension stock an","m³",329814392
+"IU","BRA","242","Brazil","USA","United States",2016,"Export",6,162841.219,672688,"Lumber, hardwood dimension stock an","mï¿½",329814392
 "IU","BRA","242","Brazil","USA","United States",2016,"Import",5,729.809,129918,"Lumber, hardwood dimension stock an","Kg",129918
-"IU","BRA","242","Brazil","USA","United States",2016,"Import",5,4159.755,171061,"Lumber, hardwood dimension stock an","m³",404522
+"IU","BRA","242","Brazil","USA","United States",2016,"Import",5,4159.755,171061,"Lumber, hardwood dimension stock an","mï¿½",404522
 "IU","BRA","242","Brazil","USA","United States",2017,"Export",6,21956.46,19685593,"Lumber, hardwood dimension stock an","Kg",19685593
-"IU","BRA","242","Brazil","USA","United States",2017,"Export",6,216359.311,907785.188,"Lumber, hardwood dimension stock an","m³",421010620
+"IU","BRA","242","Brazil","USA","United States",2017,"Export",6,216359.311,907785.188,"Lumber, hardwood dimension stock an","mï¿½",421010620
 "IU","BRA","242","Brazil","USA","United States",2017,"Import",5,483.015,84983,"Lumber, hardwood dimension stock an","Kg",84983
-"IU","BRA","242","Brazil","USA","United States",2017,"Import",5,7098.483,7702,"Lumber, hardwood dimension stock an","m³",684202
+"IU","BRA","242","Brazil","USA","United States",2017,"Import",5,7098.483,7702,"Lumber, hardwood dimension stock an","mï¿½",684202
 "IU","BRA","242","Brazil","USA","United States",2018,"Export",6,34177.689,44783147,"Lumber, hardwood dimension stock an","Kg",44784106
-"IU","BRA","242","Brazil","USA","United States",2018,"Export",6,234611.566,1245144.488,"Lumber, hardwood dimension stock an","m³",449385312
+"IU","BRA","242","Brazil","USA","United States",2018,"Export",6,234611.566,1245144.488,"Lumber, hardwood dimension stock an","mï¿½",449385312
 "IU","BRA","242","Brazil","USA","United States",2018,"Import",5,777.293,155648,"Lumber, hardwood dimension stock an","Kg",155648
-"IU","BRA","242","Brazil","USA","United States",2018,"Import",5,767.73,1644,"Lumber, hardwood dimension stock an","m³",444352
+"IU","BRA","242","Brazil","USA","United States",2018,"Import",5,767.73,1644,"Lumber, hardwood dimension stock an","mï¿½",444352
 "IU","BRA","242","Brazil","USA","United States",2018,"Import",5,5803.49,0,"Lumber, hardwood dimension stock an","N.Q.",434732
 "IU","BRA","242","Brazil","USA","United States",2019,"Export",6,27947.37,37393217,"Lumber, hardwood dimension stock an","Kg",37405612
-"IU","BRA","242","Brazil","USA","United States",2019,"Export",6,219636.579,1844854.91,"Lumber, hardwood dimension stock an","m³",452146098
+"IU","BRA","242","Brazil","USA","United States",2019,"Export",6,219636.579,1844854.91,"Lumber, hardwood dimension stock an","mï¿½",452146098
 "IU","BRA","242","Brazil","USA","United States",2019,"Import",5,677.141,147860,"Lumber, hardwood dimension stock an","Kg",147860
-"IU","BRA","242","Brazil","USA","United States",2019,"Import",5,5399.438,7272,"Lumber, hardwood dimension stock an","m³",895087
-"IU","BRA","2421","Brazil","USA","United States",2008,"Export",6,143424.7,597110,"Lumber and other sawmill and planin","m³",286967828
-"IU","BRA","2421","Brazil","USA","United States",2008,"Import",5,2496.609,5379,"Lumber and other sawmill and planin","m³",433281
-"IU","BRA","2421","Brazil","USA","United States",2009,"Export",6,100723.199,455971,"Lumber and other sawmill and planin","m³",225615019
-"IU","BRA","2421","Brazil","USA","United States",2009,"Import",5,1829.164,12992,"Lumber and other sawmill and planin","m³",352178
-"IU","BRA","2421","Brazil","USA","United States",2010,"Export",6,92932.169,341183,"Lumber and other sawmill and planin","m³",173200133
-"IU","BRA","2421","Brazil","USA","United States",2010,"Import",5,686.701,51207,"Lumber and other sawmill and planin","m³",318974
-"IU","BRA","2421","Brazil","USA","United States",2011,"Export",6,92772.521,330514,"Lumber and other sawmill and planin","m³",169501700
-"IU","BRA","2421","Brazil","USA","United States",2011,"Import",5,567.821,1247,"Lumber and other sawmill and planin","m³",224004
-"IU","BRA","2421","Brazil","USA","United States",2012,"Export",6,84262.988,296744,"Lumber and other sawmill and planin","m³",153953110
-"IU","BRA","2421","Brazil","USA","United States",2012,"Import",5,2084.055,19402,"Lumber and other sawmill and planin","m³",309578
-"IU","BRA","2421","Brazil","USA","United States",2013,"Export",6,107218.131,374886,"Lumber and other sawmill and planin","m³",193356749
-"IU","BRA","2421","Brazil","USA","United States",2013,"Import",5,423.7,1489,"Lumber and other sawmill and planin","m³",279748
-"IU","BRA","2421","Brazil","USA","United States",2014,"Export",6,129077.293,447184,"Lumber and other sawmill and planin","m³",226138598
-"IU","BRA","2421","Brazil","USA","United States",2014,"Import",5,573.916,16216,"Lumber and other sawmill and planin","m³",248500
-"IU","BRA","2421","Brazil","USA","United States",2015,"Export",6,136594.477,504013,"Lumber and other sawmill and planin","m³",249281014
-"IU","BRA","2421","Brazil","USA","United States",2015,"Import",5,381.744,18434,"Lumber and other sawmill and planin","m³",259050
-"IU","BRA","2421","Brazil","USA","United States",2016,"Export",6,162841.219,672688,"Lumber and other sawmill and planin","m³",329814392
-"IU","BRA","2421","Brazil","USA","United States",2016,"Import",5,4159.755,171061,"Lumber and other sawmill and planin","m³",404522
-"IU","BRA","2421","Brazil","USA","United States",2017,"Export",6,216359.311,907785.188,"Lumber and other sawmill and planin","m³",421010620
+"IU","BRA","242","Brazil","USA","United States",2019,"Import",5,5399.438,7272,"Lumber, hardwood dimension stock an","mï¿½",895087
+"IU","BRA","2421","Brazil","USA","United States",2008,"Export",6,143424.7,597110,"Lumber and other sawmill and planin","mï¿½",286967828
+"IU","BRA","2421","Brazil","USA","United States",2008,"Import",5,2496.609,5379,"Lumber and other sawmill and planin","mï¿½",433281
+"IU","BRA","2421","Brazil","USA","United States",2009,"Export",6,100723.199,455971,"Lumber and other sawmill and planin","mï¿½",225615019
+"IU","BRA","2421","Brazil","USA","United States",2009,"Import",5,1829.164,12992,"Lumber and other sawmill and planin","mï¿½",352178
+"IU","BRA","2421","Brazil","USA","United States",2010,"Export",6,92932.169,341183,"Lumber and other sawmill and planin","mï¿½",173200133
+"IU","BRA","2421","Brazil","USA","United States",2010,"Import",5,686.701,51207,"Lumber and other sawmill and planin","mï¿½",318974
+"IU","BRA","2421","Brazil","USA","United States",2011,"Export",6,92772.521,330514,"Lumber and other sawmill and planin","mï¿½",169501700
+"IU","BRA","2421","Brazil","USA","United States",2011,"Import",5,567.821,1247,"Lumber and other sawmill and planin","mï¿½",224004
+"IU","BRA","2421","Brazil","USA","United States",2012,"Export",6,84262.988,296744,"Lumber and other sawmill and planin","mï¿½",153953110
+"IU","BRA","2421","Brazil","USA","United States",2012,"Import",5,2084.055,19402,"Lumber and other sawmill and planin","mï¿½",309578
+"IU","BRA","2421","Brazil","USA","United States",2013,"Export",6,107218.131,374886,"Lumber and other sawmill and planin","mï¿½",193356749
+"IU","BRA","2421","Brazil","USA","United States",2013,"Import",5,423.7,1489,"Lumber and other sawmill and planin","mï¿½",279748
+"IU","BRA","2421","Brazil","USA","United States",2014,"Export",6,129077.293,447184,"Lumber and other sawmill and planin","mï¿½",226138598
+"IU","BRA","2421","Brazil","USA","United States",2014,"Import",5,573.916,16216,"Lumber and other sawmill and planin","mï¿½",248500
+"IU","BRA","2421","Brazil","USA","United States",2015,"Export",6,136594.477,504013,"Lumber and other sawmill and planin","mï¿½",249281014
+"IU","BRA","2421","Brazil","USA","United States",2015,"Import",5,381.744,18434,"Lumber and other sawmill and planin","mï¿½",259050
+"IU","BRA","2421","Brazil","USA","United States",2016,"Export",6,162841.219,672688,"Lumber and other sawmill and planin","mï¿½",329814392
+"IU","BRA","2421","Brazil","USA","United States",2016,"Import",5,4159.755,171061,"Lumber and other sawmill and planin","mï¿½",404522
+"IU","BRA","2421","Brazil","USA","United States",2017,"Export",6,216359.311,907785.188,"Lumber and other sawmill and planin","mï¿½",421010620
 "IU","BRA","2421","Brazil","USA","United States",2017,"Import",5,0.475,294,"Lumber and other sawmill and planin","Kg",294
-"IU","BRA","2421","Brazil","USA","United States",2017,"Import",5,7098.483,7702,"Lumber and other sawmill and planin","m³",684202
-"IU","BRA","2421","Brazil","USA","United States",2018,"Export",6,234611.566,1245144.488,"Lumber and other sawmill and planin","m³",449385312
-"IU","BRA","2421","Brazil","USA","United States",2018,"Import",5,767.73,1644,"Lumber and other sawmill and planin","m³",444352
+"IU","BRA","2421","Brazil","USA","United States",2017,"Import",5,7098.483,7702,"Lumber and other sawmill and planin","mï¿½",684202
+"IU","BRA","2421","Brazil","USA","United States",2018,"Export",6,234611.566,1245144.488,"Lumber and other sawmill and planin","mï¿½",449385312
+"IU","BRA","2421","Brazil","USA","United States",2018,"Import",5,767.73,1644,"Lumber and other sawmill and planin","mï¿½",444352
 "IU","BRA","2421","Brazil","USA","United States",2018,"Import",5,5803.49,0,"Lumber and other sawmill and planin","N.Q.",434732
-"IU","BRA","2421","Brazil","USA","United States",2019,"Export",6,219636.579,1844854.91,"Lumber and other sawmill and planin","m³",452146098
-"IU","BRA","2421","Brazil","USA","United States",2019,"Import",5,5399.438,7272,"Lumber and other sawmill and planin","m³",895087
+"IU","BRA","2421","Brazil","USA","United States",2019,"Export",6,219636.579,1844854.91,"Lumber and other sawmill and planin","mï¿½",452146098
+"IU","BRA","2421","Brazil","USA","United States",2019,"Import",5,5399.438,7272,"Lumber and other sawmill and planin","mï¿½",895087
 "IU","BRA","2426","Brazil","USA","United States",2008,"Export",6,28364.477,10375172,"Hardwood dimension stock and floori","Kg",10375172
 "IU","BRA","2426","Brazil","USA","United States",2008,"Import",5,573.875,145122,"Hardwood dimension stock and floori","Kg",145122
 "IU","BRA","2426","Brazil","USA","United States",2009,"Export",6,17319.987,6039619,"Hardwood dimension stock and floori","Kg",6039619
@@ -5996,69 +5996,69 @@
 "IU","BRA","2429","Brazil","USA","United States",2019,"Import",5,124.493,36514,"Staves and hoops; tight barrelheads","Kg",36514
 "IU","BRA","243","Brazil","USA","United States",2008,"Export",6,2318.004,43172,"Millwork, plywood, and veneer","Item",839291
 "IU","BRA","243","Brazil","USA","United States",2008,"Export",6,184716.159,111917964,"Millwork, plywood, and veneer","Kg",111917964
-"IU","BRA","243","Brazil","USA","United States",2008,"Export",6,92169.205,305030,"Millwork, plywood, and veneer","m³",138482394
+"IU","BRA","243","Brazil","USA","United States",2008,"Export",6,92169.205,305030,"Millwork, plywood, and veneer","mï¿½",138482394
 "IU","BRA","243","Brazil","USA","United States",2008,"Import",5,1.094,7,"Millwork, plywood, and veneer","Item",116
 "IU","BRA","243","Brazil","USA","United States",2008,"Import",5,3142.798,381038,"Millwork, plywood, and veneer","Kg",381038
-"IU","BRA","243","Brazil","USA","United States",2008,"Import",5,4.722,47,"Millwork, plywood, and veneer","m³",21
+"IU","BRA","243","Brazil","USA","United States",2008,"Import",5,4.722,47,"Millwork, plywood, and veneer","mï¿½",21
 "IU","BRA","243","Brazil","USA","United States",2009,"Export",6,1087.426,12753,"Millwork, plywood, and veneer","Item",290585
 "IU","BRA","243","Brazil","USA","United States",2009,"Export",6,103199.153,65726916,"Millwork, plywood, and veneer","Kg",65726916
-"IU","BRA","243","Brazil","USA","United States",2009,"Export",6,33925.444,1118270,"Millwork, plywood, and veneer","m³",67443125
+"IU","BRA","243","Brazil","USA","United States",2009,"Export",6,33925.444,1118270,"Millwork, plywood, and veneer","mï¿½",67443125
 "IU","BRA","243","Brazil","USA","United States",2009,"Import",5,11.691,29,"Millwork, plywood, and veneer","Item",1739
 "IU","BRA","243","Brazil","USA","United States",2009,"Import",5,1048.811,179673,"Millwork, plywood, and veneer","Kg",179673
-"IU","BRA","243","Brazil","USA","United States",2009,"Import",5,77.296,2416,"Millwork, plywood, and veneer","m³",572
+"IU","BRA","243","Brazil","USA","United States",2009,"Import",5,77.296,2416,"Millwork, plywood, and veneer","mï¿½",572
 "IU","BRA","243","Brazil","USA","United States",2010,"Export",6,682.524,9268,"Millwork, plywood, and veneer","Item",136228
 "IU","BRA","243","Brazil","USA","United States",2010,"Export",6,109918.866,61343063,"Millwork, plywood, and veneer","Kg",61343063
-"IU","BRA","243","Brazil","USA","United States",2010,"Export",6,28111.468,74448,"Millwork, plywood, and veneer","m³",37054479
+"IU","BRA","243","Brazil","USA","United States",2010,"Export",6,28111.468,74448,"Millwork, plywood, and veneer","mï¿½",37054479
 "IU","BRA","243","Brazil","USA","United States",2010,"Import",5,40.654,515,"Millwork, plywood, and veneer","Item",189677
 "IU","BRA","243","Brazil","USA","United States",2010,"Import",5,2157.891,418439,"Millwork, plywood, and veneer","Kg",418439
-"IU","BRA","243","Brazil","USA","United States",2010,"Import",5,561.171,1686,"Millwork, plywood, and veneer","m³",4513
+"IU","BRA","243","Brazil","USA","United States",2010,"Import",5,561.171,1686,"Millwork, plywood, and veneer","mï¿½",4513
 "IU","BRA","243","Brazil","USA","United States",2011,"Export",6,815.378,6619,"Millwork, plywood, and veneer","Item",86550
 "IU","BRA","243","Brazil","USA","United States",2011,"Export",6,98425.344,55749082,"Millwork, plywood, and veneer","Kg",55749082
-"IU","BRA","243","Brazil","USA","United States",2011,"Export",6,13350.791,32326,"Millwork, plywood, and veneer","m³",16299709
+"IU","BRA","243","Brazil","USA","United States",2011,"Export",6,13350.791,32326,"Millwork, plywood, and veneer","mï¿½",16299709
 "IU","BRA","243","Brazil","USA","United States",2011,"Import",5,3.604,17,"Millwork, plywood, and veneer","Item",711
 "IU","BRA","243","Brazil","USA","United States",2011,"Import",5,2233.208,525934,"Millwork, plywood, and veneer","Kg",525934
-"IU","BRA","243","Brazil","USA","United States",2011,"Import",5,564.212,1736,"Millwork, plywood, and veneer","m³",14752
+"IU","BRA","243","Brazil","USA","United States",2011,"Import",5,564.212,1736,"Millwork, plywood, and veneer","mï¿½",14752
 "IU","BRA","243","Brazil","USA","United States",2012,"Export",6,1208.822,8829,"Millwork, plywood, and veneer","Item",189573
 "IU","BRA","243","Brazil","USA","United States",2012,"Export",6,128395.132,79866844,"Millwork, plywood, and veneer","Kg",79866844
-"IU","BRA","243","Brazil","USA","United States",2012,"Export",6,20552.288,53087,"Millwork, plywood, and veneer","m³",26562934
+"IU","BRA","243","Brazil","USA","United States",2012,"Export",6,20552.288,53087,"Millwork, plywood, and veneer","mï¿½",26562934
 "IU","BRA","243","Brazil","USA","United States",2012,"Import",5,15.081,10,"Millwork, plywood, and veneer","Item",703
 "IU","BRA","243","Brazil","USA","United States",2012,"Import",5,2326.76,655628,"Millwork, plywood, and veneer","Kg",655628
-"IU","BRA","243","Brazil","USA","United States",2012,"Import",5,1382.78,3258,"Millwork, plywood, and veneer","m³",96447
+"IU","BRA","243","Brazil","USA","United States",2012,"Import",5,1382.78,3258,"Millwork, plywood, and veneer","mï¿½",96447
 "IU","BRA","243","Brazil","USA","United States",2013,"Export",6,786.043,7600,"Millwork, plywood, and veneer","Item",101398
 "IU","BRA","243","Brazil","USA","United States",2013,"Export",6,175614.117,110281751,"Millwork, plywood, and veneer","Kg",110281751
-"IU","BRA","243","Brazil","USA","United States",2013,"Export",6,48495.153,138689,"Millwork, plywood, and veneer","m³",69334407
+"IU","BRA","243","Brazil","USA","United States",2013,"Export",6,48495.153,138689,"Millwork, plywood, and veneer","mï¿½",69334407
 "IU","BRA","243","Brazil","USA","United States",2013,"Import",5,7.406,5,"Millwork, plywood, and veneer","Item",710
 "IU","BRA","243","Brazil","USA","United States",2013,"Import",5,2159.492,456126,"Millwork, plywood, and veneer","Kg",456126
-"IU","BRA","243","Brazil","USA","United States",2013,"Import",5,2092.309,5957,"Millwork, plywood, and veneer","m³",169987
+"IU","BRA","243","Brazil","USA","United States",2013,"Import",5,2092.309,5957,"Millwork, plywood, and veneer","mï¿½",169987
 "IU","BRA","243","Brazil","USA","United States",2014,"Export",6,1386.486,14951,"Millwork, plywood, and veneer","Item",184327
 "IU","BRA","243","Brazil","USA","United States",2014,"Export",6,197874.093,122943894,"Millwork, plywood, and veneer","Kg",122943894
-"IU","BRA","243","Brazil","USA","United States",2014,"Export",6,48982.852,138412,"Millwork, plywood, and veneer","m³",68566635
+"IU","BRA","243","Brazil","USA","United States",2014,"Export",6,48982.852,138412,"Millwork, plywood, and veneer","mï¿½",68566635
 "IU","BRA","243","Brazil","USA","United States",2014,"Import",5,188.439,820,"Millwork, plywood, and veneer","Item",9809
 "IU","BRA","243","Brazil","USA","United States",2014,"Import",5,3666.666,914843,"Millwork, plywood, and veneer","Kg",914843
-"IU","BRA","243","Brazil","USA","United States",2014,"Import",5,1100.714,2641,"Millwork, plywood, and veneer","m³",180937
+"IU","BRA","243","Brazil","USA","United States",2014,"Import",5,1100.714,2641,"Millwork, plywood, and veneer","mï¿½",180937
 "IU","BRA","243","Brazil","USA","United States",2015,"Export",6,1542.78,30742,"Millwork, plywood, and veneer","Item",343990
 "IU","BRA","243","Brazil","USA","United States",2015,"Export",6,210542.347,129169247,"Millwork, plywood, and veneer","Kg",129169247
-"IU","BRA","243","Brazil","USA","United States",2015,"Export",6,93157.964,295447,"Millwork, plywood, and veneer","m³",147967420
+"IU","BRA","243","Brazil","USA","United States",2015,"Export",6,93157.964,295447,"Millwork, plywood, and veneer","mï¿½",147967420
 "IU","BRA","243","Brazil","USA","United States",2015,"Import",5,1.268,3,"Millwork, plywood, and veneer","Item",154
 "IU","BRA","243","Brazil","USA","United States",2015,"Import",5,1643.556,352749,"Millwork, plywood, and veneer","Kg",352749
-"IU","BRA","243","Brazil","USA","United States",2015,"Import",5,1234.64,4333,"Millwork, plywood, and veneer","m³",220111
+"IU","BRA","243","Brazil","USA","United States",2015,"Import",5,1234.64,4333,"Millwork, plywood, and veneer","mï¿½",220111
 "IU","BRA","243","Brazil","USA","United States",2016,"Export",6,2596.835,59497,"Millwork, plywood, and veneer","Item",737905
 "IU","BRA","243","Brazil","USA","United States",2016,"Export",6,228605.188,160148717,"Millwork, plywood, and veneer","Kg",160148717
-"IU","BRA","243","Brazil","USA","United States",2016,"Export",6,136787.774,530860,"Millwork, plywood, and veneer","m³",269013655
+"IU","BRA","243","Brazil","USA","United States",2016,"Export",6,136787.774,530860,"Millwork, plywood, and veneer","mï¿½",269013655
 "IU","BRA","243","Brazil","USA","United States",2016,"Import",5,1988.41,461945,"Millwork, plywood, and veneer","Kg",461945
-"IU","BRA","243","Brazil","USA","United States",2016,"Import",5,883.351,2262,"Millwork, plywood, and veneer","m³",69857
+"IU","BRA","243","Brazil","USA","United States",2016,"Import",5,883.351,2262,"Millwork, plywood, and veneer","mï¿½",69857
 "IU","BRA","243","Brazil","USA","United States",2017,"Export",6,1729.478,30486,"Millwork, plywood, and veneer","Item",512443
 "IU","BRA","243","Brazil","USA","United States",2017,"Export",6,263655.911,173339481.831,"Millwork, plywood, and veneer","Kg",173338831
-"IU","BRA","243","Brazil","USA","United States",2017,"Export",6,200409.995,695560,"Millwork, plywood, and veneer","m³",352970555
+"IU","BRA","243","Brazil","USA","United States",2017,"Export",6,200409.995,695560,"Millwork, plywood, and veneer","mï¿½",352970555
 "IU","BRA","243","Brazil","USA","United States",2017,"Import",5,2367.715,524829,"Millwork, plywood, and veneer","Kg",517533
-"IU","BRA","243","Brazil","USA","United States",2017,"Import",5,183.285,542,"Millwork, plywood, and veneer","m³",5325
+"IU","BRA","243","Brazil","USA","United States",2017,"Import",5,183.285,542,"Millwork, plywood, and veneer","mï¿½",5325
 "IU","BRA","243","Brazil","USA","United States",2018,"Export",6,2510.819,28466,"Millwork, plywood, and veneer","Item",831215
 "IU","BRA","243","Brazil","USA","United States",2018,"Export",6,297036.076,170046375.576,"Millwork, plywood, and veneer","Kg",168157265
-"IU","BRA","243","Brazil","USA","United States",2018,"Export",6,270876.022,851564.357,"Millwork, plywood, and veneer","m³",421074499
+"IU","BRA","243","Brazil","USA","United States",2018,"Export",6,270876.022,851564.357,"Millwork, plywood, and veneer","mï¿½",421074499
 "IU","BRA","243","Brazil","USA","United States",2018,"Import",5,2349.164,503935,"Millwork, plywood, and veneer","Kg",501946
 "IU","BRA","243","Brazil","USA","United States",2019,"Export",6,4435.911,53237.656,"Millwork, plywood, and veneer","Item",1551588
 "IU","BRA","243","Brazil","USA","United States",2019,"Export",6,276136.852,165825960.483,"Millwork, plywood, and veneer","Kg",166364907
-"IU","BRA","243","Brazil","USA","United States",2019,"Export",6,220350.471,1005196.579,"Millwork, plywood, and veneer","m³",455687782
+"IU","BRA","243","Brazil","USA","United States",2019,"Export",6,220350.471,1005196.579,"Millwork, plywood, and veneer","mï¿½",455687782
 "IU","BRA","243","Brazil","USA","United States",2019,"Import",5,0.162,5,"Millwork, plywood, and veneer","Item",451
 "IU","BRA","243","Brazil","USA","United States",2019,"Import",5,2386.225,485274,"Millwork, plywood, and veneer","Kg",479455
 "IU","BRA","2431","Brazil","USA","United States",2008,"Export",6,123027.405,67442098,"Millwork","Kg",67442098
@@ -6107,93 +6107,93 @@
 "IU","BRA","2434","Brazil","USA","United States",2019,"Export",6,4435.911,53237.656,"Wood kitchen cabinets","Item",1551588
 "IU","BRA","2434","Brazil","USA","United States",2019,"Import",5,0.162,5,"Wood kitchen cabinets","Item",451
 "IU","BRA","2435","Brazil","USA","United States",2008,"Export",6,7927.402,9660380,"Hardwood veneer and plywood","Kg",9660380
-"IU","BRA","2435","Brazil","USA","United States",2008,"Export",6,22361.202,42935,"Hardwood veneer and plywood","m³",20473610
+"IU","BRA","2435","Brazil","USA","United States",2008,"Export",6,22361.202,42935,"Hardwood veneer and plywood","mï¿½",20473610
 "IU","BRA","2435","Brazil","USA","United States",2008,"Import",5,1588.699,270011,"Hardwood veneer and plywood","Kg",270011
 "IU","BRA","2435","Brazil","USA","United States",2009,"Export",6,2653.065,2572750,"Hardwood veneer and plywood","Kg",2572750
-"IU","BRA","2435","Brazil","USA","United States",2009,"Export",6,5852.668,10594,"Hardwood veneer and plywood","m³",5967936
+"IU","BRA","2435","Brazil","USA","United States",2009,"Export",6,5852.668,10594,"Hardwood veneer and plywood","mï¿½",5967936
 "IU","BRA","2435","Brazil","USA","United States",2009,"Import",5,722.784,128268,"Hardwood veneer and plywood","Kg",128268
-"IU","BRA","2435","Brazil","USA","United States",2009,"Import",5,77.296,2416,"Hardwood veneer and plywood","m³",572
+"IU","BRA","2435","Brazil","USA","United States",2009,"Import",5,77.296,2416,"Hardwood veneer and plywood","mï¿½",572
 "IU","BRA","2435","Brazil","USA","United States",2010,"Export",6,3594.187,2922059,"Hardwood veneer and plywood","Kg",2922059
-"IU","BRA","2435","Brazil","USA","United States",2010,"Export",6,7522.54,10920,"Hardwood veneer and plywood","m³",6104623
+"IU","BRA","2435","Brazil","USA","United States",2010,"Export",6,7522.54,10920,"Hardwood veneer and plywood","mï¿½",6104623
 "IU","BRA","2435","Brazil","USA","United States",2010,"Import",5,1786.896,337352,"Hardwood veneer and plywood","Kg",337352
-"IU","BRA","2435","Brazil","USA","United States",2010,"Import",5,561.159,1684,"Hardwood veneer and plywood","m³",4511
+"IU","BRA","2435","Brazil","USA","United States",2010,"Import",5,561.159,1684,"Hardwood veneer and plywood","mï¿½",4511
 "IU","BRA","2435","Brazil","USA","United States",2011,"Export",6,2173.634,1769278,"Hardwood veneer and plywood","Kg",1769278
-"IU","BRA","2435","Brazil","USA","United States",2011,"Export",6,4137.235,6967,"Hardwood veneer and plywood","m³",3593970
+"IU","BRA","2435","Brazil","USA","United States",2011,"Export",6,4137.235,6967,"Hardwood veneer and plywood","mï¿½",3593970
 "IU","BRA","2435","Brazil","USA","United States",2011,"Import",5,1691.158,287772,"Hardwood veneer and plywood","Kg",287772
-"IU","BRA","2435","Brazil","USA","United States",2011,"Import",5,523.048,1672,"Hardwood veneer and plywood","m³",3728
+"IU","BRA","2435","Brazil","USA","United States",2011,"Import",5,523.048,1672,"Hardwood veneer and plywood","mï¿½",3728
 "IU","BRA","2435","Brazil","USA","United States",2012,"Export",6,6022.591,5890421,"Hardwood veneer and plywood","Kg",5890421
-"IU","BRA","2435","Brazil","USA","United States",2012,"Export",6,3086.282,4814,"Hardwood veneer and plywood","m³",2651384
+"IU","BRA","2435","Brazil","USA","United States",2012,"Export",6,3086.282,4814,"Hardwood veneer and plywood","mï¿½",2651384
 "IU","BRA","2435","Brazil","USA","United States",2012,"Import",5,1563.285,324171,"Hardwood veneer and plywood","Kg",324171
-"IU","BRA","2435","Brazil","USA","United States",2012,"Import",5,558.293,1706,"Hardwood veneer and plywood","m³",6562
+"IU","BRA","2435","Brazil","USA","United States",2012,"Import",5,558.293,1706,"Hardwood veneer and plywood","mï¿½",6562
 "IU","BRA","2435","Brazil","USA","United States",2013,"Export",6,2331.877,1898487,"Hardwood veneer and plywood","Kg",1898487
-"IU","BRA","2435","Brazil","USA","United States",2013,"Export",6,5910.984,11081,"Hardwood veneer and plywood","m³",5960867
+"IU","BRA","2435","Brazil","USA","United States",2013,"Export",6,5910.984,11081,"Hardwood veneer and plywood","mï¿½",5960867
 "IU","BRA","2435","Brazil","USA","United States",2013,"Import",5,1714.352,327181,"Hardwood veneer and plywood","Kg",327181
-"IU","BRA","2435","Brazil","USA","United States",2013,"Import",5,984.564,3568,"Hardwood veneer and plywood","m³",48820
+"IU","BRA","2435","Brazil","USA","United States",2013,"Import",5,984.564,3568,"Hardwood veneer and plywood","mï¿½",48820
 "IU","BRA","2435","Brazil","USA","United States",2014,"Export",6,3395.238,3381575,"Hardwood veneer and plywood","Kg",3381575
-"IU","BRA","2435","Brazil","USA","United States",2014,"Export",6,3817.342,6333,"Hardwood veneer and plywood","m³",3418731
+"IU","BRA","2435","Brazil","USA","United States",2014,"Export",6,3817.342,6333,"Hardwood veneer and plywood","mï¿½",3418731
 "IU","BRA","2435","Brazil","USA","United States",2014,"Import",5,2251.214,433897,"Hardwood veneer and plywood","Kg",433897
-"IU","BRA","2435","Brazil","USA","United States",2014,"Import",5,692.242,1691,"Hardwood veneer and plywood","m³",63090
+"IU","BRA","2435","Brazil","USA","United States",2014,"Import",5,692.242,1691,"Hardwood veneer and plywood","mï¿½",63090
 "IU","BRA","2435","Brazil","USA","United States",2015,"Export",6,5479.019,5777970,"Hardwood veneer and plywood","Kg",5777970
-"IU","BRA","2435","Brazil","USA","United States",2015,"Export",6,5218.44,10407,"Hardwood veneer and plywood","m³",5181992
+"IU","BRA","2435","Brazil","USA","United States",2015,"Export",6,5218.44,10407,"Hardwood veneer and plywood","mï¿½",5181992
 "IU","BRA","2435","Brazil","USA","United States",2015,"Import",5,1296.977,248717,"Hardwood veneer and plywood","Kg",248717
-"IU","BRA","2435","Brazil","USA","United States",2015,"Import",5,803.312,2873,"Hardwood veneer and plywood","m³",35098
+"IU","BRA","2435","Brazil","USA","United States",2015,"Import",5,803.312,2873,"Hardwood veneer and plywood","mï¿½",35098
 "IU","BRA","2435","Brazil","USA","United States",2016,"Export",6,2555.486,2417562,"Hardwood veneer and plywood","Kg",2417562
-"IU","BRA","2435","Brazil","USA","United States",2016,"Export",6,6391.133,17853,"Hardwood veneer and plywood","m³",8199611
+"IU","BRA","2435","Brazil","USA","United States",2016,"Export",6,6391.133,17853,"Hardwood veneer and plywood","mï¿½",8199611
 "IU","BRA","2435","Brazil","USA","United States",2016,"Import",5,1606.022,306151,"Hardwood veneer and plywood","Kg",306151
-"IU","BRA","2435","Brazil","USA","United States",2016,"Import",5,648.783,1797,"Hardwood veneer and plywood","m³",23593
+"IU","BRA","2435","Brazil","USA","United States",2016,"Import",5,648.783,1797,"Hardwood veneer and plywood","mï¿½",23593
 "IU","BRA","2435","Brazil","USA","United States",2017,"Export",6,3580.891,3048410,"Hardwood veneer and plywood","Kg",3048410
-"IU","BRA","2435","Brazil","USA","United States",2017,"Export",6,5683.801,13167,"Hardwood veneer and plywood","m³",4084718
+"IU","BRA","2435","Brazil","USA","United States",2017,"Export",6,5683.801,13167,"Hardwood veneer and plywood","mï¿½",4084718
 "IU","BRA","2435","Brazil","USA","United States",2017,"Import",5,1900.237,382816,"Hardwood veneer and plywood","Kg",382816
-"IU","BRA","2435","Brazil","USA","United States",2017,"Import",5,183.285,542,"Hardwood veneer and plywood","m³",5325
+"IU","BRA","2435","Brazil","USA","United States",2017,"Import",5,183.285,542,"Hardwood veneer and plywood","mï¿½",5325
 "IU","BRA","2435","Brazil","USA","United States",2018,"Export",6,2463.422,1866284,"Hardwood veneer and plywood","Kg",1866284
-"IU","BRA","2435","Brazil","USA","United States",2018,"Export",6,15222.308,35767.332,"Hardwood veneer and plywood","m³",18546032
+"IU","BRA","2435","Brazil","USA","United States",2018,"Export",6,15222.308,35767.332,"Hardwood veneer and plywood","mï¿½",18546032
 "IU","BRA","2435","Brazil","USA","United States",2018,"Import",5,2198.617,463187,"Hardwood veneer and plywood","Kg",463187
 "IU","BRA","2435","Brazil","USA","United States",2019,"Export",6,2719.532,2786772,"Hardwood veneer and plywood","Kg",2786772
-"IU","BRA","2435","Brazil","USA","United States",2019,"Export",6,24696.497,66142.203,"Hardwood veneer and plywood","m³",37140435
+"IU","BRA","2435","Brazil","USA","United States",2019,"Export",6,24696.497,66142.203,"Hardwood veneer and plywood","mï¿½",37140435
 "IU","BRA","2435","Brazil","USA","United States",2019,"Import",5,2210.033,391149,"Hardwood veneer and plywood","Kg",391149
 "IU","BRA","2436","Brazil","USA","United States",2008,"Export",6,2351.263,3235285,"Softwood veneer and plywood","Kg",3235285
-"IU","BRA","2436","Brazil","USA","United States",2008,"Export",6,69808.003,262095,"Softwood veneer and plywood","m³",118008784
+"IU","BRA","2436","Brazil","USA","United States",2008,"Export",6,69808.003,262095,"Softwood veneer and plywood","mï¿½",118008784
 "IU","BRA","2436","Brazil","USA","United States",2008,"Import",5,1382.466,21579,"Softwood veneer and plywood","Kg",21579
-"IU","BRA","2436","Brazil","USA","United States",2008,"Import",5,4.722,47,"Softwood veneer and plywood","m³",21
+"IU","BRA","2436","Brazil","USA","United States",2008,"Import",5,4.722,47,"Softwood veneer and plywood","mï¿½",21
 "IU","BRA","2436","Brazil","USA","United States",2009,"Export",6,623.865,961598,"Softwood veneer and plywood","Kg",961598
-"IU","BRA","2436","Brazil","USA","United States",2009,"Export",6,28072.776,1107676,"Softwood veneer and plywood","m³",61475189
+"IU","BRA","2436","Brazil","USA","United States",2009,"Export",6,28072.776,1107676,"Softwood veneer and plywood","mï¿½",61475189
 "IU","BRA","2436","Brazil","USA","United States",2009,"Import",5,225.89,13122,"Softwood veneer and plywood","Kg",13122
 "IU","BRA","2436","Brazil","USA","United States",2010,"Export",6,705.348,848904,"Softwood veneer and plywood","Kg",848904
-"IU","BRA","2436","Brazil","USA","United States",2010,"Export",6,20588.928,63528,"Softwood veneer and plywood","m³",30949856
+"IU","BRA","2436","Brazil","USA","United States",2010,"Export",6,20588.928,63528,"Softwood veneer and plywood","mï¿½",30949856
 "IU","BRA","2436","Brazil","USA","United States",2010,"Import",5,80.805,33786,"Softwood veneer and plywood","Kg",33786
-"IU","BRA","2436","Brazil","USA","United States",2010,"Import",5,0.012,2,"Softwood veneer and plywood","m³",2
+"IU","BRA","2436","Brazil","USA","United States",2010,"Import",5,0.012,2,"Softwood veneer and plywood","mï¿½",2
 "IU","BRA","2436","Brazil","USA","United States",2011,"Export",6,731.366,624916,"Softwood veneer and plywood","Kg",624916
-"IU","BRA","2436","Brazil","USA","United States",2011,"Export",6,9213.556,25359,"Softwood veneer and plywood","m³",12705739
+"IU","BRA","2436","Brazil","USA","United States",2011,"Export",6,9213.556,25359,"Softwood veneer and plywood","mï¿½",12705739
 "IU","BRA","2436","Brazil","USA","United States",2011,"Import",5,3.13,209,"Softwood veneer and plywood","Kg",209
-"IU","BRA","2436","Brazil","USA","United States",2011,"Import",5,41.164,64,"Softwood veneer and plywood","m³",11024
+"IU","BRA","2436","Brazil","USA","United States",2011,"Import",5,41.164,64,"Softwood veneer and plywood","mï¿½",11024
 "IU","BRA","2436","Brazil","USA","United States",2012,"Export",6,3591.495,4581604,"Softwood veneer and plywood","Kg",4581604
-"IU","BRA","2436","Brazil","USA","United States",2012,"Export",6,17466.006,48273,"Softwood veneer and plywood","m³",23911550
+"IU","BRA","2436","Brazil","USA","United States",2012,"Export",6,17466.006,48273,"Softwood veneer and plywood","mï¿½",23911550
 "IU","BRA","2436","Brazil","USA","United States",2012,"Import",5,78.554,6593,"Softwood veneer and plywood","Kg",6593
-"IU","BRA","2436","Brazil","USA","United States",2012,"Import",5,824.487,1552,"Softwood veneer and plywood","m³",89885
+"IU","BRA","2436","Brazil","USA","United States",2012,"Import",5,824.487,1552,"Softwood veneer and plywood","mï¿½",89885
 "IU","BRA","2436","Brazil","USA","United States",2013,"Export",6,4488.149,5400256,"Softwood veneer and plywood","Kg",5400256
-"IU","BRA","2436","Brazil","USA","United States",2013,"Export",6,42584.169,127608,"Softwood veneer and plywood","m³",63373540
+"IU","BRA","2436","Brazil","USA","United States",2013,"Export",6,42584.169,127608,"Softwood veneer and plywood","mï¿½",63373540
 "IU","BRA","2436","Brazil","USA","United States",2013,"Import",5,170.847,25406,"Softwood veneer and plywood","Kg",25406
-"IU","BRA","2436","Brazil","USA","United States",2013,"Import",5,1107.745,2389,"Softwood veneer and plywood","m³",121167
+"IU","BRA","2436","Brazil","USA","United States",2013,"Import",5,1107.745,2389,"Softwood veneer and plywood","mï¿½",121167
 "IU","BRA","2436","Brazil","USA","United States",2014,"Export",6,4311.018,5364725,"Softwood veneer and plywood","Kg",5364725
-"IU","BRA","2436","Brazil","USA","United States",2014,"Export",6,45165.51,132079,"Softwood veneer and plywood","m³",65147904
+"IU","BRA","2436","Brazil","USA","United States",2014,"Export",6,45165.51,132079,"Softwood veneer and plywood","mï¿½",65147904
 "IU","BRA","2436","Brazil","USA","United States",2014,"Import",5,3.002,62,"Softwood veneer and plywood","Kg",62
-"IU","BRA","2436","Brazil","USA","United States",2014,"Import",5,408.472,950,"Softwood veneer and plywood","m³",117847
+"IU","BRA","2436","Brazil","USA","United States",2014,"Import",5,408.472,950,"Softwood veneer and plywood","mï¿½",117847
 "IU","BRA","2436","Brazil","USA","United States",2015,"Export",6,6066.542,9388041,"Softwood veneer and plywood","Kg",9388041
-"IU","BRA","2436","Brazil","USA","United States",2015,"Export",6,87939.524,285040,"Softwood veneer and plywood","m³",142785428
+"IU","BRA","2436","Brazil","USA","United States",2015,"Export",6,87939.524,285040,"Softwood veneer and plywood","mï¿½",142785428
 "IU","BRA","2436","Brazil","USA","United States",2015,"Import",5,6.72,13,"Softwood veneer and plywood","Kg",13
-"IU","BRA","2436","Brazil","USA","United States",2015,"Import",5,431.328,1460,"Softwood veneer and plywood","m³",185013
+"IU","BRA","2436","Brazil","USA","United States",2015,"Import",5,431.328,1460,"Softwood veneer and plywood","mï¿½",185013
 "IU","BRA","2436","Brazil","USA","United States",2016,"Export",6,14504.748,27350492,"Softwood veneer and plywood","Kg",27350492
-"IU","BRA","2436","Brazil","USA","United States",2016,"Export",6,130396.641,513007,"Softwood veneer and plywood","m³",260814044
+"IU","BRA","2436","Brazil","USA","United States",2016,"Export",6,130396.641,513007,"Softwood veneer and plywood","mï¿½",260814044
 "IU","BRA","2436","Brazil","USA","United States",2016,"Import",5,20.188,41,"Softwood veneer and plywood","Kg",41
-"IU","BRA","2436","Brazil","USA","United States",2016,"Import",5,234.568,465,"Softwood veneer and plywood","m³",46264
+"IU","BRA","2436","Brazil","USA","United States",2016,"Import",5,234.568,465,"Softwood veneer and plywood","mï¿½",46264
 "IU","BRA","2436","Brazil","USA","United States",2017,"Export",6,10022.601,17022450,"Softwood veneer and plywood","Kg",17022450
-"IU","BRA","2436","Brazil","USA","United States",2017,"Export",6,194726.194,682393,"Softwood veneer and plywood","m³",348885837
+"IU","BRA","2436","Brazil","USA","United States",2017,"Export",6,194726.194,682393,"Softwood veneer and plywood","mï¿½",348885837
 "IU","BRA","2436","Brazil","USA","United States",2017,"Import",5,5.069,21,"Softwood veneer and plywood","Kg",21
 "IU","BRA","2436","Brazil","USA","United States",2018,"Export",6,10175.664,13985221,"Softwood veneer and plywood","Kg",13985221
-"IU","BRA","2436","Brazil","USA","United States",2018,"Export",6,255653.714,815797.025,"Softwood veneer and plywood","m³",402528467
+"IU","BRA","2436","Brazil","USA","United States",2018,"Export",6,255653.714,815797.025,"Softwood veneer and plywood","mï¿½",402528467
 "IU","BRA","2436","Brazil","USA","United States",2018,"Import",5,54.077,5464,"Softwood veneer and plywood","Kg",5464
 "IU","BRA","2436","Brazil","USA","United States",2019,"Export",6,7606.729,12213519.171,"Softwood veneer and plywood","Kg",12213519
-"IU","BRA","2436","Brazil","USA","United States",2019,"Export",6,195653.974,939054.376,"Softwood veneer and plywood","m³",418547346
+"IU","BRA","2436","Brazil","USA","United States",2019,"Export",6,195653.974,939054.376,"Softwood veneer and plywood","mï¿½",418547346
 "IU","BRA","2436","Brazil","USA","United States",2019,"Import",5,50.775,38082,"Softwood veneer and plywood","Kg",38082
 "IU","BRA","2439","Brazil","USA","United States",2008,"Export",6,51410.089,31580201,"Structural wood members, nspf","Kg",31580201
 "IU","BRA","2439","Brazil","USA","United States",2008,"Import",5,34.104,65190,"Structural wood members, nspf","Kg",65190
@@ -6315,7 +6315,7 @@
 "IU","BRA","249","Brazil","USA","United States",2008,"Export",6,63057.034,101835345,"Miscellaneous wood products","Kg",101835345
 "IU","BRA","249","Brazil","USA","United States",2008,"Import",5,1129.07,228875,"Miscellaneous wood products","Kg",228875
 "IU","BRA","249","Brazil","USA","United States",2009,"Export",6,42700.128,74556150,"Miscellaneous wood products","Kg",74556150
-"IU","BRA","249","Brazil","USA","United States",2009,"Export",6,7.193,20,"Miscellaneous wood products","m³",22400
+"IU","BRA","249","Brazil","USA","United States",2009,"Export",6,7.193,20,"Miscellaneous wood products","mï¿½",22400
 "IU","BRA","249","Brazil","USA","United States",2009,"Import",5,878.144,281632,"Miscellaneous wood products","Kg",281632
 "IU","BRA","249","Brazil","USA","United States",2010,"Export",6,51111.622,70131600,"Miscellaneous wood products","Kg",70131600
 "IU","BRA","249","Brazil","USA","United States",2010,"Import",5,1087.397,208309,"Miscellaneous wood products","Kg",208309
@@ -6341,7 +6341,7 @@
 "IU","BRA","249","Brazil","USA","United States",2019,"Export",6,1.893,0,"Miscellaneous wood products","N.Q.",
 "IU","BRA","249","Brazil","USA","United States",2019,"Import",5,553.855,99853,"Miscellaneous wood products","Kg",95670
 "IU","BRA","249","Brazil","USA","United States",2019,"Import",5,0.105,0,"Miscellaneous wood products","N.Q.",0
-"IU","BRA","2491","Brazil","USA","United States",2009,"Export",6,7.193,20,"Wood products, preserved or treated","m³",22400
+"IU","BRA","2491","Brazil","USA","United States",2009,"Export",6,7.193,20,"Wood products, preserved or treated","mï¿½",22400
 "IU","BRA","2493","Brazil","USA","United States",2008,"Export",6,38594.004,85113367,"Reconstituted wood products","Kg",85113367
 "IU","BRA","2493","Brazil","USA","United States",2008,"Import",5,115.222,114623,"Reconstituted wood products","Kg",114623
 "IU","BRA","2493","Brazil","USA","United States",2009,"Export",6,24057.817,60507340,"Reconstituted wood products","Kg",60507340
@@ -7839,141 +7839,141 @@
 "IU","BRA","2796","Brazil","USA","United States",2019,"Import",5,65.227,538,"Printing plates","Kg",0
 "IU","BRA","28","Brazil","USA","United States",2008,"Export",6,1098270.052,1061596614,"Chemicals and allied products","Kg",1061596614
 "IU","BRA","28","Brazil","USA","United States",2008,"Export",6,1098.317,2025774,"Chemicals and allied products","Liter",1605115
-"IU","BRA","28","Brazil","USA","United States",2008,"Export",6,16.24,56,"Chemicals and allied products","m³",198
+"IU","BRA","28","Brazil","USA","United States",2008,"Export",6,16.24,56,"Chemicals and allied products","mï¿½",198
 "IU","BRA","28","Brazil","USA","United States",2008,"Import",5,7162038.348,5009312051,"Chemicals and allied products","Kg",5009312051
 "IU","BRA","28","Brazil","USA","United States",2008,"Import",5,17.076,1506,"Chemicals and allied products","Liter",1057
-"IU","BRA","28","Brazil","USA","United States",2008,"Import",5,7519.949,2406550,"Chemicals and allied products","m³",353057
+"IU","BRA","28","Brazil","USA","United States",2008,"Import",5,7519.949,2406550,"Chemicals and allied products","mï¿½",353057
 "IU","BRA","28","Brazil","USA","United States",2008,"Import",5,4278.711,,"Chemicals and allied products","N.Q.",121
 "IU","BRA","28","Brazil","USA","United States",2009,"Export",6,845792.755,913007320,"Chemicals and allied products","Kg",913007320
-"IU","BRA","28","Brazil","USA","United States",2009,"Export",6,238.446,671287,"Chemicals and allied products","m³",8283
+"IU","BRA","28","Brazil","USA","United States",2009,"Export",6,238.446,671287,"Chemicals and allied products","mï¿½",8283
 "IU","BRA","28","Brazil","USA","United States",2009,"Import",5,5892582.572,5045888081,"Chemicals and allied products","Kg",5045888081
 "IU","BRA","28","Brazil","USA","United States",2009,"Import",5,349.703,1345704,"Chemicals and allied products","Liter",1085654
-"IU","BRA","28","Brazil","USA","United States",2009,"Import",5,9835.193,2210779,"Chemicals and allied products","m³",468348
+"IU","BRA","28","Brazil","USA","United States",2009,"Import",5,9835.193,2210779,"Chemicals and allied products","mï¿½",468348
 "IU","BRA","28","Brazil","USA","United States",2009,"Import",5,3904.778,,"Chemicals and allied products","N.Q.",
 "IU","BRA","28","Brazil","USA","United States",2010,"Export",6,1026564.612,765447479,"Chemicals and allied products","Kg",765447479
-"IU","BRA","28","Brazil","USA","United States",2010,"Export",6,601.672,95773,"Chemicals and allied products","m³",15864
+"IU","BRA","28","Brazil","USA","United States",2010,"Export",6,601.672,95773,"Chemicals and allied products","mï¿½",15864
 "IU","BRA","28","Brazil","USA","United States",2010,"Import",5,7476214.087,6308111355,"Chemicals and allied products","Kg",6308111355
 "IU","BRA","28","Brazil","USA","United States",2010,"Import",5,25401.631,53325388,"Chemicals and allied products","Liter",42073796
-"IU","BRA","28","Brazil","USA","United States",2010,"Import",5,9960.672,1635159,"Chemicals and allied products","m³",362670
+"IU","BRA","28","Brazil","USA","United States",2010,"Import",5,9960.672,1635159,"Chemicals and allied products","mï¿½",362670
 "IU","BRA","28","Brazil","USA","United States",2010,"Import",5,3220.984,,"Chemicals and allied products","N.Q.",
 "IU","BRA","28","Brazil","USA","United States",2011,"Export",6,1343656.798,763494570,"Chemicals and allied products","Kg",763494570
 "IU","BRA","28","Brazil","USA","United States",2011,"Export",6,1.168,50,"Chemicals and allied products","Liter",40
-"IU","BRA","28","Brazil","USA","United States",2011,"Export",6,308.846,67707,"Chemicals and allied products","m³",10718
+"IU","BRA","28","Brazil","USA","United States",2011,"Export",6,308.846,67707,"Chemicals and allied products","mï¿½",10718
 "IU","BRA","28","Brazil","USA","United States",2011,"Import",5,8781568.204,6670467714,"Chemicals and allied products","Kg",6670467714
 "IU","BRA","28","Brazil","USA","United States",2011,"Import",5,747868.822,1049545696,"Chemicals and allied products","Liter",828578002
-"IU","BRA","28","Brazil","USA","United States",2011,"Import",5,11076.822,913134,"Chemicals and allied products","m³",413830
+"IU","BRA","28","Brazil","USA","United States",2011,"Import",5,11076.822,913134,"Chemicals and allied products","mï¿½",413830
 "IU","BRA","28","Brazil","USA","United States",2011,"Import",5,3375.471,,"Chemicals and allied products","N.Q.",
 "IU","BRA","28","Brazil","USA","United States",2012,"Export",6,1265551.143,740253552,"Chemicals and allied products","Kg",740253552
-"IU","BRA","28","Brazil","USA","United States",2012,"Export",6,1035.757,190429,"Chemicals and allied products","m³",41611
+"IU","BRA","28","Brazil","USA","United States",2012,"Export",6,1035.757,190429,"Chemicals and allied products","mï¿½",41611
 "IU","BRA","28","Brazil","USA","United States",2012,"Import",5,8540299.363,6577665528,"Chemicals and allied products","Kg",6577665528
 "IU","BRA","28","Brazil","USA","United States",2012,"Import",5,354363.942,522358650,"Chemicals and allied products","Liter",411525727
-"IU","BRA","28","Brazil","USA","United States",2012,"Import",5,13773.711,983853,"Chemicals and allied products","m³",474746
+"IU","BRA","28","Brazil","USA","United States",2012,"Import",5,13773.711,983853,"Chemicals and allied products","mï¿½",474746
 "IU","BRA","28","Brazil","USA","United States",2012,"Import",5,3678.199,,"Chemicals and allied products","N.Q.",3127
 "IU","BRA","28","Brazil","USA","United States",2013,"Export",6,1086536.787,750640548,"Chemicals and allied products","Kg",750640548
 "IU","BRA","28","Brazil","USA","United States",2013,"Export",6,0.059,44,"Chemicals and allied products","Liter",35
-"IU","BRA","28","Brazil","USA","United States",2013,"Export",6,1409.589,214625,"Chemicals and allied products","m³",42141
+"IU","BRA","28","Brazil","USA","United States",2013,"Export",6,1409.589,214625,"Chemicals and allied products","mï¿½",42141
 "IU","BRA","28","Brazil","USA","United States",2013,"Import",5,9729956.18,7339716746,"Chemicals and allied products","Kg",7339716746
 "IU","BRA","28","Brazil","USA","United States",2013,"Import",5,40526.046,61694765,"Chemicals and allied products","Liter",48662877
-"IU","BRA","28","Brazil","USA","United States",2013,"Import",5,15435.831,1960560,"Chemicals and allied products","m³",529396
+"IU","BRA","28","Brazil","USA","United States",2013,"Import",5,15435.831,1960560,"Chemicals and allied products","mï¿½",529396
 "IU","BRA","28","Brazil","USA","United States",2013,"Import",5,3003.41,,"Chemicals and allied products","N.Q.",
 "IU","BRA","28","Brazil","USA","United States",2014,"Export",6,1159990.496,812103653,"Chemicals and allied products","Kg",812103653
 "IU","BRA","28","Brazil","USA","United States",2014,"Export",6,0.031,25,"Chemicals and allied products","Liter",20
-"IU","BRA","28","Brazil","USA","United States",2014,"Export",6,1534.703,105695,"Chemicals and allied products","m³",36007
+"IU","BRA","28","Brazil","USA","United States",2014,"Export",6,1534.703,105695,"Chemicals and allied products","mï¿½",36007
 "IU","BRA","28","Brazil","USA","United States",2014,"Import",5,9536403.517,7818500774,"Chemicals and allied products","Kg",7818500774
 "IU","BRA","28","Brazil","USA","United States",2014,"Import",5,4625.925,11057186,"Chemicals and allied products","Liter",8724976
-"IU","BRA","28","Brazil","USA","United States",2014,"Import",5,19505.623,3083297,"Chemicals and allied products","m³",506548
+"IU","BRA","28","Brazil","USA","United States",2014,"Import",5,19505.623,3083297,"Chemicals and allied products","mï¿½",506548
 "IU","BRA","28","Brazil","USA","United States",2014,"Import",5,2747.834,,"Chemicals and allied products","N.Q.",
 "IU","BRA","28","Brazil","USA","United States",2015,"Export",6,1042958.984,1022050072,"Chemicals and allied products","Kg",1022050072
 "IU","BRA","28","Brazil","USA","United States",2015,"Export",6,152.064,7254,"Chemicals and allied products","Liter",15425
-"IU","BRA","28","Brazil","USA","United States",2015,"Export",6,2491.682,53237,"Chemicals and allied products","m³",65273
+"IU","BRA","28","Brazil","USA","United States",2015,"Export",6,2491.682,53237,"Chemicals and allied products","mï¿½",65273
 "IU","BRA","28","Brazil","USA","United States",2015,"Import",5,8130077.008,6560088877,"Chemicals and allied products","Kg",6560088877
 "IU","BRA","28","Brazil","USA","United States",2015,"Import",5,19399.005,45531938,"Chemicals and allied products","Liter",36028352
-"IU","BRA","28","Brazil","USA","United States",2015,"Import",5,23118.009,1089420,"Chemicals and allied products","m³",512186
+"IU","BRA","28","Brazil","USA","United States",2015,"Import",5,23118.009,1089420,"Chemicals and allied products","mï¿½",512186
 "IU","BRA","28","Brazil","USA","United States",2015,"Import",5,2596.377,,"Chemicals and allied products","N.Q.",
 "IU","BRA","28","Brazil","USA","United States",2016,"Export",6,1253021.99,1389767123,"Chemicals and allied products","Kg",1389767523
 "IU","BRA","28","Brazil","USA","United States",2016,"Export",6,152.522,6962,"Chemicals and allied products","Liter",14694
-"IU","BRA","28","Brazil","USA","United States",2016,"Export",6,664.114,54228,"Chemicals and allied products","m³",23139
+"IU","BRA","28","Brazil","USA","United States",2016,"Export",6,664.114,54228,"Chemicals and allied products","mï¿½",23139
 "IU","BRA","28","Brazil","USA","United States",2016,"Import",5,7111323.533,6935831294,"Chemicals and allied products","Kg",6935831294
 "IU","BRA","28","Brazil","USA","United States",2016,"Import",5,22033.044,51127614,"Chemicals and allied products","Liter",40239095
-"IU","BRA","28","Brazil","USA","United States",2016,"Import",5,17292.004,2229837,"Chemicals and allied products","m³",393039
+"IU","BRA","28","Brazil","USA","United States",2016,"Import",5,17292.004,2229837,"Chemicals and allied products","mï¿½",393039
 "IU","BRA","28","Brazil","USA","United States",2016,"Import",5,1715.647,,"Chemicals and allied products","N.Q.",
 "IU","BRA","28","Brazil","USA","United States",2017,"Export",6,1501404.077,1670968843.077,"Chemicals and allied products","Kg",1670942349
-"IU","BRA","28","Brazil","USA","United States",2017,"Export",6,1480.896,59377,"Chemicals and allied products","m³",21272
+"IU","BRA","28","Brazil","USA","United States",2017,"Export",6,1480.896,59377,"Chemicals and allied products","mï¿½",21272
 "IU","BRA","28","Brazil","USA","United States",2017,"Import",5,7142406.386,7175568623.76,"Chemicals and allied products","Kg",2664733294
 "IU","BRA","28","Brazil","USA","United States",2017,"Import",5,37.878,4012,"Chemicals and allied products","Liter",3460
 "IU","BRA","28","Brazil","USA","United States",2017,"Import",5,16909.613,0,"Chemicals and allied products","N.Q.",386705
 "IU","BRA","28","Brazil","USA","United States",2018,"Export",6,1700363.249,1835077975.386,"Chemicals and allied products","Kg",1833907737
-"IU","BRA","28","Brazil","USA","United States",2018,"Export",6,1311.914,55125,"Chemicals and allied products","m³",19372
+"IU","BRA","28","Brazil","USA","United States",2018,"Export",6,1311.914,55125,"Chemicals and allied products","mï¿½",19372
 "IU","BRA","28","Brazil","USA","United States",2018,"Export",6,1583.051,0,"Chemicals and allied products","N.Q.",9235
 "IU","BRA","28","Brazil","USA","United States",2018,"Import",5,8175090.218,7152444707.04,"Chemicals and allied products","Kg",2444245554
 "IU","BRA","28","Brazil","USA","United States",2018,"Import",5,37.966,25601,"Chemicals and allied products","Liter",0
 "IU","BRA","28","Brazil","USA","United States",2018,"Import",5,17244.85,0,"Chemicals and allied products","N.Q.",59
 "IU","BRA","28","Brazil","USA","United States",2019,"Export",6,1544573.2,1808954467.946,"Chemicals and allied products","Kg",1807440813
-"IU","BRA","28","Brazil","USA","United States",2019,"Export",6,551.063,52808,"Chemicals and allied products","m³",25193
+"IU","BRA","28","Brazil","USA","United States",2019,"Export",6,551.063,52808,"Chemicals and allied products","mï¿½",25193
 "IU","BRA","28","Brazil","USA","United States",2019,"Export",6,652.513,0,"Chemicals and allied products","N.Q.",8003
 "IU","BRA","28","Brazil","USA","United States",2019,"Import",5,8248276.588,7984549629.1,"Chemicals and allied products","Kg",4585076247
 "IU","BRA","28","Brazil","USA","United States",2019,"Import",5,46.112,25549,"Chemicals and allied products","Liter",0
-"IU","BRA","28","Brazil","USA","United States",2019,"Import",5,7.237,1380,"Chemicals and allied products","m³",0
+"IU","BRA","28","Brazil","USA","United States",2019,"Import",5,7.237,1380,"Chemicals and allied products","mï¿½",0
 "IU","BRA","28","Brazil","USA","United States",2019,"Import",5,18871.695,0,"Chemicals and allied products","N.Q.",357766
 "IU","BRA","281","Brazil","USA","United States",2008,"Export",6,278449.878,598615083,"Industrial inorganic chemicals","Kg",598615083
-"IU","BRA","281","Brazil","USA","United States",2008,"Export",6,16.24,56,"Industrial inorganic chemicals","m³",198
+"IU","BRA","281","Brazil","USA","United States",2008,"Export",6,16.24,56,"Industrial inorganic chemicals","mï¿½",198
 "IU","BRA","281","Brazil","USA","United States",2008,"Import",5,794031.315,2012385755,"Industrial inorganic chemicals","Kg",2012385755
-"IU","BRA","281","Brazil","USA","United States",2008,"Import",5,7519.949,2406550,"Industrial inorganic chemicals","m³",353057
+"IU","BRA","281","Brazil","USA","United States",2008,"Import",5,7519.949,2406550,"Industrial inorganic chemicals","mï¿½",353057
 "IU","BRA","281","Brazil","USA","United States",2008,"Import",5,3220.767,,"Industrial inorganic chemicals","N.Q.",121
 "IU","BRA","281","Brazil","USA","United States",2009,"Export",6,151472.586,413622854,"Industrial inorganic chemicals","Kg",413622854
-"IU","BRA","281","Brazil","USA","United States",2009,"Export",6,238.446,671287,"Industrial inorganic chemicals","m³",8283
+"IU","BRA","281","Brazil","USA","United States",2009,"Export",6,238.446,671287,"Industrial inorganic chemicals","mï¿½",8283
 "IU","BRA","281","Brazil","USA","United States",2009,"Import",5,789909.006,2199269028,"Industrial inorganic chemicals","Kg",2199269028
-"IU","BRA","281","Brazil","USA","United States",2009,"Import",5,9835.193,2210779,"Industrial inorganic chemicals","m³",468348
+"IU","BRA","281","Brazil","USA","United States",2009,"Import",5,9835.193,2210779,"Industrial inorganic chemicals","mï¿½",468348
 "IU","BRA","281","Brazil","USA","United States",2009,"Import",5,3860.408,,"Industrial inorganic chemicals","N.Q.",
 "IU","BRA","281","Brazil","USA","United States",2010,"Export",6,145037.768,279429340,"Industrial inorganic chemicals","Kg",279429340
-"IU","BRA","281","Brazil","USA","United States",2010,"Export",6,601.672,95773,"Industrial inorganic chemicals","m³",15864
+"IU","BRA","281","Brazil","USA","United States",2010,"Export",6,601.672,95773,"Industrial inorganic chemicals","mï¿½",15864
 "IU","BRA","281","Brazil","USA","United States",2010,"Import",5,823586.604,2892704011,"Industrial inorganic chemicals","Kg",2892704011
-"IU","BRA","281","Brazil","USA","United States",2010,"Import",5,9960.672,1635159,"Industrial inorganic chemicals","m³",362670
+"IU","BRA","281","Brazil","USA","United States",2010,"Import",5,9960.672,1635159,"Industrial inorganic chemicals","mï¿½",362670
 "IU","BRA","281","Brazil","USA","United States",2010,"Import",5,3172.122,,"Industrial inorganic chemicals","N.Q.",
 "IU","BRA","281","Brazil","USA","United States",2011,"Export",6,173989.349,277892674,"Industrial inorganic chemicals","Kg",277892674
-"IU","BRA","281","Brazil","USA","United States",2011,"Export",6,308.846,67707,"Industrial inorganic chemicals","m³",10718
+"IU","BRA","281","Brazil","USA","United States",2011,"Export",6,308.846,67707,"Industrial inorganic chemicals","mï¿½",10718
 "IU","BRA","281","Brazil","USA","United States",2011,"Import",5,1057749.997,2930247532,"Industrial inorganic chemicals","Kg",2930247532
-"IU","BRA","281","Brazil","USA","United States",2011,"Import",5,11076.822,913134,"Industrial inorganic chemicals","m³",413830
+"IU","BRA","281","Brazil","USA","United States",2011,"Import",5,11076.822,913134,"Industrial inorganic chemicals","mï¿½",413830
 "IU","BRA","281","Brazil","USA","United States",2011,"Import",5,3372.884,,"Industrial inorganic chemicals","N.Q.",
 "IU","BRA","281","Brazil","USA","United States",2012,"Export",6,178117.585,273910802,"Industrial inorganic chemicals","Kg",273910802
-"IU","BRA","281","Brazil","USA","United States",2012,"Export",6,1035.757,190429,"Industrial inorganic chemicals","m³",41611
+"IU","BRA","281","Brazil","USA","United States",2012,"Export",6,1035.757,190429,"Industrial inorganic chemicals","mï¿½",41611
 "IU","BRA","281","Brazil","USA","United States",2012,"Import",5,1096084.305,3066014248,"Industrial inorganic chemicals","Kg",3066014248
-"IU","BRA","281","Brazil","USA","United States",2012,"Import",5,13773.711,983853,"Industrial inorganic chemicals","m³",474746
+"IU","BRA","281","Brazil","USA","United States",2012,"Import",5,13773.711,983853,"Industrial inorganic chemicals","mï¿½",474746
 "IU","BRA","281","Brazil","USA","United States",2012,"Import",5,3568.219,,"Industrial inorganic chemicals","N.Q.",3127
 "IU","BRA","281","Brazil","USA","United States",2013,"Export",6,182491.904,327122083,"Industrial inorganic chemicals","Kg",327122083
-"IU","BRA","281","Brazil","USA","United States",2013,"Export",6,1409.589,214625,"Industrial inorganic chemicals","m³",42141
+"IU","BRA","281","Brazil","USA","United States",2013,"Export",6,1409.589,214625,"Industrial inorganic chemicals","mï¿½",42141
 "IU","BRA","281","Brazil","USA","United States",2013,"Import",5,1106009.224,3066660130,"Industrial inorganic chemicals","Kg",3066660130
-"IU","BRA","281","Brazil","USA","United States",2013,"Import",5,15435.831,1960560,"Industrial inorganic chemicals","m³",529396
+"IU","BRA","281","Brazil","USA","United States",2013,"Import",5,15435.831,1960560,"Industrial inorganic chemicals","mï¿½",529396
 "IU","BRA","281","Brazil","USA","United States",2013,"Import",5,2796.607,,"Industrial inorganic chemicals","N.Q.",
 "IU","BRA","281","Brazil","USA","United States",2014,"Export",6,144341.581,302234997,"Industrial inorganic chemicals","Kg",302234997
-"IU","BRA","281","Brazil","USA","United States",2014,"Export",6,1534.703,105695,"Industrial inorganic chemicals","m³",36007
+"IU","BRA","281","Brazil","USA","United States",2014,"Export",6,1534.703,105695,"Industrial inorganic chemicals","mï¿½",36007
 "IU","BRA","281","Brazil","USA","United States",2014,"Import",5,1015284.463,3326104361,"Industrial inorganic chemicals","Kg",3326104361
-"IU","BRA","281","Brazil","USA","United States",2014,"Import",5,19505.623,3083297,"Industrial inorganic chemicals","m³",506548
+"IU","BRA","281","Brazil","USA","United States",2014,"Import",5,19505.623,3083297,"Industrial inorganic chemicals","mï¿½",506548
 "IU","BRA","281","Brazil","USA","United States",2014,"Import",5,2566.105,,"Industrial inorganic chemicals","N.Q.",
 "IU","BRA","281","Brazil","USA","United States",2015,"Export",6,210846.154,521511104,"Industrial inorganic chemicals","Kg",521511104
-"IU","BRA","281","Brazil","USA","United States",2015,"Export",6,2491.682,53237,"Industrial inorganic chemicals","m³",65273
+"IU","BRA","281","Brazil","USA","United States",2015,"Export",6,2491.682,53237,"Industrial inorganic chemicals","mï¿½",65273
 "IU","BRA","281","Brazil","USA","United States",2015,"Import",5,924761.92,2813730257,"Industrial inorganic chemicals","Kg",2813730257
-"IU","BRA","281","Brazil","USA","United States",2015,"Import",5,23118.009,1089420,"Industrial inorganic chemicals","m³",512186
+"IU","BRA","281","Brazil","USA","United States",2015,"Import",5,23118.009,1089420,"Industrial inorganic chemicals","mï¿½",512186
 "IU","BRA","281","Brazil","USA","United States",2015,"Import",5,2577.607,,"Industrial inorganic chemicals","N.Q.",
 "IU","BRA","281","Brazil","USA","United States",2016,"Export",6,204688.833,636298026,"Industrial inorganic chemicals","Kg",636298426
-"IU","BRA","281","Brazil","USA","United States",2016,"Export",6,664.114,54228,"Industrial inorganic chemicals","m³",23139
+"IU","BRA","281","Brazil","USA","United States",2016,"Export",6,664.114,54228,"Industrial inorganic chemicals","mï¿½",23139
 "IU","BRA","281","Brazil","USA","United States",2016,"Import",5,921802.581,2788095043,"Industrial inorganic chemicals","Kg",2788095043
-"IU","BRA","281","Brazil","USA","United States",2016,"Import",5,17292.004,2229837,"Industrial inorganic chemicals","m³",393039
+"IU","BRA","281","Brazil","USA","United States",2016,"Import",5,17292.004,2229837,"Industrial inorganic chemicals","mï¿½",393039
 "IU","BRA","281","Brazil","USA","United States",2016,"Import",5,1699.414,,"Industrial inorganic chemicals","N.Q.",
 "IU","BRA","281","Brazil","USA","United States",2017,"Export",6,331803.244,930500060.945,"Industrial inorganic chemicals","Kg",930500061
-"IU","BRA","281","Brazil","USA","United States",2017,"Export",6,1480.896,59377,"Industrial inorganic chemicals","m³",21272
+"IU","BRA","281","Brazil","USA","United States",2017,"Export",6,1480.896,59377,"Industrial inorganic chemicals","mï¿½",21272
 "IU","BRA","281","Brazil","USA","United States",2017,"Import",5,1042349.908,2917948181.76,"Industrial inorganic chemicals","Kg",28473092
 "IU","BRA","281","Brazil","USA","United States",2017,"Import",5,15946.929,0,"Industrial inorganic chemicals","N.Q.",386705
 "IU","BRA","281","Brazil","USA","United States",2018,"Export",6,683147.03,1231866324.547,"Industrial inorganic chemicals","Kg",1231812354
-"IU","BRA","281","Brazil","USA","United States",2018,"Export",6,1311.914,55125,"Industrial inorganic chemicals","m³",19372
+"IU","BRA","281","Brazil","USA","United States",2018,"Export",6,1311.914,55125,"Industrial inorganic chemicals","mï¿½",19372
 "IU","BRA","281","Brazil","USA","United States",2018,"Export",6,393.942,0,"Industrial inorganic chemicals","N.Q.",9235
 "IU","BRA","281","Brazil","USA","United States",2018,"Import",5,1121968.44,2902304435.04,"Industrial inorganic chemicals","Kg",15520644
 "IU","BRA","281","Brazil","USA","United States",2018,"Import",5,17244.85,0,"Industrial inorganic chemicals","N.Q.",59
 "IU","BRA","281","Brazil","USA","United States",2019,"Export",6,538483.183,1193130615.105,"Industrial inorganic chemicals","Kg",1193089190
-"IU","BRA","281","Brazil","USA","United States",2019,"Export",6,551.063,52808,"Industrial inorganic chemicals","m³",25193
+"IU","BRA","281","Brazil","USA","United States",2019,"Export",6,551.063,52808,"Industrial inorganic chemicals","mï¿½",25193
 "IU","BRA","281","Brazil","USA","United States",2019,"Export",6,3.41,0,"Industrial inorganic chemicals","N.Q.",1829
 "IU","BRA","281","Brazil","USA","United States",2019,"Import",5,953119.26,3149958657.1,"Industrial inorganic chemicals","Kg",2201811808
-"IU","BRA","281","Brazil","USA","United States",2019,"Import",5,7.237,1380,"Industrial inorganic chemicals","m³",0
+"IU","BRA","281","Brazil","USA","United States",2019,"Import",5,7.237,1380,"Industrial inorganic chemicals","mï¿½",0
 "IU","BRA","281","Brazil","USA","United States",2019,"Import",5,18871.695,0,"Industrial inorganic chemicals","N.Q.",357766
 "IU","BRA","2812","Brazil","USA","United States",2008,"Export",6,1006.907,719884,"Alkalies and chlorine","Kg",719884
 "IU","BRA","2812","Brazil","USA","United States",2008,"Import",5,318567.481,1806799569,"Alkalies and chlorine","Kg",1806799569
@@ -8000,53 +8000,53 @@
 "IU","BRA","2812","Brazil","USA","United States",2018,"Import",5,741924.699,2752405594,"Alkalies and chlorine","Kg",17244
 "IU","BRA","2812","Brazil","USA","United States",2019,"Export",6,20.64,21924.031,"Alkalies and chlorine","Kg",22183
 "IU","BRA","2812","Brazil","USA","United States",2019,"Import",5,576827.879,2982099726,"Alkalies and chlorine","Kg",2182942053
-"IU","BRA","2813","Brazil","USA","United States",2008,"Export",6,16.24,56,"Industrial gases","m³",198
+"IU","BRA","2813","Brazil","USA","United States",2008,"Export",6,16.24,56,"Industrial gases","mï¿½",198
 "IU","BRA","2813","Brazil","USA","United States",2008,"Import",5,114.841,4442,"Industrial gases","Kg",4442
-"IU","BRA","2813","Brazil","USA","United States",2008,"Import",5,7519.949,2406550,"Industrial gases","m³",353057
+"IU","BRA","2813","Brazil","USA","United States",2008,"Import",5,7519.949,2406550,"Industrial gases","mï¿½",353057
 "IU","BRA","2813","Brazil","USA","United States",2008,"Import",5,5.786,,"Industrial gases","N.Q.",118
-"IU","BRA","2813","Brazil","USA","United States",2009,"Export",6,238.446,671287,"Industrial gases","m³",8283
+"IU","BRA","2813","Brazil","USA","United States",2009,"Export",6,238.446,671287,"Industrial gases","mï¿½",8283
 "IU","BRA","2813","Brazil","USA","United States",2009,"Import",5,59.767,6717,"Industrial gases","Kg",6717
-"IU","BRA","2813","Brazil","USA","United States",2009,"Import",5,9835.193,2210779,"Industrial gases","m³",468348
-"IU","BRA","2813","Brazil","USA","United States",2010,"Export",6,601.672,95773,"Industrial gases","m³",15864
+"IU","BRA","2813","Brazil","USA","United States",2009,"Import",5,9835.193,2210779,"Industrial gases","mï¿½",468348
+"IU","BRA","2813","Brazil","USA","United States",2010,"Export",6,601.672,95773,"Industrial gases","mï¿½",15864
 "IU","BRA","2813","Brazil","USA","United States",2010,"Import",5,223.379,22561,"Industrial gases","Kg",22561
-"IU","BRA","2813","Brazil","USA","United States",2010,"Import",5,9960.672,1635159,"Industrial gases","m³",362670
-"IU","BRA","2813","Brazil","USA","United States",2011,"Export",6,308.846,67707,"Industrial gases","m³",10718
+"IU","BRA","2813","Brazil","USA","United States",2010,"Import",5,9960.672,1635159,"Industrial gases","mï¿½",362670
+"IU","BRA","2813","Brazil","USA","United States",2011,"Export",6,308.846,67707,"Industrial gases","mï¿½",10718
 "IU","BRA","2813","Brazil","USA","United States",2011,"Import",5,102.329,5306,"Industrial gases","Kg",5306
-"IU","BRA","2813","Brazil","USA","United States",2011,"Import",5,11076.822,913134,"Industrial gases","m³",413830
+"IU","BRA","2813","Brazil","USA","United States",2011,"Import",5,11076.822,913134,"Industrial gases","mï¿½",413830
 "IU","BRA","2813","Brazil","USA","United States",2012,"Export",6,1.436,126,"Industrial gases","Kg",126
-"IU","BRA","2813","Brazil","USA","United States",2012,"Export",6,1035.757,190429,"Industrial gases","m³",41611
+"IU","BRA","2813","Brazil","USA","United States",2012,"Export",6,1035.757,190429,"Industrial gases","mï¿½",41611
 "IU","BRA","2813","Brazil","USA","United States",2012,"Import",5,568.997,57737,"Industrial gases","Kg",57737
-"IU","BRA","2813","Brazil","USA","United States",2012,"Import",5,13773.711,983853,"Industrial gases","m³",474746
+"IU","BRA","2813","Brazil","USA","United States",2012,"Import",5,13773.711,983853,"Industrial gases","mï¿½",474746
 "IU","BRA","2813","Brazil","USA","United States",2012,"Import",5,3.891,,"Industrial gases","N.Q.",3127
 "IU","BRA","2813","Brazil","USA","United States",2013,"Export",6,0.36,0,"Industrial gases","Kg",0
-"IU","BRA","2813","Brazil","USA","United States",2013,"Export",6,1409.589,214625,"Industrial gases","m³",42141
+"IU","BRA","2813","Brazil","USA","United States",2013,"Export",6,1409.589,214625,"Industrial gases","mï¿½",42141
 "IU","BRA","2813","Brazil","USA","United States",2013,"Import",5,1094.209,31234,"Industrial gases","Kg",31234
-"IU","BRA","2813","Brazil","USA","United States",2013,"Import",5,15435.831,1960560,"Industrial gases","m³",529396
-"IU","BRA","2813","Brazil","USA","United States",2014,"Export",6,1534.703,105695,"Industrial gases","m³",36007
+"IU","BRA","2813","Brazil","USA","United States",2013,"Import",5,15435.831,1960560,"Industrial gases","mï¿½",529396
+"IU","BRA","2813","Brazil","USA","United States",2014,"Export",6,1534.703,105695,"Industrial gases","mï¿½",36007
 "IU","BRA","2813","Brazil","USA","United States",2014,"Import",5,43.823,2378,"Industrial gases","Kg",2378
-"IU","BRA","2813","Brazil","USA","United States",2014,"Import",5,19505.623,3083297,"Industrial gases","m³",506548
+"IU","BRA","2813","Brazil","USA","United States",2014,"Import",5,19505.623,3083297,"Industrial gases","mï¿½",506548
 "IU","BRA","2813","Brazil","USA","United States",2015,"Export",6,0.349,75,"Industrial gases","Kg",75
-"IU","BRA","2813","Brazil","USA","United States",2015,"Export",6,2491.682,53237,"Industrial gases","m³",65273
+"IU","BRA","2813","Brazil","USA","United States",2015,"Export",6,2491.682,53237,"Industrial gases","mï¿½",65273
 "IU","BRA","2813","Brazil","USA","United States",2015,"Import",5,163.589,16199,"Industrial gases","Kg",16199
-"IU","BRA","2813","Brazil","USA","United States",2015,"Import",5,23118.009,1089420,"Industrial gases","m³",512186
+"IU","BRA","2813","Brazil","USA","United States",2015,"Import",5,23118.009,1089420,"Industrial gases","mï¿½",512186
 "IU","BRA","2813","Brazil","USA","United States",2016,"Export",6,0.236,64,"Industrial gases","Kg",64
-"IU","BRA","2813","Brazil","USA","United States",2016,"Export",6,664.114,54228,"Industrial gases","m³",23139
+"IU","BRA","2813","Brazil","USA","United States",2016,"Export",6,664.114,54228,"Industrial gases","mï¿½",23139
 "IU","BRA","2813","Brazil","USA","United States",2016,"Import",5,85.793,11396,"Industrial gases","Kg",11396
-"IU","BRA","2813","Brazil","USA","United States",2016,"Import",5,17292.004,2229837,"Industrial gases","m³",393039
+"IU","BRA","2813","Brazil","USA","United States",2016,"Import",5,17292.004,2229837,"Industrial gases","mï¿½",393039
 "IU","BRA","2813","Brazil","USA","United States",2017,"Export",6,0.112,1144.897,"Industrial gases","Kg",1145
-"IU","BRA","2813","Brazil","USA","United States",2017,"Export",6,1480.896,59377,"Industrial gases","m³",21272
+"IU","BRA","2813","Brazil","USA","United States",2017,"Export",6,1480.896,59377,"Industrial gases","mï¿½",21272
 "IU","BRA","2813","Brazil","USA","United States",2017,"Import",5,82.716,4255,"Industrial gases","Kg",4053
 "IU","BRA","2813","Brazil","USA","United States",2017,"Import",5,15946.929,0,"Industrial gases","N.Q.",386705
 "IU","BRA","2813","Brazil","USA","United States",2018,"Export",6,212.514,68053,"Industrial gases","Kg",73458
-"IU","BRA","2813","Brazil","USA","United States",2018,"Export",6,1311.914,55125,"Industrial gases","m³",19372
+"IU","BRA","2813","Brazil","USA","United States",2018,"Export",6,1311.914,55125,"Industrial gases","mï¿½",19372
 "IU","BRA","2813","Brazil","USA","United States",2018,"Export",6,6.162,0,"Industrial gases","N.Q.",235
 "IU","BRA","2813","Brazil","USA","United States",2018,"Import",5,103.119,9282,"Industrial gases","Kg",0
 "IU","BRA","2813","Brazil","USA","United States",2018,"Import",5,17244.85,0,"Industrial gases","N.Q.",59
 "IU","BRA","2813","Brazil","USA","United States",2019,"Export",6,604.297,173405,"Industrial gases","Kg",173241
-"IU","BRA","2813","Brazil","USA","United States",2019,"Export",6,551.063,52808,"Industrial gases","m³",25193
+"IU","BRA","2813","Brazil","USA","United States",2019,"Export",6,551.063,52808,"Industrial gases","mï¿½",25193
 "IU","BRA","2813","Brazil","USA","United States",2019,"Export",6,3.41,0,"Industrial gases","N.Q.",1829
 "IU","BRA","2813","Brazil","USA","United States",2019,"Import",5,70.796,9844,"Industrial gases","Kg",0
-"IU","BRA","2813","Brazil","USA","United States",2019,"Import",5,7.237,1380,"Industrial gases","m³",0
+"IU","BRA","2813","Brazil","USA","United States",2019,"Import",5,7.237,1380,"Industrial gases","mï¿½",0
 "IU","BRA","2813","Brazil","USA","United States",2019,"Import",5,18871.695,0,"Industrial gases","N.Q.",357766
 "IU","BRA","2816","Brazil","USA","United States",2008,"Export",6,8730.03,8010079,"Inorganic pigments","Kg",8010079
 "IU","BRA","2816","Brazil","USA","United States",2008,"Import",5,147330.041,67461762,"Inorganic pigments","Kg",67461762

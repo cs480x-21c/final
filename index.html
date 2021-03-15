@@ -1,9 +1,195 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.5.0/d3.min.js"></script>
+<script src="https://d3js.org/d3.v4.js"></script>
+<script src="yearlyExport.js"></script>
+<div id="my_dataviz"></div>
+<button onclick="update(reducedImp, 0)">Import</button>
+<button onclick="update(reducedExp, 1)">Export</button>
 
 <script>
 
-d3.csv("data/TradeData.csv", function(error, data) {
-    data.forEach(function(d) {
+var margin = {top: 50, right: 30, bottom: 50, left: 70},
+width = 1080 - margin.left - margin.right,
+height = 720 - margin.top - margin.bottom;
+
+
+var svg = d3.select("#my_dataviz")
+        .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform",
+            "translate(" + margin.left + "," + margin.top + ")");
+
+
+        var x = d3.scaleLinear()
+            .domain([2008, 2019])
+            .range([ 0, width ]);
+
+        svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+
+        var y = d3.scaleLinear()
+            .domain( [50000000, 140000000]) 
+            .range([ height, 0 ]);
+            
+        svg.append("g")
+            .call(d3.axisLeft(y));
+
+var reducedImp, reducedExp;
+
+d3.csv("data/Tradedata.csv",
+    function(d) {
+        return { Date : +d.Year, Value : d.TradeValueK, TradeFlowName : d.TradeFlowName}
+    },
+    function(data) {
+        buildScatterSum(data)
+    }
+)
+
+function buildScatterSum(data) {
+
+    var importData = data.filter(d => d.TradeFlowName == 'Import')
+    var exportData = data.filter(d => d.TradeFlowName == 'Export')
+
+    reducedImp = importData.reduce(function(allDates, d) {
+        if (allDates.some(function(e) {
+            return e.Date === d.Date
+        })) {
+            allDates.filter(function(e) {
+            return e.Date === d.Date
+            })[0].Value += +d.Value
+        } else {
+            allDates.push({
+            Date: d.Date,
+            Value: +d.Value
+            })
+        }
+    return allDates
+    }, []);
+
+    reducedExp = exportData.reduce(function(allDates, d) {
+        if (allDates.some(function(e) {
+            return e.Date === d.Date
+        })) {
+            allDates.filter(function(e) {
+            return e.Date === d.Date
+            })[0].Value += +d.Value
+        } else {
+            allDates.push({
+            Date: d.Date,
+            Value: +d.Value
+            })
+        }
+    return allDates
+    }, []);
+
+    svg.append("path")
+    .attr("id", "curvedPath")
+    .datum(reducedImp)
+    .attr("fill", "none")
+    .attr("stroke", "#69b3a2")
+    .attr("stroke-width", 3)
+    .attr("d", d3.line()
+        .curve(d3.curveCatmullRom)
+        .x(function(r) { return x(r.Date) })
+        .y(function(r) { return y(r.Value) })
+    )
+
+    svg.append("g")
+    .selectAll("dot")
+    .data(reducedImp)
+    .enter()
+    .append("circle")
+        .attr("cx", function(r) { return x(r.Date) } )
+        .attr("cy", function(r) { return y(r.Value) } )
+        .attr("r", 8)
+        .attr("fill", "#69b3a2")
+
+    // svg.append("path")
+    // .datum(reducedExp)
+    // .attr("fill", "none")
+    // .attr("stroke", "#C81414")
+    // .attr("stroke-width", 1.5)
+    // .attr("d", d3.line()
+    //     .curve(d3.curveCatmullRom)
+    //     .x(function(r) { return x(r.Date) })
+    //     .y(function(r) { return y(r.Value) })
+    // )
+
+    // svg.append("g")
+    // .selectAll("dot")
+    // .data(reducedExp)
+    // .enter()
+    // .append("circle")
+    //     .attr("cx", function(r) { return x(r.Date) } )
+    //     .attr("cy", function(r) { return y(r.Value) } )
+    //     .attr("r", 5)
+    //     .attr("fill", "#C81414")
+
+    svg.append("text")
+    .attr("text-anchor", "end")
+    .attr("x", width)
+    .attr("y", height+40 )
+    .text("Time (year)");
+
+    svg.append("text")
+    .attr("text-anchor", "end")
+    .attr("x", -65)
+    .attr("y", -20 )
+    .text("Thousand Dollars")
+    .attr("text-anchor", "start")
+
+}
+
+function update(data, type) {
+    var fill;
+    if (type == 0) { fill = "#69b3a2"} else { fill = "#C81414"}
+
+    var circ = svg.selectAll("circle")
+        .data(data)
+
+    var path = svg.selectAll("#curvedPath")
+        .datum(data)
+
+    console.log(path)
+
+    circ
+        .enter()
+        .append("dot")
+        .merge(circ)
+        .transition()
+        .duration(1000)
+            .attr("cx", function(d) { return x(d.Date); })
+            .attr("cy", function(d) { return y(d.Value); })
+            .attr("r", 8)
+            .attr("fill", fill)
+
+    path
+        .enter()
+        .append("path")
+        .merge(path)
+        .transition()
+        .duration(1000)
+        .attr("d", d3.line()
+            .curve(d3.curveCatmullRom)
+            .x(function(r) { return x(r.Date) })
+            .y(function(r) { return y(r.Value) }))
+        .attr("fill", "none")
+        .attr("stroke", fill)
+        .attr("stroke-width", 3)
+
+}
+
+
+ // Add X axis
+    
+
+    //Add the line
+    
+
+    // Add the points
+    
+
 
         /**
             0: "Nomenclature"
@@ -62,10 +248,4 @@ d3.csv("data/TradeData.csv", function(error, data) {
                             -Looking at "3524" its identified as "Lawn and garden equipment, and parts, nspf" (nspf -- not specified)
 
         */
-
-    });
-
-    console.log(data);
-
-});
 </script>
