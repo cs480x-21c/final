@@ -82,7 +82,7 @@ function buildChart(data) {
 
 	svg.append("text")
       .attr("text-anchor", "end")
-      .attr("x", 0)
+      .attr("x", -65)
       .attr("y", -20 )
       .text("Thousand Dollars")
       .attr("text-anchor", "start")
