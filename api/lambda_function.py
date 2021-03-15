@@ -16,14 +16,27 @@ def lambda_handler(event, context):
         'event': event
     }
 
-# TAKEN FROM https://github.com/econpy/google-ngrams
+# TAKEN FROM https://github.com/zslwyuan/google-ngrams
 
-corpora = dict(eng_us_2012=17, eng_us_2009=5, eng_gb_2012=18, eng_gb_2009=6,
-               chi_sim_2012=23, chi_sim_2009=11, eng_2012=15, eng_2009=0,
+from ast import literal_eval
+from pandas import DataFrame  # http://github.com/pydata/pandas
+import re
+import requests               # http://github.com/kennethreitz/requests
+import subprocess
+import sys
+
+corpora = dict(eng_us_2012=17, eng_us_2009=5, eng_us_2019=28,
+               eng_gb_2012=18, eng_gb_2009=6, eng_gb_2019=26,
+               chi_sim_2019=34, chi_sim_2012=23, chi_sim_2009=11,
+               eng_2012=15, eng_2009=0,
                eng_fiction_2012=16, eng_fiction_2009=4, eng_1m_2009=1,
-               fre_2012=19, fre_2009=7, ger_2012=20, ger_2009=8, heb_2012=24,
-               heb_2009=9, spa_2012=21, spa_2009=10, rus_2012=25, rus_2009=12,
-               ita_2012=22)
+               fre_2019=30, fre_2012=19, fre_2009=7,
+               ger_2019=31, ger_2012=20, ger_2009=8,
+               heb_2012=24,
+               heb_2009=9,
+               spa_2019=32, spa_2012=21, spa_2009=10,
+               rus_2019=36, rus_2012=25, rus_2009=12,
+               ita_2019=33, ita_2012=22)
 
 
 def getNgrams(query, corpus, startYear, endYear, smoothing, caseInsensitive):
@@ -36,20 +49,31 @@ def getNgrams(query, corpus, startYear, endYear, smoothing, caseInsensitive):
         params['content'] = params['content'].replace('?', '*')
     if '@' in params['content']:
         params['content'] = params['content'].replace('@', '=>')
+
     req = requests.get('http://books.google.com/ngrams/graph', params=params)
-    res = re.findall('var data = (.*?);\\n', req.text)
+    res = re.findall('ngrams.data = .*\];', req.text)
+    assert(len(res)==1)
+
     if res:
+        dataDict = literal_eval(res[0].replace(
+            "ngrams.data = ", "").replace(";", ""))
         data = {qry['ngram']: qry['timeseries']
-                for qry in literal_eval(res[0])}
+                for qry in dataDict}
         df = DataFrame(data)
         df.insert(0, 'year', list(range(startYear, endYear + 1)))
     else:
         df = DataFrame()
     return req.url, params['content'], df
 
+def trimSpaceNearComma(argumentString):
+    while (argumentString.find(', ')>=0):
+        argumentString = argumentString.replace(', ',',')
+    while (argumentString.find(' ,')>=0):
+        argumentString = argumentString.replace(' ,',',')
+    return argumentString
 
-def runQuery(argumentString):
-    arguments = argumentString.split()
+def runQuery(argumentString):    
+    arguments = trimSpaceNearComma(argumentString).split()
     query = ' '.join([arg for arg in arguments if not arg.startswith('-')])
     if '?' in query:
         query = query.replace('?', '*')
@@ -58,7 +82,7 @@ def runQuery(argumentString):
     params = [arg for arg in arguments if arg.startswith('-')]
     corpus, startYear, endYear, smoothing = 'eng_2012', 1800, 2000, 3
     printHelp, caseInsensitive, allData = False, False, False
-    toSave, toPrint, toPlot = True, False, False
+    toSave, toPrint, toPlot = True, True, False
 
     # parsing the query parameters
     for param in params:
@@ -142,12 +166,11 @@ def runQuery(argumentString):
             word_case = 'caseSensitive'
         filename = '%s-%s-%d-%d-%d-%s.csv' % (queries, corpus, startYear,
                                               endYear, smoothing, word_case)
-
         for col in df.columns:
             if '&gt;' in col:
                 df[col.replace('&gt;', '>')] = df.pop(col)
+        print(('Data saved to %s' % filename))
         return df.to_json()
 
-        print(('Data saved to %s' % filename))
         if notifyUser:
             print(warningMessage)
