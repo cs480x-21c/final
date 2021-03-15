@@ -34,7 +34,7 @@ jobs:
       - name: Run a multi-line script
         run: |
           cd api
-          pip install --target . requirements.txt
+          pip3 install --target . requirements.txt
           zip -r ../package.zip .
 
       - uses: yvesgurcan/deploy-lambda-function@v0.0.5
