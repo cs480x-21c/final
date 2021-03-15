@@ -11,7 +11,7 @@ function main(){
     })
 
 
-    //createTreeMap(selector);
+    createTreeMap(selector);
     createPieChart(selector);
     animatedLineGraph();
 
@@ -111,14 +111,15 @@ function main(){
 
         let data;
         if(selector === "2017"){
-            data = "csv/totalspending2017.js"
+            data = json2017;
         }
         if(selector === "2018"){
-            data = "csv/totalspending2018.js"
+            data = json2018;
 
         }if(selector === "2019"){
-            data = "csv/totalspending2019.js"
+            data = json2019;
         }
+        console.log(data);
 
             // stratify the data: reformatting for d3.js
             let root = d3.stratify()
