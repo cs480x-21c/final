@@ -12,6 +12,7 @@
             display: flex;
             flex-direction: row;
             /* flex-wrap: nowrap; */
+            border: 4px solid green;
         }
 
         div {
@@ -23,25 +24,41 @@
             margin: auto;
 
         }
+        #map{
+            border: 2px solid orange;
+        }
+        svg{
+            border: 2px solid purple;
+        }
+        #timeline{
+            border: 2px solid black;
+            background-color: cadetblue;
+            /* display: flex; */
+            flex-direction: row;
+        }
+        p{
+            flex-direction: row;
+        }
     </style>
 </head>
 
 <body>
 
-    <h1>SpotypotyPy</h1>
-    <svg width=960 height=600>
-    </svg>
+    
     <div id="box">
+        <h1>SpotypotyPy</h1>
+
         <div id="timeline"></div>
+
         <div id="modality">
             <!--Nick will make radio buttons for modality-->
-
+            <svg width=960 height=600></svg>
         </div>
 
         <div id="map">
-
-
+            
         </div>
+
     </div>
 </body>
 <script>
@@ -49,7 +66,7 @@
     var width = 200
     var height = 375
 
-    var svg = d3.select("#modality").append("svg")
+    var svg = d3.select("#map").append("svg")
         .attr("width", width)
         .attr("height", height);
 
@@ -135,12 +152,37 @@
 
     // adapted for d3v6 from book, d3js in action
 
+    var master_json;
+
     Promise.all([
         d3.json('world.geojson'),
-        d3.csv('cities.csv')
-    ]).then(([countries, cities]) => {
+        d3.csv('cities.csv'),
+        d3.csv('Datasets/weeks_list.csv'),
+        d3.json('Datasets/Master_JSON.json')
+    ]).then(([countries, cities, weeks, master]) => {
+        master_json = master
+        console.log(master)
+        createTimeline(weeks)
         createMap(countries, cities)
     })
+
+    function createTimeline(weeks){
+        // var timeline = d3.select("#timeline")
+        // console.log(weeks)
+
+        d3.select("#timeline")
+            .selectAll("p")
+            .data(weeks)
+            .enter()
+            .append("p")
+            .text( function(d){
+                // console.log(d.week);
+                return d.week;
+            })
+            .attr("id",function(d){
+                return d.week;
+            });
+    }
 
     function createMap(countries, cities) {
         console.log(countries)
