@@ -11,7 +11,7 @@ function main(){
     })
 
 
-    createTreeMap(selector);
+    //createTreeMap(selector);
     createPieChart(selector);
     animatedLineGraph();
 
