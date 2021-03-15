@@ -139,6 +139,8 @@ function buildChart(aggLevel, impFilter, aggFilter) {
 			.attr("d", area)
 			//.attr('stroke-width', 0.5)
 			//.attr('stroke', '#252525')
+			.on('mouseover', (d, i) => highlight(d, i.key))
+			.on('mouseout', (d, i) => noHighlight(d, i.key))
 			.on('click', function(d, i) {
 				if (aggLevel < 3 && Object.keys(parseSortFilter(_aggData[aggLevel+1], true, i.key)[0]).length > 1) {
 					buildChart(aggLevel+1, impFilter, i.key)
@@ -156,7 +158,6 @@ function buildChart(aggLevel, impFilter, aggFilter) {
    //		.attr("class", "brush")
    //		.call(brush);
 
-	// What to do when one group is hovered
 	var highlight = function(d, i){
    	// reduce opacity of all groups
    	d3.selectAll(".myArea,.legendBox,.legendText").style("opacity", .25)
@@ -164,7 +165,6 @@ function buildChart(aggLevel, impFilter, aggFilter) {
    	d3.selectAll("#area_"+i+',#legBox_'+i+',#legText_'+i).style("opacity", 1)
    }
 
-    // And when it is not hovered anymore
    var noHighlight = function() {
    	d3.selectAll(".myArea,.legendBox,.legendText").style("opacity", 1)
    }
