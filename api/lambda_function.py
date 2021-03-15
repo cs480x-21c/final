@@ -8,9 +8,12 @@ import subprocess
 def lambda_handler(event, context):
     # TODO implement
     word = event["word"]
+    print("test print")
+    print(word)
     return {
         'statusCode': 200,
-        'body': runQuery(word)
+        'body': runQuery(word),
+        'event': event
     }
 
 # TAKEN FROM https://github.com/econpy/google-ngrams
