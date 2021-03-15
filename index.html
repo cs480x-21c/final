@@ -492,16 +492,13 @@
     slider.addEventListener('change', function() {
         if (slider.checked) {
             body.className = "dark"
-            d3.selectAll(".label").style("fill", "#F9F9F9")
-            d3.selectAll("line").style("stroke", "#F9F9F9")
+            d3.selectAll(".label").style("fill", "#F9F9F9").style("transition", "1s")
+            d3.selectAll("line").style("stroke", "#F9F9F9").style("transition", "1s")
         } else {
             body.className = "light"
-            d3.selectAll(".label").style("fill", "#373E40")
-            d3.selectAll("line").style("stroke", "#373E40")
+            d3.selectAll(".label").style("fill", "#373E40").style("transition", "1s")
+            d3.selectAll("line").style("stroke", "#373E40").style("transition", "1s")
         }        
     })
-
-
-        
 </script>
 </html>
