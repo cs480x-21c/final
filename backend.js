@@ -267,6 +267,23 @@ function main(){
         const grp = chart
             .append("g")
             .attr("transform", `translate(-${margin.left},-${margin.top})`);
+        
+        svg.append("text")
+            .attr("x", width/2 + 15)
+            .attr("y", height + margin.bottom - 30)
+            .style("text-anchor", "middle")
+            .attr("class", "label")
+            .text("Years")
+
+        svg.append("text")
+            .attr("y", 0)
+            .attr("x",0 - (height / 2))
+            .attr("dy", "1em")
+            .attr("transform", "rotate(-90)")
+            .attr("class", "label")
+            .style("text-anchor", "middle")
+            .text("Total Military Spending in Billions (USD)")
+
 
         const yScale = d3
             .scaleLinear()
