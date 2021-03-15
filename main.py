@@ -204,6 +204,7 @@ def meta_add():
 def weekly_meta_calc(weeks, countries):
     songsMeta = pd.read_csv("Datasets/flat_meta.csv")
     print(songsMeta.head())
+    country_data = []
     for country in countries:
         print(country)
         flatWriter = csv.writer(open('Datasets/Countries/' + country + '/average.csv', 'w', newline=''), delimiter=',')
@@ -212,7 +213,7 @@ def weekly_meta_calc(weeks, countries):
         country_path = os.path.join("Datasets/Countries",country)
         if os.path.exists(country_path) == False:
             os.makedirs(country_path)
-
+        data = []
         for week in weeks:
             day_file = os.path.join(path,country,week+country+".csv")
             # print(str(day_file))
@@ -232,11 +233,35 @@ def weekly_meta_calc(weeks, countries):
 
                     weekAverages = weekWithMeta.mean()
                     outputPath = os.path.join(basepath,"Datasets/Countries", country, "average_"+country )
-                    flatWriter.writerow([week,weekAverages["danceability"],weekAverages["energy"],weekAverages["key"],
+                    valueList = [week,weekAverages["danceability"],weekAverages["energy"],weekAverages["key"],
                     weekAverages["loudness"], weekAverages["mode"],weekAverages["speechiness"],weekAverages["acousticness"],
-                    weekAverages["instrumentalness"], weekAverages["liveness"],weekAverages["valence"],weekAverages["tempo"], weekAverages["duration_ms"],weekAverages["time_signature"]])
+                    weekAverages["instrumentalness"], weekAverages["liveness"],weekAverages["valence"],weekAverages["tempo"], weekAverages["duration_ms"],weekAverages["time_signature"]]
+                    flatWriter.writerow( valueList )
+                    data.append(
+                        {
+                            "week":week,
+                            "danceability":weekAverages["danceability"],
+                            "energy":weekAverages["energy"],
+                            "key":weekAverages["key"],
+                            "loudness":weekAverages["loudness"], 
+                            "mode":weekAverages["mode"],
+                            "speechiness":weekAverages["speechiness"],
+                            "accousticness":weekAverages["acousticness"],
+                            "instrumentalness":weekAverages["instrumentalness"],
+                            "liveness":weekAverages["liveness"],
+                            "valence":weekAverages["valence"],
+                            "tempo":weekAverages["tempo"],
+                            "duration_ms":weekAverages["duration_ms"],
+                            "time_signature":weekAverages["time_signature"]
+                        }
+                    )
                     
                     # weekAverages.to_csv(outputPath + "_average_meta.csv")
+        country_data.append(
+            {str(country):data}
+        )
+    with open('Datasets/Master_JSON.json', 'w') as json_file:
+        json.dump(country_data, json_file) 
 def parser():
     arg_parser = argparse.ArgumentParser()
     arg_parser.add_argument(
