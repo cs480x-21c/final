@@ -1,0 +1,32 @@
+input{
+    position: absolute;
+    width: 618px;
+    height: 89px;
+    left: 411px;
+    top: 105px;
+    font-size:20px;
+    background: #FFFFFF;
+    border: 2px solid #000000;
+    box-sizing: border-box;
+    border-radius: 30px;
+}
+#output{
+    position: absolute;
+    width: 749px;
+    height: 222px;
+    left: 337px;
+    top: 236px;
+
+    background: #FFFFFF;
+    border: 2px solid #000000;
+    box-sizing: border-box;
+    border-radius: 30px;
+    text-align:center;
+}
+h2{
+    text-align:center;
+    font-family: 'Merienda', cursive;
+}
+body{
+    background-image:url('old-paper.jpg')
+}
