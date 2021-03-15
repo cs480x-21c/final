@@ -1,0 +1,36 @@
+{
+  "categories": [
+    {
+      "name": "HUA",
+      "value": 18
+    },
+    {
+      "name": "PE",
+      "value": 3
+    },
+    {
+      "name": "SS",
+      "value": 6
+    },
+    {
+      "name": "IQP",
+      "value": 9
+    },
+    {
+      "name": "FREE",
+      "value": 9
+    },
+    {
+      "name": "CS",
+      "value": 54
+    },
+    {
+      "name": "MA",
+      "value": 21
+    },
+    {
+      "name": "SCI",
+      "value": 15
+    }
+  ]
+}

@@ -18,20 +18,92 @@ let courses = []; // Array of all courses, following object specified above
 let currCourses = []; // Array of currently slotted in courses
 const currCoursesUpdated = new Event('course');
 
+const TREEMAP_MARGINS = {TOP: 10, RIGHT: 10, BOTTOM: 10, LEFT: 10};
+
+let trackingCategories = []; // Array of all CS tracking sheet areas
+
 let snackbar;
 
-// loadCourses() loads all WPI courses from a JSON file
-function loadCourses() {
-    return fetch("courses.json")
+// loadData() loads all WPI courses & info on the CS tracking sheet from JSON files
+function loadData() {
+    let p0 = fetch("courses.json")
         .then(response => response.json())
         .then(data => {
             courses = data["courses"];
-        })
+        });
+
+    let p1 = fetch("cstracking.json")
+        .then(response => response.json())
+        .then(data => {
+            trackingCategories = data["categories"];
+        });
+
+    return Promise.all([p0, p1]);
 }
 
-// initTreemap() sets up the tree map
-function initTreeMap() {
+// drawTreeMap() draws the tree map
+function drawTreeMap() {
+    // Remove SVG if it already exists
+    let container = document.getElementById("treeContainer");
+    if (container.firstChild) {
+        container.removeChild(container.firstChild);
+    }
 
+    // Calculate width and height
+    let width = container.clientWidth - TREEMAP_MARGINS.LEFT - TREEMAP_MARGINS.RIGHT;
+    let height = container.clientHeight - TREEMAP_MARGINS.TOP - TREEMAP_MARGINS.BOTTOM;
+
+    // Slap down the svg
+    let svg = d3.select("#treeContainer")
+        .append("svg")
+        .attr("width", width + TREEMAP_MARGINS.LEFT + TREEMAP_MARGINS.RIGHT)
+        .attr("height", height + TREEMAP_MARGINS.TOP + TREEMAP_MARGINS.BOTTOM)
+        .append("g")
+        .attr("transform",
+            "translate(" + TREEMAP_MARGINS.LEFT + "," + TREEMAP_MARGINS.TOP + ")");
+
+    // Manipulate data to work with treemap
+    let catData = [{"name": "root", "parent": null, "value": null}];
+    trackingCategories.forEach(val => {
+        catData.push({"name": val.name, "parent": "root", "value": val.value});
+    });
+
+    // Transform data to be used in tree map
+    let root = d3.stratify()
+        .id(d => d.name)
+        .parentId(d => d.parent)
+        (catData);
+
+    // Sum values to determine root leaf size
+    root.sum(d => d.value);
+
+    // Calculate tree map leaves
+    d3.treemap()
+        .size([width, height])
+        .padding(4)
+        (root);
+
+    // Add rectangles to tree map
+    svg.selectAll("g")
+        .data(root.leaves())
+        .enter()
+        .append("rect")
+        .attr("x", d => d.x0)
+        .attr("y", d => d.y0)
+        .attr("width", d => d.x1 - d.x0)
+        .attr("height", d => d.y1 - d.y0)
+        .style("stroke", "black")
+        .style("fill", "none");
+
+    // Add text labels to tree map
+    svg.selectAll("g")
+        .data(root.leaves())
+        .enter()
+        .append("text")
+        .attr("x", d => (d.x0 + d.x1) / 2)
+        .attr("y", d => (d.y0 + d.y1) / 2)
+        .attr("text-anchor", "middle")
+        .text(d => d.data.name);
 }
 
 // initCourseCatalog() sets up the course catalog
@@ -70,18 +142,18 @@ function initCourseCatalog() {
             .remove();
 
         const drag = d3.drag()
-            .on("start", function(e) {
+            .on("start", function (e) {
                 d3.select(this)
                     .style("opacity", 0.3)
                     .style("position", "absolute");
             })
-            .on("drag", function(e) {
+            .on("drag", function (e) {
                 d3.select(this)
                     .style("z-index", 100)
                     .style("top", `${e.y + 15}px`)
                     .style("left", `${e.x - 15}px`)
             })
-            .on("end", function(e) {
+            .on("end", function (e) {
 
                 d3.select(this)
                     .style("opacity", 1)
@@ -95,7 +167,7 @@ function initCourseCatalog() {
                     currCourses.push(e.subject);
                     console.log(currCourses);
                     // Reloading Tree Map Here
-                    initTreeMap();
+                    drawTreeMap();
                 }
             });
 
@@ -175,8 +247,8 @@ function populateCoursesFromBanner() {
 
 // main() is run when the body of the page loads
 function main() {
-    loadCourses().then(d => {
-        initTreeMap();
+    loadData().then(d => {
+        drawTreeMap();
         initCourseCatalog();
         initStatistics();
         mdc.autoInit();
