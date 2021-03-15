@@ -240,11 +240,11 @@
 			.style("text-anchor", "middle")
 			.text("Mean Freq.");
 			
-		group.append("circle")
-			.attr("cy", -16)
-			.attr("cx", 367)
-			.attr('r', 4)
-            .style('fill', 'steelblue')
+		group.append("line")
+			.attr("y1", -16)
+			.attr("y2", -16)
+			.attr("x1", 363)
+			.attr('x2', 370)
             .attr('stroke', 'black')
 			
 		group.append("text")
@@ -326,70 +326,22 @@
             group.selectAll('lolCircle1') // upper circle for upper limit
             .data(data)
             .enter()
-            .append('circle')
-            .attr('cx', d => xScale(d.SideEffectName) + xScale.bandwidth()/2)
-            .attr('cy', d => yScale(d.MaxFrequency))
-            .attr('r', 4)
-            .style('fill', 'steelblue')
+            .append('line')
+            .attr("x1", d => { return xScale(d.SideEffectName)  + xScale.bandwidth()/2 -5})
+            .attr("x2", d => { return xScale(d.SideEffectName)  + xScale.bandwidth()/2 +5})
+            .attr("y1", d => { return yScale(d.MaxFrequency); })
+            .attr("y2", d => { return yScale(d.MaxFrequency); })
             .attr('stroke', 'black')
-            .style('cursor', 'pointer')
-            .on('mouseover', (event, d) => {
-                d3.select(event.target).attr('opacity', 0.4)
-                tooltip.text(d.SideEffectName)
-                .style("left", (event.pageX) + "px")
-                .style("top", (event.pageY - 30) + "px")
-                .transition()
-                .duration(200)
-                .style('visibility','visible')
-            })
-            .on('mousemove', (event, d) => {
-                tooltip.text(d.SideEffectName)
-                .style("left", (event.pageX) + "px")
-                .style("top", (event.pageY - 30) + "px")
-            })
-            .on('mouseout', (event, d) => {
-                d3.select(event.target).attr('opacity', 1)
-                tooltip.style('visibility','hidden')
-            })
-            .on('mousedown', (event, d) => {
-                tooltip.style('visibility','hidden')
-                $('#SE').val(d.SideEffectName);
-                $('#SE').trigger('change');
-            })
         
             group.selectAll('lolCircle2') // lower circle for lower limit
             .data(data)
             .enter()
-            .append('circle')
-                .attr('cx', d => xScale(d.SideEffectName) + xScale.bandwidth()/2 )
-                .attr('cy', d => yScale(d.MinFrequency))
-                .attr('r', 4)
-                .style('fill', 'steelblue')
-                .attr('stroke', 'black')
-                .style('cursor', 'pointer')
-                .on('mouseover', (event, d) => {
-                    d3.select(event.target).attr('opacity', 0.4)
-                    tooltip.text(d.SideEffectName)
-                    .style("left", (event.pageX) + "px")
-                    .style("top", (event.pageY - 30) + "px")
-                    .transition()
-                    .duration(200)
-                    .style('visibility','visible')
-                })
-                .on('mouseout', (event, d) => {
-                    d3.select(event.target).attr('opacity', 1)
-                    tooltip.style('visibility','hidden')
-                })
-                .on('mousedown', (event, d) => {
-                    tooltip.style('visibility','hidden')
-                    $('#SE').val(d.SideEffectName);
-                    $('#SE').trigger('change');
-                })
-                .on('mousemove', (event, d) => {
-                tooltip.text(d.SideEffectName)
-                .style("left", (event.pageX) + "px")
-                .style("top", (event.pageY - 30) + "px")
-            })
+            .append('line')
+            .attr("x1", d => { return xScale(d.SideEffectName)  + xScale.bandwidth()/2 -5})
+            .attr("x2", d => { return xScale(d.SideEffectName)  + xScale.bandwidth()/2 +5})
+            .attr("y1", d => { return yScale(d.MinFrequency); })
+            .attr("y2", d => { return yScale(d.MinFrequency); })
+            .attr('stroke', 'black')
 			
 			group.selectAll('lolCircle3') // Mean marker
             .data(data)
