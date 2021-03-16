@@ -77,7 +77,8 @@
             return ((parseFloat(d.TF)*1000)/parseFloat(d.TS))*1.5;
         })])
 
-
+        var xScale = d3.scaleBand().range([0, width]).padding(0.4),
+            yScale = d3.scaleLinear().range([height, 0]);
 
 
         // x scale

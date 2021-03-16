@@ -75,6 +75,8 @@
         })])
 
 
+        var xScale = d3.scaleBand().range([0, width]).padding(0.4),
+            yScale = d3.scaleLinear().range([height, 0]);
 
         // x scale
         xScale.domain(data.map(function (d) {
