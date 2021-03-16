@@ -238,8 +238,28 @@
                         .text(xAxisLabel);
                 }
 
+                var Tooltip = d3.select("#vis-container")
+                    .append("div")
+                    .style("opacity", 0)
+                    .attr("class", "tooltip")
+                    .style("background-color", "white")
+                    .style("border", "solid")
+                    .style("border-width", "2px")
+                    .style("border-radius", "5px")
+                    .style("padding", "5px")
+
                 // if 'gene', only plot circles
                 if (runType == 'region' || 'gene') {
+
+                //TOOLTIP
+                var mouseover = function(d) {
+                    Tooltip
+                     .style("opacity", 1)
+                }
+                var mouseleave = function(d) {
+                    Tooltip
+                      .style("opacity", 0)
+                }
 
                 g.selectAll('circle').data(data)
                     .enter().append('circle')
@@ -266,6 +286,15 @@
                         h.selectAll('circle')
                             .filter(function(d){ return d['celltype'] != i['celltype']; })
                             .attr("opacity", 0.05)
+                        
+                        //tooltip
+                        mouseover();
+                    })
+                    .on("mousemove", function(d) {
+                       Tooltip
+                        .html("Cluster: " + d.celltype)
+                        .style("left", (event.pageX) + "px")
+                        .style("top", (event.pageY - 28) + "px")
                     })
                     .on("mouseout", function(d, i) {
                         d3.select(this)
@@ -281,6 +310,9 @@
 
                         h.selectAll('circle')
                             .attr("opacity", 1)
+
+                        //tooltip
+                        mouseleave();
                     })
 
                 rightCircles = h.selectAll('circle').data(data)
@@ -300,8 +332,8 @@
                             .raise()
                             .attr("stroke", "black")
                             .attr("r", 5)
-                        
                     })
+                    .on("mousemove", mousemove)
                     .on("mouseout", function(d, i) {
                         d3.select(this)
                             .attr("stroke", "none")
