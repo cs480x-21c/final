@@ -10,7 +10,7 @@
 #Intro{
     width: 500px;
     height:200px;
-    font-family: Arial, Helvetica, sans-serif;
+    /*font-family: Arial, Helvetica, sans-serif;*/
     font-size: 14px;
     display: block;
     margin: auto;
@@ -20,7 +20,7 @@
 .textbox {
     width: 500px;
     height: 80px;
-    font-family: Arial, Helvetica, sans-serif;
+    /*font-family: Arial, Helvetica, sans-serif;*/
     font-size: 20px;
     font-weight: bold;
     display: block;
@@ -49,8 +49,22 @@ div{
     fill: red;
 }
 
+#tuitionVsTLNAYAxisLeft text{
+    stroke: #b8b3ff;
+    fill: #b8b3ff;
+}
+
+#tuitionVsTLNAYAxisRight text{
+    stroke: red;
+    fill: red;
+}
+
 .yAxis{
     stroke-width: 0.5;
     font-size: 12px;
 
+}
+
+*{
+    font-family: Arial, Helvetica, sans-serif;
 }
