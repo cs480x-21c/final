@@ -125,7 +125,7 @@
     var hoverColor = "#1db954"
     var pressedColor = "#116e32"
 
-    var labels = ['danceability 💃', 'energy ⚡', 'loudness 🔊', 'speachiness 🗣️', 'acousticness 🎹', 'instrumentalness 🎺', 'liveness 🎤', 'valence 😊', 'tempo 🕰️'];
+    var labels = ['danceability 💃', 'energy ⚡', 'loudness 🔊', 'speechiness 🗣️', 'acousticness 🎹', 'instrumentalness 🎺', 'liveness 🎤', 'valence 😊', 'tempo 🕰️'];
 
     // groups for each button, holding rectangle and text
     var buttonGroups = buttons.selectAll("g.button")
@@ -242,8 +242,9 @@
 
                 var country = master_json[d.id]
                 console.log(country)
+                // not every country is represented in the data, so check whether or not we have data
                 if (typeof (country) !== 'undefined') {
-                    console.log(country[week][mode])
+                    // console.log(country[week][mode])
                     return ccolor(country[week][mode]);
                 }
             })
@@ -254,18 +255,12 @@
         console.log(week)
         console.log(mode)
 
-
-
         console.log(gpath.area(countries.features[1]));
-
-
-
 
         console.log(gpath.area(countries.features[1]));
 
         // draw country boundaries
 
-        // d3.select('svg')
         drawMap(gpath, countries, week, mode, ccolor)
 
         var mapZoom = d3.zoom()
