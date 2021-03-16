@@ -43,7 +43,7 @@
 
     .tooltip {
         position: absolute;
-        font-size: 12px;
+        font-size: 14px;
         width:  auto;
         height: auto;
         pointer-events: none;
@@ -269,6 +269,7 @@
                     .attr('r', 2)
                     .attr("fill", function(d) { return clust_color(d.celltype); })
                     .on("mouseover", function(d, i) {
+
                         d3.select(this)
                             .raise()
                             .attr("stroke", "black")
@@ -280,7 +281,9 @@
                             .attr("r", 5)
 
                         g.selectAll('circle')
-                            .filter(function(d){ return d['celltype'] != i['celltype']; })
+                            .filter(function(d) { 
+                                // console.log(d)
+                                return d['celltype'] != i['celltype']; })
                             .attr("fill", "lightgray")
                         
                         h.selectAll('circle')
@@ -291,10 +294,12 @@
                         mouseover();
                     })
                     .on("mousemove", function(d) {
-                       Tooltip
-                        .html("Cluster: " + d.celltype)
-                        .style("left", (event.pageX) + "px")
-                        .style("top", (event.pageY - 28) + "px")
+                        Tooltip
+                            .html(
+                                "Cell Name: " + d3.select(this)._groups[0][0].__data__.cell_name + "<br>" +
+                                "Marker Genes: " + d3.select(this)._groups[0][0].__data__.marker_genes)
+                            .style("left", (event.pageX + 10) + "px")
+                            .style("top", (event.pageY - 60) + "px")
                     })
                     .on("mouseout", function(d, i) {
                         d3.select(this)
@@ -333,7 +338,7 @@
                             .attr("stroke", "black")
                             .attr("r", 5)
                     })
-                    .on("mousemove", mousemove)
+                    // .on("mousemove", mousemove)
                     .on("mouseout", function(d, i) {
                         d3.select(this)
                             .attr("stroke", "none")
@@ -374,8 +379,6 @@
             // runPlotter('gene')
             rightCircles
                 .attr("fill", function(d) { return gene_color(d[gene]); })
-
-
         }
 
         //LEGEND GRADIENT
