@@ -260,8 +260,9 @@ function initCourseCatalog() {
             .on("drag", function (e) {
                 d3.select(this)
                     .style("z-index", 100)
-                    .style("top", `${e.y + 15}px`)
-                    .style("left", `${e.x - 15}px`)
+                    .style("top", `${e.y}px`)
+                    .style("left", `${e.x}px`)
+                console.log(e);
             })
             .on("end", function (e) {
                 d3.select(this)
@@ -409,4 +410,15 @@ function main() {
 
     // Set up callback to redraw treemap when current courses are updated
     document.addEventListener("course", e => drawTreeMap());
+
+    // Set up callback to clear current courses
+    document.getElementById("clear").onclick = () => {
+        currCourses = [];
+
+        // Show snackbar indicating that courses have been cleared
+        snackbar.labelText = "Current courses cleared.";
+        snackbar.open();
+
+        document.dispatchEvent(currCoursesUpdated);
+    }
 }

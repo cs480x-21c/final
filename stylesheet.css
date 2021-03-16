@@ -52,6 +52,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: start;
+    margin-bottom: 16px;
 }
 
 #infoContainer .material-icons {
@@ -61,6 +62,17 @@ body {
 #infoContainer div {
     text-align: left;
     font-size: 0.75em;
+}
+
+#settingsContainer {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 8px;
+}
+
+#clear {
+    margin-top: 8px;
 }
 
 #treeContainer {
