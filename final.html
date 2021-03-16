@@ -296,10 +296,11 @@
                     .on("mousemove", function(d) {
                         Tooltip
                             .html(
+                                "Cluster: " + d3.select(this)._groups[0][0].__data__.celltype + "<br>" +    
                                 "Cell Name: " + d3.select(this)._groups[0][0].__data__.cell_name + "<br>" +
                                 "Marker Genes: " + d3.select(this)._groups[0][0].__data__.marker_genes)
                             .style("left", (event.pageX + 10) + "px")
-                            .style("top", (event.pageY - 60) + "px")
+                            .style("top", (event.pageY - 85) + "px")
                     })
                     .on("mouseout", function(d, i) {
                         d3.select(this)
