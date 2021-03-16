@@ -1,5 +1,8 @@
 var _aggData = []
 var _sicTable = {}
+var _aggLevel = 0
+var _impFilter = true
+var _aggFilter = ''
 
 Promise.all([
 	d3.csv('data/BrazilTradeAggregationL0.csv'),
@@ -12,9 +15,14 @@ Promise.all([
 	sicTable.forEach(d => {
 		_sicTable[d.ProductCode] = d.ProductDescription
 	})
-	buildChart(0, true, '')
+	buildChart(_aggLevel, _impFilter, _aggFilter)
 })
 
+function swapView() {
+	_impFilter = !_impFilter
+	document.getElementById('swapButton').innerHTML = _impFilter ? 'Exports' : 'Imports'
+	buildChart(_aggLevel, _impFilter, _aggFilter)
+}
 
 function flattenStack(arr) {
 	var flattened = []
@@ -68,8 +76,11 @@ function validNextLayer(aggLevel, aggFilter) {
 	return aggLevel < 3 && Object.keys(parseSortFilter(_aggData[aggLevel+1], true, aggFilter)[0]).length > 1
 }
 
-
 function buildChart(aggLevel, impFilter, aggFilter) {
+	_aggLevel = aggLevel
+	_impFilter = impFilter
+	_aggFilter = aggFilter
+
 	var margin = {top: 60, right: 300, bottom: 50, left: 70},
    	width = 1000 - margin.left - margin.right,
    	height = 400 - margin.top - margin.bottom;
