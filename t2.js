@@ -24,7 +24,7 @@ Promise.all([
 
 function swapView() {
 	_impFilter = !_impFilter
-	document.getElementById('swapButton').innerHTML = _impFilter ? 'Imports' : 'Exports'
+	document.getElementById('swapButton').innerHTML = _impFilter ? 'Exports' : 'Imports'
 	document.getElementById('title').innerHTML = _impFilter ? 'Brazilian Imports from the USA' : 'Brazilian Exports to the USA'
 	//buildChart(_aggLevel, _impFilter, _aggFilter)
 
