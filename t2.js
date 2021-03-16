@@ -4,6 +4,10 @@ var _aggLevel = 0
 var _impFilter = true
 var _aggFilter = ''
 
+var margin = {top: 60, right: 300, bottom: 50, left: 70},
+   width = 1000 - margin.left - margin.right,
+   height = 400 - margin.top - margin.bottom;
+
 Promise.all([
 	d3.csv('data/BrazilTradeAggregationL0.csv'),
 	d3.csv('data/BrazilTradeAggregationL1.csv'),
@@ -22,7 +26,42 @@ function swapView() {
 	_impFilter = !_impFilter
 	document.getElementById('swapButton').innerHTML = _impFilter ? 'Imports' : 'Exports'
 	document.getElementById('title').innerHTML = _impFilter ? 'Brazilian Imports from the USA' : 'Brazilian Exports to the USA'
-	buildChart(_aggLevel, _impFilter, _aggFilter)
+	//buildChart(_aggLevel, _impFilter, _aggFilter)
+
+	var data = parseSortFilter(_aggData[_aggLevel])
+
+	var keys = Object.keys(data[0]).filter(d => d != 'Year')
+
+	var makeStack = d3.stack()
+		.keys(keys)
+		.offset(d3.stackOffsetNone)
+		.order(d3.stackOrderReverse)
+
+	var stack = makeStack(data)
+
+	var x = d3.scaleLinear()
+		.domain(d3.extent(data, d => d.Year))
+		.range([0, width])
+	
+	var y = d3.scaleLinear()
+		.domain([0, d3.max(flattenStack(makeStack(_aggData[_aggLevel])))]) 
+		.range([height, 0]);
+
+	var area = d3.area()
+		.x(d => x(d.data.Year))
+		.y0(d => y(d[0]))
+		.y1(d => y(d[1]))
+	
+	var paths = d3.select('#chart').select('g').select('#areaChart').selectAll("path")
+
+	paths.data(stack)
+		.enter()
+		.append('path')
+			.merge(paths)
+			.transition()
+			.duration(1000)
+			.attr("d", area)
+			
 }
 
 function flattenStack(arr) {
@@ -77,11 +116,7 @@ function validNextLayer(aggFilter=_aggFilter) {
 	return _aggLevel < 3 && Object.keys(parseSortFilter(_aggData[_aggLevel+1], aggFilter)[0]).length > 1
 }
 
-function buildChart() {
-	var margin = {top: 60, right: 300, bottom: 50, left: 70},
-   	width = 1000 - margin.left - margin.right,
-   	height = 400 - margin.top - margin.bottom;
-
+function buildChart() { //TODO: UPDATE TITLE
 	d3.selectAll("#chart > *").remove() //to reset the SVG
 
 	var svg = d3.select("#chart")
@@ -134,6 +169,7 @@ function buildChart() {
 	// Create the scatter variable: where both the circles and the brush take place
 	var areaChart = svg.append('g')
 		.attr("clip-path", "url(#clip)")
+		.attr('id', 'areaChart')
 
 	// Area generator
 	var area = d3.area()
