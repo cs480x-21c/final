@@ -22,12 +22,17 @@ Promise.all([
 	buildChart()
 })
 
+function getTitle() {
+	var str = _impFilter ? 'Brazilian Imports from the USA: ' : 'Brazilian Exports to the USA: '
+	str += _aggLevel == 0 ? 'Overall' : _sicTable[_aggFilter]
+	return str
+}
+
 function swapView() {
 	_impFilter = !_impFilter
 	document.getElementById('swapButton').innerHTML = _impFilter ? 'Exports' : 'Imports'
-	document.getElementById('title').innerHTML = _impFilter ? 'Brazilian Imports from the USA' : 'Brazilian Exports to the USA'
-	//buildChart(_aggLevel, _impFilter, _aggFilter)
-
+	document.getElementById('title').innerHTML = getTitle()
+	
 	var data = parseSortFilter(_aggData[_aggLevel])
 
 	var keys = Object.keys(data[0]).filter(d => d != 'Year')
@@ -116,8 +121,10 @@ function validNextLayer(aggFilter=_aggFilter) {
 	return _aggLevel < 3 && Object.keys(parseSortFilter(_aggData[_aggLevel+1], aggFilter)[0]).length > 1
 }
 
-function buildChart() { //TODO: UPDATE TITLE
-	d3.selectAll("#chart > *").remove() //to reset the SVG
+function buildChart() {
+	document.getElementById('title').innerHTML = getTitle()
+
+	d3.selectAll("#chart > *").remove() //to reset the SVG when drilling down / going back
 
 	var svg = d3.select("#chart")
   		.attr("width", width + margin.left + margin.right)
