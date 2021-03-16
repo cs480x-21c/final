@@ -96,7 +96,7 @@
             var s = d.Year + "<br>";
             s += "Total Liabilities and Net Assets: $" + (d.TLNA * 1000).toLocaleString("en") + "<br>" +
                 "Normalized Tuition and Fees: " + "$" +
-                ((d.TF*1000)/d.TS).toLocaleString("en") + "<br>";
+                (Math.round((d.TF*1000)/d.TS)).toLocaleString("en") + "<br>";
             return s;
         }
 
