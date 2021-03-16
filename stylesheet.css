@@ -29,14 +29,38 @@ body {
     flex-direction: row;
 }
 
-#importContainer {
+#leftContainer {
     width: calc(16.6666% - 16px);
-    height: 40%;
     margin-right: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}
+
+#importContainer {
+    height: 40%;
+    width: 100%;
     padding: 8px;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+    margin-bottom: 16px;
+}
+
+#infoContainer {
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}
+
+#infoContainer .material-icons {
+    font-size: 2em;
+}
+
+#infoContainer div {
+    text-align: left;
+    font-size: 0.75em;
 }
 
 #treeContainer {
