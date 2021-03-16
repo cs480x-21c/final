@@ -116,6 +116,10 @@ body {
     justify-content: center;
 }
 
+#bannerTitle {
+    margin-bottom: 1rem;
+}
+
 .scrollbar::-webkit-scrollbar {
     width: 8px;
     background-color: #F5F5F5;
@@ -126,4 +130,3 @@ body {
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
     background-color: #6200ee;
 }
-
