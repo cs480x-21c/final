@@ -10,7 +10,12 @@ const EXAMPLE_COURSE = {
     "types": "Lecture, Web",
     "department_title": "Humanities and Arts Department",
     "attributes": "Humanities and Arts"
-}
+};
+
+// Custom courses for handling IQP
+const IQP_COURSE = {"title": "IQP", "department_code": "IQP", "code": "DG1", "description": "", "credits": 9, "levels": "Undergraduate", "types": "Lecture, Web", "department_title": "Interdisciplinary and Global Studies Department"};
+const PQP_COURSE = {"title": "PQP", "department_code": "PQP", "code": "DG1", "description": "", "credits": 1.5, "levels": "Undergraduate", "types": "Lecture, Web", "department_title": "Interdisciplinary and Global Studies Department"};
+const PC_COURSE = {"title": "PC", "department_code": "PC", "code": "1000", "description": "", "credits": 0, "levels": "Undergraduate", "types": "Lecture, Web", "department_title": "Interdisciplinary and Global Studies Department"};
 
 const BANNER_CRAWLER_TRIGGER_URL = "https://us-east4-ageless-accord-307519.cloudfunctions.net/bannerCrawler";
 
@@ -95,6 +100,11 @@ function drawTreeMap() {
     // Categorize current courses
     // TODO; This whole system is EXTREMELY inefficient
     currCourses.forEach(course => {
+        // Ignore PQP & PC courses
+        if (course.department_code === "PQP" || course.department_code === "PC") {
+            return;
+        }
+
         // Identify first category that we can slot this course into
         let categories = trackingCategories.filter(cat => (cat.accepts.includes(course.department_code)) || (cat.accepts.includes("*")));
 
@@ -198,18 +208,6 @@ function drawTreeMap() {
         .verticalAlign("middle")
         .select(svg.node())
         .render();
-    /*
-    svg.selectAll("g")
-        .data(root.descendants())
-        .enter()
-        .append("text")
-        .filter(d => (d.depth === 2))
-        .attr("x", d => d.x0)
-        .attr("y", d => d.y0)
-        .attr("width", d => d.x1 - d.x0)
-        .attr("height", d => d.y1 - d.y0)
-        .attr("text-anchor", "middle")
-        .text(d => d.data.name);*/
 }
 
 // initCourseCatalog() sets up the course catalog
@@ -333,16 +331,35 @@ function populateCoursesFromBanner() {
         // Crummy quadratic code
         currCourses = [];
         bannerCourses.forEach(transcriptCourse => {
+            // Special handling for IQP courses
+            if (transcriptCourse.dep === "IQP") {
+                currCourses.push(IQP_COURSE);
+                return;
+            } else if (transcriptCourse.dep === "PQP") {
+                currCourses.push(PQP_COURSE);
+                return;
+            } else if (transcriptCourse.dep === "PC") {
+                currCourses.push(PC_COURSE);
+                return;
+            }
+
+            let imported = false;
             for (let i = 0; i < courses.length; i++) {
                 let course = courses[i];
                 if ((course["department_code"] === transcriptCourse.dep) && (course.code === transcriptCourse.code)) {
                     currCourses.push(course);
+                    imported = true;
                     break;
                 }
             }
+
+            if (!imported) {
+                console.log("Failed to import course:");
+                console.log(transcriptCourse);
+            }
         })
 
-        snackbar.labelText = currCourses.length + " courses imported from Banner";
+        snackbar.labelText = currCourses.length + "/" + (bannerCourses.length) + " courses imported from Banner";
         snackbar.open();
 
         // Fire event to indicate that currently slotted in courses have been updated
