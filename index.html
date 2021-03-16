@@ -232,19 +232,20 @@
         //         );
 
         var ccolor =
-            d3.scaleSequential(d3.interpolateBlues)
-                .domain(
-                    d3.extent(countries.features, function(d){ 
+            d3.scaleSequentialQuantile(d3.interpolateReds)
+                // .unknown("#FF1")
+                .domain([0,0.1,0.2,0.3,0.4,0.5,0.6,0.65,0.7,0.75,0.8,0.9,1]
+                    // d3.extent(countries.features, function (d) {
                         // console.log(d);
                         // console.log(master_json[0].Alpha_3);
-                        for( var i = 0; i < master_json.length; i++){
-                            if( d.id === master_json[i].Alpha_3){
-                                console.log(d.id + " " + master_json[i].data[0].danceability)
-                                return master_json[i].data[0].valence;
-                            }
-                        }
+                        // for( var i = 0; i < master_json.length; i++){
+                        //     if( d.id === master_json[i].Alpha_3){
+                        //         console.log(d.id + " " + master_json[i].data[0].danceability)
+                        //         return master_json[i].data[0].valence;
+                        //     }
+                        // }
                         // return gpath.area(d)
-                    })
+                    // })
 
                 );
 
@@ -269,8 +270,18 @@
             // .on('mouseover', function (d) {
             //     console.log( d.id)
             // })
-            .attr('fill', d => ccolor(gpath.area(d)));
-            // .attr('fill', d => ccolor(gpath.area(d)));
+            .attr('fill', function (d) {
+                // console.log(d);
+                for (var i = 0; i < master_json.length; i++) {
+                    if (d.id === master_json[i].Alpha_3) {
+                        console.log(d.id + " " + master_json[i].data[0].danceability)
+                        console.log(ccolor(master_json[i].data[0].danceability))
+                        return ccolor(master_json[i].data[0].danceability);
+                    }
+                }
+            })
+        // return ccolor(gpath.area(d))});
+        // .attr('fill', d => ccolor(gpath.area(d)));
 
         // d3.select('svg')
         //     .selectAll('circle')
