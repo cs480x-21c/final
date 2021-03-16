@@ -85,6 +85,23 @@
     var width = 200
     var height = 375
 
+    var week = "2020-12-25--2021-01-01"
+    var master_json;
+    var mode = "danceability";
+    var countryList;
+    var proj = d3.geoMercator()
+        .translate([250, 250])
+        .scale(120);
+
+
+    var gpath = d3.geoPath()
+        .projection(proj);
+    var ccolor =
+        d3.scaleSequentialQuantile(d3.interpolateReds)
+            .domain([0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.65, 0.7, 0.75, 0.8, 0.9, 1]
+
+            );
+
     var svg = d3.select("#modality").append("svg")
         .attr("width", width)
         .attr("height", height);
@@ -118,7 +135,9 @@
         .style("cursor", "pointer")
         .on("click", function (d, i) {
             updateButtons(d3.select(this), d3.select(this.parentNode))
-            console.log(i)
+            mode = i.replace(/[^0-9a-z]/gi, '')
+            console.log(mode)
+            drawMap(gpath, countryList, week, mode, ccolor)
         })
         .on("mouseover", function () {
             if (d3.select(this).select("rect").attr("fill") != pressedColor) {
@@ -171,9 +190,7 @@
 
 
     // adapted for d3v6 from book, d3js in action
-    var week = "2020-12-25--2021-01-01"
-    var master_json;
-    var mode = "test"
+
 
     Promise.all([
         d3.json('world.geojson'),
@@ -181,10 +198,11 @@
         d3.json('Datasets/country_key.json')
     ]).then(([countries, weeks, master]) => {
         master_json = master
+        countryList = countries
         console.log(master_json)
 
         createTimeline(weeks)
-        createMap(countries, master_json, week, mode)
+        createMap(countryList, master_json, week, mode)
     })
 
     function createTimeline(weeks) {
@@ -205,34 +223,9 @@
             });
     }
 
-    function createMap(countries, master_json, week, mode) {
-        console.log(countries)
-        console.log(master_json)
-        console.log( week )
-        console.log( mode )
-
-        var proj = d3.geoMercator()
-            .translate([250, 250])
-            .scale(120);
-
-
-        var gpath = d3.geoPath()
-            .projection(proj);
-
-        console.log(gpath.area(countries.features[1]));
-
-
-        var ccolor =
-            d3.scaleSequentialQuantile(d3.interpolateReds)
-                .domain([0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.65, 0.7, 0.75, 0.8, 0.9, 1]
-
-                );
-
-        console.log(gpath.area(countries.features[1]));
-
-        // draw country boundaries
-
-        // d3.select('svg')
+    function drawMap(gpath, countries, week, mode, ccolor) {
+        console.log("drawing map...")
+        document.getElementById('map_svg').innerHTML = "";
         d3.select('#map_svg')
             .selectAll('path')
             .data(countries.features)
@@ -248,11 +241,32 @@
             .attr('fill', function (d) {
 
                 var country = master_json[d.id]
-                // console.log(country)
+                console.log(country)
                 if (typeof (country) !== 'undefined') {
-                    return ccolor(country[week].danceability);
+                    console.log(country[week][mode])
+                    return ccolor(country[week][mode]);
                 }
             })
+    }
+    function createMap(countries, master_json, week, mode) {
+        console.log(countries)
+        console.log(master_json)
+        console.log(week)
+        console.log(mode)
+
+
+
+        console.log(gpath.area(countries.features[1]));
+
+
+
+
+        console.log(gpath.area(countries.features[1]));
+
+        // draw country boundaries
+
+        // d3.select('svg')
+        drawMap(gpath, countries, week, mode, ccolor)
 
         var mapZoom = d3.zoom()
             .on('zoom', zoomed);
