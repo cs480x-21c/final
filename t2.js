@@ -15,7 +15,7 @@ Promise.all([
 	sicTable.forEach(d => {
 		_sicTable[d.ProductCode] = d.ProductDescription
 	})
-	buildChart(_aggLevel, _impFilter, _aggFilter)
+	buildChart()
 })
 
 function swapView() {
@@ -52,8 +52,8 @@ function sortData(data) {
 }
 
 
-function filterData(data, impFilter, aggFilter) { //impfilter = true gets only import data, false is export data
-	var workingData = JSON.parse(JSON.stringify(data.filter(d => d.TradeFlowName == (impFilter ? 'Import' : 'Export'))))
+function filterData(data, aggFilter=_aggFilter) {
+	var workingData = JSON.parse(JSON.stringify(data.filter(d => d.TradeFlowName == (_impFilter ? 'Import' : 'Export'))))
 	workingData.forEach(d => delete d.TradeFlowName); //dont need this anymore. we know what we gave it
 
 	workingData = workingData.map(d => {
@@ -68,20 +68,16 @@ function filterData(data, impFilter, aggFilter) { //impfilter = true gets only i
 	return workingData
 }
 
-function parseSortFilter(data, impFilter, aggFilter) {
-	return filterData(sortData(parseData(data)), impFilter, aggFilter)
+function parseSortFilter(data, aggFilter=_aggFilter) {
+	return filterData(sortData(parseData(data)), aggFilter)
 }
 
 
-function validNextLayer(aggLevel, aggFilter) {
-	return aggLevel < 3 && Object.keys(parseSortFilter(_aggData[aggLevel+1], true, aggFilter)[0]).length > 1
+function validNextLayer(aggLevel, aggFilter=_aggFilter) {
+	return aggLevel < 3 && Object.keys(parseSortFilter(_aggData[aggLevel+1], aggFilter)[0]).length > 1
 }
 
-function buildChart(aggLevel, impFilter, aggFilter) {
-	_aggLevel = aggLevel
-	_impFilter = impFilter
-	_aggFilter = aggFilter
-
+function buildChart() {
 	var margin = {top: 60, right: 300, bottom: 50, left: 70},
    	width = 1000 - margin.left - margin.right,
    	height = 400 - margin.top - margin.bottom;
@@ -96,16 +92,16 @@ function buildChart(aggLevel, impFilter, aggFilter) {
   	   	"translate(" + margin.left + "," + margin.top + ")");
 
 
-	var data = parseSortFilter(_aggData[aggLevel], impFilter, aggFilter)
+	var data = parseSortFilter(_aggData[_aggLevel])
 	
 	var keys = Object.keys(data[0]).filter(d => d != 'Year')
 
-	var stack = d3.stack()
+	var makeStack = d3.stack()
 		.keys(keys)
 		.offset(d3.stackOffsetNone)
 		.order(d3.stackOrderReverse)
 
-	var stack = stack(data)
+	var stack = makeStack(data)
 
 	var color = d3.scaleOrdinal()
 		.domain(keys)
@@ -117,7 +113,7 @@ function buildChart(aggLevel, impFilter, aggFilter) {
 		.range([0, width])
 	
 	var y = d3.scaleLinear()
-		.domain([0, d3.max(flattenStack(stack))]) 
+		.domain([0, d3.max(flattenStack(makeStack(_aggData[_aggLevel])))]) 
 		.range([height, 0]);
 
 	
@@ -150,7 +146,7 @@ function buildChart(aggLevel, impFilter, aggFilter) {
 		.data(stack)
 		.enter()
 		.append("path")
-			.attr("class", d => "myArea" + (validNextLayer(aggLevel, d.key) ? ' pointer' : ''))
+			.attr("class", d => "myArea" + (validNextLayer(_aggLevel, d.key) ? ' pointer' : ''))
 			.attr('id', d => 'area_'+d.key)
 			.style("fill", d => color(d.key))
 			.attr("d", area)
@@ -159,14 +155,18 @@ function buildChart(aggLevel, impFilter, aggFilter) {
 			.on('mouseover', (d, i) =>	highlight(d, i.key))
 			.on('mouseout', (d, i) => noHighlight(d, i.key))
 			.on('click', function(d, i) {
-				if (validNextLayer(aggLevel, i.key)) {
-					buildChart(aggLevel+1, impFilter, i.key)
+				if (validNextLayer(_aggLevel, i.key)) {
+					_aggLevel++
+					_aggFilter = i.key
+					buildChart()
 				} 
 			})
 			.on('contextmenu', function(d, i) {
 				d.preventDefault();
-				if (aggLevel > 0) {
-					buildChart(aggLevel-1, impFilter, i.key.substring(0,i.key.length-2))
+				if (_aggLevel > 0) {
+					_aggLevel--
+					_aggFilter = i.key.substring(0,i.key.length-2)
+					buildChart()
 				}
 			})
 
@@ -197,20 +197,24 @@ function buildChart(aggLevel, impFilter, aggFilter) {
    		.attr("y", (d,i) => 10 + i*(size+5)) // 100 is where the first dot appears. 25 is the distance between dots
    		.attr("width", size)
    		.attr("height", size)
-			.attr('class', d => 'legendBox' + (validNextLayer(aggLevel, d) ? ' pointer' : ''))
+			.attr('class', d => 'legendBox' + (validNextLayer(_aggLevel, d) ? ' pointer' : ''))
 			.attr('id', d => 'legBox_'+d)
    		.style("fill", d => color(d))
    		.on("mouseover", highlight)
    		.on("mouseleave", noHighlight)
 			.on('click', function(d,i) {
-				if (validNextLayer(aggLevel, i)) {
-					buildChart(aggLevel+1, impFilter, i)
+				if (validNextLayer(_aggLevel, i)) {
+					_aggLevel++
+					_aggFilter = i
+					buildChart()
 				}
 			})
 			.on('contextmenu', function(d, i) {
 				d.preventDefault();
-				if (aggLevel > 0) {
-					buildChart(aggLevel-1, impFilter, i.substring(0,i.length-2))
+				if (_aggLevel > 0) {
+					_aggLevel--
+					_aggFilter = i.substring(0,i.length-2)
+					buildChart()
 				}
 			})
 
@@ -221,7 +225,7 @@ function buildChart(aggLevel, impFilter, aggFilter) {
       .append("text")
       	.attr("x", width + margin.right/20 + size*1.2)
       	.attr("y", (d,i) => 10 + i*(size+5) + (size/2)) // 100 is where the first dot appears. 25 is the distance between dots
-			.attr('class', d => 'legendText' + (validNextLayer(aggLevel, d) ? ' pointer' : ''))
+			.attr('class', d => 'legendText' + (validNextLayer(_aggLevel, d) ? ' pointer' : ''))
 			.attr('id', d => 'legText_'+d)
       	.style("fill", d => color(d))
       	.text(d => _sicTable[d])
@@ -230,16 +234,18 @@ function buildChart(aggLevel, impFilter, aggFilter) {
       	.on("mouseover", highlight)
       	.on("mouseleave", noHighlight)
 			.on('click', function(d,i) {
-				if (validNextLayer(aggLevel, i)) {
-					buildChart(aggLevel+1, impFilter, i)
+				if (validNextLayer(_aggLevel, i)) {
+					_aggLevel++
+					_aggFilter = i
+					buildChart()
 				}
 			})
 			.on('contextmenu', function(d, i) {
 				d.preventDefault();
-				if (aggLevel > 0) {
-					buildChart(aggLevel-1, impFilter, i.substring(0,i.length-2))
-				} else {
-
+				if (_aggLevel > 0) {
+					_aggLevel--
+					_aggFilter = i.substring(0,i.length-2)
+					buildChart()
 				}
 			})
 
