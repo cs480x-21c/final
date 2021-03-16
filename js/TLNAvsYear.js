@@ -141,7 +141,6 @@
             .attr("dy", ".15em")
             .attr("transform", function(d) {
                 return "rotate(-65)"
-
             });
 
         svg.append("g")
