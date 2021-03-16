@@ -9,8 +9,8 @@
 
 #Intro{
     width: 500px;
-    height:200px;
-    /*font-family: Arial, Helvetica, sans-serif;*/
+    height:100px;
+    font-family: Arial, Helvetica, sans-serif;
     font-size: 14px;
     display: block;
     margin: auto;

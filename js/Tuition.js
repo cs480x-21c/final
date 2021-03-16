@@ -131,7 +131,7 @@
         svg.append("text")
             .attr("transform", "translate(" + (width/2) + ", " + (height + margin.top) + ")")
             .style("text-anchor", "middle")
-            .text("Year")
+            .text("Fiscal Year")
             .style("font-size", "14px")
 
         // Add y axis left label

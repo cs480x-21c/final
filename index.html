@@ -115,6 +115,21 @@
         x.domain(data.map(function(d) { return d.Year; }));
         y.domain([0, d3.max(data, function(d) { return parseInt(d.TLNA) * 1000; })]);
 
+        svg.append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 6 - margin.left)
+            .attr("x", 0 - (height/2))
+            .attr("dy", "1em")
+            .style("text-anchor", "middle")
+            .text("Total Liabilities and Net Assets (dollars)")
+            .style("font-size", "14px");
+
+        svg.append("text")
+            .attr("transform", "translate(" + (width/2) + ", " + (height + margin.top * 2.5) + ")")
+            .style("text-anchor", "middle")
+            .text("Fiscal Year")
+            .style("font-size", "14px")
+
         svg.append("g")
             .attr("class", "x axis")
             .attr("transform", "translate(0," + height + ")")
