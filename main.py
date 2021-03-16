@@ -8,6 +8,7 @@ import os
 import csv
 import json
 import pandas as pd
+import pycountry_convert as pc
 basepath = os.path.abspath(os.path.dirname(__file__))
 path= basepath + "/chart_scrapes"
 
@@ -259,6 +260,7 @@ def weekly_meta_calc(weeks, countries):
                     # weekAverages.to_csv(outputPath + "_average_meta.csv")
         country_data.append(
             {"country":country,
+            "Alpha-3" : pc.country_name_to_country_alpha3(pc.country_alpha2_to_country_name(country.upper())),
             "data":data}
         )
     with open('Datasets/Master_JSON.json', 'w') as json_file:
