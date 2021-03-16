@@ -160,7 +160,13 @@ function drawTreeMap() {
         .attr("y", d => d.y0)
         .attr("width", d => d.x1 - d.x0)
         .attr("height", d => d.y1 - d.y0)
-        .style("stroke", "black")
+        .style("stroke", d => {
+            if (d.data.value === 0) {
+                return "green";
+            } else {
+                return "red";
+            }
+        })
         .style("fill", "none");
 
     // Draw course boxes
@@ -258,7 +264,6 @@ function initCourseCatalog() {
                     .style("left", `${e.x - 15}px`)
             })
             .on("end", function (e) {
-
                 d3.select(this)
                     .style("opacity", 1)
                     .style("position", "unset")
@@ -268,10 +273,15 @@ function initCourseCatalog() {
                     .findIndex(el => el.id === "treeContainer") > -1;
 
                 if (inTree) {
-                    currCourses.push(e.subject);
-                    console.log(currCourses);
-                    // Reloading Tree Map Here
-                    drawTreeMap();
+                    // Check if the course is already slotted in & is not a PE course
+                    if (!currCourses.includes(e.subject)) {
+                        currCourses.push(e.subject);
+                        // Reloading Tree Map Here
+                        drawTreeMap();
+                    } else {
+                        snackbar.labelText = e.subject.department_code + " " + e.subject.code + " is already in your courses.";
+                        snackbar.open();
+                    }
                 }
             });
 
