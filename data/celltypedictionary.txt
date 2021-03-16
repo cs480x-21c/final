@@ -11,7 +11,7 @@
 9,'CerebellarHem','Oligodendrocyte','CLDN11,MOG,MOBP,MBP'
 10,'CerebellarHem','Microglia','APBB1IP,P2RY12,PTPRC'
 11,'CerebellarHem','Endothelial Cell','COBLL1,DUSP1,FLT1'
-12,'CerebellarHem','Oligodendrocyte Precursor Cell',
+12,'CerebellarHem','Oligodendrocyte Precursor Cell','PCDH15,OLIG1'
 13,'CerebellarHem','Astrocyte','SLC1A2,SLC1A3,SLC4A4,AQP4,GFAP'
 14,'CerebellarHem','Pericyte','COBLL1,PDGFRB'
 0,'FrontalCortex','Excitatory Neuron','GRIN1,GRIN2B,SATB2,SLC17A7'
