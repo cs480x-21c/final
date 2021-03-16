@@ -73,8 +73,8 @@ function parseSortFilter(data, aggFilter=_aggFilter) {
 }
 
 
-function validNextLayer(aggLevel, aggFilter=_aggFilter) {
-	return aggLevel < 3 && Object.keys(parseSortFilter(_aggData[aggLevel+1], aggFilter)[0]).length > 1
+function validNextLayer(aggFilter=_aggFilter) {
+	return _aggLevel < 3 && Object.keys(parseSortFilter(_aggData[_aggLevel+1], aggFilter)[0]).length > 1
 }
 
 function buildChart() {
@@ -146,7 +146,7 @@ function buildChart() {
 		.data(stack)
 		.enter()
 		.append("path")
-			.attr("class", d => "myArea" + (validNextLayer(_aggLevel, d.key) ? ' pointer' : ''))
+			.attr("class", d => "myArea" + (validNextLayer(d.key) ? ' pointer' : ''))
 			.attr('id', d => 'area_'+d.key)
 			.style("fill", d => color(d.key))
 			.attr("d", area)
@@ -155,7 +155,7 @@ function buildChart() {
 			.on('mouseover', (d, i) =>	highlight(d, i.key))
 			.on('mouseout', (d, i) => noHighlight(d, i.key))
 			.on('click', function(d, i) {
-				if (validNextLayer(_aggLevel, i.key)) {
+				if (validNextLayer(i.key)) {
 					_aggLevel++
 					_aggFilter = i.key
 					buildChart()
@@ -197,13 +197,13 @@ function buildChart() {
    		.attr("y", (d,i) => 10 + i*(size+5)) // 100 is where the first dot appears. 25 is the distance between dots
    		.attr("width", size)
    		.attr("height", size)
-			.attr('class', d => 'legendBox' + (validNextLayer(_aggLevel, d) ? ' pointer' : ''))
+			.attr('class', d => 'legendBox' + (validNextLayer(d) ? ' pointer' : ''))
 			.attr('id', d => 'legBox_'+d)
    		.style("fill", d => color(d))
    		.on("mouseover", highlight)
    		.on("mouseleave", noHighlight)
 			.on('click', function(d,i) {
-				if (validNextLayer(_aggLevel, i)) {
+				if (validNextLayer(i)) {
 					_aggLevel++
 					_aggFilter = i
 					buildChart()
@@ -225,7 +225,7 @@ function buildChart() {
       .append("text")
       	.attr("x", width + margin.right/20 + size*1.2)
       	.attr("y", (d,i) => 10 + i*(size+5) + (size/2)) // 100 is where the first dot appears. 25 is the distance between dots
-			.attr('class', d => 'legendText' + (validNextLayer(_aggLevel, d) ? ' pointer' : ''))
+			.attr('class', d => 'legendText' + (validNextLayer(d) ? ' pointer' : ''))
 			.attr('id', d => 'legText_'+d)
       	.style("fill", d => color(d))
       	.text(d => _sicTable[d])
@@ -234,7 +234,7 @@ function buildChart() {
       	.on("mouseover", highlight)
       	.on("mouseleave", noHighlight)
 			.on('click', function(d,i) {
-				if (validNextLayer(_aggLevel, i)) {
+				if (validNextLayer(i)) {
 					_aggLevel++
 					_aggFilter = i
 					buildChart()
