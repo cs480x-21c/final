@@ -3,6 +3,9 @@ body{
     color: darkblue;
 }
 
-#usMap, #deathStats, #positiveStats{
+#usMap, #deathStats{
     background-color: #efefef;
+}
+#positiveStats{
+    background-color: dimgray;
 }

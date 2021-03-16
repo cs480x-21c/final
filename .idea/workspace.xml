@@ -20,17 +20,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="54a73371-823e-4f28-a0bf-112958db9104" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/all-states-history.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/us.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/us_states.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/deathStatistics.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/positiveStatistics.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/script.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/views/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -88,7 +80,7 @@
       <option name="presentableId" value="Default" />
       <updated>1615785112091</updated>
       <workItem from="1615785113220" duration="8339000" />
-      <workItem from="1615822717143" duration="22714000" />
+      <workItem from="1615822717143" duration="27452000" />
     </task>
     <servers />
   </component>

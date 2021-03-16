@@ -1,5 +1,5 @@
 let margin = {top: 50, bottom: 50, left: (window.innerWidth-1000)/2, right: 50}, height = 600, width = 1000
-
+let tooltip = d3.select('#tooltip')
 console.log(d3)
 let the_map = d3.select('#usMap')
     .attr('width', width)
@@ -128,7 +128,6 @@ function getIdTypeCsv(){
                 if (parseInt(keys[i]) === parseInt(stateId)){
                     val = stateMatchUp[keys[i]]
                 }
-
             }
             console.log('stateId: ',stateId)
             console.log('val: ', val)
@@ -138,7 +137,9 @@ function getIdTypeCsv(){
                     csvItem.push((rawCsvArr[i][0].split('-'))[1])
                     csvItem.push(rawCsvArr[i][1])
                     // console.log('total: '+rawCsvArr[i][19])
-                    csvItem.push(rawCsvArr[i][19])
+                    if (chartType === 'checkPositive') {
+                        csvItem.push(rawCsvArr[i][19])
+                    }
                     // console.log('item: ',csvItem)
                     revisedCsvData.push(csvItem)
                 }
@@ -190,6 +191,9 @@ function getIdTypeCsv(){
 
 let values = []
 let piekeys = []
+let monthArr = {0:'Jan', 1:'Feb', 2:'Mar', 3:'Apr', 4:'May', 5:'June', 6:'July', 7:'Aug', 8:'Sep',
+9:'Oct', 10:'Nov', 11:'Dec'}
+// let monthkeys = Object.keys(monthArr);
 function drawPositivePie(){
     let pieData = d3.pie()
         .sort(null)
@@ -203,10 +207,10 @@ function drawPositivePie(){
 
     console.log('pie data: ',pieData)
 
-    let segments = d3.arc().innerRadius(0).outerRadius(200).padAngle(0.05).padRadius(50)
+    let segments = d3.arc().innerRadius(0).outerRadius(250).padAngle(0.05).padRadius(50)
 
     positiveStats.append('g')
-        .attr('transform', 'translate(250, 250)')
+        .attr('transform', 'translate(500, 300)')
         .selectAll('path')
         .data(pieData)
         .enter()
@@ -224,22 +228,47 @@ function drawPositivePie(){
 
             return colors((values[i]-start)*0.083/interval)
         })
+        .on('mouseover', function (d, i){
+            positiveStats.append('g')
+                .append("text")
+                .attr('x', '650px')
+                .attr('y', '550px')
+                .attr('id', 'tooltip')
+                .text('# of People tested positive: '+values[i])
+        })
+        .on('mouseout', function (d, i){
+            positiveStats.select('#tooltip').remove()
+        })
 
     positiveStats
         .selectAll('mySlices')
         .data(pieData)
         .enter()
         .append('text')
-        .text(function(d, i){
-            return 'Month '+pieData[i].index}
-        )
+        .text(function(d, i) {
+            if (i < 3){
+                return '2021 '+monthArr[i]
+            }
+            else return '2020 '+monthArr[i]
+        })
         .attr("transform", function(d) {
-            let x = 1.6*segments.centroid(d)[0]+250
-            let y = 1.6*segments.centroid(d)[1]+250
+            let x = 2.3*segments.centroid(d)[0]+500
+            let y = 2.3*segments.centroid(d)[1]+300
             return "translate(" +x+','+y  + ")";
         })
         .style("text-anchor", "middle")
-        .style("font-size", 12)
+        .style("font-size", 16)
+        .style('fill', function(d,i){
+            let start = Math.min.apply(null, values)
+            let end = Math.max.apply(null, values)
+            let interval = (end-start)/12
+
+            return colors((values[i]-start)*0.083/interval)
+        })
+
+
 }
+
+
 
 
