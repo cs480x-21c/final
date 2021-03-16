@@ -118,6 +118,7 @@
         .style("cursor", "pointer")
         .on("click", function (d, i) {
             updateButtons(d3.select(this), d3.select(this.parentNode))
+            console.log(i)
         })
         .on("mouseover", function () {
             if (d3.select(this).select("rect").attr("fill") != pressedColor) {
@@ -176,15 +177,14 @@
 
     Promise.all([
         d3.json('world.geojson'),
-        d3.csv('cities.csv'),
         d3.csv('Datasets/weeks_list.csv'),
         d3.json('Datasets/country_key.json')
-    ]).then(([countries, cities, weeks, master]) => {
+    ]).then(([countries, weeks, master]) => {
         master_json = master
         console.log(master_json)
 
         createTimeline(weeks)
-        createMap(countries, cities, master_json, week, mode)
+        createMap(countries, master_json, week, mode)
     })
 
     function createTimeline(weeks) {
@@ -205,10 +205,11 @@
             });
     }
 
-    function createMap(countries, cities, master_json, week, mode) {
+    function createMap(countries, master_json, week, mode) {
         console.log(countries)
-        console.log(cities)
         console.log(master_json)
+        console.log( week )
+        console.log( mode )
 
         var proj = d3.geoMercator()
             .translate([250, 250])
