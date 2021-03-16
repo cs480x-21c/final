@@ -3,6 +3,10 @@
 <div id="my_dataviz"></div>
 <button onclick="update(reducedImp, 0)">Import</button>
 <button onclick="update(reducedExp, 1)">Export</button>
+<button onclick="update(growthImpNom, 2)">Growth Import</button>
+<button onclick="update(growthExpNom, 3)">Growth Export</button>
+
+
 
 <script>
 
@@ -33,9 +37,16 @@ var svg = d3.select("#my_dataviz")
             .range([ height, 0 ]);
             
         svg.append("g")
+            .attr("id", "axis")
             .call(d3.axisLeft(y));
 
+        svg.append("line")
+            .attr("id", "dashed")
+            .attr("opacity", 0)
+
 var reducedImp, reducedExp;
+var growthImpNom = [{Date: 2008, Value: 0}], growthExpNom = [{Date: 2008, Value: 0}];
+var growthImpPct, growthExpPct;
 
 d3.csv("data/Tradedata.csv",
     function(d) {
@@ -83,6 +94,16 @@ function buildScatterSum(data) {
     return allDates
     }, []);
 
+    for(var i = 0; i < reducedExp.length; i++) {
+        if(i > 0) {
+            growthImpNom.push({Date: reducedImp[i].Date, Value: (reducedImp[i].Value - reducedImp[i - 1].Value)})
+            growthExpNom.push({Date: reducedExp[i].Date, Value: (reducedExp[i].Value - reducedExp[i - 1].Value)})
+        }
+    }
+
+    console.log(growthExpNom)
+    console.log(growthImpNom)
+
     svg.append("path")
     .attr("id", "curvedPath")
     .datum(reducedImp)
@@ -105,31 +126,10 @@ function buildScatterSum(data) {
         .attr("r", 8)
         .attr("fill", "#69b3a2")
 
-    // svg.append("path")
-    // .datum(reducedExp)
-    // .attr("fill", "none")
-    // .attr("stroke", "#C81414")
-    // .attr("stroke-width", 1.5)
-    // .attr("d", d3.line()
-    //     .curve(d3.curveCatmullRom)
-    //     .x(function(r) { return x(r.Date) })
-    //     .y(function(r) { return y(r.Value) })
-    // )
-
-    // svg.append("g")
-    // .selectAll("dot")
-    // .data(reducedExp)
-    // .enter()
-    // .append("circle")
-    //     .attr("cx", function(r) { return x(r.Date) } )
-    //     .attr("cy", function(r) { return y(r.Value) } )
-    //     .attr("r", 5)
-    //     .attr("fill", "#C81414")
-
     svg.append("text")
     .attr("text-anchor", "end")
     .attr("x", width)
-    .attr("y", height+40 )
+    .attr("y", height+40)
     .text("Time (year)");
 
     svg.append("text")
@@ -139,19 +139,55 @@ function buildScatterSum(data) {
     .text("Thousand Dollars")
     .attr("text-anchor", "start")
 
+    update(reducedImp, 0)
+
 }
 
 function update(data, type) {
     var fill;
-    if (type == 0) { fill = "#69b3a2"} else { fill = "#C81414"}
+    var lineDat = [{Date : 2008, Value: 0}, {Date : 2019, Value: 0}];
+    if (type == 0 || type == 2) { fill = "#69b3a2"} else { fill = "#C81414"}
+
+    y.domain(d3.extent(data, function(d) { return +d.Value}))
+
+    svg.select("#axis")
+        .transition()
+        .duration(1000)
+        .call(d3.axisLeft(y))
+
+    var dashed = svg.select("#dashed")
+
+    if(type > 1) {
+        dashed
+            .enter()
+            .append("line")
+            .merge(dashed)
+            .transition()
+            .duration(1000)
+            .style("stroke-dasharray", ("3, 3"))
+            .attr("x1", 0)
+            .attr("x2", width)
+            .attr("y1", y(0))
+            .attr("y2", y(0))
+            .attr("id", "dashed")
+            .attr("stroke", "black")
+            .attr("opacity", 1)
+    } else {
+        dashed
+            .enter()
+            .append("line")
+            .merge(dashed)
+            .transition()
+            .duration(1000)
+            .attr("opacity", 0)
+    }
+
 
     var circ = svg.selectAll("circle")
         .data(data)
 
     var path = svg.selectAll("#curvedPath")
         .datum(data)
-
-    console.log(path)
 
     circ
         .enter()
