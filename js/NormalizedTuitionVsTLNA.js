@@ -157,7 +157,7 @@
             .attr("x", 0 - (height/2))
             .attr("dy", "1em")
             .style("text-anchor", "middle")
-            .text("Total Liabilities and Net Assets")
+            .text("Total Liabilities and Net Assets (dollars)")
             .style("font-size", "14px");
 
         // Add y axis right label
@@ -167,7 +167,7 @@
             .attr("x", 0 - (height/2))
             .attr("dy", "1em")
             .style("text-anchor", "middle")
-            .text("Normalized Tuition and Fees")
+            .text("Normalized Tuition and Fees (dollars per student)")
             .style("font-size", "14px");
 
 

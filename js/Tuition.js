@@ -147,7 +147,7 @@
             .attr("x", 0 - (height/2))
             .attr("dy", "1em")
             .style("text-anchor", "middle")
-            .text("Tuition And Fees")
+            .text("Tuition And Fees (dollars)")
             .style("font-size", "14px");
 
         // Add y axis right label

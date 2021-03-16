@@ -99,13 +99,13 @@
             .on('mouseover', function (d) {
                 d3.select(this).style("fill", "#1100ff");
                 var div = document.getElementById("TLNAvsYearTextDiv");
+                div.innerHTML = "";
                 div.innerHTML += d.Year + "<br>";
-                div.innerHTML += "Total liabilities and net assets: " + d.TLNA + "<br>";
+                div.innerHTML += "Total liabilities and net assets: $" + d.TLNA.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "<br>";
             })
             .on('mouseout', function (d) {
                 d3.select(this).style("fill", "#b8b3ff");
-                var div = document.getElementById("TLNAvsYearTextDiv");
-                div.innerHTML = "";
+
             })
 
 

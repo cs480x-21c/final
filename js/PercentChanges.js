@@ -147,17 +147,16 @@
             .on('mouseover', function (d) {
                 d3.select(this).style("fill", "LightCoral");
                 var div = document.getElementById("percentTextDiv");
+                div.innerHTML = "";
                 var previousYear = parseInt(d.Year.split('Y').pop()) - 1;
                 var percentChange = d.PCTLNA;
                 var sign = "+";
                 if(percentChange < 0){ sign = "-";}
                 div.innerHTML += "Total Liabilities and Net Assets Change from " + "FY" + previousYear + " " + "to " + d.Year + "<br>";
-                div.innerHTML += sign + d.PCTLNA;
+                div.innerHTML += sign + d.PCTLNA + "%";
             })
             .on('mouseout', function (d) {
                 d3.select(this).style("fill", "red");
-                var div = document.getElementById("percentTextDiv");
-                div.innerHTML = "";
             })
 
 
@@ -186,17 +185,16 @@
             .on('mouseover', function (d) {
                 d3.select(this).style("fill", "#b8b3ff");
                 var div = document.getElementById("percentTextDiv");
+                div.innerHTML = "";
                 var previousYear = parseInt(d.Year.split('Y').pop()) - 1;
                 var percentChange = d.PCTF;
                 var sign = "+";
                 if(percentChange < 0){ sign = "-";}
                 div.innerHTML += "Tuition and Fees Change from " + "FY" + previousYear + " " + "to " + d.Year + "<br>";
-                div.innerHTML += sign + Math.abs(d.PCTF);
+                div.innerHTML += sign + Math.abs(d.PCTF) + "%";
             })
             .on('mouseout', function (d) {
                 d3.select(this).style("fill", "blue");
-                var div = document.getElementById("percentTextDiv");
-                div.innerHTML = "";
             })
 
 
