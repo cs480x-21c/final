@@ -1,5 +1,12 @@
 (function (){
 
+    var textDiv1 = document.createElement("div");
+    textDiv1.classList.add("textbox");
+    textDiv1.id = "Intro";
+
+   textDiv1.innerHTML = "WPI students pay thousands of dollars in tuition yearly but where does all that money go? We use data visualizations of WPI's University Audited Financial Statements to visually compare and contrast differences in where WPI gets it's money, and how it spends it.";
+
+
     var svgDiv = document.createElement("div");
     svgDiv.classList.add("svgdiv");
     svgDiv.id = "TLNAvsYearDiv";
@@ -10,6 +17,7 @@
     textDiv.id = "TLNAvsYearTextDiv";
 
     // Append divs to body
+    document.body.appendChild(textDiv1);
     document.body.appendChild(svgDiv);
     document.body.appendChild(textDiv);
 

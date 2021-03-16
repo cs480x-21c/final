@@ -6,6 +6,11 @@
     var lineColor = "red";
     var lineColor2 = "blue";
 
+
+    var color = d3.scaleOrdinal()
+        .domain(d3.range(2))
+        .range([lineColor, lineColor2])
+
     // Create a div for the SVG to be placed into
     var svgDiv = document.createElement("div");
     svgDiv.classList.add("svgdiv");
@@ -138,7 +143,23 @@
             .attr("fill", lineColor)
             .attr("cx", function(d) { return xScale(d.Year) + (xScale.bandwidth() / 2); })
             .attr("cy", function(d) { return y0(d.PCTLNA); })
-            .attr("r", 6);
+            .attr("r", 6)
+            .on('mouseover', function (d) {
+                d3.select(this).style("fill", "LightCoral");
+                var div = document.getElementById("percentTextDiv");
+                var previousYear = parseInt(d.Year.split('Y').pop()) - 1;
+                var percentChange = d.PCTLNA;
+                var sign = "+";
+                if(percentChange < 0){ sign = "-";}
+                div.innerHTML += "Total Liabilities and Net Assets Change from " + "FY" + previousYear + " " + "to " + d.Year + "<br>";
+                div.innerHTML += sign + d.PCTLNA;
+            })
+            .on('mouseout', function (d) {
+                d3.select(this).style("fill", "red");
+                var div = document.getElementById("percentTextDiv");
+                div.innerHTML = "";
+            })
+
 
         // Append line chart 2 (Tuition)
         var line2 = svg.append("path")
@@ -161,7 +182,22 @@
             .attr("fill", lineColor2)
             .attr("cx", function(d) { return xScale(d.Year) + (xScale.bandwidth() / 2); })
             .attr("cy", function(d) { return y0(d.PCTF); })
-            .attr("r", 6);
+            .attr("r", 6)
+            .on('mouseover', function (d) {
+                d3.select(this).style("fill", "#b8b3ff");
+                var div = document.getElementById("percentTextDiv");
+                var previousYear = parseInt(d.Year.split('Y').pop()) - 1;
+                var percentChange = d.PCTF;
+                var sign = "+";
+                if(percentChange < 0){ sign = "-";}
+                div.innerHTML += "Tuition and Fees Change from " + "FY" + previousYear + " " + "to " + d.Year + "<br>";
+                div.innerHTML += sign + Math.abs(d.PCTF);
+            })
+            .on('mouseout', function (d) {
+                d3.select(this).style("fill", "blue");
+                var div = document.getElementById("percentTextDiv");
+                div.innerHTML = "";
+            })
 
 
 
@@ -183,6 +219,47 @@
             .attr("id", "percentYAxisLeft")
             .attr("class", "yAxis")
             .call(yAxisLeft);
+
+        // CREATE LEGEND //
+        var R = 6; // legend marker
+        var svgLegend = svg.append('g')
+            .attr('class', 'gLegend')
+            .attr("transform", "translate(" + (width + 20) + "," + 0 + ")");
+
+        console.log("about to create legend....");
+
+        var legend = svgLegend.selectAll('.legend')
+            .data(color.domain())
+            .enter().append('g')
+            .attr("class", "legend")
+            .attr("transform", function (d, i) { return "translate(-200," + i * 20 + ")"});
+
+        console.log("should have created legend");
+
+        legend.append("circle")
+            .attr("class", "legend-node")
+            .attr("cx", 0)
+            .attr("cy", 0)
+            .attr("r", R)
+            .style("fill", function(d, i){
+                return color(i);
+            });
+
+
+
+        legend.append("text")
+            .attr("class", "legend-text")
+            .attr("x", R*2)
+            .attr("y", R/2)
+            .style("fill", "#666666")
+            .style("font-size", "14px")
+            .text(function(d){
+                if(d == 0){
+                    return "Total Liabilities and Net Assets";
+                } else if(d == 1){
+                    return "Tuition and Fees";
+                }
+            });
 
 
     });
