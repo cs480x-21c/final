@@ -48,6 +48,8 @@
 
         #map {
             border: 2px solid orange;
+            width: min-content;
+            height: min-content;
         }
 
         svg {
@@ -306,7 +308,7 @@
             .translate(250, 250)
             .scale(120);
 
-        d3.select('svg')
+        d3.select('#map_svg')
             .call(mapZoom)
             .call(mapZoom.transform, zoomSettings);
 
