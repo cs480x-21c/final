@@ -93,28 +93,36 @@ function drawTreeMap() {
     });
 
     // Categorize current courses
-    // TODO; Still needs logic to: *Not slot courses into full categories
+    // TODO; This whole system is EXTREMELY inefficient
     currCourses.forEach(course => {
         // Identify first category that we can slot this course into
-        // TODO; This is highly inefficient
-        let categories = trackingCategories.filter(cat => (cat.accepts.includes(course.department_code)));
-        let parentName;
-        if (categories === null || categories === undefined) {
-            // Use free elective category
-            parentName = "FREE";
-        } else {
-            parentName = categories[0].name;
+        let categories = trackingCategories.filter(cat => (cat.accepts.includes(course.department_code)) || (cat.accepts.includes("*")));
 
-            // Subtract credits for this course from category total
-            // TODO; Also inefficient!
-            let parentNode = treeNodes.filter(node => (node.name === parentName))[0].value -= course.credits;
+        // If this is CS 1000, only allow for it to be slotted in as a free elective
+        if (course.department_code === "CS" && course.code === "1000") {
+            categories = categories.filter(cat => (cat.accepts.includes("*")));
         }
 
-        treeNodes.push({
-            "name": course.department_code + " " + course.code,
-            "parent": parentName,
-            "value": course.credits
+        // Filter to categories with sufficient remaining credits
+        categories = categories.filter(cat => {
+            let catNode = treeNodes.filter(node => (node.name === cat.name))[0];
+            return catNode.value >= course.credits;
         })
+
+        if ((categories !== null) && categories.length >= 1) {
+            let parentName = categories[0].name;
+
+            // Subtract credits for this course from category total
+            treeNodes.filter(node => (node.name === parentName))[0].value -= course.credits;
+
+            // Add to tree
+            treeNodes.push({
+                "name": course.department_code + " " + course.code,
+                "parent": parentName,
+                "value": course.credits
+            })
+        }
+
     })
 
     // Transform data to be used in tree map
