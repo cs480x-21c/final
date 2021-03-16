@@ -64,7 +64,7 @@ function swapView() {
 		.append('path')
 			.merge(paths)
 			.transition()
-			.duration(1000)
+			.duration(750)
 			.attr("d", area)
 			
 }
