@@ -8,7 +8,7 @@
     <script src="https://d3js.org/d3.v6.min.js"></script>
     <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
     <link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
 
     <style>
         #box {
@@ -19,6 +19,7 @@
             border: 4px solid green;
             /* overflow: hidden; */
         }
+
         div {
             border: 2px solid pink;
             width: fit-content;
@@ -28,11 +29,13 @@
             margin: auto;
 
         }
+
         * {
 
-font-family: 'Open Sans', sans-serif;
-}
-        #timeline{
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        #timeline {
             border: 2px solid black;
             background-color: cadetblue;
             width: auto;
@@ -42,13 +45,16 @@ font-family: 'Open Sans', sans-serif;
             margin: 0 auto;
             white-space: nowrap
         }
-        #map{
+
+        #map {
             border: 2px solid orange;
         }
-        svg{
+
+        svg {
             border: 2px solid purple;
         }
-        span{
+
+        span {
             margin: 10px;
         }
     </style>
@@ -56,7 +62,7 @@ font-family: 'Open Sans', sans-serif;
 
 <body>
 
-    
+
     <div id="box">
         <!-- <h1>SpotypotyPy</h1> -->
 
@@ -175,11 +181,10 @@ font-family: 'Open Sans', sans-serif;
         console.log(master_json)
 
         createTimeline(weeks)
-        createMap(countries, cities)
+        createMap(countries, cities, master_json)
     })
 
-    console.log(master_json)
-    function createTimeline(weeks){
+    function createTimeline(weeks) {
         // var timeline = d3.select("#timeline")
         // console.log(weeks)
 
@@ -188,11 +193,11 @@ font-family: 'Open Sans', sans-serif;
             .data(weeks)
             .enter()
             .append("span")
-            .text( function(d){
+            .text(function (d) {
                 // console.log(d.week);
                 return d.week;
             })
-            .attr("id",function(d){
+            .attr("id", function (d) {
                 return d.week;
             });
     }
@@ -220,12 +225,33 @@ font-family: 'Open Sans', sans-serif;
         console.log(gpath.area(countries.features[1]));
 
         // TODO define color later
+        // var ccolor =
+        //     d3.scaleSequential(d3.interpolateBlues)
+        //         .domain(
+        //             d3.extent(countries.features, d => gpath.area(d))
+        //         );
+
         var ccolor =
             d3.scaleSequential(d3.interpolateBlues)
                 .domain(
-                    d3.extent(countries.features, d => gpath.area(d))
+                    d3.extent(countries.features, function(d){ 
+                        // console.log(d);
+                        // console.log(master_json[0].Alpha_3);
+                        for( var i = 0; i < master_json.length; i++){
+                            if( d.id === master_json[i].Alpha_3){
+                                console.log(d.id + " " + master_json[i].data[0].danceability)
+                                return master_json[i].data[0].valence;
+                            }
+                        }
+                        // return gpath.area(d)
+                    })
+
                 );
 
+        // const color = d3.scaleSequential()
+        //     .domain(d3.extent(Array.from(data.values())))
+        //     .interpolator(d3.interpolateYlGnBu)
+        //     .unknown("#ccc")
         console.log(gpath.area(countries.features[1]));
 
         // draw country boundaries
@@ -240,23 +266,27 @@ font-family: 'Open Sans', sans-serif;
             .attr('stroke-width', 1)
             .attr('stroke', '#252525')
             .attr('country', d => d.id)
+            // .on('mouseover', function (d) {
+            //     console.log( d.id)
+            // })
             .attr('fill', d => ccolor(gpath.area(d)));
+            // .attr('fill', d => ccolor(gpath.area(d)));
 
-        d3.select('svg')
-            .selectAll('circle')
-            .data(cities)
-            .enter()
-            .append('circle')
-            .attr('r', 3)
-            .attr('cx', d => proj([d.x, d.y])[0])
-            .attr('cy', d => proj([d.x, d.y])[1])
-            .attr('stroke-width', 1)
-            .attr('stroke', '#4F442B')
-            .attr('fill', '#FCBC34')
-            .on('mouseover', function (e, d) {
-                console.log(d);
-                d3.select('#info').text(d.label);
-            })
+        // d3.select('svg')
+        //     .selectAll('circle')
+        //     .data(cities)
+        //     .enter()
+        //     .append('circle')
+        //     .attr('r', 3)
+        //     .attr('cx', d => proj([d.x, d.y])[0])
+        //     .attr('cy', d => proj([d.x, d.y])[1])
+        //     .attr('stroke-width', 1)
+        //     .attr('stroke', '#4F442B')
+        //     .attr('fill', '#FCBC34')
+        //     .on('mouseover', function (e, d) {
+        //         console.log(d);
+        //         d3.select('#info').text(d.label);
+        //     })
 
         var mapZoom = d3.zoom()
             .on('zoom', zoomed);
