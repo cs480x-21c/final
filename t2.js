@@ -57,7 +57,7 @@ function swapView() {
 		.y0(d => y(d[0]))
 		.y1(d => y(d[1]))
 	
-	var paths = d3.select('#chart').select('g').select('#areaChart').selectAll("path")
+	var paths = d3.selectAll("path")
 
 	paths.data(stack)
 		.enter()
@@ -158,77 +158,53 @@ function buildChart() {
 		.domain([0, d3.max(flattenStack(makeStack(_aggData[_aggLevel])))]) 
 		.range([height, 0]);
 
-	
-	// Add a clipPath: everything out of this area won't be drawn.
-	var clip = svg.append("defs").append("svg:clipPath")
-      .attr("id", "clip")
-      .append("svg:rect")
-      .attr("width", width )
-      .attr("height", height )
-      .attr("x", 0)
-      .attr("y", 0);
-
-	// Add brushing
-	//var brush = d3.brushX()                 // Add the brush feature using the d3.brush function
-	//	.extent( [ [0,0], [width,height] ] ) // initialise the brush area: start at 0,0 and finishes at width,height: it means I select the whole graph area
-	//	.on("end", updateChart)              // Each time the brush selection changes, trigger the 'updateChart' function
-
-	// Create the scatter variable: where both the circles and the brush take place
-	var areaChart = svg.append('g')
-		.attr("clip-path", "url(#clip)")
-		.attr('id', 'areaChart')
-
 	// Area generator
 	var area = d3.area()
 		.x(d => x(d.data.Year))
 		.y0(d => y(d[0]))
 		.y1(d => y(d[1]))
 
-	// Show the areas
-	areaChart.selectAll("mylayers")
-		.data(stack)
-		.enter()
-		.append("path")
-			.attr("class", d => "myArea" + (validNextLayer(d.key) ? ' pointer' : ''))
-			.attr('id', d => 'area_'+d.key)
-			.style("fill", d => color(d.key))
-			.attr("d", area)
-			//.attr('stroke-width', 0.5)
-			//.attr('stroke', '#252525')
-			.on('mouseover', (d, i) =>	highlight(d, i.key))
-			.on('mouseout', (d, i) => noHighlight(d, i.key))
-			.on('click', function(d, i) {
-				if (validNextLayer(i.key)) {
-					_aggLevel++
-					_aggFilter = i.key
-					buildChart()
-				} 
-			})
-			.on('contextmenu', function(d, i) {
-				d.preventDefault();
-				if (_aggLevel > 0) {
-					_aggLevel--
-					_aggFilter = i.key.substring(0,i.key.length-2)
-					buildChart()
-				}
-			})
-
-	// Add the brushing
-	//areaChart.append("g")
-   //		.attr("class", "brush")
-   //		.call(brush);
-
 	var highlight = function(d, i){
 		// reduce opacity of all groups
-   	d3.selectAll(".myArea,.legendBox,.legendText").style("opacity", .25)
+		d3.selectAll(".myArea,.legendBox,.legendText").style("opacity", .25)
 		// expect the one that is hovered
-   	d3.selectAll("#area_"+i+',#legBox_'+i+',#legText_'+i).style("opacity", 1)
-   }
+		d3.selectAll("#area_"+i+',#legBox_'+i+',#legText_'+i).style("opacity", 1)
+	}
+	
+	var noHighlight = function() {
+		d3.selectAll(".myArea,.legendBox,.legendText").style("opacity", 1)
+	}
 
-   var noHighlight = function() {
-   	d3.selectAll(".myArea,.legendBox,.legendText").style("opacity", 1)
-   }
-
+	// Show the areas
+	svg.append('g')
+		.attr('id', 'areaChart')
+		.selectAll("mylayers")
+			.data(stack)
+			.enter()
+			.append("path")
+				.attr("class", d => "myArea" + (validNextLayer(d.key) ? ' pointer' : ''))
+				.attr('id', d => 'area_'+d.key)
+				.style("fill", d => color(d.key))
+				.attr("d", area)
+				//.attr('stroke-width', 0.5)
+				//.attr('stroke', '#252525')
+				.on('mouseover', (d, i) =>	highlight(d, i.key))
+				.on('mouseout', (d, i) => noHighlight(d, i.key))
+				.on('click', function(d, i) {
+					if (validNextLayer(i.key)) {
+						_aggLevel++
+						_aggFilter = i.key
+						buildChart()
+					} 
+				})
+				.on('contextmenu', function(d, i) {
+					d.preventDefault();
+					if (_aggLevel > 0) {
+						_aggLevel--
+						_aggFilter = i.key.substring(0,i.key.length-2)
+						buildChart()
+					}
+				})
 
 	 // Add one dot in the legend for each name.
    var size = 20
