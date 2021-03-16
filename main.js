@@ -162,12 +162,12 @@ function drawTreeMap() {
         .attr("height", d => d.y1 - d.y0)
         .style("stroke", d => {
             if (d.data.value === 0) {
-                return "green";
+                return "#6200ee";
             } else {
-                return "red";
+                return "none";
             }
         })
-        .style("fill", "none");
+        .style("fill", "whitesmoke");
 
     // Draw course boxes
     svg.selectAll("g")
@@ -179,8 +179,8 @@ function drawTreeMap() {
         .attr("y", d => d.y0)
         .attr("width", d => d.x1 - d.x0)
         .attr("height", d => d.y1 - d.y0)
-        .style("stroke", "black")
-        .style("fill", "none");
+        .style("stroke", "none")
+        .style("fill", "#f2edfe");
 
     // Add category text labels to tree map
     svg.selectAll("g")
