@@ -159,8 +159,8 @@
             .append("circle")
             .attr("class", "dot")
             .attr("fill", lineColor2)
-            .attr("cx", function(d) { console.log("x: " + (xScale(d.Year) + (xScale.bandwidth() / 2))); return xScale(d.Year) + (xScale.bandwidth() / 2); })
-            .attr("cy", function(d) { console.log("y: " + y0(d.PCTF)); return y0(d.PCTF); })
+            .attr("cx", function(d) { return xScale(d.Year) + (xScale.bandwidth() / 2); })
+            .attr("cy", function(d) { return y0(d.PCTF); })
             .attr("r", 6);
 
 

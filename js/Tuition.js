@@ -5,6 +5,10 @@
     var barDownColor = "#1100ff";
     var lineColor = "red";
 
+    var color = d3.scaleOrdinal()
+        .domain(d3.range(2))
+        .range([barColor, lineColor])
+
     // Create a div for the SVG to be placed into
     var svgDiv = document.createElement("div");
     svgDiv.classList.add("svgdiv");
@@ -20,8 +24,8 @@
     document.body.appendChild(textDiv);
 
     // Define height, width, margins for svg
-    var margin = {top: 50, right: 100, bottom: 50, left: 110},
-        width = 800 - margin.left - margin.right,
+    var margin = {top: 50, right: 200, bottom: 50, left: 160},
+        width = 1000 - margin.left - margin.right,
         height = 500 - margin.top - margin.bottom;
 
     // Define svg
@@ -139,7 +143,7 @@
         // Add y axis left label
         svg.append("text")
             .attr("transform", "rotate(-90)")
-            .attr("y", 6 - margin.left)
+            .attr("y", 0 - margin.left/2 - 20)
             .attr("x", 0 - (height/2))
             .attr("dy", "1em")
             .style("text-anchor", "middle")
@@ -149,7 +153,7 @@
         // Add y axis right label
         svg.append("text")
             .attr("transform", "rotate(-90)")
-            .attr("y", width + margin.right/2)
+            .attr("y", width + margin.right/4)
             .attr("x", 0 - (height/2))
             .attr("dy", "1em")
             .style("text-anchor", "middle")
@@ -218,6 +222,49 @@
             .attr("class", "yAxis")
             .call(yAxisRight)
             .attr("transform", "translate(" + width + ", 0)");
+
+
+
+        // CREATE LEGEND //
+        var R = 6; // legend marker
+        var svgLegend = svg.append('g')
+            .attr('class', 'gLegend')
+            .attr("transform", "translate(" + (width + 20) + "," + 0 + ")");
+
+        console.log("about to create legend....");
+
+        var legend = svgLegend.selectAll('.legend')
+            .data(color.domain())
+            .enter().append('g')
+            .attr("class", "legend")
+            .attr("transform", function (d, i) { return "translate(45," + i * 20 + ")"});
+
+        console.log("should have created legend");
+
+        legend.append("circle")
+            .attr("class", "legend-node")
+            .attr("cx", 0)
+            .attr("cy", 0)
+            .attr("r", R)
+            .style("fill", function(d, i){
+                return color(i);
+            });
+
+
+
+        legend.append("text")
+            .attr("class", "legend-text")
+            .attr("x", R*2)
+            .attr("y", R/2)
+            .style("fill", "#666666")
+            .style("font-size", "14px")
+            .text(function(d){
+                if(d == 0){
+                    return "Tuition and Fees";
+                } else if(d == 1){
+                    return "Total Students";
+                }
+            });
 
     });
 
