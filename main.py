@@ -206,6 +206,7 @@ def weekly_meta_calc(weeks, countries):
     songsMeta = pd.read_csv("Datasets/flat_meta.csv")
     print(songsMeta.head())
     country_data = []
+    country_key = {}
     for country in countries:
         print(country)
         flatWriter = csv.writer(open('Datasets/Countries/' + country + '/average.csv', 'w', newline=''), delimiter=',')
@@ -215,6 +216,7 @@ def weekly_meta_calc(weeks, countries):
         if os.path.exists(country_path) == False:
             os.makedirs(country_path)
         data = []
+        dataJSON = {}
         for week in weeks:
             day_file = os.path.join(path,country,week+country+".csv")
             # print(str(day_file))
@@ -256,15 +258,35 @@ def weekly_meta_calc(weeks, countries):
                             "time_signature":weekAverages["time_signature"]
                         }
                     )
+                    dataJSON[week] = {
+                        "danceability":weekAverages["danceability"],
+                            "energy":weekAverages["energy"],
+                            "key":weekAverages["key"],
+                            "loudness":weekAverages["loudness"], 
+                            "mode":weekAverages["mode"],
+                            "speechiness":weekAverages["speechiness"],
+                            "accousticness":weekAverages["acousticness"],
+                            "instrumentalness":weekAverages["instrumentalness"],
+                            "liveness":weekAverages["liveness"],
+                            "valence":weekAverages["valence"],
+                            "tempo":weekAverages["tempo"],
+                            "duration_ms":weekAverages["duration_ms"],
+                            "time_signature":weekAverages["time_signature"]
+                        }
                     
-                    # weekAverages.to_csv(outputPath + "_average_meta.csv")
+                    weekAverages.to_csv(outputPath + "_average_meta.csv")
         country_data.append(
             {"country":country,
             "Alpha_3" : pc.country_name_to_country_alpha3(pc.country_alpha2_to_country_name(country.upper())),
             "data":data}
         )
-    with open('Datasets/Master_JSON.json', 'w') as json_file:
-        json.dump(country_data, json_file) 
+        country_key[pc.country_name_to_country_alpha3(pc.country_alpha2_to_country_name(country.upper()))] =dataJSON
+
+
+        with open('Datasets/Master_JSON.json', 'w') as json_file:
+            json.dump(country_data, json_file) 
+        with open('Datasets/country_key.json', 'w') as json_file2:
+            json.dump(country_key, json_file2) 
 def parser():
     arg_parser = argparse.ArgumentParser()
     arg_parser.add_argument(

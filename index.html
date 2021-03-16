@@ -170,20 +170,21 @@
 
 
     // adapted for d3v6 from book, d3js in action
-
+    var week = "2019-01-04--2019-01-11"
     var master_json;
+    var mode = "test"
 
     Promise.all([
         d3.json('world.geojson'),
         d3.csv('cities.csv'),
         d3.csv('Datasets/weeks_list.csv'),
-        d3.json('Datasets/Master_JSON.json')
+        d3.json('Datasets/country_key.json')
     ]).then(([countries, cities, weeks, master]) => {
         master_json = master
         console.log(master_json)
 
         createTimeline(weeks)
-        createMap(countries, cities, master_json)
+        createMap(countries, cities, master_json, week, mode)
     })
 
     function createTimeline(weeks) {
@@ -204,7 +205,7 @@
             });
     }
 
-    function createMap(countries, cities, master_json) {
+    function createMap(countries, cities, master_json, week, mode) {
         console.log(countries)
         console.log(cities)
         console.log(master_json)
@@ -236,17 +237,17 @@
         var ccolor =
             d3.scaleSequentialQuantile(d3.interpolateReds)
                 // .unknown("#FF1")
-                .domain([0,0.1,0.2,0.3,0.4,0.5,0.6,0.65,0.7,0.75,0.8,0.9,1]
+                .domain([0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.65, 0.7, 0.75, 0.8, 0.9, 1]
                     // d3.extent(countries.features, function (d) {
-                        // console.log(d);
-                        // console.log(master_json[0].Alpha_3);
-                        // for( var i = 0; i < master_json.length; i++){
-                        //     if( d.id === master_json[i].Alpha_3){
-                        //         console.log(d.id + " " + master_json[i].data[0].danceability)
-                        //         return master_json[i].data[0].valence;
-                        //     }
-                        // }
-                        // return gpath.area(d)
+                    // console.log(d);
+                    // console.log(master_json[0].Alpha_3);
+                    // for( var i = 0; i < master_json.length; i++){
+                    //     if( d.id === master_json[i].Alpha_3){
+                    //         console.log(d.id + " " + master_json[i].data[0].danceability)
+                    //         return master_json[i].data[0].valence;
+                    //     }
+                    // }
+                    // return gpath.area(d)
                     // })
 
                 );
@@ -273,17 +274,14 @@
             //     console.log( d.id)
             // })
             .attr('fill', function (d) {
-                // console.log(d);
-                for (var i = 0; i < master_json.length; i++) {
-                    if (d.id === master_json[i].Alpha_3) {
-                        console.log(d.id + " " + master_json[i].data[0].danceability)
-                        console.log(ccolor(master_json[i].data[0].danceability))
-                        return ccolor(master_json[i].data[0].danceability);
-                    }
+
+                var country = master_json[d.id]
+                // console.log(country)
+                if (typeof (country) !== 'undefined') {
+                    return ccolor(country[week].danceability);
                 }
             })
-        // return ccolor(gpath.area(d))});
-        // .attr('fill', d => ccolor(gpath.area(d)));
+
 
         // d3.select('svg')
         //     .selectAll('circle')
