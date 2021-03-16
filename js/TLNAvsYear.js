@@ -14,10 +14,14 @@
     document.body.appendChild(textDiv);
 
 
+
+
     var margin = { top: 20, right: 20, bottom: 80, left: 100 },
         width = 800 - margin.left - margin.right,
         height = 500 - margin.top - margin.bottom;
 
+    var xScale = d3.scaleBand().range([0, width]).padding(0.4),
+        yScale = d3.scaleLinear().range([height, 0]);
 
 
     var svg = d3.select("#TLNAvsYearDiv")
@@ -32,26 +36,38 @@
         if (error) {
             throw error;
         }
-        data.forEach(function (d) {
-            d.Year = d.Year;
-            d.TLNA = d.TLNA;
-            d.SS = d.SS;
-            d.SR = d.SR;
-            d.TF = d.TF;
-            d.SLR = d.SLR;
-            d.REWA = d.REWA;
-            /*
-            TLNA - Total Liabilites and net assets
-            REWA - Real Estate with assets
-            SS - Student Services
-            SR - Sponsored Research
-            TF - Tuition and Fees
-            SLR - Student Loans Receivable
-            */
-        })
+
+        // x and y scales for axes
+        let x = d3.scaleBand()
+            .padding(0.2)
+            .range([0, width]);
+
+        let y = d3.scaleLinear()
+            .range([height, 0]);
 
 
+        var xAxis = d3.axisBottom()
+            .scale(x);
 
+        var yAxisLeft = d3.axisLeft()
+            .scale(y)
+            .ticks(10);
+
+
+        var heightScale = 1.05;
+
+        x.domain(data.map(function(d) { return d.Year; }));
+        y.domain([0, d3.max(data, function (d) {
+            return (parseInt(d.TLNA) * 1000)*heightScale;
+        })]);
+
+
+        xScale.domain(data.map(function (d) {
+            return d.Year;
+        }));
+        yScale.domain([0, d3.max(data, function (d) {
+            return d.TLNA * heightScale;
+        })]);
 
         svg.selectAll(".bar")
             .data(data)
@@ -84,35 +100,10 @@
                 div.innerHTML = "";
             })
 
-        // x and y scales for axes
-        let x = d3.scaleBand()
-            .padding(0.2)
-            .range([0, width]);
-
-        let y = d3.scaleLinear()
-            .range([height, 0]);
 
 
-        var xAxis = d3.axisBottom()
-            .scale(x);
-
-        var yAxisLeft = d3.axisLeft()
-            .scale(y)
-            .ticks(10);
 
 
-        var heightScale = 1.05;
-
-        x.domain(data.map(function(d) { return d.Year; }));
-        y.domain([0, d3.max(data, function (d) {
-            return (parseInt(d.TLNA) * 1000)*heightScale;
-        })]);
-        xScale.domain(data.map(function (d) {
-            return d.Year;
-        }));
-        yScale.domain([0, d3.max(data, function (d) {
-            return d.TLNA * heightScale;
-        })]);
 
 
         svg.append("text")
