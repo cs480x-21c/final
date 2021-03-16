@@ -57,7 +57,7 @@ function swapView() {
 		.y0(d => y(d[0]))
 		.y1(d => y(d[1]))
 	
-	var paths = d3.selectAll("path")
+	var paths = d3.select('#areaChart').selectAll("path")
 
 	paths.data(stack)
 		.enter()
