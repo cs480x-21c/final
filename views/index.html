@@ -4,9 +4,24 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="/style.css">
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
+    <script src="http://d3js.org/d3.v4.min.js"></script>
 </head>
 <body>
-hello
+<svg id="usMap"></svg>
+<div style="top: 700px; position: absolute;left: 200px">
+    <label for="hobby">Hobby:
+        <input type="checkbox" id="checkDeath" name="hobby" value="death" onclick="selectThis(this.id)"/>Death Statistics
+        <input type="checkbox" id="checkPositive" name="hobby" value="positive" onclick="selectThis(this.id)"/>Positive Statistics
+        <input type="checkbox" id="check2" name="hobby" value="running" onclick="selectThis(this.id)"/>b
+        <input type="checkbox" id="check3" name="hobby" value="fishing" onclick="selectThis(this.id)"/>c
+        <input type="checkbox" id="check4" name="hobby" value="cooking" onclick="selectThis(this.id)"/>d
+        </br></br>
+        <input type="button" value="Get Value" onclick="redirectPage()"/>
+    </label>
+</div>
+
 </body>
 <script defer src="/script.js"></script>
 </html>
