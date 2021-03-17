@@ -2,7 +2,7 @@ Final Project - Spotify Trends
 ===
 By Nick Alescio, Hunter Caouette, Clay Oshiro-Leavitt
 ---
-Project Link: URL HERE
+Project Link: https://hcaouette.github.io/final/
 
 This project is an interactive visualization dashboard showing music trends on the popular streaming platform 'Spotify' for the past two years. This data was based on the weekly top 200 songs for each reported country. Each songs' metadata was averaged to produce a set of summary statistics for each week per country. 
 

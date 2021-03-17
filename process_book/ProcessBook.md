@@ -3,7 +3,7 @@ Process Book - Understanding Changing Trends in Spotify Streaming During COVID-1
 
 Authors: Nicholas Alescio, Hunter Caouette, Clay Oshiro-Leavitt
 
-Link: (insert link to GitHub pages here)
+Link: https://hcaouette.github.io/final/
 
 Overview and Motivation
 ---
