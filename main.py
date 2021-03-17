@@ -35,6 +35,8 @@ def main(function,overwrite_old):
         meta_add()
     elif function=="weekly_meta_calc":
         weekly_meta_calc(weeks, countries)
+    elif function=="find_minmaxes":
+        find_minmaxes()
     else:
         assert False, f"failed to run function {function}"
     
@@ -149,6 +151,7 @@ def meta_scrape():
     # write song meta data to a json for further use
     with open( 'Datasets/songMeta.json', 'w' ) as outfile:
         json.dump( metaList, outfile )
+
 def meta_flatten():
     print("running meta_flatten")
     with open('Datasets/songMeta.json', encoding="utf8") as f:
@@ -260,19 +263,19 @@ def weekly_meta_calc(weeks, countries):
                     )
                     dataJSON[week] = {
                         "danceability":weekAverages["danceability"],
-                            "energy":weekAverages["energy"],
-                            "key":weekAverages["key"],
-                            "loudness":weekAverages["loudness"], 
-                            "mode":weekAverages["mode"],
-                            "speechiness":weekAverages["speechiness"],
-                            "acousticness":weekAverages["acousticness"],
-                            "instrumentalness":weekAverages["instrumentalness"],
-                            "liveness":weekAverages["liveness"],
-                            "valence":weekAverages["valence"],
-                            "tempo":weekAverages["tempo"],
-                            "duration_ms":weekAverages["duration_ms"],
-                            "time_signature":weekAverages["time_signature"]
-                        }
+                        "energy":weekAverages["energy"],
+                        "key":weekAverages["key"],
+                        "loudness":weekAverages["loudness"], 
+                        "mode":weekAverages["mode"],
+                        "speechiness":weekAverages["speechiness"],
+                        "acousticness":weekAverages["acousticness"],
+                        "instrumentalness":weekAverages["instrumentalness"],
+                        "liveness":weekAverages["liveness"],
+                        "valence":weekAverages["valence"],
+                        "tempo":weekAverages["tempo"],
+                        "duration_ms":weekAverages["duration_ms"],
+                        "time_signature":weekAverages["time_signature"]
+                    }
                     
                     weekAverages.to_csv(outputPath + "_average_meta.csv")
         country_data.append(
@@ -287,13 +290,50 @@ def weekly_meta_calc(weeks, countries):
             json.dump(country_data, json_file) 
         with open('Datasets/country_key.json', 'w') as json_file2:
             json.dump(country_key, json_file2) 
+
+
+def find_minmaxes():
+    print("running find_minmaxes")
+    with open('Datasets/country_key.json', encoding="utf8") as f:
+        dict=json.load(f)
+
+    modalities = dict["AND"]["2020-09-04--2020-09-11"].keys()
+    # print(modalities)
+    mm_dict = {}#dict of modalities
+    for m in modalities:
+        if(m == "temp"):
+            mm_dict[m] = {"min":200.0, "max":0.0}
+        mm_dict[m] = {"min":1.0, "max":0.0}
+
+    print(mm_dict)
+    
+    for country in dict:
+        for week in dict[country]:
+            for modality in dict[country][week]:
+                if dict[country][week][modality] < mm_dict[modality]["min"] :
+                    mm_dict[modality]["min"] = dict[country][week][modality]
+                    # print("NEW MIN: country:",country,", week: ",week,", modality: ",modality)
+                if dict[country][week][modality] > mm_dict[modality]["max"] :
+                    mm_dict[modality]["max"] = dict[country][week][modality]
+                    # print("NEW MAX: country:",country,", week: ",week,", modality: ",modality)
+
+    #loudness is negative, swap positions
+    tmp = mm_dict['loudness']["max"]
+    mm_dict['loudness']["max"] = mm_dict['loudness']["min"]
+    mm_dict['loudness']["min"] = tmp
+    print(mm_dict)
+    with open('Datasets/mode_domains.json', 'w') as json_file:
+            json.dump(mm_dict, json_file) 
+
+
+
 def parser():
     arg_parser = argparse.ArgumentParser()
     arg_parser.add_argument(
         "--function",
         type=str,
         required= True,
-        choices=["scrape","stitch","flatten","meta_scrape","meta_flatten", "unique_songs", "meta_add", "weekly_meta_calc"],
+        choices=["scrape","stitch","flatten","meta_scrape","meta_flatten", "unique_songs", "meta_add", "weekly_meta_calc","find_minmaxes"],
         help="feature type 1 to extract, either audio, text or gps"
     )
     arg_parser.add_argument(
