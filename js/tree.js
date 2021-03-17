@@ -35,7 +35,7 @@ function treemap(year, dir) {
 	// .append("g")
 
 	Promise.all([
-		d3.csv("https://gist.githubusercontent.com/FelChen/fa8e7c2148e000daf2fd5edb12b43ff6/raw/1d462ac7521a8ae3e7f19007973a5fde8bea2a47/cleanish.csv")
+		d3.csv("https://gist.githubusercontent.com/FelChen/fa8e7c2148e000daf2fd5edb12b43ff6/raw/2940493146c74c08809a3d0c4633fd47420a6b88/cleanish.csv")
 	]).then(([data]) => {
 		//console.log(year)
 		var lel = data
