@@ -24,9 +24,9 @@ Design Achievements
 
 Resources
 ---
-https://www.d3-graph-gallery.com/graph/line_select.html
-https://stackoverflow.com/questions/22452112/nvd3-clear-svg-before-loading-new-chart
-https://bl.ocks.org/d3noob/a22c42db65eb00d4e369
-https://www.d3-graph-gallery.com/graph/scatter_tooltip.html
-https://stackoverflow.com/questions/39023154/how-to-make-a-color-gradient-bar-using-d3js
-https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/transform
+https://www.d3-graph-gallery.com/graph/line_select.html <br> 
+https://stackoverflow.com/questions/22452112/nvd3-clear-svg-before-loading-new-chart <br> 
+https://bl.ocks.org/d3noob/a22c42db65eb00d4e369 <br> 
+https://www.d3-graph-gallery.com/graph/scatter_tooltip.html <br> 
+https://stackoverflow.com/questions/39023154/how-to-make-a-color-gradient-bar-using-d3js <br> 
+https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/transform <br> 
