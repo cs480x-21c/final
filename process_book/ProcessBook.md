@@ -59,6 +59,26 @@ To provide more detail on the various countries, we implemented a hover-tooltip 
 
 ![Tooltip](Tooltip.png)
 
+Our visualization allows the user to toggle between 9 different modes:
+- danceability
+- energy
+- loudness
+- speechiness
+- acousticness
+- instrumentalness
+- liveness
+- valence
+- tempo
+
+These can be selected through the button list on the left hand side - a single mode can be selected at any one time. We recognize that these terms may not be familiar to all users, so we included an emoji alongside each name to provide a graphical representation of the term.
+
+![Buttons](button.png)
+
+Along the top of the visualization is a scrollbar with a list of weeks. These weeks can be selected to change the portion of the dataset being viewed. The black box and red text indicates that a specific week has been selected.
+
+![week](week.png)
+
+
 Evaluation
 ---
 What did you learn about the data by using your visualizations? How did you answer your questions? How well does your visualization work, and how could you further improve it?
