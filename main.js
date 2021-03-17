@@ -97,10 +97,27 @@ function drawTreeMap() {
         });
     });
 
-    // Remove selected course
-    let rightClick = function(d) {
+    // mouseOverCell function to highlight course
+    let mouseOverCell = function(d) {
         d3.select(this)
-          .style("fill", "black");
+          .style("fill", "#9c58fc");
+    }
+
+    // mouseLeaveCell function to un-highlight course
+    let mouseLeaveCell = function(d) {
+        d3.select(this)
+          .style("fill", "#b5aaf0");
+    }
+
+    // rightClickCell function to remove course
+    let rightClickCell = function(d) {
+        d3.select(this)
+          .remove()
+        let clickIndex = e.sourceEvent.path
+            .findIndex(el => el.id === "treeContainer");
+
+        currCourses.splice(clickIndex, 1)
+        drawTreeMap();
     }
 
     // Categorize current courses
@@ -186,8 +203,10 @@ function drawTreeMap() {
         .attr("width", d => d.x1 - d.x0)
         .attr("height", d => d.y1 - d.y0)
         .style("stroke", "none")
-        .style("fill", "#f2edfe")
-        .on("contextmenu", rightClick);
+        .style("fill", "#b5aaf0")
+        .on("contextmenu", rightClickCell)
+        .on("mouseover", mouseOverCell)
+        .on("mouseleave", mouseLeaveCell);
 
     // Add category text labels to tree map
     svg.selectAll("g")
@@ -339,7 +358,7 @@ function initStatistics() {
     const generalCredit = d3.select("#container1");
     const neededCredit = d3.select("#container2");
     const preRec = d3.select("#contianer3");
-    
+
     function generalCreditData(){
         console.log(currCourses);
         let creditSum = 0;
