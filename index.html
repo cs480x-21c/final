@@ -117,8 +117,6 @@
     const map_width = 1200;
     const map_height = 800;
 
-
-
     var weekList;
     var week = "2020-12-25--2021-01-01"
     const getWeekIndex = (element) => element.week == week;
@@ -265,7 +263,6 @@
     })
 
 
-
     function drawMap(gpath, countries, week, mode, ccolor, tempoColor) {
         console.log("drawing map...")
         var tooltip = d3.select("body").append("div")
@@ -296,10 +293,18 @@
                         stringed = country[week][mode].toString(10)
                         percent = stringed.substring(2,4) + "." + stringed.substring(4,5) + "%";
                         //render tooltip
-                        tooltip.html("Country: " + d.id + "<br/>" + mode + ": " + percent)//country[week][mode].toFixed(3))
+
+                        // if we're looking at tempo, we keep the tooltip as a number rather than a %
+                        if( mode === 'tempo'){
+                            tooltip.html("Country: " + d.id + "<br/>" + mode + ": " + country[week][mode].toFixed(3))
+                            .style("left", (e.pageX) + "px")
+                            .style("top", (e.pageY) + "px")
+                        }else{
+                        tooltip.html("Country: " + d.id + "<br/>" + mode + ": " + percent)
                             .style("left", (e.pageX) + "px")
                             .style("top", (e.pageY) + "px")
                     }
+                }
                 }
             })
             .on("mouseout", function (d) {
@@ -312,7 +317,6 @@
                 // not every country is represented in the data, so check whether or not we have data
                 if (typeof (country) !== 'undefined') {
                     if (typeof (country[week]) !== 'undefined') {
-                        // console.log(country[week][mode])
                         if (mode === 'tempo') {
                             return tempoColor(country[week][mode]);
                         }
