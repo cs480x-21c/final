@@ -10,22 +10,23 @@
 </head>
 <body>
 <svg id="usMap"></svg>
-<div style="top: 700px; position: absolute;left: 200px">
-    <label for="hobby">Hobby:
+<div style="top: 700px; position: absolute;left: 30%">
+    <label for="hobby">Detail to see:
         <input type="checkbox" id="checkDeath" name="hobby" value="death" onclick="selectThis(this.id)"/>Death Statistics
         <input type="checkbox" id="checkPositive" name="hobby" value="positive" onclick="selectThis(this.id)"/>Positive Statistics
         <input type="checkbox" id="check2" name="hobby" value="running" onclick="selectThis(this.id)"/>b
         <input type="checkbox" id="check3" name="hobby" value="fishing" onclick="selectThis(this.id)"/>c
         <input type="checkbox" id="check4" name="hobby" value="cooking" onclick="selectThis(this.id)"/>d
         </br></br>
-        <input type="button" value="Get Value" onclick="redirectPage()"/>
+        <input type="button" value="Let's go!" onclick="redirectPage()" style="display: table; margin: 0 auto;
+height: 50px; width: 200px; font-size: 15px"/>
     </label>
 </div>
 <div style="top: 50px; position: absolute;left: 50px">
     <label for="colorType">
         <input type="checkbox" id="colorTotal" name="colorType" value="total" onclick="colorselectThis(this.id)" checked/>Total Death
         </br>
-        <input type="checkbox" id="colorPerPpl" name="colorType" value="perPpl" onclick="colorselectThis(this.id)"/>Death Per Ppl
+        <input type="checkbox" id="colorPerPpl" name="colorType" value="perPpl" onclick="colorselectThis(this.id)"/>Death in Percentage
         </br>
     </label>
 </div>

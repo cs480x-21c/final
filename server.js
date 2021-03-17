@@ -65,7 +65,7 @@ app.post('/postType',  bodyparser.json(), function( req, res ){
 
 app.get('/redirectPage', function(req, res) {
     if (chartType === 'checkDeath') {
-        res.sendFile(__dirname + '/views/index_final.html')
+        res.sendFile(__dirname + '/views/deathStatistics.html')
     }
     if (chartType === 'checkPositive') {
         res.sendFile(__dirname + '/views/positiveStatistics.html')

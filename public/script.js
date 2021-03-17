@@ -353,10 +353,11 @@ function drawPositivePie(){
         .on('mouseover', function (d, i){
             positiveStats.append('g')
                 .append("text")
-                .attr('x', '650px')
+                .attr('x', '750px')
                 .attr('y', '550px')
                 .attr('id', 'tooltip')
                 .text('# of Positive Increase: '+values[i])
+                .attr('fill', 'yellow')
         })
         .on('mouseout', function (d, i){
             positiveStats.select('#tooltip').remove()
@@ -452,10 +453,11 @@ function drawPositiveLine(){
         .on('mouseover', function (d, i){
             positiveStatsLine.append('g')
                 .append("text")
-                .attr('x', '650px')
-                .attr('y', '550px')
+                .attr('x', window.innerWidth-350)
+                .attr('y', '50px')
                 .attr('id', 'tooltip2')
                 .text('# of Positive Increase: '+d[2])
+                .attr('fill', 'yellow')
         })
         .on('mouseout', function (d, i){
             positiveStatsLine.select('#tooltip2').remove()
@@ -465,13 +467,5 @@ function drawPositiveLine(){
 
 }
 
-function getPos(e){
-    x=e.clientX;
-    y=e.clientY;
-    let posArr = []
-    posArr.push(x)
-    posArr.push(y)
-    return posArr
-}
 
 
