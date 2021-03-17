@@ -7,6 +7,7 @@
     <!-- Load d3.js -->
     <script src="https://d3js.org/d3.v6.min.js"></script>
     <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+    <script src="d3-legend.min.js"></script>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
 
@@ -59,8 +60,20 @@
         span {
             margin: 10px;
         }
-
-
+        div.tooltip {
+            position: absolute;
+            text-align: center;
+            min-width: 60px;
+            width: fit-content;
+            min-height: 28px;
+            height: fit-content;
+            padding: 2px;
+            font: 12px sans-serif;
+            /* background: lightsteelblue; */
+            border: 0px;
+            border-radius: 8px;
+            pointer-events: none;
+        }  
     </style>
 </head>
 
@@ -91,7 +104,7 @@
     var width = 200
     var height = 375
 
-    
+
 
     var weekList;
     var week = "2020-12-25--2021-01-01"
@@ -99,7 +112,7 @@
     var master_json;
     var mode = "danceability";
     var countryList;
-    var proj = d3.geoMercator()
+    var proj = d3.geoEqualEarth()
         .translate([250, 250])
         .scale(120);
 
@@ -108,9 +121,14 @@
         .projection(proj);
     var ccolor =
         d3.scaleSequentialQuantile(d3.interpolateReds)
-            .domain([0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.65, 0.7, 0.75, 0.8, 0.9, 1]
+            .domain([0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1]
 
             );
+    // var lowColor =
+    //     d3.scaleSequentialQuantile(d3.interpolateReds)
+    //         .domain([0, 0.05, 0.1]
+
+    //         );
     var tempoColor =
         d3.scaleSequentialQuantile(d3.interpolateReds)
             .domain([90, 95, 100, 105, 110, 115, 120, 125, 130, 135, 140, 145]
@@ -207,8 +225,8 @@
     // adapted for d3v6 from book, d3js in action
 
 
-    function clean_wk_id(string){
-        new_str = string.replace(/-/g," ");
+    function clean_wk_id(string) {
+        new_str = string.replace(/-/g, " ");
         new_str = new_str.split(" ").join("_");
         new_str = "week_" + new_str;
         return new_str;
@@ -233,10 +251,13 @@
         createMap(countryList, master_json, week, mode)
     })
 
-    
+
 
     function drawMap(gpath, countries, week, mode, ccolor, tempoColor) {
         console.log("drawing map...")
+        var tooltip = d3.select("body").append("div")
+            .attr("class", "tooltip")
+            .style("opacity", 0);
         // console.log("mode:",mode)
         document.getElementById('map_svg').innerHTML = "";
         d3.select('#map_svg')
@@ -248,11 +269,28 @@
             .attr('stroke-width', 1)
             .attr('stroke', '#252525')
             .attr('country', d => d.id)
-            // .on('mouseover', function (d) {
-            //     console.log( d.id)
-            // })
+            .on('mouseover', function (e, d) {
+                // console.log(d)
+                // console.log(master_json[d.id])
+                var country = master_json[d.id]
+                if (typeof (country) !== 'undefined') {
+                console.log(country[week][mode])
+                tooltip.transition()
+                    .duration(200)
+                    .style("opacity", .9);
+                // console.log(d);
+                tooltip.html("Country: " + d.id + ", " + mode + ": " + country[week][mode] )//+ "<br/> (" + xValue(d = d) + ", " + yValue(d = d) + ")")
+                    .style("left", (e.pageX) + "px")
+                    .style("top", (e.pageY) + "px")
+                    .style("background-color", "#00000");
+                // console.log(e.pageX,",",e.pageY);
+            }})
+            .on("mouseout", function (d) {
+                tooltip.transition()
+                    .duration(500)
+                    .style("opacity", 0);
+            })
             .attr('fill', function (d) {
-
                 var country = master_json[d.id]
                 // console.log(country)
 
@@ -262,19 +300,20 @@
                     if (mode === 'tempo') {
                         return tempoColor(country[week][mode]);
                     }
+                    // else if ( (mode ==='loudness') || (mode === 'liveness') ){
+                    //     return lowColor(country[week][mode]);
+                    // }
                     else {
                         return ccolor(country[week][mode]);
                     }
                 }
-            })
+            });
     }
     function createMap(countries, master_json, week, mode) {
         console.log(countries)
         console.log(master_json)
         console.log(week)
         console.log(mode)
-
-        console.log(gpath.area(countries.features[1]));
 
         console.log(gpath.area(countries.features[1]));
 
@@ -293,6 +332,7 @@
             .call(mapZoom)
             .call(mapZoom.transform, zoomSettings);
 
+
         function zoomed(e) {
             proj
                 .translate([e.transform.x, e.transform.y])
@@ -306,9 +346,9 @@
             d3.selectAll('path')
                 .attr('d', gpath);
 
-            d3.selectAll('circle')
-                .attr('cx', d => proj([d.x, d.y])[0])
-                .attr('cy', d => proj([d.x, d.y])[1])
+            // d3.selectAll('circle')
+            //     .attr('cx', d => proj([d.x, d.y])[0])
+            //     .attr('cy', d => proj([d.x, d.y])[1])
         }
 
     }
@@ -328,56 +368,56 @@
                 console.log(clean_wk_id(d.week))
                 return clean_wk_id(d.week);
             })
-            .on("click", function(e,d){
+            .on("click", function (e, d) {
                 // console.log("loading map for week "+d.week);
                 format_week_label(week, this.id)
 
                 week = d.week//updates the global "week" variables
-                d3.select("#"+this.id)//update current week text
+                d3.select("#" + this.id)//update current week text
                     .style('background-color', 'black')
-                    .style("color","red");
+                    .style("color", "red");
                 drawMap(gpath, countryList, d.week, mode, ccolor, tempoColor);
             });
     }
 
-    function format_week_label(old_week, new_week){
-        d3.select("#"+clean_wk_id(old_week))//reset previously selected week
+    function format_week_label(old_week, new_week) {
+        d3.select("#" + clean_wk_id(old_week))//reset previously selected week
             .style('background-color', 'cadetblue')
-            .style("color","black");
-        d3.select("#"+new_week)//update current week text
+            .style("color", "black");
+        d3.select("#" + new_week)//update current week text
             .style('background-color', 'black')
-            .style("color","red");
+            .style("color", "red");
     }
 
-    function next_week(){
+    function next_week() {
         week_ind = weekList.findIndex(getWeekIndex)
-        if(week_ind == (weekList.length - 1) ){
+        if (week_ind == (weekList.length - 1)) {
             window.alert("can't go any further forward")
-        }else{
-            format_week_label(week, clean_wk_id(weekList[week_ind+1].week))
-            week = weekList[week_ind+1].week
+        } else {
+            format_week_label(week, clean_wk_id(weekList[week_ind + 1].week))
+            week = weekList[week_ind + 1].week
             drawMap(gpath, countryList, week, mode, ccolor, tempoColor)
         }
     }
 
-    function prev_week(){
+    function prev_week() {
         week_ind = weekList.findIndex(getWeekIndex)
-        if(week_ind == 0){
+        if (week_ind == 0) {
             window.alert("can't go back any further")
-        }else{
-            format_week_label(week, clean_wk_id(weekList[week_ind-1].week))
-            week = weekList[week_ind-1].week
+        } else {
+            format_week_label(week, clean_wk_id(weekList[week_ind - 1].week))
+            week = weekList[week_ind - 1].week
             drawMap(gpath, countryList, week, mode, ccolor, tempoColor)
         }
     }
 
     //TODO: I dont work
-    function play_viz(){
+    function play_viz() {
         window.alert("you should probably close the tab soon")
         console.log("playing viz!")
-        for(w in weekList){
+        for (w in weekList) {
             // console.log("new week:",weekList[w].week)
-            (function(w){
+            (function (w) {
                 setTimeout(
                     drawMap(gpath, countryList, weekList[w].week, mode, ccolor, tempoColor),
                     500
