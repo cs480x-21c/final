@@ -342,13 +342,10 @@ function initStatistics() {
     
     function generalCreditData(){
         console.log(currCourses);
-        var creditSum = 0;
+        let creditSum = 0;
         var i;
         for (i = 0; i < currCourses.length; i++) {
-             const credits = currCourses[i].credits;
-             const stringNum = credits.charAt(0);
-             const crednum = parseInt(stringNum);
-            creditSum += crednum;
+            creditSum += parseFloat(currCourses[i].credits);
         }
         return creditSum;
     };
@@ -410,14 +407,13 @@ function initStatistics() {
         var i;
         for (i = 0; i<currCourses.length; i++) {
             if(currCourses[i].department_code === "CS"){
-                const crednum = parseInt(currCourses[i].credits.charAt(0));
-                CScreditHours = CScreditHours + crednum
+                CScreditHours += parseFloat(currCourses[i].credits);
             }
             else if(currCourses[i].department_code === "MA"){
-                MAcreditHours += parseInt(currCourses[i].credits.charAt(0))
+                MAcreditHours += parseFloat(currCourses[i].credits);
             }
             else{
-                OthercreditHours += parseInt(currCourses[i].credits.charAt(0))
+                OthercreditHours += parseFloat(currCourses[i].credits);
             }
 
         }
@@ -463,7 +459,7 @@ function initStatistics() {
                 .attr("y",$('.minContainerStyle1').height()/4);
 
             entry.append("text")
-                .text(d.neededCredits-d.credits)
+                .text(Math.max(d.neededCredits-d.credits, 0))
                 .attr("text-fill","black")
                 .attr("font-size",20)
                 .attr("x",$('.minContainerStyle1').width()/2)
