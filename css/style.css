@@ -1,0 +1,67 @@
+body {
+	font: 14px avenir;
+	position: relative;
+}
+
+.pointer {
+	cursor: pointer;
+}
+
+.axis path,
+.axis line {
+	fill: none;
+	stroke: #000;
+	shape-rendering: crispEdges;
+}
+
+.browser text {
+	text-anchor: end;
+}
+
+.node {
+	box-sizing: border-box;
+	line-height: 1em;
+	overflow: hidden;
+	position: absolute;
+	white-space: pre;
+	background: #ddd;
+}
+
+div.tooltip {
+	position: absolute;
+	text-align: left;
+	width: 360px;
+	height: 68px;
+	padding: 6px;
+	font: 12px sans-serif;
+	background: lightsteelblue;
+	border: 0px;
+	border-radius: 8px;
+	pointer-events: none;
+	font-weight: bold;
+}
+
+.card {
+	/*max-width: 800px;*/
+	margin: auto;
+	position: relative;
+	display: flex;
+}
+
+.node-label,
+.node-value {
+	margin: 4px;
+}
+
+.node-value {
+	margin-top: -2px;
+}
+
+.node-value,
+.node-label {
+	font-weight: bold;
+}
+
+.node--hover {
+	stroke: #000;
+}
