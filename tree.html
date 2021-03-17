@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+body {
+  font: 10px sans-serif;
+  position: relative;
+}
+
+.node {
+  box-sizing: border-box;
+  line-height: 1em;
+  overflow: hidden;
+  position: absolute;
+  white-space: pre;
+  background: #ddd;
+}
+
+div.tooltip { 
+    position: absolute;     
+    text-align: left;     
+    width: 360px;          
+    height: 68px;         
+    padding: 6px;       
+    font: 12px sans-serif;    
+    background: lightsteelblue; 
+    border: 0px;    
+    border-radius: 8px;     
+    pointer-events: none;
+    font-weight: bold;     
+}
+.card{
+    /*max-width: 800px;*/
+    margin: auto; 
+    position: relative;
+    display:flex;
+}
+.node-label,
+.node-value {
+  margin: 4px;
+}
+
+.node-value {
+  margin-top: -2px;
+}
+
+.node-value,
+.node-label {
+  font-weight: bold;
+}
+.node--hover {
+  stroke: #000;
+}
+</style>
+<script src="https://d3js.org/d3.v4.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<div class="slidecontainer">
+  <input type="range" min="2008" max="2019" value="2008" class="slider" id="myRange">
+  <p>Value: <span id="demo"></span></p>
+
+</div>
+<input type="radio" id="in" name="gender" value="Import" onclick="update(this.value)" checked="checked">
+  <label for="Imports">Imports</label><br>
+  <input type="radio" id="out" name="gender" value="Export" onclick="update(this.value)">
+  <label for="Exports">Exports</label><br>
+<script>
+var slider = document.getElementById("myRange");
+var output = document.getElementById("demo");
+output.innerHTML = slider.value;
+var inout = "Imports"
+var year = "2008"
+slider.oninput = function() {
+  output.innerHTML = this.value;
+  const myNode = document.getElementById("kek");
+  myNode.innerHTML = '';
+  year = this.value;
+  treemap(String(this.value), inout);
+}
+
+function update(value){
+  inout = value;
+  const myNode = document.getElementById("kek");
+  myNode.innerHTML = '';
+  treemap(String(year), value);
+}
+
+</script>
+  
+<p>
+  dasfasdf
+</p>
+<div>
+<!-- <svg id="treemap" width="1260" height="1060"></svg> -->
+</div>
+
+<div class="card" id= "kek">
+
+</div>
+<body>
+
+
+<script src="script.js"></script>
+<script>
+  var tree = document.getElementById("treemap");
+  // tree = treemap("2008",200);
+  // treemop("2008", 200);
+     treemap("2019","Import");
+</script>
