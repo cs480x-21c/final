@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="backend.js"></script>
+    <script src="json/militaryJson.js"></script>
+    <script src="json/socialJson.js"></script>
+    <script src="json/totalSpending2017.js"></script>
+    <script src="json/totalSpending2018.js"></script>
+    <script src="json/totalSpending2019.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lato&family=Shippori+Mincho:wght@400;600;800&display=swap" rel="stylesheet">
+    <title>Final Project</title>
+</head>
+<body onload="main()" id="body" class="light">
+<div class="titleDiv">
+    <h1>United States Spending</h1>
+    <h3>Military vs Social Programs</h3>
+</div>
+
+<!-- <div> -->
+<label class="switch">
+    <input type="checkbox" id="sliderId">
+    <span class="slider round"></span>
+</label>
+<span class="switchLabel">Light/Dark Toggle</span>
+<!-- </div>   -->
+
+<p>
+    Over the past 20 years, the United States has faced some of the worst economic crises in history.
+    From the Great Recession of 2007 - 2009 to the 2020 Recession (the worst since the
+    Great Depression [1]), Americans have been struggling. Currently, we are battling the
+    physical, emotional, and economic toll of COVID-19. In the past year unemployment has peaked at
+    an unprecedented 14.8% [2], and many Americans who were lucky enough to survive a COVID infection
+    (and some family members whose loved ones did not) have been plunged into medical debt, even with
+    private insurance [3].
+</p>
+<p>
+    Despite these struggles, the United States has seen its budget become increasingly militarized.
+    The US is the largest military spender in the world, larger than the next 10 highest spenders
+    combined [4]. Within the military budget itself, programs such as Veterans Affairs is dwarfed by spending
+    by the Department of Defense and overseas contingency operations (OCO). The OCO, which includes
+    the cost of wars, has spent over $2 trillion financing the War on Terror [5]: a war which is conservatively
+    estimated to have displaced 37 million people and left over 800,000 dead [6].
+</p>
+
+<hr/>
+
+<p>
+    Below, you can see the total military spending for the US from the past 19 years. This visualization
+    shows a distinct upwards trend, despite troop withdrawal from both Afghanistan and Iraq [7], and an
+    announcement by President Obama in 2013 that the War on Terror was over [6]. Also note how the U.S.
+    military budget is reactionary to external events: increasing and decreasing as necessary in response
+    to outside circumstances.
+</p>
+
+<div id="military_line_vis"></div>
+
+<p>
+    Here you can see the total social spending for the US from the past 17 years. An important aspect to note
+    is that unlike the military budget, which is reactionary and increases dramatically, the budget for social
+    programs responds only to inflation. This means that despite the multiple financial crises that have hit the
+    United States in our lifetime, the government does not offer additional economic support to its citizens.
+    This is in stark contrast to the U.S. government’s history of corporate bailouts, which occur in amounts
+    of billions to trillions of dollars, and a luxury only afforded to Americans recently at the height of the
+    pandemic [8].
+</p>
+
+<div id="social_vis"></div>
+
+<p>
+    While the social spending with the U.S. is in the trillions compared to the billions of military spending,
+     the vast majority of that budget goes towards social security, which is only returned to U.S. citizens 
+     when they become of age to receive payments. These trillions of dollars are not spent, but rather given 
+     back to people after they retire. Because of this, a false perception of fair funding can be made. 
+      We wanted to focus less on parts of social spending like social security, and instead look at other ways 
+      that the government is spending money. It turned out however, that the United States tries to spend as 
+      little money as possible for social spending, with no showing of increase during economic crises. 
+      Comparing the social spending in this way and the United States military, it is clear that the government 
+      has a higher interest in finding its military than funding its social programs. 
+</p>
+
+<hr/>
+
+<p>
+    Below is a Treemap + Pie chart of the years 2017-2019 of the military budget of top spending nations. 
+    Using these formats, it is clear that the United States spends billions of dollars more than all other 
+    countries. In fact, in 2019, the U.S. Military Spending budget was larger than the next 10 countries combined [9].
+    Not only does the United States spend an exorbitant of money relative to other domestic spending, but also  
+    when compared on a global stage.  
+</p>
+
+<div class="treePieDiv">
+    <div id="treemap" ></div>
+    <div id="piechart"></div>
+</div>
+
+<div class="box">
+    <label for="select">Select a Year:</label>
+        <select name="select" id="select">
+            <option>2019</option>
+            <option>2018</option>
+            <option>2017</option>
+        </select>
+</div>
+
+<hr/>
+
+<p>
+    Below is an animated line graph of the Yearly Spending in Billions of the U.S. Military from 2000-2019. 
+    This animation shows the clear increase in military spending in the early 2000s, and a decline between 2011-2016, 
+    with a now sharp rise in more military spending. This visualization uses the same data as the first bar graph displayed
+    in a different way to emphasis the continuous increase of spending.
+    Click "Reset" to re-run the animation.
+</p>
+
+
+<div id="linegraph"></div>
+<div>
+    <button id ="resetbutton"> Reset </button>
+</div>
+
+<div class="section">
+    <h2>Project Screencast</h2>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/L1SBH-aUo68"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+    </iframe>
+
+</div>
+
+<div style="margin-top: 100px;">
+    <a href="https://www.thebalance.com/the-history-of-recessions-in-the-united-states-3306011">[1]</a>
+    <a href="https://tradingeconomics.com/united-states/unemployment-rate">[2]</a>
+    <a href="https://www.bmj.com/content/370/bmj.m3097">[3]</a>
+    <a href="https://www.nationalpriorities.org/analysis/2020/militarized-budget-2020/">[4]</a>
+    <a href="https://www.thebalance.com/u-s-military-budget-components-challenges-growth-3306320">[5]</a>
+    <a href="https://en.wikipedia.org/wiki/War_on_terror#:~:text=U.S.%20President%20Barack%20Obama%20announced,the%20Obama%20administration%20announced%20the">[6]</a>
+    <a href="https://en.wikipedia.org/wiki/Withdrawal_of_U.S._troops_from_Iraq_(2020%E2%80%932021)">[7]</a>
+    <a href="https://projects.propublica.org/bailout/list">[8]</a>
+    <a href="https://www.pgpf.org/blog/2020/05/the-united-states-spends-more-on-defense-than-the-next-10-countries-combined#:~:text=The%20database%20reported%20that%20in,the%20next%2010%20countries%20combined.&text=U.S.%20defense%20spending%20increased%20substantially,2019%20relative%20to%20other%20countries.">[9]</a>
+
+</div>
+</body>
+</html>
