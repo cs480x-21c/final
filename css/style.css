@@ -10,9 +10,16 @@ h2 {
 	margin-bottom: 0;
 }
 
-body {
+h3 {
+	margin-bottom: 0;
+}
+
+p {
 	font: 14px avenir;
-	position: relative;
+}
+
+#right {
+	padding-bottom: 50px;
 }
 
 .pointer {
@@ -35,15 +42,12 @@ body {
 	line-height: 1em;
 	overflow: hidden;
 	position: absolute;
-	white-space: pre;
 	background: #ddd;
 }
 
 div.tooltip {
 	position: absolute;
 	text-align: left;
-	width: 360px;
-	height: 68px;
 	padding: 6px;
 	font: 12px sans-serif;
 	background: lightsteelblue;
@@ -63,6 +67,9 @@ div.tooltip {
 .node-label,
 .node-value {
 	margin: 4px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
 }
 
 .node-value {

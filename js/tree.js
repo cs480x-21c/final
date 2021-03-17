@@ -8,6 +8,10 @@ var treewidth = 1000, treeheight = 800;
 var agg = 1;
 d3.select('#right').style('width', treewidth)
 
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 function updateYear() {
 	year = slider.value
 	output.innerHTML = slider.value;
@@ -114,7 +118,7 @@ function treemap(year, dir, agg=1) {
 				div.transition()
 					.duration(200)
 					.style("opacity", .9);
-				div.html(i.data.key + "<br/>" + "Trade Value in 1000 USD: $" + i.data.value)
+				div.html(i.data.key + "<br/>" + "Trade Value in USD: $" + numberWithCommas(Math.round((i.data.value*1000))))
 					.style("left", left + 3*(i.x1 - i.x0)/4)
 					.style("top", top);
 			})
