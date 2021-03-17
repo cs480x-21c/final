@@ -14,12 +14,15 @@
         h1 {
             text-align: center;
         }
+
         h2 {
             text-align: center;
         }
+
         h3 {
             text-align: center;
         }
+
         #box {
             display: flex;
             flex-flow: row wrap;
@@ -91,7 +94,7 @@
     <h1>Spotify Trends</h1>
     <h2>Examining music styles through COVID-19</h2>
     <h3>By Nick, Hunter, and Clay</h3>
-
+    <div id="legend"></div>
     <div id="box">
 
         <div id="timeline"></div>
@@ -135,7 +138,7 @@
         .projection(proj);
     var ccolor =
         d3.scaleSequentialQuantile(d3.interpolateReds)
-            .domain([0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1] );
+            .domain([0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1]);
     // var lowColor =
     //     d3.scaleSequentialQuantile(d3.interpolateReds)
     //         .domain([0, 0.05, 0.1]
@@ -143,27 +146,29 @@
     //         );
     var tempoColor =
         d3.scaleSequentialQuantile(d3.interpolateReds)
-            .domain([90, 95, 100, 105, 110, 115, 120, 125, 130, 135, 140, 145] );
+            .domain([90, 95, 100, 105, 110, 115, 120, 125, 130, 135, 140, 145]);
 
 
     //TODO: testing implementation of these scales
-    var dynamicColor = 
+    var dynamicColor =
         d3.scaleSequentialQuantile(d3.interpolateGreens)
-            .domain([0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1] );
+            .domain([0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1]);
 
-    var modeColorRange = d3.scaleLinear().range([0,1]);//no domain bc the lists haven't been populated yet
-        
+    var modeColorRange = d3.scaleLinear().range([0, 1]);//no domain bc the lists haven't been populated yet
+
 
 
     var svg = d3.select("#modality").append("svg")
         .attr("width", modality_width)
         .attr("height", modality_height);
 
+    var choropleth_legend = d3.select("#legend")
+
     var modality_legend = d3.select("#modality")
         .append('svg')
-        .attr('id','modality_legend')
-        .attr('width',50)
-        .attr('height',modality_height);
+        .attr('id', 'modality_legend')
+        .attr('width', 50)
+        .attr('height', modality_height);
 
     // radio background
     var background = svg.append("rect")
@@ -278,12 +283,31 @@
 
         createTimeline(weeks)
         createMap(countryList, master_json, week, mode)
-        drawLegend()
+        drawLegend(mode)
     })
 
-
+    function drawLegend(mode) {
+        //Draw the rectangle and fill with gradient
+        console.log('drawing legend...')
+        key.append("g")
+        .attr("class", "y axis")
+        .attr("transform", "translate(0,30)")
+        .call(yAxis)
+        .append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 0)
+        .attr("dy", ".71em")
+        .style("text-anchor", "end")
+        .text(mode);
+        console.log(d3.interpolateGreens(0.66));
+    }
     function drawMap(gpath, countries, week, mode, ccolor, tempoColor) {
         console.log("drawing map...")
+        var legend = {
+            color: d3.scaleSequentialQuantile(Array.from({ length: 100 }, () => Math.random() ** 2), d3.interpolateBlues),
+            title: "Quantile",
+            tickFormat: ".2f"
+        }
         var tooltip = d3.select("body").append("div")
             .attr("class", "tooltip")
             .style("opacity", 0);
@@ -310,20 +334,20 @@
                             .style("opacity", 0.9);
                         //convert value to percentage
                         stringed = country[week][mode].toString(10)
-                        percent = stringed.substring(2,4) + "." + stringed.substring(4,5) + "%";
+                        percent = stringed.substring(2, 4) + "." + stringed.substring(4, 5) + "%";
                         //render tooltip
                         // if we're looking at tempo or loudness, we keep the tooltip as a number rather than a %
-                        if( mode === 'tempo' || mode==='loudness'){
+                        if (mode === 'tempo' || mode === 'loudness') {
                             tooltip.html("Country: " + d.id + "<br/>" + mode + ": " + country[week][mode].toFixed(3))
                             // .style("left", (e.pageX) + "px")
                             // .style("top", (e.pageY) + "px")
-                        }else{
+                        } else {
                             tooltip.html("Country: " + d.id + "<br/>" + mode + ": " + percent)
                             // .style("left", (e.pageX) + "px")
                             // .style("top", (e.pageY) + "px")
                         }
-                    //tooltip is a var
-                    tooltip.style("left", (e.pageX) + "px").style("top", (e.pageY) + "px")
+                        //tooltip is a var
+                        tooltip.style("left", (e.pageX) + "px").style("top", (e.pageY) + "px")
                     }
                 }
             })
@@ -345,7 +369,7 @@
                         //     // return dynamicColor(country[week][mode]);
                         // }
                         updateLegend(mode)
-                        console.log( modeColorRange(country[week][mode]) )
+                        console.log(modeColorRange(country[week][mode]))
                         return dynamicColor(modeColorRange(country[week][mode]))
                     }
                     else {
@@ -375,7 +399,7 @@
 
         var zoomSettings = d3.zoomIdentity
             // .translate(520, 420)
-            .translate((map_width*.43),(map_height*.525))
+            .translate((map_width * .43), (map_height * .525))
             // .scale(210);
             .scale(290);
 
@@ -431,18 +455,19 @@
             });
     }
 
-    function updateLegend(mode){
+    function updateLegend(mode) {
         //update the domain of var modeColorRange to the min/max vals of 'mode'
         // changeModeBuckets(mode)
-        console.log("mode is: ",mode)
+        console.log("updating legend...")
+        console.log("mode is: ", mode)
         console.log(mode_domains[mode])
         mode_min = mode_domains[mode]["min"]
         mode_max = mode_domains[mode]["max"]
 
-        modeColorRange.domain([mode_min,mode_max]);
-        console.log("min:",mode_min,"max:",mode_max)
-        console.log("min ("+mode_min+") maps to ",modeColorRange(mode_min))
-        console.log("max ("+mode_max+") maps to ",modeColorRange(mode_max))
+        modeColorRange.domain([mode_min, mode_max]);
+        console.log("min:", mode_min, "max:", mode_max)
+        console.log("min (" + mode_min + ") maps to ", modeColorRange(mode_min))
+        console.log("max (" + mode_max + ") maps to ", modeColorRange(mode_max))
         // modality_legend
         // modality_legend.attr("fill","red")
 
@@ -467,7 +492,7 @@
     //     //     case 'valence': break;
     //     //     case 'tempo': break;
     //     //     default:
-            
+
     //     // }
     //     modeColorRange.domain([mode_min,mode_max]);
     //     console.log("min:",mode_min,"max:",mode_max)
@@ -522,6 +547,59 @@
             // setTimeout(drawMap(gpath, countryList, weekList[w].week, mode, ccolor, tempoColor), 750)
         }
     }
+
+
+    var legend_Width = 300;
+    var legend_Height = 50;
+
+    var key = d3.select("#legend")
+        .append("svg")
+        .attr("width", legend_Width)
+        .attr("height", legend_Height);
+
+    var legend = key.append("defs")
+        .append("svg:linearGradient")
+        .attr("id", "gradient")
+        .attr("x1", "0%")
+        .attr("y1", "100%")
+        .attr("x2", "100%")
+        .attr("y2", "100%")
+        .attr("spreadMethod", "pad");
+
+    legend.append("stop")
+        .attr("offset", "0%")
+        .attr("stop-color", "rgb(247, 252, 245)")
+        .attr("stop-opacity", 1);
+
+    legend.append("stop")
+        .attr("offset", "33%")
+        .attr("stop-color", "rgb(174, 223, 168)")
+        .attr("stop-opacity", 1);
+
+    legend.append("stop")
+        .attr("offset", "66%")
+        .attr("stop-color", "rgb(58, 162, 86)")
+        .attr("stop-opacity", 1);
+
+    legend.append("stop")
+        .attr("offset", "100%")
+        .attr("stop-color", "rgb(0, 68,27)")
+        .attr("stop-opacity", 1);
+
+    key.append("rect")
+        .attr("width", legend_Width)
+        .attr("height", legend_Height - 30)
+        .style("fill", "url(#gradient)")
+        .attr("transform", "translate(0,10)");
+
+    var y = d3.scaleLinear()
+        .range([300, 0])
+        .domain([100, 0]);
+
+    var yAxis = d3.axisBottom()
+        .scale(y)
+        .ticks(5);
+
 </script>
 
 </html>
