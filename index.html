@@ -18,7 +18,49 @@
   <a href="placefolder">Process Book</a>
 </center>
 <center><svg id="viz"></svg></center>
-<center><svg id="viz2"></svg></center>
+
+<center>
+  <table style="width:600px">
+    <tr>
+      <th>Category:</th>
+      <th>Max value:</th>
+      <th>Value:</th>
+      <td rowspan="7">
+        <center><svg id="viz2"></svg></center>
+      </td>
+    </tr>
+    <tr>
+      <th>Economy:</th>
+      <td id="maxCat1"></td>
+      <td id="economy"></td>
+    </tr>
+    <tr>
+      <th>Family:</th>
+      <td id="maxCat2"></td>
+      <td id="family"></td>
+    </tr>
+    <tr>
+      <th>Health:</th>
+      <td id="maxCat3"></td>
+      <td id="health"></td>
+    </tr>
+    <tr>
+      <th>Freedom:</th>
+      <td id="maxCat4"></td>
+      <td id="freedom"></td>
+    </tr>
+    <tr>
+      <th>Trust:</th>
+      <td id="maxCat5"></td>
+      <td id="trust"></td>
+    </tr>
+    <tr>
+      <th>Generosity:</th>
+      <td id="maxCat6"></td>
+      <td id="generosity"></td>
+    </tr>
+  </table>
+</center>
 
 <script>
 
@@ -60,9 +102,21 @@ var svg2 = d3.select("#viz2")
     .attr("width", 400)
     .attr("height", 400);
 
-var rScale = d3.scaleLinear()
-    .domain(0, 10)
-    .range(0, 150);
+var tooltip = svg2.append("div")
+        .style("position", "absolute")
+        .style("visibility", "hidden")
+        .text("");
+
+// var rect = tooltip.append("rect")
+//         .attr("x", -250)
+//         .attr("y", -50)
+//         .attr("width", 200)
+//         .attr("height",50)
+//         .attr("fill", "LightSeaGreen")
+//         .attr("stroke", "black")
+//         .attr("stroke-width", 2)
+//         .attr("opacity", .75);
+
 
 for (let i = 5; i > 0; i--) {
     svg2.append("circle")
@@ -97,8 +151,8 @@ d3.queue()
 
 function ready(error, topo) {
   let mouseOver = function(d) {
-    console.log(d);
-    console.log(d.info);
+    // console.log(d);
+    // console.log(d.info);
     d3.selectAll(".Country")
       .style("opacity", .5);
     d3.select(this)
@@ -111,15 +165,19 @@ function ready(error, topo) {
     d3.select("#Population")
       .text(d.total);
 
-    d3.selectAll("circle").each(function(m, n) {
+    d3.selectAll("*").each(function(m, n) {
         if(d3.select(this).attr("country") === "true"){
             d3.select(this).remove();
         }
-    })
+    });
 
       if (d.info !== null) {
-          countryDataYear = d.info[d.info.length - 1]
-          // console.log(countryData[countryData.length-1])
+          countryDataYear = d.info[d.info.length - 1];
+
+          polygonString = "";
+          circlePoints = [];
+          columnVal = [];
+          maxCatVal = [];
 
           for (let i = 0; i < 6; i++) {
               var column;
@@ -128,21 +186,27 @@ function ready(error, topo) {
               if (i === 0) {
                   column = countryDataYear.Economy_GDP_per_Capita;
                   maxCat = maxCat1;
+                  d3.select("#economy").text(column.toString());
               } else if (i === 1) {
                   column = countryDataYear.Family_Social_Support;
                   maxCat = maxCat2;
+                  d3.select("#family").text(column.toString());
               } else if (i === 2) {
                   column = countryDataYear.Health_Life_Expectancy;
                   maxCat = maxCat3;
+                  d3.select("#health").text(column.toString());
               } else if (i === 3) {
                   column = countryDataYear.Freedom;
                   maxCat = maxCat4;
+                  d3.select("#freedom").text(column.toString());
               } else if (i === 4) {
                   column = countryDataYear.Trust__Government_Corruption;
                   maxCat = maxCat5;
+                  d3.select("#trust").text(column.toString());
               } else if (i === 5) {
                   column = countryDataYear.Generosity;
                   maxCat = maxCat6;
+                  d3.select("#generosity").text(column.toString());
               }
 
               // console.log(maxCat);
@@ -152,14 +216,50 @@ function ready(error, topo) {
               cX = 200 + (column / maxCat * 150 * Math.sin(Math.PI * i / 3));
               cY = 200 - (column / maxCat * 150 * Math.cos(Math.PI * i / 3));
 
-              svg2.append("circle")
+              columnVal.push(column);
+              maxCatVal.push(maxCat);
+
+              circlePoints.push([cX, cY]);
+
+              polygonString = polygonString + cX.toString() + "," + cY.toString() + " ";
+          }
+
+          svg2.append("polygon")
+            .attr("points", polygonString)
+            .attr("stroke", "black")
+            .attr("fill", "PowderBlue")
+            .attr("opacity", 0.5)
+            .attr("country", "true");
+
+          for (let i = 0; i < 6; i++) {
+            svg2.append("circle")
                   .attr("r", 5)
-                  .attr("cx", cX)
-                  .attr("cy", cY)
+                  .attr("cx", circlePoints[i][0])
+                  .attr("cy", circlePoints[i][1])
                   .attr("fill", "CornflowerBlue")
                   .attr("stroke", "black")
-                  .attr("country", "true");
+                  .attr("country", "true")
+                  .on("mouseover", function(){return tooltip.style("visibility", "visible").text(columnVal[i] + "/" + maxCatVal[i]);})
+                  .on("mousemove", function(){
+                    return tooltip.style("top", (d3.event.pageY)+"px")
+                            .style("left", (d3.event.pageX)+"px");})
+                  .on("mouseout", function(){return tooltip.style("visibility", "hidden");});
           }
+      }
+      else{
+          svg2.append("text")
+            .attr("x", 100)
+            .attr("y", 216)
+            .attr("font-size", 48)
+            .attr("country", "true")
+            .text("NO DATA");
+
+        d3.select("#economy").text("");
+        d3.select("#family").text("");
+        d3.select("#health").text("");
+        d3.select("#freedom").text("");
+        d3.select("#trust").text("");
+        d3.select("#generosity").text("");
       }
   };
 
@@ -169,6 +269,13 @@ function ready(error, topo) {
         d3.select(this)
             .style("stroke", "transparent");
     };
+
+    maxCat1 = 0;
+    maxCat2 = 0;
+    maxCat3 = 0;
+    maxCat4 = 0;
+    maxCat5 = 0;
+    maxCat6 = 0;
 
     //parse data and normalize for graph using data from year 2019
     for (let i = 0; i < happyData.values().length; i++) {
@@ -193,12 +300,19 @@ function ready(error, topo) {
             }
         }
     }
-    console.log(maxCat1);
-    console.log(maxCat2);
-    console.log(maxCat3);
-    console.log(maxCat4);
-    console.log(maxCat5);
-    console.log(maxCat6);
+    d3.select("#maxCat1").text(maxCat1.toString());
+    d3.select("#maxCat2").text(maxCat2.toString());
+    d3.select("#maxCat3").text(maxCat3.toString());
+    d3.select("#maxCat4").text(maxCat4.toString());
+    d3.select("#maxCat5").text(maxCat5.toString());
+    d3.select("#maxCat6").text(maxCat6.toString());
+
+    // console.log(maxCat1);
+    // console.log(maxCat2);
+    // console.log(maxCat3);
+    // console.log(maxCat4);
+    // console.log(maxCat5);
+    // console.log(maxCat6);
 
   // Draw the map
   svg.append("g")
@@ -224,10 +338,38 @@ function ready(error, topo) {
       .attr("class", function(d){ return "Country" } )
       .style("opacity", .8)
       .on("mouseover", mouseOver )
-      .on("mouseleave", mouseLeave )
+      .on("mouseleave", mouseLeave );
 
+  svg2.append("text")
+          .attr("x", 170)
+          .attr("y", 45)
+          .text("Economy");
 
-    }
+  svg2.append("text")
+          .attr("x", 335)
+          .attr("y", 120)
+          .text("Family");
+
+  svg2.append("text")
+          .attr("x", 330)
+          .attr("y", 295)
+          .text("Health");
+
+  svg2.append("text")
+          .attr("x", 180)
+          .attr("y", 370)
+          .text("Freedom");
+
+  svg2.append("text")
+          .attr("x", 30)
+          .attr("y", 295)
+          .text("Trust");
+
+  svg2.append("text")
+          .attr("x", 0)
+          .attr("y", 125)
+          .text("Generosity");
+}
 
   //Function that takes in an entry from the combined CSV and adds it to happyData using the countries country code as a key
   //The data is stored as an array where each index is a year's worth of data
