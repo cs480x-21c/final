@@ -1,0 +1,655 @@
+<!-- Code from d3-graph-gallery.com -->
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<!-- Load d3.js -->
+<script src="https://d3js.org/d3.v4.js"></script>
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+<script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+
+<!-- Create an element where the map will take place -->
+<center><h1>WORLD HAPPINESS REPORT</h1></center>
+<center><p>Our project is focused on the different measurements of happiness from countries across the world. <br>
+  We focused on measuring world happiness reports from different countries based upon multiple factors such as:<br>
+  The economy (GDP per Capita), Family, Health (Life Expectancy), Freedom, Trust (Government Corruption), and Generosity.<br><br>
+  By hovering your mouse over a country, the multiple years worth of collected happiness data on said country will be displayed. </p></center>
+<center>
+  <a href="https://youtu.be/QMHNsKUiFes">Video</a>
+  <a href="./etc/Process_Book.pdf">Process Book</a>
+</center>
+<br><br>
+<center style="margin: 0px 300px 0px;">
+  <svg style="float: left;" id="viz"></svg>
+
+  <table style="width:600px; float: right">
+    <tr>
+      <th>Category:</th>
+      <th>Max value:</th>
+      <th>Value:</th>
+      <td rowspan="7">
+        <center><svg id="viz2"></svg></center>
+      </td>
+    </tr>
+    <tr>
+      <th>Economy:</th>
+      <td id="maxCat1"></td>
+      <td id="economy"></td>
+    </tr>
+    <tr>
+      <th>Family:</th>
+      <td id="maxCat2"></td>
+      <td id="family"></td>
+    </tr>
+    <tr>
+      <th>Health:</th>
+      <td id="maxCat3"></td>
+      <td id="health"></td>
+    </tr>
+    <tr>
+      <th>Freedom:</th>
+      <td id="maxCat4"></td>
+      <td id="freedom"></td>
+    </tr>
+    <tr>
+      <th>Trust:</th>
+      <td id="maxCat5"></td>
+      <td id="trust"></td>
+    </tr>
+    <tr>
+      <th>Generosity:</th>
+      <td id="maxCat6"></td>
+      <td id="generosity"></td>
+    </tr>
+  </table>
+</center>
+
+<script>
+
+var margin = {top: 10, right: 10, bottom: 20, left: 50},
+      width = 560 - margin.left - margin.right,
+      height = 650 - margin.top - margin.bottom;
+
+
+// The svg
+var svg = d3.select("#viz")
+  .attr("width", width + margin.left + margin.right)
+  .attr("height", height + margin.top + margin.bottom)
+
+var svgBar = d3.select("#viz")
+  .attr("width", width + margin.left + margin.right)
+  .attr("height", height + margin.top + margin.bottom)
+
+// Map and projection
+var path = d3.geoPath();
+var projection = d3.geoMercator()
+  .scale(80)
+  .center([0,20])
+  .translate([width / 2, height / 2]);
+
+// Data and color scale
+var data = d3.map();
+var happyData = d3.map();
+
+var happyDataCategories = ["Economy (GDP per Capita)", "Family/Social Support", "Health (Life Expectancy)",
+                            "Freedom", "Trust (Government Corruption)", "Generosity"]
+
+var colorScale = d3.scaleThreshold()
+  .domain([100000, 1000000, 10000000, 30000000, 100000000, 500000000])
+  .range(d3.schemeBlues[7]);
+
+
+//setup second svg and scale
+var svg2 = d3.select("#viz2")
+    .attr("width", 400)
+    .attr("height", 400);
+
+var tooltip = svg2.append("div")
+        .style("position", "absolute")
+        .style("visibility", "hidden")
+        .text("");
+
+for (let i = 5; i > 0; i--) {
+    svg2.append("circle")
+        .attr("cx", 200)
+        .attr("cy", 200)
+        .attr("r", i*30)
+        .attr("fill", "white")
+        .attr("stroke", "black")
+}
+
+for (let i = 0; i < 6; i++) {
+    connectedX = 200 + (150 * Math.sin(Math.PI*i/3));
+    connectedY = 200 - (150 * Math.cos(Math.PI*i/3));
+
+    svg2.append("line")
+        .attr("x1", 200)
+        .attr("y1", 200)
+        .attr("x2", connectedX)
+        .attr("y2", connectedY)
+        .attr("stroke", "black")
+}
+
+// Load external data and boot
+d3.queue()
+  .defer(d3.json, "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson")
+  .defer(d3.csv, "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world_population.csv", function(d) {
+      data.set(d.code, +d.pop); })
+    .defer(d3.csv, "https://raw.githubusercontent.com/Brian-Earl/final/main/data/modified/combined.csv", function(d) {
+      setInfo(d)
+     })
+  .await(ready);
+
+function ready(error, topo) {
+  let mouseOver = function(d) {
+    d3.selectAll(".Country")
+      .style("opacity", .5);
+    d3.select(this)
+      .style("opacity", 1)
+
+    d3.select("#CountryName")
+      .text(d.properties.name);
+
+    d3.select("#Population")
+      .text(d.total);
+
+    d3.selectAll("*").each(function(m, n) {
+        if(d3.select(this).attr("country") === "true"){
+            d3.select(this).remove();
+        }
+    });
+
+      if (d.info !== null) {
+          countryDataYear = d.info[d.info.length - 1];
+
+          polygonString = "";
+          circlePoints = [];
+          columnVal = [];
+          maxCatVal = [];
+
+          for (let i = 0; i < 6; i++) {
+              var column;
+              var maxCat;
+
+              if (i === 0) {
+                  column = countryDataYear.Economy_GDP_per_Capita;
+                  maxCat = maxCat1;
+                  d3.select("#economy").text(column.toString());
+              } else if (i === 1) {
+                  column = countryDataYear.Family_Social_Support;
+                  maxCat = maxCat2;
+                  d3.select("#family").text(column.toString());
+              } else if (i === 2) {
+                  column = countryDataYear.Health_Life_Expectancy;
+                  maxCat = maxCat3;
+                  d3.select("#health").text(column.toString());
+              } else if (i === 3) {
+                  column = countryDataYear.Freedom;
+                  maxCat = maxCat4;
+                  d3.select("#freedom").text(column.toString());
+              } else if (i === 4) {
+                  column = countryDataYear.Trust__Government_Corruption;
+                  maxCat = maxCat5;
+                  d3.select("#trust").text(column.toString());
+              } else if (i === 5) {
+                  column = countryDataYear.Generosity;
+                  maxCat = maxCat6;
+                  d3.select("#generosity").text(column.toString());
+              }
+
+              cX = 200 + (column / maxCat * 150 * Math.sin(Math.PI * i / 3));
+              cY = 200 - (column / maxCat * 150 * Math.cos(Math.PI * i / 3));
+
+              columnVal.push(column);
+              maxCatVal.push(maxCat);
+
+              circlePoints.push([cX, cY]);
+
+              polygonString = polygonString + cX.toString() + "," + cY.toString() + " ";
+          }
+
+          svg2.append("polygon")
+            .attr("points", polygonString)
+            .attr("stroke", "black")
+            .attr("fill", "PowderBlue")
+            .attr("opacity", 0.5)
+            .attr("country", "true");
+
+          for (let i = 0; i < 6; i++) {
+            svg2.append("circle")
+                  .attr("r", 5)
+                  .attr("cx", circlePoints[i][0])
+                  .attr("cy", circlePoints[i][1])
+                  .attr("fill", "CornflowerBlue")
+                  .attr("stroke", "black")
+                  .attr("country", "true")
+                  .on("mouseover", function(){return tooltip.style("visibility", "visible").text(columnVal[i] + "/" + maxCatVal[i]);})
+                  .on("mousemove", function(){
+                    return tooltip.style("top", (d3.event.pageY)+"px")
+                            .style("left", (d3.event.pageX)+"px");})
+                  .on("mouseout", function(){return tooltip.style("visibility", "hidden");});
+          }
+      }
+      else{
+          svg2.append("text")
+            .attr("x", 100)
+            .attr("y", 216)
+            .attr("font-size", 48)
+            .attr("country", "true")
+            .text("NO DATA");
+
+        d3.select("#economy").text("");
+        d3.select("#family").text("");
+        d3.select("#health").text("");
+        d3.select("#freedom").text("");
+        d3.select("#trust").text("");
+        d3.select("#generosity").text("");
+      }
+  };
+
+    let mouseLeave = function(d) {
+        d3.selectAll(".Country")
+            .style("opacity", .8);
+        d3.select(this)
+            .style("stroke", "black");
+    };
+
+    maxCat1 = 0;
+    maxCat2 = 0;
+    maxCat3 = 0;
+    maxCat4 = 0;
+    maxCat5 = 0;
+    maxCat6 = 0;
+
+    //parse data and normalize for graph using data from year 2019
+    for (let i = 0; i < happyData.values().length; i++) {
+        if(happyData.values()[i][4] !== undefined) {
+            if(happyData.values()[i][4].Economy_GDP_per_Capita > maxCat1){
+                maxCat1 = happyData.values()[i][4].Economy_GDP_per_Capita;
+            }
+            if(happyData.values()[i][4].Family_Social_Support > maxCat2){
+                maxCat2 = happyData.values()[i][4].Family_Social_Support;
+            }
+            if(happyData.values()[i][4].Health_Life_Expectancy > maxCat3){
+                maxCat3 = happyData.values()[i][4].Health_Life_Expectancy;
+            }
+            if(happyData.values()[i][4].Freedom > maxCat4){
+                maxCat4 = happyData.values()[i][4].Freedom;
+            }
+            if(happyData.values()[i][4].Trust__Government_Corruption > maxCat5){
+                maxCat5 = happyData.values()[i][4].Trust__Government_Corruption;
+            }
+            if(happyData.values()[i][4].Generosity > maxCat6 && happyData.values()[i][4].Generosity !== "N/A"){
+                maxCat6 = happyData.values()[i][4].Generosity;
+            }
+        }
+    }
+    d3.select("#maxCat1").text(maxCat1.toString());
+    d3.select("#maxCat2").text(maxCat2.toString());
+    d3.select("#maxCat3").text(maxCat3.toString());
+    d3.select("#maxCat4").text(maxCat4.toString());
+    d3.select("#maxCat5").text(maxCat5.toString());
+    d3.select("#maxCat6").text(maxCat6.toString());
+
+  // Draw the map
+  svg.append("g")
+    .selectAll("path")
+    .data(topo.features)
+    .enter()
+    .append("path")
+      // draw each country
+      .attr("d", d3.geoPath()
+        .projection(projection)
+      )
+      .style("stroke", "black")
+      // set the color of each country
+      .attr("fill", function (d) {
+        d.total = data.get(d.id) || 0;
+        d.info = happyData.get(d.id);
+        if(happyData.get(d.id) == undefined){
+          d.info = null;
+          console.log(d.id + " WAS NOT FOUND")
+        }
+        return "steelblue";
+      })
+      .style("stroke", "black")
+      .attr("class", function(d){ return "Country" } )
+      .style("opacity", .8)
+      .on("mouseover", mouseOver )
+      .on("mouseleave", mouseLeave );
+
+  svg2.append("text")
+          .attr("x", 170)
+          .attr("y", 45)
+          .text("Economy");
+
+  svg2.append("text")
+          .attr("x", 335)
+          .attr("y", 120)
+          .text("Family");
+
+  svg2.append("text")
+          .attr("x", 330)
+          .attr("y", 295)
+          .text("Health");
+
+  svg2.append("text")
+          .attr("x", 180)
+          .attr("y", 370)
+          .text("Freedom");
+
+  svg2.append("text")
+          .attr("x", 30)
+          .attr("y", 295)
+          .text("Trust");
+
+  svg2.append("text")
+          .attr("x", 0)
+          .attr("y", 125)
+          .text("Generosity");
+}
+
+  //Function that takes in an entry from the combined CSV and adds it to happyData using the countries country code as a key
+  //The data is stored as an array where each index is a year's worth of data
+  function setInfo(d){
+    if(happyData.get(getCountryName(d.Country)) == undefined){
+      happyData.set(getCountryName(d.Country), [d])
+    }
+    else{
+      var temp = happyData.get(getCountryName(d.Country))
+      temp.push(d)
+      happyData.set(getCountryName(d.Country), temp)
+    }
+  }
+
+  //LIST OF ALL COUNTRY CODES
+  const countryListAlpha3 = {
+    "AFG": "Afghanistan",
+    "ALB": "Albania",
+    "DZA": "Algeria",
+    "ASM": "American Samoa",
+    "AND": "Andorra",
+    "AGO": "Angola",
+    "AIA": "Anguilla",
+    "ATA": "Antarctica",
+    "ATG": "Antigua and Barbuda",
+    "ARG": "Argentina",
+    "ARM": "Armenia",
+    "ABW": "Aruba",
+    "AUS": "Australia",
+    "AUT": "Austria",
+    "AZE": "Azerbaijan",
+    "BHS": "Bahamas",
+    "BHR": "Bahrain",
+    "BGD": "Bangladesh",
+    "BRB": "Barbados",
+    "BLR": "Belarus",
+    "BEL": "Belgium",
+    "BLZ": "Belize",
+    "BEN": "Benin",
+    "BMU": "Bermuda",
+    "BTN": "Bhutan",
+    "BOL": "Bolivia",
+    "BES": "Bonaire, Sint Eustatius and Saba",
+    "BIH": "Bosnia and Herzegovina",
+    "BWA": "Botswana",
+    "BVT": "Bouvet Island",
+    "BRA": "Brazil",
+    "IOT": "British Indian Ocean Territory",
+    "BRN": "Brunei Darussalam",
+    "BGR": "Bulgaria",
+    "BFA": "Burkina Faso",
+    "BDI": "Burundi",
+    "CPV": "Cabo Verde",
+    "KHM": "Cambodia",
+    "CMR": "Cameroon",
+    "CAN": "Canada",
+    "CYM": "Cayman Islands",
+    "CAF": "Central African Republic",
+    "TCD": "Chad",
+    "CHL": "Chile",
+    "CHN": "China",
+    "CXR": "Christmas Island",
+    "CCK": "Cocos (Keeling) Islands",
+    "COL": "Colombia",
+    "COM": "Comoros",
+    "COD": "Congo (the Democratic Republic of the)",
+    "COG": "Congo",
+    "COK": "Cook Islands",
+    "CRI": "Costa Rica",
+    "HRV": "Croatia",
+    "CUB": "Cuba",
+    "CUW": "Curaçao",
+    "CYP": "Cyprus",
+    "CZE": "Czech Republic",
+    "CIV": "Côte d'Ivoire",
+    "DNK": "Denmark",
+    "DJI": "Djibouti",
+    "DMA": "Dominica",
+    "DOM": "Dominican Republic",
+    "ECU": "Ecuador",
+    "EGY": "Egypt",
+    "SLV": "El Salvador",
+    "GNQ": "Equatorial Guinea",
+    "ERI": "Eritrea",
+    "EST": "Estonia",
+    "SWZ": "Eswatini",
+    "ETH": "Ethiopia",
+    "FLK": "Falkland Islands [Malvinas]",
+    "FRO": "Faroe Islands",
+    "FJI": "Fiji",
+    "FIN": "Finland",
+    "FRA": "France",
+    "GUF": "French Guiana",
+    "PYF": "French Polynesia",
+    "ATF": "French Southern Territories",
+    "GAB": "Gabon",
+    "GMB": "Gambia",
+    "GEO": "Georgia",
+    "DEU": "Germany",
+    "GHA": "Ghana",
+    "GIB": "Gibraltar",
+    "GRC": "Greece",
+    "GRL": "Greenland",
+    "GRD": "Grenada",
+    "GLP": "Guadeloupe",
+    "GUM": "Guam",
+    "GTM": "Guatemala",
+    "GGY": "Guernsey",
+    "GIN": "Guinea",
+    "GNB": "Guinea-Bissau",
+    "GUY": "Guyana",
+    "HTI": "Haiti",
+    "HMD": "Heard Island and McDonald Islands",
+    "VAT": "Holy See",
+    "HND": "Honduras",
+    "HKG": "Hong Kong",
+    "HUN": "Hungary",
+    "ISL": "Iceland",
+    "IND": "India",
+    "IDN": "Indonesia",
+    "IRN": "Iran",
+    "IRQ": "Iraq",
+    "IRL": "Ireland",
+    "IMN": "Isle of Man",
+    "ISR": "Israel",
+    "ITA": "Italy",
+    "JAM": "Jamaica",
+    "JPN": "Japan",
+    "JEY": "Jersey",
+    "JOR": "Jordan",
+    "KAZ": "Kazakhstan",
+    "KEN": "Kenya",
+    "KIR": "Kiribati",
+    "PRK": "Korea (the Democratic People's Republic of)",
+    "KOR": "South Korea",
+    "KWT": "Kuwait",
+    "KGZ": "Kyrgyzstan",
+    "LAO": "Laos",
+    "LVA": "Latvia",
+    "LBN": "Lebanon",
+    "LSO": "Lesotho",
+    "LBR": "Liberia",
+    "LBY": "Libya",
+    "LIE": "Liechtenstein",
+    "LTU": "Lithuania",
+    "LUX": "Luxembourg",
+    "MAC": "Macao",
+    "MDG": "Madagascar",
+    "MWI": "Malawi",
+    "MYS": "Malaysia",
+    "MDV": "Maldives",
+    "MLI": "Mali",
+    "MLT": "Malta",
+    "MHL": "Marshall Islands",
+    "MTQ": "Martinique",
+    "MRT": "Mauritania",
+    "MUS": "Mauritius",
+    "MYT": "Mayotte",
+    "MEX": "Mexico",
+    "FSM": "Micronesia (Federated States of)",
+    "MDA": "Moldova",
+    "MCO": "Monaco",
+    "MNG": "Mongolia",
+    "MNE": "Montenegro",
+    "MSR": "Montserrat",
+    "MAR": "Morocco",
+    "MOZ": "Mozambique",
+    "MMR": "Myanmar",
+    "NAM": "Namibia",
+    "NRU": "Nauru",
+    "NPL": "Nepal",
+    "NLD": "Netherlands",
+    "NCL": "New Caledonia",
+    "NZL": "New Zealand",
+    "NIC": "Nicaragua",
+    "NER": "Niger",
+    "NGA": "Nigeria",
+    "NIU": "Niue",
+    "NFK": "Norfolk Island",
+    "MNP": "Northern Mariana Islands",
+    "NOR": "Norway",
+    "OMN": "Oman",
+    "PAK": "Pakistan",
+    "PLW": "Palau",
+    "PSE": "Palestinian Territories",
+    "PAN": "Panama",
+    "PNG": "Papua New Guinea",
+    "PRY": "Paraguay",
+    "PER": "Peru",
+    "PHL": "Philippines",
+    "PCN": "Pitcairn",
+    "POL": "Poland",
+    "PRT": "Portugal",
+    "PRI": "Puerto Rico",
+    "QAT": "Qatar",
+    "MKD": "Republic of North Macedonia",
+    "ROU": "Romania",
+    "RUS": "Russia",
+    "RWA": "Rwanda",
+    "REU": "Réunion",
+    "BLM": "Saint Barthélemy",
+    "SHN": "Saint Helena, Ascension and Tristan da Cunha",
+    "KNA": "Saint Kitts and Nevis",
+    "LCA": "Saint Lucia",
+    "MAF": "Saint Martin (French part)",
+    "SPM": "Saint Pierre and Miquelon",
+    "VCT": "Saint Vincent and the Grenadines",
+    "WSM": "Samoa",
+    "SMR": "San Marino",
+    "STP": "Sao Tome and Principe",
+    "SAU": "Saudi Arabia",
+    "SEN": "Senegal",
+    "SRB": "Serbia",
+    "SYC": "Seychelles",
+    "SLE": "Sierra Leone",
+    "SGP": "Singapore",
+    "SXM": "Sint Maarten (Dutch part)",
+    "SVK": "Slovakia",
+    "SVN": "Slovenia",
+    "SLB": "Solomon Islands",
+    "SOM": "Somalia",
+    "ZAF": "South Africa",
+    "SGS": "South Georgia and the South Sandwich Islands",
+    "SDS": "South Sudan",
+    "ESP": "Spain",
+    "LKA": "Sri Lanka",
+    "SDN": "Sudan",
+    "SUR": "Suriname",
+    "SJM": "Svalbard and Jan Mayen",
+    "SWE": "Sweden",
+    "CHE": "Switzerland",
+    "SYR": "Syria",
+    "TWN": "Taiwan",
+    "TJK": "Tajikistan",
+    "TZA": "Tanzania, United Republic of",
+    "THA": "Thailand",
+    "TLS": "Timor-Leste",
+    "TGO": "Togo",
+    "TKL": "Tokelau",
+    "TON": "Tonga",
+    "TTO": "Trinidad and Tobago",
+    "TUN": "Tunisia",
+    "TUR": "Turkey",
+    "TKM": "Turkmenistan",
+    "TCA": "Turks and Caicos Islands",
+    "TUV": "Tuvalu",
+    "UGA": "Uganda",
+    "UKR": "Ukraine",
+    "ARE": "United Arab Emirates",
+    "GBR": "United Kingdom",
+    "UMI": "United States Minor Outlying Islands",
+    "USA": "United States",
+    "URY": "Uruguay",
+    "UZB": "Uzbekistan",
+    "VUT": "Vanuatu",
+    "VEN": "Venezuela",
+    "VNM": "Vietnam",
+    "VGB": "Virgin Islands (British)",
+    "VIR": "Virgin Islands (U.S.)",
+    "WLF": "Wallis and Futuna",
+    "ESH": "Western Sahara",
+    "YEM": "Yemen",
+    "ZMB": "Zambia",
+    "ZWE": "Zimbabwe",
+    "ALA": "Åland Islands"
+};
+
+//REVERSING THE ORDER OF COUNTRY CODES AND ADDING MISSING ONES
+var reverseCountryListAlpha3 = swap(countryListAlpha3)
+reverseCountryListAlpha3["Somaliland region"] = "SOM"
+reverseCountryListAlpha3["Trinidad & Tobago"] = "TTO"
+reverseCountryListAlpha3["North Cyprus"] = "CYP"
+reverseCountryListAlpha3["Northern Cyprus"] = "CYP"
+reverseCountryListAlpha3["Tanzania"] = "TZA"
+reverseCountryListAlpha3["Swaziland"] = "SWZ"
+reverseCountryListAlpha3["Macedonia"] = "MKD"
+reverseCountryListAlpha3["North Macedonia"] = "MKD"
+reverseCountryListAlpha3["Hong Kong S.A.R., China"] = "HKG"
+reverseCountryListAlpha3["Taiwan Province of China"] = "TWN"
+reverseCountryListAlpha3["Somaliland Region"] = "SOM"
+reverseCountryListAlpha3["Kosovo"] = "XXK"
+reverseCountryListAlpha3["Ivory Coast"] = "CIV"
+reverseCountryListAlpha3["Congo (Brazzaville)"] = "COG"
+reverseCountryListAlpha3["Congo (Kinshasa)"] = "COD"
+
+//Swaps object keys and values
+function swap(json){
+  var ret = {};
+  for(var key in json){
+    ret[json[key]] = key;
+  }
+  return ret;
+}
+
+//Input a country name and return the ISO country code
+//If the country doesn't exist on record, return null and print message
+function getCountryName (CountryName) {
+  if (reverseCountryListAlpha3.hasOwnProperty(CountryName)) {
+      return reverseCountryListAlpha3[CountryName];
+  } else {
+      console.log("CANT FIND " + CountryName)
+      return null;
+  }
+}
+
+</script>
