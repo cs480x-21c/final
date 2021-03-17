@@ -130,3 +130,54 @@ body {
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
     background-color: #6200ee;
 }
+
+#mainStat{
+    width: 100%;
+    height: 100%;
+}
+/*noinspection CssReplaceWithShorthandSafely*/
+.style1container{
+    border-color: black;
+    border-width: thin;
+    border-style: solid;
+    width: 92%;
+    height: 14%;
+    margin: 3%
+            4%
+            3%
+            4%;
+}
+.style2container{
+    border-color: black;
+    border-width: thin;
+    border-style: solid;
+    padding-right: 1%;
+    padding-left: 1%;
+    height: 29%;
+    width: 92%;
+    margin: 3%
+            4%
+            3%
+            4%;
+}
+
+
+
+.testStyle1{
+    border-color: black;
+    border-width: thin;
+    border-style: solid;
+    margin-top: 2%;
+
+
+}
+
+.minContainerStyle1{
+    border-color: black;
+    border-width: thin;
+    border-style: solid;
+    width: 28%;
+    float: left;
+    text-anchor: middle;
+
+}
