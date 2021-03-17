@@ -97,6 +97,12 @@ function drawTreeMap() {
         });
     });
 
+    // Remove selected course
+    let rightClick = function(d) {
+        d3.select(this)
+          .style("fill", "black");
+    }
+
     // Categorize current courses
     // TODO; This whole system is EXTREMELY inefficient
     currCourses.forEach(course => {
@@ -180,7 +186,8 @@ function drawTreeMap() {
         .attr("width", d => d.x1 - d.x0)
         .attr("height", d => d.y1 - d.y0)
         .style("stroke", "none")
-        .style("fill", "#f2edfe");
+        .style("fill", "#f2edfe")
+        .on("contextmenu", rightClick);
 
     // Add category text labels to tree map
     svg.selectAll("g")
