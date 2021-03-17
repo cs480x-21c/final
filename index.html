@@ -1,3 +1,46 @@
-<a href="./stacked.html">Stacked Area Chart</a>
-<a href="./scattersum.html">Scattersum Chart</a>
-<a href="./tree.html">Treemap</a>
+<script src="https://d3js.org/d3.v6.min.js"></script>
+
+<style>
+	body {
+		font: 14px avenir;
+	}
+
+	.pointer {
+		cursor: pointer;
+	}	
+
+	.axis path,
+	.axis line {
+		fill: none;
+		stroke: #000;
+		shape-rendering: crispEdges;
+	}
+
+	.browser text {
+		text-anchor: end;
+	}
+
+</style>
+
+<button type='button' onclick='updateAll()' id='swapButton'>Exports</button>
+
+<h1 id='title'></h1>
+<h3>Left click to drill down. Right click to go back to previous aggregation level</h3>
+<svg id='chart'></svg><br>
+
+
+
+<div id="my_dataviz"></div>
+<button onclick="updateScatter(1)" id="swapType">Growth</button>
+
+<script src='js/stacked.js'></script>
+<script src="js/scattersum.js"></script>
+
+
+<script>
+	function updateAll() {
+		document.getElementById('swapButton').innerHTML = _impFilter ? 'Exports' : 'Imports'
+		swapView()
+		updateScatter(0)
+	}
+</script>

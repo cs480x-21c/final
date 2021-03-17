@@ -1,50 +1,41 @@
-var margin = {top: 50, right: 30, bottom: 50, left: 70},
-width = 1080 - margin.left - margin.right,
-height = 720 - margin.top - margin.bottom;
+var scattermargin = {top: 50, right: 30, bottom: 50, left: 70},
+scatterwidth = 1080 - scattermargin.left - scattermargin.right,
+scatterheight = 720 - scattermargin.top - scattermargin.bottom;
 
 
-var svg = d3.select("#my_dataviz")
-        .append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-        .append("g")
-        .attr("transform",
-            "translate(" + margin.left + "," + margin.top + ")");
-
-
-        var x = d3.scaleLinear()
-            .domain([2008, 2019])
-            .range([ 0, width ]);
-
-        svg.append("g")
-            .attr("transform", "translate(0," + height + ")")
-            .call(d3.axisBottom(x));
-
-        var y = d3.scaleLinear()
-            .domain( [50000000, 140000000]) 
-            .range([ height, 0 ]);
-            
-        svg.append("g")
-            .attr("id", "axis")
-            .call(d3.axisLeft(y));
-
-        svg.append("line")
-            .attr("id", "dashed")
-            .attr("opacity", 0)
+var scatter
+var x = d3.scaleLinear()
+        .domain([2008, 2019])
+        .range([ 0, scatterwidth ]);
+var y
+	
 
 var reducedImp, reducedExp;
 var growthImpNom = [{Date: 2008, Value: 0}], growthExpNom = [{Date: 2008, Value: 0}];
 
-d3.csv("data/Tradedata.csv",
-    function(d) {
-        return { Date : +d.Year, Value : d.TradeValueK, TradeFlowName : d.TradeFlowName}
-    },
-    function(data) {
-        buildScatterSum(data)
-    }
-)
+function formatData(data) {
+	return data.map(d => {
+		return {Date : +d.Year, Value : d.TradeValueK, TradeFlowName : d.TradeFlowName}
+	})
+}
+
+Promise.all([
+	d3.csv("data/Tradedata.csv")
+]).then(([data]) => {
+	data = formatData(data)
+	buildScatterSum(data)
+})
+
 
 function buildScatterSum(data) {
+	scatter = d3.select("#my_dataviz")
+        .append("svg")
+        .attr("width", scatterwidth + scattermargin.left + scattermargin.right)
+        .attr("height", scatterheight + scattermargin.top + scattermargin.bottom)
+        .append("g")
+        .attr("transform",
+            "translate(" + scattermargin.left + "," + scattermargin.top + ")")
+		.attr('id', 'scattersum')
 
     var importData = data.filter(d => d.TradeFlowName == 'Import')
     var exportData = data.filter(d => d.TradeFlowName == 'Export')
@@ -88,11 +79,31 @@ function buildScatterSum(data) {
         }
     }
 
-    svg.append("path")
+	scatter.append("g")
+		.attr("transform", "translate(0," + scatterheight + ")")
+		.call(d3.axisBottom(x));
+
+	var domain = d3.extent(reducedImp, function(d) { return +d.Value})
+	domain[0] -= 5000000
+	domain[1] += 5000000
+
+	y = d3.scaleLinear()
+		.domain(domain) 
+		.range([ scatterheight, 0 ]);
+
+	scatter.append("g")
+		.attr("id", "axis")
+		.call(d3.axisLeft(y));
+
+	scatter.append("line")
+		.attr("id", "dashed")
+		.attr("opacity", 0)
+
+    scatter.append("path")
     .attr("id", "curvedPath")
     .datum(reducedImp)
     .attr("fill", "none")
-    .attr("stroke", "#69b3a2")
+    .attr("stroke", "#C81414")
     .attr("stroke-width", 3)
     .attr("d", d3.line()
         .curve(d3.curveCatmullRom)
@@ -100,7 +111,7 @@ function buildScatterSum(data) {
         .y(function(r) { return y(r.Value) })
     )
 
-    svg.append("g")
+    scatter.append("g")
     .selectAll("dot")
     .data(reducedImp)
     .enter()
@@ -108,61 +119,63 @@ function buildScatterSum(data) {
         .attr("cx", function(r) { return x(r.Date) } )
         .attr("cy", function(r) { return y(r.Value) } )
         .attr("r", 8)
-        .attr("fill", "#69b3a2")
+        .attr("fill", "#C81414")
 
-    svg.append("text")
+    scatter.append("text")
     .attr("text-anchor", "end")
-    .attr("x", width)
-    .attr("y", height+40)
+    .attr("x", scatterwidth)
+    .attr("y", scatterheight+40)
     .text("Time (year)");
 
-    svg.append("text")
+    scatter.append("text")
     .attr("text-anchor", "end")
     .attr("x", -65)
     .attr("y", -20 )
     .text("Thousand Dollars")
     .attr("text-anchor", "start")
 
-    updateScatter(0)
+    //updateScatter(0)
 
 }
 
 function updateScatter(type) {
     var data;
-    var btnF = document.getElementById("swapFlow");
+    var btnF = document.getElementById("swapButton");
     var btnT = document.getElementById("swapType");
 
-    growthExpNom, growthImpNom, reducedExp, reducedImp;
     if(type == 0) {
-        if(btnF.innerHTML == "Export") { 
-            if(btnT.innerHTML == "Growth") { data = reducedExp } else { data = growthExpNom }
-            btnF.innerHTML = "Import" 
+        if(btnF.innerHTML == "Exports") { 
+			data = btnT.innerHTML == "Growth" ? reducedExp : growthExpNom
         } 
         else { 
-            if(btnT.innerHTML == "Growth") { data = reducedImp } else { data = growthImpNom }
-            btnF.innerHTML = "Export" }
+            data = btnT.innerHTML == "Growth" ? reducedImp : growthImpNom
+		}
     } else {
         if(btnT.innerHTML == "Growth") { 
-            if(btnF.innerHTML = "Export") { data = growthImpNom } else { data = growthExpNom }
-            btnT.innerHTML = "Total" }
-        else { 
-            if(btnF.innerHTML = "Export") { data = reducedImp } else { data = reducedExp }
-            btnT.innerHTML = "Growth" }
+            data = btnF.innerHTML == "Exports" ? growthImpNom : growthExpNom
+            btnT.innerHTML = "Total" 
+		} else { 
+            data = btnF.innerHTML == "Exports" ? reducedImp : reducedExp
+            btnT.innerHTML = "Growth" 
+		}
     }
-    if(btnF.innerHTML == "Export") { fill = "#69b3a2" } else { fill = "#C81414" }
-    
+    fill = btnF.innerHTML == "Exports" ? "#69b3a2" : "#C81414"
     
     var fill;
-    var lineDat = [{Date : 2008, Value: 0}, {Date : 2019, Value: 0}];
+    //var lineDat = [{Date : 2008, Value: 0}, {Date : 2019, Value: 0}];
 
-    y.domain(d3.extent(data, function(d) { return +d.Value}))
+	domain = d3.extent(data, function(d) { return +d.Value})
+	domain[0] -= 5000000
+	domain[1] += 5000000
 
-    svg.select("#axis")
+    y.domain(domain)
+
+    scatter.select("#axis")
         .transition()
-        .duration(1000)
+        .duration(750)
         .call(d3.axisLeft(y))
 
-    var dashed = svg.select("#dashed")
+    var dashed = scatter.select("#dashed")
 
     if(btnT.innerHTML == "Total") {
         dashed
@@ -170,10 +183,10 @@ function updateScatter(type) {
             .append("line")
             .merge(dashed)
             .transition()
-            .duration(1000)
+            .duration(750)
             .style("stroke-dasharray", ("3, 3"))
             .attr("x1", 0)
-            .attr("x2", width)
+            .attr("x2", scatterwidth)
             .attr("y1", y(0))
             .attr("y2", y(0))
             .attr("id", "dashed")
@@ -185,15 +198,15 @@ function updateScatter(type) {
             .append("line")
             .merge(dashed)
             .transition()
-            .duration(1000)
+            .duration(750)
             .attr("opacity", 0)
     }
 
 
-    var circ = svg.selectAll("circle")
+    var circ = scatter.selectAll("circle")
         .data(data)
 
-    var path = svg.selectAll("#curvedPath")
+    var path = scatter.selectAll("#curvedPath")
         .datum(data)
 
     circ
@@ -201,7 +214,7 @@ function updateScatter(type) {
         .append("dot")
         .merge(circ)
         .transition()
-        .duration(1000)
+        .duration(750)
             .attr("cx", function(d) { return x(d.Date); })
             .attr("cy", function(d) { return y(d.Value); })
             .attr("r", 8)
@@ -212,7 +225,7 @@ function updateScatter(type) {
         .append("path")
         .merge(path)
         .transition()
-        .duration(1000)
+        .duration(750)
         .attr("d", d3.line()
             .curve(d3.curveCatmullRom)
             .x(function(r) { return x(r.Date) })

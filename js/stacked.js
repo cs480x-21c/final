@@ -4,9 +4,9 @@ var _aggLevel = 0
 var _impFilter = true
 var _aggFilter = ''
 
-var margin = {top: 60, right: 300, bottom: 50, left: 70},
-   width = 1000 - margin.left - margin.right,
-   height = 400 - margin.top - margin.bottom;
+var stackmargin = {top: 60, right: 300, bottom: 50, left: 70},
+   stackwidth = 1000 - stackmargin.left - stackmargin.right,
+   stackheight = 400 - stackmargin.top - stackmargin.bottom;
 
 Promise.all([
 	d3.csv('data/BrazilTradeAggregationL0.csv'),
@@ -30,7 +30,6 @@ function getTitle() {
 
 function swapView() {
 	_impFilter = !_impFilter
-	document.getElementById('swapButton').innerHTML = _impFilter ? 'Exports' : 'Imports'
 	document.getElementById('title').innerHTML = getTitle()
 	
 	var data = parseSortFilter(_aggData[_aggLevel])
@@ -46,11 +45,11 @@ function swapView() {
 
 	var x = d3.scaleLinear()
 		.domain(d3.extent(data, d => d.Year))
-		.range([0, width])
+		.range([0, stackwidth])
 	
 	var y = d3.scaleLinear()
 		.domain([0, d3.max(flattenStack(makeStack(_aggData[_aggLevel])))]) 
-		.range([height, 0]);
+		.range([stackheight, 0]);
 
 	var area = d3.area()
 		.x(d => x(d.data.Year))
@@ -126,12 +125,12 @@ function buildChart() {
 
 	d3.selectAll("#chart > *").remove() //to reset the SVG when drilling down / going back
 
-	var svg = d3.select("#chart")
-  		.attr("width", width + margin.left + margin.right)
-  		.attr("height", height + margin.top + margin.bottom)
+	var stackarea = d3.select("#chart")
+  		.attr("width", stackwidth + stackmargin.left + stackmargin.right)
+  		.attr("height", stackheight + stackmargin.top + stackmargin.bottom)
   	.append("g")
   		.attr("transform",
-  	   	"translate(" + margin.left + "," + margin.top + ")");
+  	   	"translate(" + stackmargin.left + "," + stackmargin.top + ")");
 
 
 	var data = parseSortFilter(_aggData[_aggLevel])
@@ -152,11 +151,11 @@ function buildChart() {
 	//ref: https://www.d3-graph-gallery.com/graph/stackedarea_template.html
 	var x = d3.scaleLinear()
 		.domain(d3.extent(data, d => d.Year))
-		.range([0, width])
+		.range([0, stackwidth])
 	
 	var y = d3.scaleLinear()
 		.domain([0, d3.max(flattenStack(makeStack(_aggData[_aggLevel])))]) 
-		.range([height, 0]);
+		.range([stackheight, 0]);
 
 	// Area generator
 	var area = d3.area()
@@ -176,7 +175,7 @@ function buildChart() {
 	}
 
 	// Show the areas
-	svg.append('g')
+	stackarea.append('g')
 		.attr('id', 'areaChart')
 		.selectAll("mylayers")
 			.data(stack)
@@ -186,7 +185,7 @@ function buildChart() {
 				.attr('id', d => 'area_'+d.key)
 				.style("fill", d => color(d.key))
 				.attr("d", area)
-				//.attr('stroke-width', 0.5)
+				//.attr('stroke-stackwidth', 0.5)
 				//.attr('stroke', '#252525')
 				.on('mouseover', (d, i) =>	highlight(d, i.key))
 				.on('mouseout', (d, i) => noHighlight(d, i.key))
@@ -208,11 +207,11 @@ function buildChart() {
 
 	 // Add one dot in the legend for each name.
    var size = 20
-   svg.selectAll("myrect")
+   stackarea.selectAll("myrect")
    	.data(keys)
    	.enter()
    	.append("rect")
-   		.attr("x", width + margin.right/20)
+   		.attr("x", stackwidth + stackmargin.right/20)
    		.attr("y", (d,i) => 10 + i*(size+5)) // 100 is where the first dot appears. 25 is the distance between dots
    		.attr("width", size)
    		.attr("height", size)
@@ -238,11 +237,11 @@ function buildChart() {
 			})
 
    // Add one dot in the legend for each name.
-   svg.selectAll("mylabels")
+   stackarea.selectAll("mylabels")
       .data(keys)
       .enter()
       .append("text")
-      	.attr("x", width + margin.right/20 + size*1.2)
+      	.attr("x", stackwidth + stackmargin.right/20 + size*1.2)
       	.attr("y", (d,i) => 10 + i*(size+5) + (size/2)) // 100 is where the first dot appears. 25 is the distance between dots
 			.attr('class', d => 'legendText' + (validNextLayer(d) ? ' pointer' : ''))
 			.attr('id', d => 'legText_'+d)
@@ -271,20 +270,20 @@ function buildChart() {
 
 
 	// AXES
-	svg.append('g')
-		.attr("transform", "translate(0," + height + ")")
+	stackarea.append('g')
+		.attr("transform", "translate(0," + stackheight + ")")
 		.call(d3.axisBottom(x))
 	
-	svg.append("text")
+	stackarea.append("text")
 		.attr("text-anchor", "end")
-		.attr("x", width)
-		.attr("y", height+40 )
+		.attr("x", stackwidth)
+		.attr("y", stackheight+40 )
 		.text("Time (year)");
 	
-	svg.append("g")
+	stackarea.append("g")
 		.call(d3.axisLeft(y).ticks(7))
 	
-	svg.append("text")
+	stackarea.append("text")
 		.attr("text-anchor", "end")
 		.attr("x", -65)
 		.attr("y", -20 )
