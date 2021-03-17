@@ -80,7 +80,10 @@ d3.json('us.json', function(error, data) {
                             // uid = response
                             console.log(response)
                         })
-                })
+                }).append('title').text(
+                    function(d, i){
+                    return stateMatchUp[d.id]
+            })
 
             fetch("/getCsv", {
                 method: "Get",
