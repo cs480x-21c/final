@@ -2,6 +2,9 @@ var slider = document.getElementById("myRange");
 var output = document.getElementById("demo");
 output.innerHTML = slider.value;
 var year = "2008"
+var treewidth = 1000, treeheight = 800;
+
+d3.select('#right').style('width', treewidth)
 
 function updateYear() {
 	year = slider.value
@@ -18,8 +21,6 @@ function updateTree() {
 
 function treemap(year, dir) {
 	color = d3.scaleSequential([8, 0], d3.interpolateMagma)
-	var treewidth = 1000,
-		treeheight = 800;
 
 	var nest = d3.nest()
 		.key(d => d.first)
