@@ -16,10 +16,18 @@
     textDiv.classList.add("textbox");
     textDiv.id = "TLNAvsYearTextDiv";
 
+    // Create div for chart description
+    var descriptionDiv = document.createElement("div");
+    descriptionDiv.classList.add("description");
+    descriptionDiv.id = "TLNAvsYearDescription";
+    descriptionDiv.innerHTML = "We first decided to ask the question: \"What does WPI's Total Liabilities and Net Assets graph look like?\" As shown above, we observed a relatively steady increase each year, with the value more than doubling from 2009 to 2020. With this trend in mind, we sought to determine the main factor for this steady increase, and our first guess was of course student tuition.";
+
+
     // Append divs to body
     document.body.appendChild(textDiv1);
     document.body.appendChild(svgDiv);
     document.body.appendChild(textDiv);
+    document.body.appendChild(descriptionDiv);
 
 
 

@@ -5,14 +5,15 @@
     svgDiv.classList.add("svgdiv");
     svgDiv.id = "spendingTrendsDiv";
 
-    // Create a div for the text to go in
-    var textDiv = document.createElement("div");
-    textDiv.classList.add("textbox");
-    textDiv.id = "spendingTrendsTextDiv";
+    // Create div for chart description
+    var descriptionDiv = document.createElement("div");
+    descriptionDiv.classList.add("description");
+    descriptionDiv.id = "spendingTrendsDescription";
+    descriptionDiv.innerHTML = "From this chart we can tell that sponsored research and student services take up quite a bit of money. Since these are the major remaining trends associated with total liabilities, we can safely conclude that real estate with assets accounts for the rest of the $1.1B accounted for in 2020. Additionally, this chart tells us that there is much more that factors into WPI's overall budget than just student tuition. Loans, research, and student services are how the tuition is partitioned, and each one plays its own role in accumulating to the total value of liabilities.";
 
     // Append divs to body
     document.body.appendChild(svgDiv);
-    document.body.appendChild(textDiv);
+    document.body.appendChild(descriptionDiv);
 
     // Define height, width, margins for svg
     var margin = {top: 50, right: 200, bottom: 50, left: 200},
@@ -66,7 +67,7 @@
         }));
 
         y.domain([0, d3.max(data, function(d) {
-            return parseInt(d.SR);
+            return parseInt(d.SR)*1000;
         })])
 
 
@@ -94,11 +95,11 @@
         // Add y axis left label
         svg.append("text")
             .attr("transform", "rotate(-90)")
-            .attr("y", 0 - margin.left/3 - 10)
+            .attr("y", 0 - margin.left/3 - 30)
             .attr("x", 0 - (height/2))
             .attr("dy", "1em")
             .style("text-anchor", "middle")
-            .text("Y Label")
+            .text("Dollars")
             .style("font-size", "14px");
 
 
@@ -109,7 +110,7 @@
             .attr("text-anchor", "middle")
             .style("font-size", "20px")
             .style("font-weight", "bold")
-            .text("Tuition And Fees, Total Students Enrolled vs Year");
+            .text("Sponsored Research, Student Services, Student Loans vs Year");
 
 
         // Function for generating multi line chart

@@ -19,9 +19,16 @@
     textDiv.classList.add("textbox");
     textDiv.id = "tuitionTextDiv";
 
+    // Create div for chart description
+    var descriptionDiv = document.createElement("div");
+    descriptionDiv.classList.add("description");
+    descriptionDiv.id = "TuitionDescription";
+    descriptionDiv.innerHTML = "The graph above shows the total tuition and fees as a bar chart, with the total number of students enrolled overlayed as a line chart. The total students enrolled is comprised of both graduate, and undergraduate students. We started to analyze tuition and fees using this graph to determine if there was a correlation between student headcount and the value of tuition. Surprisingly, we found that while student headcount remained stable in 2019 and 2020, the tuition and fees value dropped nearly 28% in 2019 from $251M to $179M. Keeping this in mind, we decided to overlay the normalized tuition and fees value onto the initial total liabilities and net assets chart.";
+
     // Append divs to body
     document.body.appendChild(svgDiv);
     document.body.appendChild(textDiv);
+    document.body.appendChild(descriptionDiv);
 
     // Define height, width, margins for svg
     var margin = {top: 50, right: 200, bottom: 50, left: 160},
@@ -231,7 +238,6 @@
             .attr('class', 'gLegend')
             .attr("transform", "translate(" + (width + 20) + "," + 0 + ")");
 
-        console.log("about to create legend....");
 
         var legend = svgLegend.selectAll('.legend')
             .data(color.domain())
@@ -239,7 +245,6 @@
             .attr("class", "legend")
             .attr("transform", function (d, i) { return "translate(45," + i * 20 + ")"});
 
-        console.log("should have created legend");
 
         legend.append("circle")
             .attr("class", "legend-node")
@@ -250,7 +255,8 @@
                 return color(i);
             });
 
-
+        // Easter egg
+        console.log("I see you are checking the console... nothing to see here! But hey, cool that you found me.");
 
         legend.append("text")
             .attr("class", "legend-text")

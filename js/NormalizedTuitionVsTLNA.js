@@ -22,9 +22,16 @@
     textDiv.classList.add("textbox");
     textDiv.id = "tuitionVsTLNATextDiv";
 
+    // Create div for chart description
+    var descriptionDiv = document.createElement("div");
+    descriptionDiv.classList.add("description");
+    descriptionDiv.id = "NormalizedTuitionVsTLNADescription";
+    descriptionDiv.innerHTML = "The dip in the line chart representing the normalized tuition and fees was a clear indicator that this was not the driving factor of total liabilities and net assets as we had originally hypothesized. While the tuition and fees took a severe dip, the total liabilities value did not waver.";
+
     // Append divs to body
     document.body.appendChild(svgDiv);
     document.body.appendChild(textDiv);
+    document.body.appendChild(descriptionDiv);
 
     // Define height, width, margins for svg
     var margin = {top: 50, right: 270, bottom: 50, left: 270},
@@ -242,7 +249,6 @@
             .attr('class', 'gLegend')
             .attr("transform", "translate(" + (width + 20) + "," + 0 + ")");
 
-        console.log("about to create legend....");
 
         var legend = svgLegend.selectAll('.legend')
             .data(color.domain())
@@ -250,7 +256,6 @@
             .attr("class", "legend")
             .attr("transform", function (d, i) { return "translate(45," + i * 20 + ")"});
 
-        console.log("should have created legend");
 
         legend.append("circle")
             .attr("class", "legend-node")

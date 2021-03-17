@@ -21,9 +21,16 @@
     textDiv.classList.add("textbox");
     textDiv.id = "percentTextDiv";
 
+    // Create div for chart description
+    var descriptionDiv = document.createElement("div");
+    descriptionDiv.classList.add("description");
+    descriptionDiv.id = "percentChangeDescription";
+    descriptionDiv.innerHTML = "This is a different look at the previous graph. This graph of percent change over time shows us how while tuition and fees reduced drastically, the total liabilities and net assets continued to grow. This positive growth despite the shrinking of tuition and fees further proves that our hypothesis was incorrect. In order to find the true main factor(s) affecting this value, we used a mutli line chart of some other major data points in WPI's budget.";
+
     // Append divs to body
     document.body.appendChild(svgDiv);
     document.body.appendChild(textDiv);
+    document.body.appendChild(descriptionDiv);
 
     // Define height, width, margins for svg
     var margin = {top: 50, right: 100, bottom: 50, left: 110},
@@ -224,7 +231,6 @@
             .attr('class', 'gLegend')
             .attr("transform", "translate(" + (width + 20) + "," + 0 + ")");
 
-        console.log("about to create legend....");
 
         var legend = svgLegend.selectAll('.legend')
             .data(color.domain())
@@ -232,7 +238,6 @@
             .attr("class", "legend")
             .attr("transform", function (d, i) { return "translate(-200," + i * 20 + ")"});
 
-        console.log("should have created legend");
 
         legend.append("circle")
             .attr("class", "legend-node")
