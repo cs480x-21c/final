@@ -9,14 +9,9 @@ The economy (GDP per Capita), Family, Health (Life Expectancy), Freedom, Trust (
 
 Final Project Materials
 ---
-For your final project you must hand in the following items.
 * Process Book: https://docs.google.com/document/d/1pRnRqmrfz8gFOANQqlqFXqradc_Eb5xGwucz5YMEsBw/edit?usp=sharing (<-- should also probably have a pdf version of process book in the repo)
 * Project Website: https://bearl.dev/final/
 * Project Screen-Cast:
-
-Non-Obvious Features of Our Interface
----
-When hovering over some countries on the choropleth map, 'null' shows up as the text that represents the happiness score for that country. This means that no data was available in the raw dataset we used.
 
 Outside Libraries/References
 ---
@@ -24,6 +19,10 @@ Outside Libraries/References
 * https://www.kaggle.com/unsdsn/world-happiness
 * https://stats.oecd.org/Index.aspx?DataSetCode=BLI
 * https://www.d3-graph-gallery.com/graph/choropleth_hover_effect.html
+* https://learning.oreilly.com/library/view/visualization-analysis-and/9781466508910/K14708_C010.xhtml
+* http://www.alexanderbastidasfry.com/happy/
+* https://mrkchoi.github.io/WHR_data_visualization/
+
 
 
 
