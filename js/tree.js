@@ -11,6 +11,12 @@ function updateYear() {
 	updateTree()
 }
 
+function getTreeTitle() {
+	var str = _impFilter ? 'Breakdown of Brazilian Imports from the USA: ' : 'Breakdown of Brazilian Exports to the USA: '
+	str += year
+	return str
+}
+
 function updateTree() {
 	var imp = document.getElementById('swapButton').innerHTML.slice(0, -1)
 	var myNode = document.getElementById("kek");
@@ -20,6 +26,8 @@ function updateTree() {
 
 
 function treemap(year, dir) {
+	document.getElementById('treetitle').innerHTML = getTreeTitle()
+
 	color = d3.scaleSequential([8, 0], d3.interpolateMagma)
 
 	var nest = d3.nest()

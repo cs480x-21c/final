@@ -24,7 +24,6 @@ function formatData(data) {
 function getScatterTitle() {
 	var str = document.getElementById("swapType").innerHTML != 'Growth' ? 'Growth in ' : 'Net '
 	str += _impFilter ? 'Brazilian Imports from the USA' : 'Brazilian Exports to the USA'
-	console.log(str)
 	return str
 }
 
