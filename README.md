@@ -3,7 +3,8 @@ Final Project - Interactive Data Visualization
 
 ## Project links
 Project website: https://truongshan.github.io/final/index.html
-Porject screencast: https://www.youtube.com/watch?v=wlrPadq9KSk
+
+Project screencast: https://www.youtube.com/watch?v=wlrPadq9KSk
 
 
 
