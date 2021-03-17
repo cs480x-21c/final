@@ -34,7 +34,6 @@
 
     <div class="section">
         <h2>Project Summary</h2>
-        <p>INSERT SUMMARY HERE</p>
 
         <p>Link to process book: INSERT LINK HERE</p>
         <p>The data used in this visualization was obtained from the <a href="http://sideeffects.embl.de/">SIDER 4 Side Effects Database</a>.
@@ -43,7 +42,24 @@
         terms from the dataset, removing side effect frequencies for placebos, and removing side effect frequencies recorded in a non-numerical format. 
         We also transformed the dataset by deriving the mean frequency and frequency range for each pair of drug and side effect.
         </p>
-        <p>A link to our filtered and transformed dataset can be found at: INSERT LINK HERE</p>
+        <p>A link to our filtered and transformed dataset can be found <a href="/master.tsv"/>Here</a></p>
+		
+		<p>Our project consists of three visualizations:</p>
+		<ol>
+			<li>Bubble chart: Gives an overview of the most common side-effects related to drugs.</li>
+			<li>Bar Chart: Ranks the top 20 drugs related to a particular side effect according to their mean frequencies.</li>
+			<li>Cleveland dot plot (Interval plot): Ranks the top 20 side-effects related to a particular side effect according to their mean frequencies. Also shows the range of frequencies for each side-effect.</li>
+		</ol>
+		<p>Overall this visualization set is very good at mapping common side effect and drug pairings and 
+		seeing how they relate to each other through the interactive elements. In addition, the drug range plot
+		helps to get a better understanding of how the ranges of frequencies factor into the dataset and how
+		they compare to the overall mean values.</p>
+		<h4>Findings</h4>
+		<p>Our visualization shows that the most common side effects are headache, nausea, diarrhea, and dizziness. In addition,
+		overall there is a strong tendency for the same common side effects to appear across many different drug-side effect frequencies.</p>
+		<p>There are some drugs which, according to the dataset, are guaranteed to have one or many side effects. That is, the upper and lower bounds of frequency for those side effects was equal to 100%. 
+		For example, metaphalan causes alopecia, anaemia, diarrhoea, nausea, and other side effects with a frequency of 100%. We would be interested to know why data that shows this
+		characteristic is present in the dataset, although we're guessing it might be due to having limited trial data for a particular drug/side-effect pair.</p>
     </div>
 
     <div class="section">
