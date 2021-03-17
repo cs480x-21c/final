@@ -1,0 +1,75 @@
+body {
+    width: 100vw;
+    height: 100vh;  
+}
+
+text {
+    text-anchor: middle;
+    font: 10px sans-serif;
+    pointer-events: none;
+    opacity: 1;
+}
+
+circle {
+    cursor: pointer;
+}
+
+img {
+    width: 200px;
+}
+
+h3 {
+    color: #FFF;
+    font-weight: bold;
+    font: 16px sans-serif;
+}
+
+.html { background: #F16529; }
+.css  { background: #1C88C7; }
+.js   { background: #FCC700; }
+
+.tooltip {
+    position: absolute;
+    visibility: hidden;
+    background-color: #111;
+    display: flex;
+    font-family: sans-serif;
+    max-width: 500px;
+    color: white;
+}
+
+.tooltip div {
+    padding: 4px;
+}
+
+rect {
+    cursor: pointer;
+}
+
+.bcToolTip {
+    position: absolute;
+    /*font-size: 20px;*/
+    /*pointer-events: none;*/
+    background-color: #111;
+    visibility: hidden;
+    display: flex;
+    font-family: sans-serif;
+    max-width: 500px;
+    color: white;
+    padding: 4px;
+    pointer-events: none;
+}
+
+.lolToolTip {
+    position: absolute;
+    /*font-size: 20px;*/
+    /*pointer-events: none;*/
+    background-color: #111;
+    visibility: hidden;
+    display: flex;
+    font-family: sans-serif;
+    max-width: 500px;
+    color: white;
+    padding: 4px;
+    pointer-events: none;
+}
