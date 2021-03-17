@@ -1,5 +1,6 @@
 Final Project - Interactive Data Visualization  
 ===
+Team Members: Jean-Philippe Pierre, Joshua McKeen, Suryansh Goyal and Remy Allegro
 
 Link for the website: 
 
