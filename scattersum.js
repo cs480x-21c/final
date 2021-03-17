@@ -123,11 +123,11 @@ function buildScatterSum(data) {
     .text("Thousand Dollars")
     .attr("text-anchor", "start")
 
-    update(0)
+    updateScatter(0)
 
 }
 
-function update(type) {
+function updateScatter(type) {
     var data;
     var btnF = document.getElementById("swapFlow");
     var btnT = document.getElementById("swapType");
