@@ -1,6 +1,6 @@
 # Final Project - Interactive Data Visualization
 #### Danya Baron, Roman Wicky van Doyer, Molly Wirtz
-===
+
 
 ### Project Website
 
