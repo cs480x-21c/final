@@ -16,7 +16,7 @@ There are two ways to add courses to the treemap:
 * Importing from Bannerweb by entering your username & password then clicking the import button
 * Clicking and dragging courses from the course catalog on the bottom of the screen
 
-Courses added through either method will be slotted into the requirement area that they best match, accounting for existing classes and remaining credit hours. Additionally, the credit hour display on the right will be dynamically updated.
+Courses added through either method will be slotted into the requirement area that they best match, accounting for existing classes and remaining credit hours. Additionally, the credit hour display on the right will be dynamically updated. To remove courses, one can either right click on them or hit the "Clear Tree" button to clear all courses.
 
 # Achievements
 
