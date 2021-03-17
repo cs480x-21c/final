@@ -26,6 +26,11 @@
 	<div class="slidecontainer">
 		<p style='margin:0'>Year: <span id="demo"></span></p>
 		<input type="range" min="2008" max="2019" value="2008" class="slider" id="myRange" oninput='updateYear()'>
+	</div>
+	<h3>Move slider to look at different aggregation levels.</h3>
+	<div class="slidecontainer">
+		<p style='margin:0'>Aggregation Level: <span id="Agg"></span></p>
+		<input type="range" min="1" max="4" value="1" class="slider" id="myAgg" oninput='updateAgg()'>
 	</div><br>
 
 	<div class="card" id="kek" style='float:left'></div>

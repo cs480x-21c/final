@@ -1,13 +1,22 @@
 var slider = document.getElementById("myRange");
 var output = document.getElementById("demo");
+var sliderAgg = document.getElementById("myAgg");
+var outputAgg = document.getElementById("Agg");
 output.innerHTML = slider.value;
 var year = "2008"
 var treewidth = 1000, treeheight = 800;
-
+var agg = 1;
 d3.select('#right').style('width', treewidth)
 
 function updateYear() {
 	year = slider.value
+	output.innerHTML = slider.value;
+	updateTree()
+}
+
+function updateAgg() {
+	agg = sliderAgg.value
+	outputAgg.innerHTML = sliderAgg.value;
 	updateTree()
 }
 
@@ -21,27 +30,43 @@ function updateTree() {
 	var imp = document.getElementById('swapButton').innerHTML.slice(0, -1)
 	var myNode = document.getElementById("kek");
 	myNode.innerHTML = '';
-	treemap(String(year), imp);
+	treemap(String(year), imp, agg);
 }
 
 
-function treemap(year, dir) {
+function treemap(year, dir, agg=1) {
 	document.getElementById('treetitle').innerHTML = getTreeTitle()
 
 	color = d3.scaleSequential([8, 0], d3.interpolateMagma)
-
-	var nest = d3.nest()
+	var nest
+	if(agg == 1){
+		nest = d3.nest()
+		.key(d => d.first)
+		.rollup(d => d3.sum(d, a => a.TradeValue_in_1000_USD));
+	}
+	else if(agg == 2){
+		nest = d3.nest()
+		.key(d => d.first)
+		.key(d => d.second)
+		.rollup(d => d3.sum(d, a => a.TradeValue_in_1000_USD));
+	}
+	else if(agg == 3){
+		nest = d3.nest()
+		.key(d => d.first)
+		.key(d => d.second)
+		.key(d => d.third)
+		.rollup(d => d3.sum(d, a => a.TradeValue_in_1000_USD));
+	}
+	else if(agg == 4){
+		nest = d3.nest()
 		.key(d => d.first)
 		.key(d => d.second)
 		.key(d => d.third)
 		.key(d => d.fourth)
 		.rollup(d => d3.sum(d, a => a.TradeValue_in_1000_USD));
+	}
 
 
-	// .append("svg")
-	// .attr("width", treewidth)
-	// .attr("height", treeheight)
-	// .append("g")
 
 	Promise.all([
 		d3.csv("https://gist.githubusercontent.com/FelChen/fa8e7c2148e000daf2fd5edb12b43ff6/raw/2940493146c74c08809a3d0c4633fd47420a6b88/cleanish.csv")
