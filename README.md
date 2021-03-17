@@ -10,7 +10,9 @@ Direct link to screencast video on YouTube: https://www.youtube.com/watch?v=_Dps
 All the necessary files for this project are in this repository:
 - index.html and final.html are the code files; index.html has the embedded video displayed with a link to final.html which has the visualization
 - The data is found in the /data folder in the combined.csv file
-- The process book is saved as a pdf
+- The process book is saved as final_progress_book.pdf
+
+The goal of this project is to develop a gene expression analysis tool used to compare brain regions and gene expression. This tool will be used by bioinformaticians working in transcriptomics to analyze gene expression in the frontal cortex, visual cortex, and cerebellum. It was built from a healthy dataset containing 34,899 cells to serve as a control sample. We used JavaScript D3 to create interactive scatter plots with multiple views for each brain region and gene type. 
 
 Technical Achievements
 ---
