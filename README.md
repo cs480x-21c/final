@@ -9,7 +9,6 @@ The economy (GDP per Capita), Family, Health (Life Expectancy), Freedom, Trust (
 
 Final Project Materials
 ---
-For your final project you must hand in the following items.
 * Process Book: https://docs.google.com/document/d/1pRnRqmrfz8gFOANQqlqFXqradc_Eb5xGwucz5YMEsBw/edit?usp=sharing (<-- should also probably have a pdf version of process book in the repo)
 * Project Website: https://bearl.dev/final/
 * Project Screen-Cast:
