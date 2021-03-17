@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+<script src="https://d3js.org/d3.v6.min.js"></script>
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+
+<html>
+    <ul class="nav" style="background-color: #e3f2fd;">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="final.html">Visualization</a>
+      </ul>
+  <head>
+    <title>JavaScript D3 Plot</title>
+        <div class="p-3 bg-light border">
+          <h4>Visualizing Gene Expression in the Brain</h4>
+          <p class="lead"> 
+            This tool was built using 34,899 healthy cells gathered from 
+            <a href="https://doi.org/10.1038/nbt.4038" target="_blank">this paper.</a> 
+          </p>
+          
+          <div id="vis-container-legend"> 
+            <select id="regionButton"></select>
+            <select id="geneButton"></select>
+          </div>
+        </div>
+        
+    <style> /* set the CSS */
+    body {
+        margin: 0px;
+        overflow: hidden;
+    } 
+
+    text {
+        font-family: sans-serif;
+    }
+
+    .tick text {
+        font-size: 2em;
+        fill: #635F5D;
+    }
+
+    .tick line {
+        stroke: #C0C0BB;
+    }
+
+    .axis-label {
+        font-size: 3em;
+        fill: 'black'
+    }
+
+    .tooltip {
+        position: absolute;
+        font-size: 14px;
+        width:  auto;
+        height: auto;
+        pointer-events: none;
+        background-color: white;
+    }
+    </style>
+  </head>
+
+  <body>
+    
+    <div id="vis-container"></div>
+    
+    <script>
+        var svg = d3.select("#vis-container")
+           .append("svg")
+           .attr("width", 1400)
+           .attr("height", 650)
+
+        const width = +svg.attr('width');
+        const height = +svg.attr('height');
+
+        var clust = 1;
+
+        const margin = { top: 20, right: 40, bottom: 88, left: 150 };
+        const innerWidth = width/2 - margin.left - margin.right;
+        const innerHeight = height - margin.top - margin.bottom;
+
+        const h = svg.append('g')
+            .attr('transform', `translate(${margin.left + width/2},${margin.top})`);
+
+        var regionGroups = ["FrontalCortex", "CerebellarHem", "VisualCortex"]
+        var geneGroups = ["SATB2", "SLC17A7", "GRIN1", "GRIN2B", "GAD1", "GAD2", "SLC6A1", "CLDN11", "MOG", "MOBP", "MBP", "SLC1A2", "SLC1A3", "SLC1A4", "GLUL", "AQP4", "COBLL1", "DUSP1", "FLT1", "PCDH15.1", "OLIG1.1","APBB1IP","P2RY12","APBB1IP.1","P2RY12.1","RYR1","RELN","GRM4","RBFOX3"]
+
+        // add the options to the button
+        d3.select("#regionButton")
+          .selectAll('myOptions')
+     	    .data(regionGroups)
+          .enter()
+            .append('option')
+          .text(function (d) { return d; }) // text showed in the menu
+          .attr("value", function (d) { return d; }) // corresponding value returned by the button
+        
+        d3.select("#geneButton")
+          .selectAll('myOptions')
+            .data(geneGroups)
+          .enter()
+    	    .append('option')
+          .text(function (d) { return d; }) // text showed in the menu
+          .attr("value", function (d) { return d; }) // corresponding value returned by the button
+
+        var region = "FrontalCortex"
+        var gene = "SATB2"
+        
+        // variables to be used when updating through drop-down menu
+        var rightCircles;
+        var gene_color = d3.scaleLinear();
+
+        // Plots entire left and right chart
+        // runType = 'region' or 'gene'
+        // 'region': plot everything. Used for first time plot & upon switching region.
+        // 'gene': only plot circles, as the axes remain the same.
+        function runPlotter(runType) { 
+            d3.csv('https://nshedd.github.io/final/data/combined.csv').then(data => {
+
+                data = data.filter((d) => {
+                    return d.brain_region == region;
+                });
+                data.forEach(d => {
+                    d.UMAP_1 = +d.UMAP_1;
+                    d.UMAP_2 = +d.UMAP_2;
+                    d.celltype = +d.celltype;
+                });
+                const xValue = d => d.UMAP_1;
+                const xAxisLabel = 'UMAP 1';
+                
+                const yValue = d => d.UMAP_2;
+                const yAxisLabel = 'UMAP 2';        
+
+                const featValue = d => d[gene];    
+
+                const xScale = d3.scaleLinear()
+                    .domain(d3.extent(data, xValue))
+                    .range([0, innerWidth])
+                    .nice();
+                
+                const yScale = d3.scaleLinear()
+                    .domain(d3.extent(data, yValue))
+                    .range([innerHeight, 0])
+                    .nice();
+                
+                const g = svg.append('g')
+                    .attr('transform', `translate(${margin.left},${margin.top})`);
+                
+                const h = svg.append('g')
+                    .attr('transform', `translate(${margin.left + width/2},${margin.top})`);
+
+                const xAxis = d3.axisBottom(xScale);
+                
+                const yAxis = d3.axisLeft(yScale);
+
+                var clust_color = d3.scaleOrdinal(["rgb(6,150,104)", "rgb(196,74,137)", "rgb(179,230,28)", "rgb(181,3,209)", "rgb(39,213,61)", "rgb(255,0,135)", "rgb(150,231,154)", "rgb(241,67,48)", "rgb(121,227,249)", "rgb(143,15,18)", "rgb(135,169,253)", "rgb(37,80,38)", "rgb(253,146,250)", "rgb(101,161,14)", "rgb(112,83,217)", "rgb(252,206,106)", "rgb(71,69,86)", "rgb(247,144,100)", "rgb(5,157,197)", "rgb(104,61,13)", "rgb(153,134,127)", "rgb(45,104,199)"]);
+                
+                gene_color = d3.scaleLinear()
+                    .domain(d3.extent(data, featValue))
+                    .range(['lightgray','blue']);
+
+                // if 'region', plot everything
+                if (runType == 'region'){
+                    // x Axis line for left plot
+                    var xLineG = svg.append("line")
+                        .attr("stroke-width", 1)
+                        .attr("stroke", "#C0C0BB")
+                        .attr("x1", margin.left)
+                        .attr("x2", width/2)
+                        .attr("y1", height - margin.bottom)
+                        .attr("y2", height - margin.bottom)
+
+                    // y Axis line for left plot
+                    var yLineG = svg.append("line")
+                        .attr("stroke-width", 1)
+                        .attr("stroke", "#C0C0BB")
+                        .attr("x1", margin.left)
+                        .attr("x2", margin.left)
+                        .attr("y1", margin.top)
+                        .attr("y2", height - margin.bottom)
+
+                    // x Axis line for right plot
+                    var xLineG = svg.append("line")
+                        .attr("stroke-width", 1)
+                        .attr("stroke", "#C0C0BB")
+                        .attr("x1", (width/2) + margin.left)
+                        .attr("x2", width)
+                        .attr("y1", height - margin.bottom)
+                        .attr("y2", height - margin.bottom)
+
+                    // y Axis line for right plot
+                    var yLineG = svg.append("line")
+                        .attr("stroke-width", 1)
+                        .attr("stroke", "#C0C0BB")
+                        .attr("x1", (width/2) + margin.left)
+                        .attr("x2", (width/2) + margin.left)
+                        .attr("y1", margin.top)
+                        .attr("y2", height - margin.bottom)
+
+                    const yAxisG = g.append('g').call(yAxis);
+                    yAxisG.selectAll('.domain').remove();
+                    
+                    yAxisG.append('text')
+                        .attr('class', 'axis-label')
+                        .attr('y', -93)
+                        .attr('x', -innerHeight / 2)
+                        .attr('fill', 'black')
+                        .attr('transform', `rotate(-90)`)
+                        .attr('text-anchor', 'middle')
+                        .text(yAxisLabel);
+                    
+                    const xAxisG = g.append('g').call(xAxis)
+                        .attr('transform', `translate(5,${innerHeight})`)
+                    
+                    xAxisG.select('.domain').remove();
+                    
+                    xAxisG.append('text')
+                        .attr('class', 'axis-label')
+                        .attr('y', 75)
+                        .attr('x', innerWidth / 2)
+                        .attr('fill', 'black')
+                        .text(xAxisLabel);
+
+                    const yAxisH = h.append('g').call(yAxis);
+
+                    yAxisH.selectAll('.domain').remove();
+                    
+                    yAxisH.append('text')
+                        .attr('class', 'axis-label')
+                        .attr('y', -93)
+                        .attr('x', -innerHeight / 2)
+                        .attr('fill', 'black')
+                        .attr('transform', `rotate(-90)`)
+                        .attr('text-anchor', 'middle')
+                        .text(yAxisLabel);
+                    
+                    const xAxisH = h.append('g').call(xAxis)
+                        .attr('transform', `translate(5,${innerHeight})`)
+                    
+                    xAxisH.select('.domain').remove();
+                    
+                    xAxisH.append('text')
+                        .attr('class', 'axis-label')
+                        .attr('y', 75)
+                        .attr('x', innerWidth / 2)
+                        .attr('fill', 'black')
+                        .text(xAxisLabel);
+                }
+
+                var Tooltip = d3.select("#vis-container")
+                    .append("div")
+                    .style("opacity", 0)
+                    .attr("class", "tooltip")
+                    .style("background-color", "white")
+                    .style("border", "solid")
+                    .style("border-width", "2px")
+                    .style("border-radius", "5px")
+                    .style("padding", "5px")
+
+                // if 'gene', only plot circles
+                if (runType == 'region' || 'gene') {
+
+                //TOOLTIP
+                var mouseover = function(d) {
+                    Tooltip
+                     .style("opacity", 1)
+                }
+                var mouseleave = function(d) {
+                    Tooltip
+                      .style("opacity", 0)
+                }
+
+                g.selectAll('circle').data(data)
+                    .enter().append('circle')
+                    .attr('id', function (d) { return "g_"+ d.barcode; })
+                    .attr('cy', d => yScale(yValue(d)))
+                    .attr('cx', d => xScale(xValue(d)))
+                    .attr('r', 2)
+                    .attr("fill", function(d) { return clust_color(d.celltype); })
+                    .on("mouseover", function(d, i) {
+
+                        d3.select(this)
+                            .raise()
+                            .attr("stroke", "black")
+                            .attr("r", 5)
+
+                        h.select("#h_"+ i.barcode)
+                            .raise()
+                            .attr("stroke", "black")
+                            .attr("r", 5)
+
+                        g.selectAll('circle')
+                            .filter(function(d) { 
+                                // console.log(d)
+                                return d['celltype'] != i['celltype']; })
+                            .attr("fill", "lightgray")
+                        
+                        h.selectAll('circle')
+                            .filter(function(d){ return d['celltype'] != i['celltype']; })
+                            .attr("opacity", 0.05)
+                        
+                        //tooltip
+                        mouseover();
+                    })
+                    .on("mousemove", function(d) {
+                        Tooltip
+                            .html(
+                                "Cluster: " + d3.select(this)._groups[0][0].__data__.celltype + "<br>" +    
+                                "Cell Type: " + d3.select(this)._groups[0][0].__data__.cell_name + "<br>" +
+                                "Marker Genes: " + d3.select(this)._groups[0][0].__data__.marker_genes)
+                            .style("left", (event.pageX + 10) + "px")
+                            .style("top", (event.pageY - 85) + "px")
+                    })
+                    .on("mouseout", function(d, i) {
+                        d3.select(this)
+                            .attr("stroke", "none")
+                            .attr("r", 2)
+
+                        h.select("#h_"+ i.barcode)
+                            .attr("stroke", "none")
+                            .attr("r", 2)
+
+                        g.selectAll('circle')
+                            .attr("fill", function(d) { return clust_color(d.celltype); })
+
+                        h.selectAll('circle')
+                            .attr("opacity", 1)
+
+                        //tooltip
+                        mouseleave();
+                    })
+
+                rightCircles = h.selectAll('circle').data(data)
+                    .enter().append('circle')
+                    .attr('id', function (d) { return "h_"+ d.barcode; })
+                    .attr('cy', d => yScale(yValue(d)))
+                    .attr('cx', d => xScale(xValue(d)))
+                    .attr('r', 2)
+                    .attr("fill", function(d) { return gene_color(d[gene]); })
+                    .on("mouseover", function(d, i) {
+                        d3.select(this)
+                            .raise()
+                            .attr("stroke", "black")
+                            .attr("r", 5)
+
+                        g.select("#g_"+ i.barcode)
+                            .raise()
+                            .attr("stroke", "black")
+                            .attr("r", 5)
+                    })
+                    // .on("mousemove", mousemove)
+                    .on("mouseout", function(d, i) {
+                        d3.select(this)
+                            .attr("stroke", "none")
+                            .attr("r", 2)
+
+                        g.select("#g_"+ i.barcode)
+                            .attr("stroke", "none")
+                            .attr("r", 2)
+                    })
+
+                }
+            });
+        }
+
+        // when page is refreshed, run entire plotter
+        runPlotter('region')
+
+        // CHANGE BASED ON DROPDOWN VALUE
+        d3.select("#regionButton").on("change", function(d) {
+            region = d3.select(this).property("value")
+            updateRegion(region)
+        })
+        d3.select("#geneButton").on("change", function(d) {
+            gene = d3.select(this).property("value")
+            updateGene(gene)
+        })
+
+        // clears entire SVG, plots entire SVG
+        function updateRegion(region) {
+            svg.selectAll("*").remove();
+            runPlotter('region')
+        }
+        
+        // clears circles, plots new gene expression circles
+        function updateGene(gene) {
+            rightCircles
+                .attr("fill", function(d) { return gene_color(d[gene]); })
+        }
+
+        //LEGEND GRADIENT
+        var colors = [ 'lightgray', 'blue' ];
+
+        var svg2 = d3.select("#vis-container-legend")
+          .append('svg')
+          .attr('transform', `translate(700,0)`)
+          .attr('width', 500)
+          .attr('height', 30);
+
+        var grad = svg2.append('defs')
+          .append('linearGradient')
+          .attr('id', 'grad')
+          .attr('x1', '0%')
+          .attr('x2', '100%')
+          .attr('y1', '0%')
+          .attr('y2', '0%');
+
+        grad.selectAll('stop')
+          .data(colors)
+          .enter()
+          .append('stop')
+          .style('stop-color', function(d){ return d; })
+          .attr('offset', function(d,i){
+              return 100 * (i / (colors.length - 1)) + '%';
+          })
+
+        svg2.append('rect')
+          .attr('x', 100)
+          .attr('y', 10)
+          .attr('width', 150)
+          .attr('height', 20)
+          .style('fill', 'url(#grad)')
+
+        svg2.append('text')
+          .attr("x", 0)
+          .attr("y", 25)
+          .attr("text-anchor", "left")
+          .style("font-size", "12px")
+          .text("Low Expression")
+
+        svg2.append('text')
+          .attr("x", 260)
+          .attr("y", 25)
+          .attr("text-anchor", "right")
+          .style("font-size", "12px")
+          .text("High Expression")
+
+    </script>
+  </body>
+</html>
