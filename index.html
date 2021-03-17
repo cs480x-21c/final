@@ -15,12 +15,13 @@
   By hovering your mouse over a country, the multiple years worth of collected happiness data on said country will be displayed. </p></center>
 <center>
   <a href="placeholder">Video</a>
-  <a href="placefolder">Process Book</a>
+  <a href="./etc/Process_Book.pdf">Process Book</a>
 </center>
-<center><svg id="viz"></svg></center>
 
-<center>
-  <table style="width:600px">
+<center style="margin: 0px 300px 0px;">
+  <svg style="float: left;" id="viz"></svg>
+
+  <table style="width:600px; float: right">
     <tr>
       <th>Category:</th>
       <th>Max value:</th>
@@ -107,17 +108,6 @@ var tooltip = svg2.append("div")
         .style("visibility", "hidden")
         .text("");
 
-// var rect = tooltip.append("rect")
-//         .attr("x", -250)
-//         .attr("y", -50)
-//         .attr("width", 200)
-//         .attr("height",50)
-//         .attr("fill", "LightSeaGreen")
-//         .attr("stroke", "black")
-//         .attr("stroke-width", 2)
-//         .attr("opacity", .75);
-
-
 for (let i = 5; i > 0; i--) {
     svg2.append("circle")
         .attr("cx", 200)
@@ -151,13 +141,10 @@ d3.queue()
 
 function ready(error, topo) {
   let mouseOver = function(d) {
-    // console.log(d);
-    // console.log(d.info);
     d3.selectAll(".Country")
       .style("opacity", .5);
     d3.select(this)
       .style("opacity", 1)
-      .style("stroke", "black");
 
     d3.select("#CountryName")
       .text(d.properties.name);
@@ -208,10 +195,6 @@ function ready(error, topo) {
                   maxCat = maxCat6;
                   d3.select("#generosity").text(column.toString());
               }
-
-              // console.log(maxCat);
-              // console.log(column);
-              // console.log(column/maxCat);
 
               cX = 200 + (column / maxCat * 150 * Math.sin(Math.PI * i / 3));
               cY = 200 - (column / maxCat * 150 * Math.cos(Math.PI * i / 3));
@@ -267,7 +250,7 @@ function ready(error, topo) {
         d3.selectAll(".Country")
             .style("opacity", .8);
         d3.select(this)
-            .style("stroke", "transparent");
+            .style("stroke", "black");
     };
 
     maxCat1 = 0;
@@ -307,13 +290,6 @@ function ready(error, topo) {
     d3.select("#maxCat5").text(maxCat5.toString());
     d3.select("#maxCat6").text(maxCat6.toString());
 
-    // console.log(maxCat1);
-    // console.log(maxCat2);
-    // console.log(maxCat3);
-    // console.log(maxCat4);
-    // console.log(maxCat5);
-    // console.log(maxCat6);
-
   // Draw the map
   svg.append("g")
     .selectAll("path")
@@ -324,6 +300,7 @@ function ready(error, topo) {
       .attr("d", d3.geoPath()
         .projection(projection)
       )
+      .style("stroke", "black")
       // set the color of each country
       .attr("fill", function (d) {
         d.total = data.get(d.id) || 0;
@@ -332,9 +309,9 @@ function ready(error, topo) {
           d.info = null;
           console.log(d.id + " WAS NOT FOUND")
         }
-        return colorScale(d.total);
+        return "steelblue";
       })
-      .style("stroke", "transparent")
+      .style("stroke", "black")
       .attr("class", function(d){ return "Country" } )
       .style("opacity", .8)
       .on("mouseover", mouseOver )
