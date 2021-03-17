@@ -1,0 +1,107 @@
+#Logo{
+    display: block;
+    margin: auto;
+    width: 200px;
+    height: 200px;
+}
+#TitleHeader{
+    display: block;
+    margin: auto;
+    text-align: center;
+
+    font-size: 50px;
+
+}
+#video{
+     display: block;
+     margin: auto;
+
+ }
+
+
+
+#NameHeader{
+    display: block;
+    margin: auto;
+    text-align: center;
+    font-size: 20px;
+    padding-bottom: 30px;
+    padding-top: 10px;
+}
+
+
+.svg {
+    display: block;
+    margin: auto;
+    padding-top: 40px;
+    /*border: 1px solid green;*/
+}
+
+#Intro{
+    width: 500px;
+    height:100px;
+    font-size: 18px;
+    display: block;
+    margin: auto;
+    padding-top: 15px;
+}
+
+.textbox {
+    width: 500px;
+    height: 80px;
+    font-size: 16px;
+    font-weight: bold;
+    display: block;
+    margin: auto;
+    text-align: center;
+
+}
+
+.svgdiv{
+    white-space: pre;
+    /*border: 1px solid red;*/
+}
+
+div{
+    /*border: 1px solid blue;*/
+    text-align: center;
+}
+
+#tuitionYAxisLeft text{
+    stroke: #b8b3ff;
+    fill: #b8b3ff;
+}
+
+#tuitionYAxisRight text{
+    stroke: red;
+    fill: red;
+}
+
+#tuitionVsTLNAYAxisLeft text{
+    stroke: #b8b3ff;
+    fill: #b8b3ff;
+}
+
+#tuitionVsTLNAYAxisRight text{
+    stroke: red;
+    fill: red;
+}
+
+.yAxis{
+    stroke-width: 0.5;
+    font-size: 12px;
+
+}
+
+*{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.description{
+    width: 800px;
+    height: 120px;
+    font-size: 16px;
+    display: block;
+    margin: auto;
+    padding-top: 15px;
+}
