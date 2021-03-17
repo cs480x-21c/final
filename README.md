@@ -9,7 +9,7 @@ The economy (GDP per Capita), Family, Health (Life Expectancy), Freedom, Trust (
 
 Final Project Materials
 ---
-* Process Book: https://docs.google.com/document/d/1pRnRqmrfz8gFOANQqlqFXqradc_Eb5xGwucz5YMEsBw/edit?usp=sharing (<-- should also probably have a pdf version of process book in the repo)
+* [Process Book](https://github.com/Brian-Earl/final/blob/main/etc/Process_Book.pdf)
 * Project Website: https://bearl.dev/final/
 * Project Screen-Cast: https://youtu.be/QMHNsKUiFes
 
