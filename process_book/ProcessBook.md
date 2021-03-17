@@ -7,7 +7,9 @@ Link: (insert link to GitHub pages here)
 
 Overview and Motivation
 ---
-Provide an overview of the project goals and the motivation for it. Consider that this will be read by people who did not see your project proposal.
+This project is an interactive visualization dashboard showing music trends on the popular streaming platform 'Spotify' for the past two years. This data was based on the weekly top 200 songs for each reported country. Each songs' metadata was averaged to produce a set of summary statistics for each week per country. 
+
+We decided to tackle this project due to our common passion for music as well as the opportunity to include some in-depth data analysis and manipulation. We all have a data science background through the Data Science Minor as well as other coursework, so we decided that this would be an enjoyable way to illustrate our skills.
 
 Related Work
 ---
@@ -23,7 +25,7 @@ insert data discussion here
 
 ### Sources
 
-insert sources here
+Spotifycharts.com
 
 ### Scraping
 
@@ -40,6 +42,8 @@ What visualizations did you use to initially look at your data? What insights di
 Design Evolution
 ---
 What are the different visualizations you considered? Justify the design decisions you made using the perceptual and design principles you learned in the course. Did you deviate from your proposal?
+
+Initially, we were considering keeping the data local to one country. However, we all wanted to experiement with geospatial data representations and map/choropleth visualizations. Due to the granularity of the data (only resolves on the country level), we opted to expand our project to a global scale. 
 
 Implementation
 ---

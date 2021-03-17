@@ -1,5 +1,45 @@
-Final Project - Interactive Data Visualization  
+Final Project - Spotify Trends
 ===
+By Nick Alescio, Hunter Caouette, Clay Oshiro-Leavitt
+---
+Project Link: URL HERE
+
+This project is an interactive visualization dashboard showing music trends on the popular streaming platform 'Spotify' for the past two years. This data was based on the weekly top 200 songs for each reported country. Each songs' metadata was averaged to produce a set of summary statistics for each week per country. 
+
+Project Structure
+---
+Our project has several components in the root directory:
+- chart_scrapes
+
+chart_scrapes contains our initial data scrapes of the 200 top songs weekly per country.
+
+- Data Processing
+
+This directory contains our Python data manipulation and processing scripts. The main one is main.py, which allows for all portions of the data processing pipeline to be executed through a series of command line arguments. These scripts are designed to be run from the route directory (Ex: python3 Data_Processing/main.py --function meta_add).
+
+- Datasets
+
+This directory contains our processed datasets.
+
+- process_book
+
+This directory contains our Process Book for the project and its requisite visuals.
+
+- index.html
+
+This is the html page that contains our visualization.
+
+The other two files in the root directory are world.geojson and world.topojson - these are used to generate our choropleth.
+
+
+
+
+
+
+The README file must give an overview of what you are handing in: which parts are your code, which parts are libraries, and so on. The README must contain URLs to your project websites and screencast videos. The README must also explain any non-obvious features of your interface.
+
+
+
 
 The key learning experience of this course is the final project. 
 You will design a web site and interactive visualizations that answer questions you have or provide an exploratory interface to some topic of your own choosing. 
