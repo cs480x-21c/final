@@ -11,16 +11,10 @@ def lambda_handler(event, context):
     print("test print")
     print(words)
     data = runQuery(words)
-    
+
     return {
         'statusCode': 200,
-        'headers': {
-            'Access-Control-Allow-Headers': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
-        },
         'body': json.dumps(data),
-        'event': event
     }
 
 # TAKEN FROM https://github.com/zslwyuan/google-ngrams
