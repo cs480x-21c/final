@@ -3,6 +3,14 @@
     src:url(fonts/1800s-fraktur.otf);
 }
 @font-face {
+    font-family: f1810s;
+    src: url("//db.onlinewebfonts.com/t/8eae210199b82750e8c100254296d14c.eot");
+    src: url("//db.onlinewebfonts.com/t/8eae210199b82750e8c100254296d14c.eot?#iefix") format("embedded-opentype"),
+    url("//db.onlinewebfonts.com/t/8eae210199b82750e8c100254296d14c.woff") format("woff"),
+    url("//db.onlinewebfonts.com/t/8eae210199b82750e8c100254296d14c.ttf") format("truetype"),
+    url("//db.onlinewebfonts.com/t/8eae210199b82750e8c100254296d14c.svg#Antique") format("svg");
+}
+@font-face {
     font-family: f1820s;
     src:url(fonts/1810s-egiziano.otf);
 }
@@ -138,85 +146,160 @@ form{
     font-family: f1800s;
     font-size: 30px;
 }
+.legEights {
+    font-family: f1800s;
+}
 .eights-one {
     font-family: f1810s;
     font-size: 30px;
+}
+.legEights-one {
+    font-family: f1810s;
 }
 .eights-two {
     font-family: f1820s;
     font-size: 30px;
 }
+.legEights-two {
+    font-family: f1820s;
+}
 .eights-three {
     font-family: f1830s;
     font-size: 30px;
+}
+.legEights-three {
+    font-family: f1830s;
 }
 .eights-four {
     font-family: f1840s;
     font-size: 30px;
 }
+.legEights-four {
+    font-family: f1840s;
+}
 .eights-five {
     font-family: f1850s;
     font-size: 30px;
+}
+.legEights-five {
+    font-family: f1850s;
 }
 .eights-six {
     font-family: f1860s;
     font-size: 30px;
 }
+.legEights-six {
+    font-family: f1860s;
+}
 .eights-seven {
     font-family: f1870s;
     font-size: 30px;
+}
+.legEights-seven {
+    font-family: f1870s;
 }
 .eights-eight {
     font-family: f1880s;
     font-size: 30px;
 }
+.legEights-eight {
+    font-family: f1880s;
+}
 .eights-nine {
     font-family: f1890s;
     font-size: 30px;
+}
+.legEights-nine {
+    font-family: f1890s;
 }
 .nines {
     font-family: f1900s;
     font-size: 30px;
 }
+.legNines {
+    font-family: f1900s;
+}
 .nines-one {
     font-family: f1910s;
     font-size: 30px;
 }
+.legNines-one {
+     font-family: f1910s;
+ }
 .nines-two {
     font-family: f1920s;
     font-size: 30px;
+}
+.legNines-two {
+    font-family: f1920s;
 }
 .nines-three {
     font-family: f1930s;
     font-size: 30px;
 }
+.legNines-three {
+    font-family: f1930s;
+}
 .nines-four {
     font-family: f1940s;
     font-size: 30px;
+}
+.legNines-four {
+    font-family: f1940s;
 }
 .nines-five {
     font-family: f1950s;
     font-size: 30px;
 }
+.legNines-five {
+    font-family: f1950s;
+}
 .nines-six {
     font-family: f1960s;
     font-size: 30px;
+}
+.legNines-six {
+    font-family: f1960s;
 }
 .nines-seven {
     font-family: f1970s;
     font-size: 30px;
 }
+.legNines-seven {
+    font-family: f1970s;
+}
 .nines-eight {
     font-family: f1980s;
     font-size: 30px;
+}
+.legNines-eight {
+    font-family: f1980s;
 }
 .nines-nine {
     font-family: f1990s;
     font-size: 30px;
 }
+.legNines-nine {
+    font-family: f1990s;
+}
 .oughts {
     font-family: f2000s;
     font-size: 30px;
+}
+.legOughts {
+    font-family: f2000s;
+}
+
+.legEights,
+.legEights-one,.legEights-two,.legEights-three,.legEights-four,.legEights-five,
+.legEights-six,.legEights-seven,.legEights-eight,.legEights-nine,.legNines,
+.legNines-one,.legNines-two,.legNines-three,.legNines-four,.legEights-five,.legNines-six,.legNines-seven,.legNines-eight,.legNines-nine,
+.legOughts {
+    text-shadow:
+            -1px -1px 0 #fff,
+            1px -1px 0 #fff,
+            -1px 1px 0 #fff,
+            1px 1px 0 #fff;
 }
 
 #graph1{

@@ -119,8 +119,38 @@ def runQuery(argumentString):
                              "case-insensitive option was ignored."
         else:
             notifyUser = False
-        url, urlquery, df = getNgrams(query, corpus, startYear, endYear,
-                                      smoothing, caseInsensitive)
+
+        wordList = query.split(',')
+        wordList = set(wordList)
+        wordList = list(wordList)
+
+        dataJSON = {}
+
+        df_main = DataFrame()
+        firstRow = True
+        
+        N = 12
+        twelveList = [wordList[n:n+N] for n in range(0, len(wordList), N)]
+
+
+        for someList in twelveList:
+            commaString = ",".join(someList)
+            url, urlquery, df = getNgrams(commaString, corpus, startYear, endYear,
+                    smoothing, caseInsensitive)
+            if (firstRow):
+                df_main['year'] = df['year']
+                firstRow = False
+            for word in df.keys():
+                df_main[word] = df[word]
+            # dataJSON[word] = json.loads(df.to_json())
+
+        # print(df_main)
+        # print(df_main.size)
+
+        # url, urlquery, df = getNgrams(query, corpus, startYear, endYear,
+        #                               smoothing, caseInsensitive)
+        # print("FINAL DF THING",df)
+
         if not allData:
             if caseInsensitive is True:
                 for col in df.columns:
@@ -139,18 +169,18 @@ def runQuery(argumentString):
                 for col in df.columns:
                     if '_INF' in col:
                         df.pop(col)
-            if '*' in query:
+            if '*' in query: 
                 for col in df.columns:
                     if '*' in col:
                         df.pop(col)
-        if toPrint:
-            print((','.join(df.columns.tolist())))
-            for row in df.iterrows():
-                try:
-                    print(('%d,' % int(row[1].values[0]) +
-                           ','.join(['%.12f' % s for s in row[1].values[1:]])))
-                except:
-                    print((','.join([str(s) for s in row[1].values])))
+        # if toPrint:
+        #     print((','.join(df.columns.tolist())))
+        #     for row in df.iterrows():
+        #         try:
+        #             print(('%d,' % int(row[1].values[0]) +
+        #                    ','.join(['%.12f' % s for s in row[1].values[1:]])))
+        #         except:
+        #             print((','.join([str(s) for s in row[1].values])))
         queries = ''.join(urlquery.replace(',', '_').split())
         if '*' in queries:
             queries = queries.replace('*', 'WILDCARD')
@@ -163,8 +193,8 @@ def runQuery(argumentString):
         for col in df.columns:
             if '&gt;' in col:
                 df[col.replace('&gt;', '>')] = df.pop(col)
-        print(('Data saved to %s' % filename))
-        return df.to_json() # return the dataframe to json
+        # print(('Data saved to %s' % filename))
+        return df_main.to_json()
 
         if notifyUser:
             print(warningMessage)
