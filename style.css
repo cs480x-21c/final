@@ -1,3 +1,98 @@
+@font-face {
+    font-family: f1800s;
+    src:url(fonts/1800s-fraktur.otf);
+}
+@font-face {
+    font-family: f1820s;
+    src:url(fonts/1810s-egiziano.otf);
+}
+@font-face {
+    font-family: f1830s;
+    src:url(fonts/1830s-thorowgood.ttf);
+}
+@font-face {
+    font-family: f1840s;
+    src:url(fonts/1840s-clarendon.ttf);
+}
+@font-face {
+    font-family: f1850s;
+    src:url(fonts/1850s-bamberg.ttf);
+}
+@font-face {
+    font-family: f1860s;
+    src:url(fonts/1860s-normande.otf);
+}
+@font-face {
+    font-family: f1870s;
+    src:url(fonts/1870s-ionic.otf);
+}
+@font-face {
+    font-family: f1880s;
+    src:url(fonts/1880s-hattan.ttf);
+}
+@font-face {
+    font-family: f1890s;
+    src:url(fonts/1890s-morris.ttf);
+}
+@font-face {
+    font-family: f1900s;
+    src:url(fonts/1900s-engravers.ttf);
+}
+@font-face {
+    font-family: f1910s;
+    src:
+        url("//db.onlinewebfonts.com/t/3b303e246a0ce3c7575c1704602411f9.eot");
+    src: url("//db.onlinewebfonts.com/t/3b303e246a0ce3c7575c1704602411f9.eot?#iefix")
+    format("embedded-opentype"),
+    url("//db.onlinewebfonts.com/t/3b303e246a0ce3c7575c1704602411f9.woff2")
+    format("woff2"),
+    url("//db.onlinewebfonts.com/t/3b303e246a0ce3c7575c1704602411f9.woff")
+    format("woff"),
+    url("//db.onlinewebfonts.com/t/3b303e246a0ce3c7575c1704602411f9.ttf")
+    format("truetype"),
+    url("//db.onlinewebfonts.com/t/3b303e246a0ce3c7575c1704602411f9.svg#TypewriterGothicW01-Regular")
+    format("svg"); }
+@font-face {
+    font-family: f1920s;
+    src:url(fonts/1920s-baskerville.ttf);
+}
+@font-face {
+    font-family: f1930s;
+    src:url(fonts/1930s-playbill.ttf);
+}
+@font-face {
+    font-family: f1940s;
+    src:url(fonts/1940s-figaro.ttf);
+}
+@font-face {
+    font-family: f1950s;
+    src:url(fonts/1950s-mistral.ttf);
+}
+@font-face {
+    font-family: ocr-a-std, monospace; /* 1960s*/
+}
+@font-face {
+    font-family: f1970s;
+    src:url(fonts/1970s-friz.otf);
+}
+@font-face {
+    font-family: f1980s;
+    src:url(fonts/1980s-lcd.ttf);
+}
+@font-face {
+    font-family: f1990s;
+    src:url(fonts/1990s-elephant.ttf);
+}
+@font-face {
+    font-family: f2000s;
+    src: url("//db.onlinewebfonts.com/t/f4a42a46693c26e519d1dac35659f45d.eot");
+    src: url("//db.onlinewebfonts.com/t/f4a42a46693c26e519d1dac35659f45d.eot?#iefix") format("embedded-opentype"),
+    url("//db.onlinewebfonts.com/t/f4a42a46693c26e519d1dac35659f45d.woff2") format("woff2"),
+    url("//db.onlinewebfonts.com/t/f4a42a46693c26e519d1dac35659f45d.woff") format("woff"),
+    url("//db.onlinewebfonts.com/t/f4a42a46693c26e519d1dac35659f45d.ttf") format("truetype"),
+    url("//db.onlinewebfonts.com/t/f4a42a46693c26e519d1dac35659f45d.svg#CA Monodon") format("svg");
+}
+
 h1{
     text-align:center;
     font-family: 'Merienda', cursive;
@@ -38,6 +133,90 @@ form{
     text-align:center;
     margin-left:auto;
     margin-right:auto;
+}
+.eights {
+    font-family: f1800s;
+    font-size: 30px;
+}
+.eights-one {
+    font-family: f1810s;
+    font-size: 30px;
+}
+.eights-two {
+    font-family: f1820s;
+    font-size: 30px;
+}
+.eights-three {
+    font-family: f1830s;
+    font-size: 30px;
+}
+.eights-four {
+    font-family: f1840s;
+    font-size: 30px;
+}
+.eights-five {
+    font-family: f1850s;
+    font-size: 30px;
+}
+.eights-six {
+    font-family: f1860s;
+    font-size: 30px;
+}
+.eights-seven {
+    font-family: f1870s;
+    font-size: 30px;
+}
+.eights-eight {
+    font-family: f1880s;
+    font-size: 30px;
+}
+.eights-nine {
+    font-family: f1890s;
+    font-size: 30px;
+}
+.nines {
+    font-family: f1900s;
+    font-size: 30px;
+}
+.nines-one {
+    font-family: f1910s;
+    font-size: 30px;
+}
+.nines-two {
+    font-family: f1920s;
+    font-size: 30px;
+}
+.nines-three {
+    font-family: f1930s;
+    font-size: 30px;
+}
+.nines-four {
+    font-family: f1940s;
+    font-size: 30px;
+}
+.nines-five {
+    font-family: f1950s;
+    font-size: 30px;
+}
+.nines-six {
+    font-family: f1960s;
+    font-size: 30px;
+}
+.nines-seven {
+    font-family: f1970s;
+    font-size: 30px;
+}
+.nines-eight {
+    font-family: f1980s;
+    font-size: 30px;
+}
+.nines-nine {
+    font-family: f1990s;
+    font-size: 30px;
+}
+.oughts {
+    font-family: f2000s;
+    font-size: 30px;
 }
 
 
