@@ -7,7 +7,6 @@
     <!-- Load d3.js -->
     <script src="https://d3js.org/d3.v6.min.js"></script>
     <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
-    <script src="d3-legend.min.js"></script>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
 
@@ -279,7 +278,7 @@
                     .duration(200)
                     .style("opacity", .9);
                 // console.log(d);
-                tooltip.html("Country: " + d.id + ", " + mode + ": " + country[week][mode] )//+ "<br/> (" + xValue(d = d) + ", " + yValue(d = d) + ")")
+                tooltip.html("Country: " + d.id + ", " + mode + ": " + country[week][mode].toFixed(3) )//+ "<br/> (" + xValue(d = d) + ", " + yValue(d = d) + ")")
                     .style("left", (e.pageX) + "px")
                     .style("top", (e.pageY) + "px")
                     .style("background-color", "#00000");
