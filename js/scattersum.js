@@ -136,29 +136,19 @@ function updateScatter(type) {
     var btnF = document.getElementById("swapButton");
     var btnT = document.getElementById("swapType");
 
-    if(type == 0) {
-        if(btnF.innerHTML == "Exports") { 
-			data = btnT.innerHTML == "Growth" ? reducedExp : growthExpNom
-        } 
-        else { 
-            data = btnT.innerHTML == "Growth" ? reducedImp : growthImpNom
-		}
-    } else {
-        if(btnT.innerHTML == "Growth") { 
-            data = btnF.innerHTML == "Exports" ? growthImpNom : growthExpNom
-            btnT.innerHTML = "Total" 
-		} else { 
-            data = btnF.innerHTML == "Exports" ? reducedImp : reducedExp
-            btnT.innerHTML = "Growth" 
-		}
-    }
-    fill = btnF.innerHTML == "Exports" ? "#69b3a2" : "#C81414"
+	if (type) {
+		btnT.innerHTML = btnT.innerHTML == 'Total' ? 'Growth' : "Total" 
+	}
+
+	data = btnT.innerHTML == 'Growth' 
+		? (btnF.innerHTML == 'Imports' ? reducedImp : reducedExp)
+		: (btnF.innerHTML == 'Imports' ? growthImpNom : growthExpNom) 
+
+	var fill = btnF.innerHTML == "Exports" ? "#69b3a2" : "#C81414"
 
 	document.getElementById('scattertitle').innerHTML = getScatterTitle()
     
-    var fill;
-    //var lineDat = [{Date : 2008, Value: 0}, {Date : 2019, Value: 0}];
-
+    
 	domain = d3.extent(data, d => +d.Value)
 	domain[0] -= 1000000
 	domain[1] += 1000000
