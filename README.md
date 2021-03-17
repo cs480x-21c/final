@@ -32,3 +32,4 @@ References
 - Sorted Bar chart: https://www.d3-graph-gallery.com/graph/barplot_ordered.html
 - Interactive Bubble Chart: https://www.webtips.dev/how-to-make-interactive-bubble-charts-in-d3-js
 - Select2 dropdown feature: https://select2.org/
+- Lollipop Chart (later modified into Cleveland dot plot): https://www.d3-graph-gallery.com/graph/lollipop_basic.html
