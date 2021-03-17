@@ -164,7 +164,7 @@ def runQuery(argumentString):
             if '&gt;' in col:
                 df[col.replace('&gt;', '>')] = df.pop(col)
         print(('Data saved to %s' % filename))
-        return df.to_json()
+        return df.to_json() # return the dataframe to json
 
         if notifyUser:
             print(warningMessage)
