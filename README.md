@@ -33,3 +33,4 @@ References
 - Interactive Bubble Chart: https://www.webtips.dev/how-to-make-interactive-bubble-charts-in-d3-js
 - Select2 dropdown feature: https://select2.org/
 - Lollipop Chart (later modified into Cleveland dot plot): https://www.d3-graph-gallery.com/graph/lollipop_basic.html
+- Related Project - VISADR (Visualizing Adverse Drug Reactions): http://vda.univie.ac.at/Teaching/Vis/14s/project_finalReports/team4.pdf
