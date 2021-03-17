@@ -1,12 +1,13 @@
-var scattermargin = {top: 50, right: 30, bottom: 50, left: 70},
-scatterwidth = 1080 - scattermargin.left - scattermargin.right,
-scatterheight = 720 - scattermargin.top - scattermargin.bottom;
+var scattermargin = {top: 60, right: 300, bottom: 50, left: 70},
+scatterwidth = 1000 - scattermargin.left - scattermargin.right,
+scatterheight = 400 - scattermargin.top - scattermargin.bottom;
 
 
 var scatter
 var x = d3.scaleLinear()
         .domain([2008, 2019])
         .range([ 0, scatterwidth ]);
+var domain
 var y
 	
 
@@ -14,15 +15,17 @@ var reducedImp, reducedExp;
 var growthImpNom = [{Date: 2008, Value: 0}], growthExpNom = [{Date: 2008, Value: 0}];
 
 function formatData(data) {
-	return data.map(d => {
-		return {Date : +d.Year, Value : d.TradeValueK, TradeFlowName : d.TradeFlowName}
-	})
+	return data.filter(d => d.ProductCode.length == 1)
+		.map(d => {
+			return {Date : +d.Year, Value : d.TradeValueK, TradeFlowName : d.TradeFlowName}
+		})
 }
 
 Promise.all([
 	d3.csv("data/Tradedata.csv")
 ]).then(([data]) => {
 	data = formatData(data)
+	console.log(data)
 	buildScatterSum(data)
 })
 
@@ -83,9 +86,9 @@ function buildScatterSum(data) {
 		.attr("transform", "translate(0," + scatterheight + ")")
 		.call(d3.axisBottom(x));
 
-	var domain = d3.extent(reducedImp, function(d) { return +d.Value})
-	domain[0] -= 5000000
-	domain[1] += 5000000
+	domain = d3.extent(reducedImp, function(d) { return +d.Value})
+	domain[0] -= 1000000
+	domain[1] += 1000000
 
 	y = d3.scaleLinear()
 		.domain(domain) 
@@ -165,8 +168,8 @@ function updateScatter(type) {
     //var lineDat = [{Date : 2008, Value: 0}, {Date : 2019, Value: 0}];
 
 	domain = d3.extent(data, function(d) { return +d.Value})
-	domain[0] -= 5000000
-	domain[1] += 5000000
+	domain[0] -= 1000000
+	domain[1] += 1000000
 
     y.domain(domain)
 
