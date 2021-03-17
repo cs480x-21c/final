@@ -42,6 +42,18 @@
 
         }
 
+        #modality{
+            flex-flow: column-reverse wrap;
+        }
+
+        #modality_legend{
+            order: 1;
+        }
+
+        #modality_box{
+            order: 2;
+        }
+
         * {
 
             font-family: 'Open Sans', sans-serif;
@@ -160,15 +172,11 @@
 
     var svg = d3.select("#modality").append("svg")
         .attr("width", modality_width)
-        .attr("height", modality_height);
+        .attr("height", modality_height)
+        .attr("id","modality_box");
 
     var choropleth_legend = d3.select("#legend")
 
-    var modality_legend = d3.select("#modality")
-        .append('svg')
-        .attr('id', 'modality_legend')
-        .attr('width', 50)
-        .attr('height', modality_height);
 
     // radio background
     var background = svg.append("rect")
@@ -180,7 +188,7 @@
         .attr("ry", 5)
         .attr("fill", "#191414");
 
-    // container for buttons
+        // container for buttons
     var buttons = svg.append("g")
         .attr("id", "buttons");
 
@@ -253,6 +261,15 @@
         button.select("rect").attr("fill", pressedColor)
     }
 
+
+    //modality color legend
+    // var modality_legend = d3.select("#modality")
+    //     .append('svg')
+    //     .attr('id', 'modality_legend')
+    //     // .attr('width', 50)
+    //     // .attr('height', modality_height);
+    //     .attr('width', legend_Width)
+    //     .attr('height', legend_Height);
 
     // adapted for d3v6 from book, d3js in action
 
@@ -552,9 +569,11 @@
     var legend_Width = 300;
     var legend_Height = 50;
 
-    var key = d3.select("#legend")
+    // var key = d3.select("#legend")
+    var key = d3.select("#modality")
         .append("svg")
-        .attr("width", legend_Width)
+        .attr("id","modality_legend")
+        .attr("width", legend_Width-10)
         .attr("height", legend_Height);
 
     var legend = key.append("defs")
