@@ -1,4 +1,4 @@
-var scattermargin = {top: 60, right: 300, bottom: 50, left: 70},
+var scattermargin = {top: 60, right: 100, bottom: 50, left: 70},
 scatterwidth = 1000 - scattermargin.left - scattermargin.right,
 scatterheight = 400 - scattermargin.top - scattermargin.bottom;
 
@@ -24,9 +24,7 @@ function formatData(data) {
 Promise.all([
 	d3.csv("data/Tradedata.csv")
 ]).then(([data]) => {
-	data = formatData(data)
-	console.log(data)
-	buildScatterSum(data)
+	buildScatterSum(formatData(data))
 })
 
 function reduceFunc(allDates, d) {

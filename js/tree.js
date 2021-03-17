@@ -62,6 +62,7 @@ function treemap(year, dir) {
 		//console.log(d3.select("#treemap").node())
 
 		var node = d3.select("#kek")
+			.style('width', treewidth)
 			.style('height', treeheight)
 			.selectAll(".node")
 			.data(testing.leaves())
@@ -74,12 +75,13 @@ function treemap(year, dir) {
 			.style("fill", "#1f77b4")
 			.on("mouseover", function (d, i) {
 				var top = d3.select(this).node().getBoundingClientRect().top + window.pageYOffset;
-
+				var left = d3.select(this).node().getBoundingClientRect().left + window.pageXOffset;
+				
 				div.transition()
 					.duration(200)
 					.style("opacity", .9);
 				div.html(i.data.key + "<br/>" + "Trade Value in 1000 USD: $" + i.data.value)
-					.style("left", i.x0 + 3*(i.x1 - i.x0) / 4)
+					.style("left", left + 3*(i.x1 - i.x0)/4)
 					.style("top", top);
 			})
 			.on("mouseout", function (d) {

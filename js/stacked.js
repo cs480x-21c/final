@@ -30,7 +30,7 @@ function getTitle() {
 
 function swapView() {
 	_impFilter = !_impFilter
-	document.getElementById('title').innerHTML = getTitle()
+	document.getElementById('stacktitle').innerHTML = getTitle()
 	
 	var data = parseSortFilter(_aggData[_aggLevel])
 
@@ -121,7 +121,7 @@ function validNextLayer(aggFilter=_aggFilter) {
 }
 
 function buildChart() {
-	document.getElementById('title').innerHTML = getTitle()
+	document.getElementById('stacktitle').innerHTML = getTitle()
 
 	d3.selectAll("#chart > *").remove() //to reset the SVG when drilling down / going back
 
