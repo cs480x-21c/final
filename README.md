@@ -1,6 +1,6 @@
 Final Project - Spotify Trends
 ===
-By Nick Alescio, Hunter Caoulette, Clay Oshiro-Leavitt
+By Nick Alescio, Hunter Caouette, Clay Oshiro-Leavitt
 ---
 Project Link: URL HERE
 
