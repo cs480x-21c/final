@@ -379,15 +379,12 @@
 
         // clears entire SVG, plots entire SVG
         function updateRegion(region) {
-            //d3.selectAll("svg > *").remove()
             svg.selectAll("*").remove();
             runPlotter('region')
         }
         
         // clears circles, plots new gene expression circles
         function updateGene(gene) {
-            // rightCircles.remove()
-            // runPlotter('gene')
             rightCircles
                 .attr("fill", function(d) { return gene_color(d[gene]); })
         }
@@ -398,9 +395,6 @@
         var svg2 = d3.select("#vis-container-legend")
           .append('svg')
           .attr('transform', `translate(700,0)`)
-        //   .attr('x', 750)
-        //   .attr('y', 30)
-
           .attr('width', 500)
           .attr('height', 30);
 
