@@ -62,6 +62,7 @@ function treemap(year, dir) {
 		//console.log(d3.select("#treemap").node())
 
 		var node = d3.select("#kek")
+			.style('height', treeheight)
 			.selectAll(".node")
 			.data(testing.leaves())
 			.enter().append("div")
