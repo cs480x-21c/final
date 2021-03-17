@@ -126,20 +126,19 @@ def runQuery(argumentString):
         dataJSON = {}
 
         df_main = DataFrame()
+        firstRow = True
 
-        i = 1
         for word in wordList:
             url, urlquery, df = getNgrams(word, corpus, startYear, endYear,
                                 smoothing, caseInsensitive)
-            # print("DF WORDDDDDDDDDDDDDDD",df[word])
-            df_main.append(df, ignore_index=True)
-            print(df)
-            print("DF MAININININIIIIIN",df_main)
-            print(df[word].size)
+            if (firstRow):
+                df_main['year'] = df['year']
+                firstRow = False
+            df_main[word] = df[word]
             # dataJSON[word] = json.loads(df.to_json())
-            i+=1
 
-        # print(df_main)
+        print(df_main)
+        print(df_main.size)
 
         # url, urlquery, df = getNgrams(query, corpus, startYear, endYear,
         #                               smoothing, caseInsensitive)
