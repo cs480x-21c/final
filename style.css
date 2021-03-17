@@ -12,6 +12,13 @@
     font-size: 50px;
 
 }
+#video{
+     display: block;
+     margin: auto;
+
+ }
+
+
 
 #NameHeader{
     display: block;
