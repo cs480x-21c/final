@@ -1,3 +1,19 @@
+#Logo{
+    display: block;
+    margin: auto;
+    width: 200px;
+    height: 200px;
+}
+#Header{
+    display: block;
+    margin: auto;
+    text-align: center;
+
+    font-size: 50px;
+
+}
+
+
 .svg {
     display: block;
     margin: auto;
