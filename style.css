@@ -4,13 +4,22 @@
     width: 200px;
     height: 200px;
 }
-#Header{
+#TitleHeader{
     display: block;
     margin: auto;
     text-align: center;
 
     font-size: 50px;
 
+}
+
+#NameHeader{
+    display: block;
+    margin: auto;
+    text-align: center;
+    font-size: 20px;
+    padding-bottom: 30px;
+    padding-top: 10px;
 }
 
 
