@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>SpotypotyPy</title>
+    <title>SpotifyTrends</title>
     <!-- Load d3.js -->
     <script src="https://d3js.org/d3.v6.min.js"></script>
     <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
@@ -11,6 +11,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
 
     <style>
+        h1 {
+            text-align: center;
+        }
+        h2 {
+            text-align: center;
+        }
+        h3 {
+            text-align: center;
+        }
         #box {
             display: flex;
             flex-flow: row wrap;
@@ -79,10 +88,11 @@
 </head>
 
 <body>
-
+    <h1>Spotify Trends</h1>
+    <h2>Examining music styles through COVID-19</h2>
+    <h3>By Nick, Hunter, and Clay</h3>
 
     <div id="box">
-        <!-- <h1>SpotypotyPy</h1> -->
 
         <div id="timeline"></div>
 
@@ -425,6 +435,7 @@
         window.alert("you should probably close the tab soon")
         console.log("playing viz!")
         for (w in weekList) {
+            // console.log(weekList[w].week)
             // console.log("new week:",weekList[w].week)
             (function (w) {
                 setTimeout(
