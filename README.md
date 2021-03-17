@@ -1,6 +1,8 @@
 Final Project - World Happiness Report
 ===
 
+By Alexander Bell, Brian Earl, Haley Hauptfeld, and Pooja Patel
+
 Overview
 ---
 Our project is focused on the different measurements of happiness from countries across the world.
