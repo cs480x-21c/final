@@ -31,7 +31,7 @@
     document.body.appendChild(descriptionDiv);
 
     // Define height, width, margins for svg
-    var margin = {top: 50, right: 200, bottom: 50, left: 160},
+    var margin = {top: 50, right: 200, bottom: 50, left: 200},
         width = 1000 - margin.left - margin.right,
         height = 500 - margin.top - margin.bottom;
 
