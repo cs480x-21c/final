@@ -11,7 +11,7 @@ Final Project Materials
 ---
 * Process Book: https://docs.google.com/document/d/1pRnRqmrfz8gFOANQqlqFXqradc_Eb5xGwucz5YMEsBw/edit?usp=sharing (<-- should also probably have a pdf version of process book in the repo)
 * Project Website: https://bearl.dev/final/
-* Project Screen-Cast:
+* Project Screen-Cast: https://youtu.be/QMHNsKUiFes
 
 Outside Libraries/References
 ---
