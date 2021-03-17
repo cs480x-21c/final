@@ -15,7 +15,7 @@ chart_scrapes contains our initial data scrapes of the 200 top songs weekly per 
 
 - Data Processing
 
-This directory contains our Python data manipulation and processing scripts. The main one is main.py, which allows for all portions of the data processing pipeline to be executed through a series of command line arguments.
+This directory contains our Python data manipulation and processing scripts. The main one is main.py, which allows for all portions of the data processing pipeline to be executed through a series of command line arguments. These scripts are designed to be run from the route directory (Ex: python3 Data_Processing/main.py --function meta_add).
 
 - Datasets
 
