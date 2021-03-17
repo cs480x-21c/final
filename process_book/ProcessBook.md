@@ -35,6 +35,8 @@ insert scraping method(s) here
 
 insert cleanup method(s) here
 
+Some responses from Spotifycharts.com returned an html page rather than a csv, which was unusable for our project. To clean our response data, we would check the first line of the data - if it was an html tag, we would omit it. Otherwise, we would use the data. Fortunately, this was the only data cleaning we had to do. 
+
 Exploratory Data Analysis
 ---
 What visualizations did you use to initially look at your data? What insights did you gain? How did these insights inform your design?
@@ -48,6 +50,14 @@ Initially, we were considering keeping the data local to one country. However, w
 Implementation
 ---
 Describe the intent and functionality of the interactive visualizations you implemented. Provide clear and well-referenced images showing the key design and interaction elements.
+
+For this project, we implemented a standard choropleth with each country shaded by its reported value for a week. Countries that had no reported data were left white. 
+
+![No Data](No_data.png)
+
+To provide more detail on the various countries, we implemented a hover-tooltip functionality that would list the ISO3166 Alpha-3 country code as well the country's mode value.
+
+![Tooltip](Tooltip.png)
 
 Evaluation
 ---
