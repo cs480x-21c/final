@@ -3,7 +3,9 @@ Final Project - World Happiness Report
 
 Overview
 ---
-lorem ipsum
+Our project is focused on the different measurements of happiness from countries across the world.
+We focused on measuring world happiness reports from different countries based upon multiple factors such as:
+The economy (GDP per Capita), Family, Health (Life Expectancy), Freedom, Trust (Government Corruption), and Generosity.
 
 Final Project Materials
 ---
