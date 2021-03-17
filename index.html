@@ -1,12 +1,8 @@
 <script src="https://d3js.org/d3.v4.js"></script>
 <script src="yearlyExport.js"></script>
 <div id="my_dataviz"></div>
-<button onclick="update(reducedImp, 0)">Import</button>
-<button onclick="update(reducedExp, 1)">Export</button>
-<button onclick="update(growthImpNom, 2)">Growth Import</button>
-<button onclick="update(growthExpNom, 3)">Growth Export</button>
-
-
+<button onclick="update(0)" id="swapFlow">Export</button>
+<button onclick="update(1)" id="swapType">Growth</button>
 
 <script>
 
@@ -46,7 +42,6 @@ var svg = d3.select("#my_dataviz")
 
 var reducedImp, reducedExp;
 var growthImpNom = [{Date: 2008, Value: 0}], growthExpNom = [{Date: 2008, Value: 0}];
-var growthImpPct, growthExpPct;
 
 d3.csv("data/Tradedata.csv",
     function(d) {
@@ -101,9 +96,6 @@ function buildScatterSum(data) {
         }
     }
 
-    console.log(growthExpNom)
-    console.log(growthImpNom)
-
     svg.append("path")
     .attr("id", "curvedPath")
     .datum(reducedImp)
@@ -139,14 +131,37 @@ function buildScatterSum(data) {
     .text("Thousand Dollars")
     .attr("text-anchor", "start")
 
-    update(reducedImp, 0)
+    update(0)
 
 }
 
-function update(data, type) {
+function update(type) {
+    var data;
+    var btnF = document.getElementById("swapFlow");
+    var btnT = document.getElementById("swapType");
+
+    growthExpNom, growthImpNom, reducedExp, reducedImp;
+    if(type == 0) {
+        if(btnF.innerHTML == "Export") { 
+            if(btnT.innerHTML == "Growth") { data = reducedExp } else { data = growthExpNom }
+            btnF.innerHTML = "Import" 
+        } 
+        else { 
+            if(btnT.innerHTML == "Growth") { data = reducedImp } else { data = growthImpNom }
+            btnF.innerHTML = "Export" }
+    } else {
+        if(btnT.innerHTML == "Growth") { 
+            if(btnF.innerHTML = "Export") { data = growthImpNom } else { data = growthExpNom }
+            btnT.innerHTML = "Total" }
+        else { 
+            if(btnF.innerHTML = "Export") { data = reducedImp } else { data = reducedExp }
+            btnT.innerHTML = "Growth" }
+    }
+    if(btnF.innerHTML == "Export") { fill = "#69b3a2" } else { fill = "#C81414" }
+    
+    
     var fill;
     var lineDat = [{Date : 2008, Value: 0}, {Date : 2019, Value: 0}];
-    if (type == 0 || type == 2) { fill = "#69b3a2"} else { fill = "#C81414"}
 
     y.domain(d3.extent(data, function(d) { return +d.Value}))
 
@@ -157,7 +172,7 @@ function update(data, type) {
 
     var dashed = svg.select("#dashed")
 
-    if(type > 1) {
+    if(btnT.innerHTML == "Total") {
         dashed
             .enter()
             .append("line")
@@ -215,73 +230,4 @@ function update(data, type) {
         .attr("stroke-width", 3)
 
 }
-
-
- // Add X axis
-    
-
-    //Add the line
-    
-
-    // Add the points
-    
-
-
-        /**
-            0: "Nomenclature"
-            1: "ReporterISO3"
-            2: "ProductCode"
-            3: "ReporterName"
-            4: "PartnerISO3"
-            5: "PartnerName"            (Partner Exports TO Reporter) AND (Partner Imports FROM Reporter)
-            6: "Year"         
-            7: "TradeFlowName"                               ^^ (Export/Import) ^^
-            8: "TradeFlowCode"
-            9: "TradeValue in 1000 USD"
-            10: "Quantity"
-            11: "ProductDescription"
-            12: "QtyUnit"
-            13: "NetWeight in KGM"
-        */
-
-        /**
-                Aggregation Structure:
-
-                    Example:
-                    -0: Agricultural, forestry, and fishery products
-                        -01: Agricultural Products
-                            -011: Cash Grains and other crops
-                                -0111: Wheat
-                            -013: Field crops, except cash grains
-                                -0131: Cotton and cottonseed
-                        -02:
-                            etc
-                        -08:
-                            etc
-                        -09:
-                            etc
-
-                    -1: Mineral Commodities
-
-                    -2: Manufactured commodities
-
-                    -3: Manufactured commodities not identified by kind
-
-                    -9: Other commodities
-
-
-
-                    Structure:
-                        -Highest aggregation is single digit with 5 seperate categories listed above.
-                        -Anything within each category will start with that number followed by another number (always adding numbers to the end).
-                            -Continue with this pattern until 4 digit numbers where the final layer of aggregation is
-
-                    Example:
-                        Given the 4 digit number "3524"
-                            -Looking at "3" its identified as "Manufacture commodity not identified by kind"
-                            -Looking at "35" its identified as "Machinery, except electrical"
-                            -Looking at "352" its identified as "Farm and garden machinery equipment"
-                            -Looking at "3524" its identified as "Lawn and garden equipment, and parts, nspf" (nspf -- not specified)
-
-        */
 </script>
