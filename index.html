@@ -33,6 +33,9 @@
             var data = { "word": "cucumber" };
             fetch('https://hx4p0vdoz8.execute-api.us-east-2.amazonaws.com/deploy/getworddata', {
                 method: 'POST', // or 'PUT'
+                headers: {
+                    'Content-Type': 'application/json',
+                },
                 body: JSON.stringify(data),
             })
             .then(response => response.json())
