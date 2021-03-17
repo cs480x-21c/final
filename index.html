@@ -59,6 +59,8 @@
         span {
             margin: 10px;
         }
+
+
     </style>
 </head>
 
@@ -78,6 +80,10 @@
             <svg id="map_svg" width=960 height=600></svg>
         </div>
 
+        <button onclick="prev_week()">Load Previous Week</button>
+        <button onclick="next_week()">Load Next Week</button>
+        <button onclick="play_viz()">Play Viz!</button>
+
     </div>
 </body>
 <script>
@@ -85,7 +91,11 @@
     var width = 200
     var height = 375
 
+    
+
+    var weekList;
     var week = "2020-12-25--2021-01-01"
+    const getWeekIndex = (element) => element.week == week;
     var master_json;
     var mode = "danceability";
     var countryList;
@@ -197,6 +207,18 @@
     // adapted for d3v6 from book, d3js in action
 
 
+    function clean_wk_id(string){
+        new_str = string.replace(/-/g," ");
+        new_str = new_str.split(" ").join("_");
+        new_str = "week_" + new_str;
+        return new_str;
+    }
+
+
+
+    //-------------------------PROMISE--------------------------------------------------------------------- 
+
+
     Promise.all([
         d3.json('world.geojson'),
         d3.csv('Datasets/weeks_list.csv'),
@@ -204,32 +226,18 @@
     ]).then(([countries, weeks, master]) => {
         master_json = master
         countryList = countries
+        weekList = weeks
         console.log(master_json)
 
         createTimeline(weeks)
         createMap(countryList, master_json, week, mode)
     })
 
-    function createTimeline(weeks) {
-        // var timeline = d3.select("#timeline")
-        // console.log(weeks)
-
-        d3.select("#timeline")
-            .selectAll("p")
-            .data(weeks)
-            .enter()
-            .append("span")
-            .text(function (d) {
-                // console.log(d.week);
-                return d.week;
-            })
-            .attr("id", function (d) {
-                return d.week;
-            });
-    }
+    
 
     function drawMap(gpath, countries, week, mode, ccolor, tempoColor) {
         console.log("drawing map...")
+        // console.log("mode:",mode)
         document.getElementById('map_svg').innerHTML = "";
         d3.select('#map_svg')
             .selectAll('path')
@@ -246,7 +254,8 @@
             .attr('fill', function (d) {
 
                 var country = master_json[d.id]
-                console.log(country)
+                // console.log(country)
+
                 // not every country is represented in the data, so check whether or not we have data
                 if (typeof (country) !== 'undefined') {
                     // console.log(country[week][mode])
@@ -302,6 +311,80 @@
                 .attr('cy', d => proj([d.x, d.y])[1])
         }
 
+    }
+
+    function createTimeline(weeks) {
+        d3.select("#timeline")
+            .selectAll("p")
+            .data(weeks)
+            .enter()
+            .append("span")
+            .text(function (d) {
+                // console.log(d.week);
+                return d.week;
+            })
+            .attr("id", function (d) {
+                // return d.week;
+                console.log(clean_wk_id(d.week))
+                return clean_wk_id(d.week);
+            })
+            .on("click", function(e,d){
+                // console.log("loading map for week "+d.week);
+                format_week_label(week, this.id)
+
+                week = d.week//updates the global "week" variables
+                d3.select("#"+this.id)//update current week text
+                    .style('background-color', 'black')
+                    .style("color","red");
+                drawMap(gpath, countryList, d.week, mode, ccolor, tempoColor);
+            });
+    }
+
+    function format_week_label(old_week, new_week){
+        d3.select("#"+clean_wk_id(old_week))//reset previously selected week
+            .style('background-color', 'cadetblue')
+            .style("color","black");
+        d3.select("#"+new_week)//update current week text
+            .style('background-color', 'black')
+            .style("color","red");
+    }
+
+    function next_week(){
+        week_ind = weekList.findIndex(getWeekIndex)
+        if(week_ind == (weekList.length - 1) ){
+            window.alert("can't go any further forward")
+        }else{
+            format_week_label(week, clean_wk_id(weekList[week_ind+1].week))
+            week = weekList[week_ind+1].week
+            drawMap(gpath, countryList, week, mode, ccolor, tempoColor)
+        }
+    }
+
+    function prev_week(){
+        week_ind = weekList.findIndex(getWeekIndex)
+        if(week_ind == 0){
+            window.alert("can't go back any further")
+        }else{
+            format_week_label(week, clean_wk_id(weekList[week_ind-1].week))
+            week = weekList[week_ind-1].week
+            drawMap(gpath, countryList, week, mode, ccolor, tempoColor)
+        }
+    }
+
+    //TODO: I dont work
+    function play_viz(){
+        window.alert("you should probably close the tab soon")
+        console.log("playing viz!")
+        for(w in weekList){
+            // console.log("new week:",weekList[w].week)
+            (function(w){
+                setTimeout(
+                    drawMap(gpath, countryList, weekList[w].week, mode, ccolor, tempoColor),
+                    500
+                );
+            })(w);
+            // setTimeout(drawMap(gpath, countryList, weekList[w].week, mode, ccolor, tempoColor), 750)
+        }
     }
 </script>
 
