@@ -4,7 +4,7 @@ Team Members: Jean-Philippe Pierre, Joshua McKeen, Suryansh Goyal and Remy Alleg
 
 Link for the website: 
 
-Link for the screencast video: 
+Link for the screencast video: https://www.youtube.com/watch?v=1gstFIG0Gqs&t=1s
 
 Overview
 ---
