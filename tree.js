@@ -25,7 +25,7 @@ var nest = d3.nest()
 d3.csv("https://gist.githubusercontent.com/FelChen/fa8e7c2148e000daf2fd5edb12b43ff6/raw/1d462ac7521a8ae3e7f19007973a5fde8bea2a47/cleanish.csv", function(error, data) {
   if (error) throw error;
 
-  console.log(year)
+  //console.log(year)
 var lel = data
 // console.log(lel);
   var filtered = lel.filter(function(d) {return d.Year==year});
@@ -49,7 +49,7 @@ var div = d3.select("body").append("div")
 
 
 d3.select("#treemap").node()
-console.log(d3.select("#treemap").node())
+//console.log(d3.select("#treemap").node())
 
   var node = d3.select("#kek")
     .selectAll(".node")
@@ -78,8 +78,8 @@ console.log(d3.select("#treemap").node())
                 .style("opacity", 0); 
         });
 var bod = d3.select("#kek")
-console.log(bod)
-console.log(node)
+//console.log(bod)
+//console.log(node)
   node.append("div")
       .attr("class", "node-label")
       .text(function(d) { 
@@ -99,7 +99,7 @@ console.log(node)
 
  function hovered(hover) {
   return function(d) {
-    console.log(d.value)
+    //console.log(d.value)
     // this.append("g")
         
 
