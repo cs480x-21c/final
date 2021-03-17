@@ -6,29 +6,27 @@
 
 <button type='button' onclick='updateAll()' id='swapButton'>Exports</button>
 
-<h1 id='title'></h1>
-<h3>Left click to drill down. Right click to go back to previous aggregation level</h3>
-<svg id='chart'></svg><br>
+<div id='left'>
+	<h1 id='title'></h1>
+	<h3>Left click to drill down. Right click to go back to previous aggregation level</h3>
+	<svg id='chart'></svg><br>
 
 
 
-<div id="my_dataviz"></div>
-<button onclick="updateScatter(1)" id="swapType">Growth</button>
-
-
-
-
-<div class="slidecontainer">
-	<input type="range" min="2008" max="2019" value="2008" class="slider" id="myRange" oninput='updateYear()'>
-	<p>Year: <span id="demo"></span></p>
+	<div id="my_dataviz"></div>
+	<button onclick="updateScatter(1)" id="swapType">Growth</button>
 </div>
 
 
+<div id='right'>
+	<div class="slidecontainer">
+		<input type="range" min="2008" max="2019" value="2008" class="slider" id="myRange" oninput='updateYear()'>
+		<p>Year: <span id="demo"></span></p>
+	</div>
 
-<div class="card" id="kek"></div>
-<div class='tooltip' style='opacity: 0'></div>
-
-
+	<div class="card" id="kek"></div>
+	<div class='tooltip' style='opacity: 0'></div>
+</div>
 
 <script src='js/stacked.js'></script>
 <script src="js/scattersum.js"></script>

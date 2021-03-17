@@ -29,6 +29,18 @@ Promise.all([
 	buildScatterSum(data)
 })
 
+function reduceFunc(allDates, d) {
+	if (allDates.some(e => e.Date === d.Date)) {
+		allDates.filter(e => e.Date === d.Date)[0].Value += +d.Value
+	} else {
+		allDates.push({
+			Date: d.Date,
+			Value: +d.Value
+		})
+	}
+	   return allDates
+}
+
 
 function buildScatterSum(data) {
 	scatter = d3.select("#my_dataviz")
@@ -43,37 +55,9 @@ function buildScatterSum(data) {
     var importData = data.filter(d => d.TradeFlowName == 'Import')
     var exportData = data.filter(d => d.TradeFlowName == 'Export')
 
-    reducedImp = importData.reduce(function(allDates, d) {
-        if (allDates.some(function(e) {
-            return e.Date === d.Date
-        })) {
-            allDates.filter(function(e) {
-            return e.Date === d.Date
-            })[0].Value += +d.Value
-        } else {
-            allDates.push({
-            Date: d.Date,
-            Value: +d.Value
-            })
-        }
-    return allDates
-    }, []);
+    reducedImp = importData.reduce(reduceFunc, []);
 
-    reducedExp = exportData.reduce(function(allDates, d) {
-        if (allDates.some(function(e) {
-            return e.Date === d.Date
-        })) {
-            allDates.filter(function(e) {
-            return e.Date === d.Date
-            })[0].Value += +d.Value
-        } else {
-            allDates.push({
-            Date: d.Date,
-            Value: +d.Value
-            })
-        }
-    return allDates
-    }, []);
+    reducedExp = exportData.reduce(reduceFunc, []);
 
     for(var i = 0; i < reducedExp.length; i++) {
         if(i > 0) {
@@ -110,8 +94,8 @@ function buildScatterSum(data) {
     .attr("stroke-width", 3)
     .attr("d", d3.line()
         .curve(d3.curveCatmullRom)
-        .x(function(r) { return x(r.Date) })
-        .y(function(r) { return y(r.Value) })
+        .x(r => x(r.Date))
+        .y(r => y(r.Value))
     )
 
     scatter.append("g")
@@ -119,8 +103,8 @@ function buildScatterSum(data) {
     .data(reducedImp)
     .enter()
     .append("circle")
-        .attr("cx", function(r) { return x(r.Date) } )
-        .attr("cy", function(r) { return y(r.Value) } )
+        .attr("cx", r => x(r.Date))
+        .attr("cy", r => y(r.Value))
         .attr("r", 8)
         .attr("fill", "#C81414")
 
@@ -167,7 +151,7 @@ function updateScatter(type) {
     var fill;
     //var lineDat = [{Date : 2008, Value: 0}, {Date : 2019, Value: 0}];
 
-	domain = d3.extent(data, function(d) { return +d.Value})
+	domain = d3.extent(data, d => +d.Value)
 	domain[0] -= 1000000
 	domain[1] += 1000000
 
@@ -218,8 +202,8 @@ function updateScatter(type) {
         .merge(circ)
         .transition()
         .duration(750)
-            .attr("cx", function(d) { return x(d.Date); })
-            .attr("cy", function(d) { return y(d.Value); })
+            .attr("cx", d => x(d.Date))
+            .attr("cy", d => y(d.Value))
             .attr("r", 8)
             .attr("fill", fill)
 
@@ -231,8 +215,8 @@ function updateScatter(type) {
         .duration(750)
         .attr("d", d3.line()
             .curve(d3.curveCatmullRom)
-            .x(function(r) { return x(r.Date) })
-            .y(function(r) { return y(r.Value) }))
+            .x(r => x(r.Date))
+            .y(r => y(r.Value)))
         .attr("fill", "none")
         .attr("stroke", fill)
         .attr("stroke-width", 3)
