@@ -280,7 +280,11 @@
                         tooltip.transition()
                             .duration(200)
                             .style("opacity", 0.9);
-                        tooltip.html("Country: " + d.id + "<br/>" + mode + ": " + country[week][mode].toFixed(3))
+                        //convert value to percentage
+                        stringed = country[week][mode].toString(10)
+                        percent = stringed.substring(2,4) + "." + stringed.substring(4,5) + "%";
+                        //render tooltip
+                        tooltip.html("Country: " + d.id + "<br/>" + mode + ": " + percent)//country[week][mode].toFixed(3))
                             .style("left", (e.pageX) + "px")
                             .style("top", (e.pageY) + "px")
                     }
