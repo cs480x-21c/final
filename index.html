@@ -1,26 +1,8 @@
 <script src="https://d3js.org/d3.v6.min.js"></script>
+<script src="https://d3js.org/d3-collection.v1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-<style>
-	body {
-		font: 14px avenir;
-	}
-
-	.pointer {
-		cursor: pointer;
-	}	
-
-	.axis path,
-	.axis line {
-		fill: none;
-		stroke: #000;
-		shape-rendering: crispEdges;
-	}
-
-	.browser text {
-		text-anchor: end;
-	}
-
-</style>
+<link rel="stylesheet" href="css/style.css">
 
 <button type='button' onclick='updateAll()' id='swapButton'>Exports</button>
 
@@ -33,8 +15,23 @@
 <div id="my_dataviz"></div>
 <button onclick="updateScatter(1)" id="swapType">Growth</button>
 
+<div class="slidecontainer">
+	<input type="range" min="2008" max="2019" value="2008" class="slider" id="myRange" oninput='updateYear()'>
+	<p>Year: <span id="demo"></span></p>
+</div>
+
+<!--<input type="radio" id="in" name="gender" value="Import" onclick="updateTree(this.value)" checked="checked">-->
+<!--<label for="Imports">Imports</label><br>-->
+<!--<input type="radio" id="out" name="gender" value="Export" onclick="updateTree(this.value)">-->
+<!--<label for="Exports">Exports</label><br>-->
+
+<div class="card" id="kek"></div>
+<div class='tooltip' style='opacity: 0'></div>
+
 <script src='js/stacked.js'></script>
 <script src="js/scattersum.js"></script>
+<script src='js/tree.js'></script>
+
 
 
 <script>
@@ -42,5 +39,7 @@
 		document.getElementById('swapButton').innerHTML = _impFilter ? 'Exports' : 'Imports'
 		swapView()
 		updateScatter(0)
+		updateTree()
 	}
+
 </script>

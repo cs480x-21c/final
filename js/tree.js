@@ -1,128 +1,106 @@
 var slider = document.getElementById("myRange");
 var output = document.getElementById("demo");
 output.innerHTML = slider.value;
-var inout = "Imports"
 var year = "2008"
-slider.oninput = function() {
-  output.innerHTML = this.value;
-  const myNode = document.getElementById("kek");
-  myNode.innerHTML = '';
-  year = this.value;
-  treemap(String(this.value), inout);
+
+function updateYear() {
+	year = slider.value
+	updateTree()
 }
 
-function updateTree(value){
-  inout = value;
-  const myNode = document.getElementById("kek");
-  myNode.innerHTML = '';
-  treemap(String(year), value);
-}
-
-
-function treemap(year, dir){
-
-var svg = d3.select("#treemap")
-
-color = d3.scaleSequential([8, 0], d3.interpolateMagma)
-var width = 1260,
-    height = 1060;
-
-var nest = d3.nest()
-    .key(function(d) { return d.first; })
-    .key(function(d) { return d.second; })
-    .key(function(d) { return d.third; })
-    .key(function(d) { return d.fourth; })
-    .rollup(function(d) { return d3.sum(d, function(d) { return d.TradeValue_in_1000_USD; }); 
-  });
-
- 
-
-
-    // .append("svg")
-    // .attr("width", width)
-    // .attr("height", height)
-    // .append("g")
-
-d3.csv("https://gist.githubusercontent.com/FelChen/fa8e7c2148e000daf2fd5edb12b43ff6/raw/1d462ac7521a8ae3e7f19007973a5fde8bea2a47/cleanish.csv", function(error, data) {
-  if (error) throw error;
-
-  //console.log(year)
-var lel = data
-// console.log(lel);
-  var filtered = lel.filter(function(d) {return d.Year==year});
-  filtered = filtered.filter(function(d) {return d.TradeFlowName==dir});
-
-// console.log(filtered);
-  var root = d3.hierarchy({values: nest.entries(filtered)}, function(d) { return d.values; })
-      .sum(function(d) { return d.value; })
-      .sort(function(a, b) { return b.value - a.value; });
-
- var treemap = d3.treemap()
-    .size([width, height])
-    .padding(1)
-    .round(true);
-   var testing = treemap(root);
-
-
-var div = d3.select("body").append("div") 
-    .attr("class", "tooltip")       
-    .style("opacity", 0);
-
-
-d3.select("#treemap").node()
-//console.log(d3.select("#treemap").node())
-
-  var node = d3.select("#kek")
-    .selectAll(".node")
-    .data(testing.leaves())
-    .enter().append("div")
-      .attr("class", "node")
-      .style("left", function(d) { return d.x0 + "px"; })
-      .style("top", function(d) { return d.y0 + "px"; })
-      .style("width", function(d) { return d.x1 - d.x0 + "px"; })
-      .style("height", function(d) { return d.y1 - d.y0 + "px"; })
-      .style("fill", function(d) { return "#1f77b4";})
-      .on("mouseover", hovered(true))
-      .on("mouseout", hovered(false))
-              .on("mouseover", function(d) {    
-
-            div.transition()    
-                .duration(200)    
-                .style("opacity", .9);    
-            div .html(d.data.key + "<br/>"  + "Trade Value in 1000 USD: $" + d.data.value)  
-                .style("left", ((d.x1 + d.x0)/2) + "px")   
-                .style("top", (d.y0+100) + "px");  
-            })          
-        .on("mouseout", function(d) {   
-            div.transition()    
-                .duration(500)    
-                .style("opacity", 0); 
-        });
-var bod = d3.select("#kek")
-//console.log(bod)
-//console.log(node)
-  node.append("div")
-      .attr("class", "node-label")
-      .text(function(d) { 
-        // console.log(d)
-        return d.data.key; });
-
-  // node.append("div")
-  //     .attr("class", "node-value")
-  //     .text(function(d) { return d.parent.parent.parent.data.key + "\n" + d.parent.parent.data.key + "\n" + d.parent.data.key + "\n" + d.data.key; });
- 
-
-// return testing;
-
-});
+function updateTree() {
+	var imp = document.getElementById('swapButton').innerHTML.slice(0, -1)
+	var myNode = document.getElementById("kek");
+	myNode.innerHTML = '';
+	treemap(String(year), imp);
 }
 
 
- function hovered(hover) {
-  return function(d) {
-    //console.log(d.value)
-    // this.append("g")
-        
+function treemap(year, dir) {
+	color = d3.scaleSequential([8, 0], d3.interpolateMagma)
+	var treewidth = 1000,
+		treeheight = 800;
 
-  };
+	var nest = d3.nest()
+		.key(d => d.first)
+		.key(d => d.second)
+		.key(d => d.third)
+		.key(d => d.fourth)
+		.rollup(d => d3.sum(d, a => a.TradeValue_in_1000_USD));
+
+
+	// .append("svg")
+	// .attr("width", treewidth)
+	// .attr("height", treeheight)
+	// .append("g")
+
+	Promise.all([
+		d3.csv("https://gist.githubusercontent.com/FelChen/fa8e7c2148e000daf2fd5edb12b43ff6/raw/1d462ac7521a8ae3e7f19007973a5fde8bea2a47/cleanish.csv")
+	]).then(([data]) => {
+		//console.log(year)
+		var lel = data
+		// console.log(lel);
+		var filtered = lel.filter(d => d.Year == year);
+		filtered = filtered.filter(d => d.TradeFlowName == dir);
+
+		// console.log(filtered);
+		var root = d3.hierarchy({values: nest.entries(filtered)}, d => d.values)
+			.sum(d => d.value)
+			.sort((a, b) => b.value - a.value);
+
+		var treemap = d3.treemap()
+			.size([treewidth, treeheight])
+			.padding(1)
+			.round(true);
+		var testing = treemap(root);
+
+
+		var div = d3.select('.tooltip')
+
+
+		d3.select("#treemap").node()
+		//console.log(d3.select("#treemap").node())
+
+		var node = d3.select("#kek")
+			.selectAll(".node")
+			.data(testing.leaves())
+			.enter().append("div")
+			.attr("class", "node")
+			.style("left", d => d.x0)
+			.style("top", d => d.y0)
+			.style("width", d => d.x1 - d.x0)
+			.style("height", d => d.y1 - d.y0)
+			.style("fill", "#1f77b4")
+			.on("mouseover", function (d, i) {
+				var top = d3.select(this).node().getBoundingClientRect().top + window.pageYOffset;
+
+				div.transition()
+					.duration(200)
+					.style("opacity", .9);
+				div.html(i.data.key + "<br/>" + "Trade Value in 1000 USD: $" + i.data.value)
+					.style("left", i.x0 + 3*(i.x1 - i.x0) / 4)
+					.style("top", top);
+			})
+			.on("mouseout", function (d) {
+				div.transition()
+					.duration(500)
+					.style("opacity", 0);
+			});
+		
+		node.append("div")
+			.attr("class", "node-label")
+			.text(d => d.data.key);
+
+		// node.append("div")
+		//     .attr("class", "node-value")
+		//     .text(function(d) { return d.parent.parent.parent.data.key + "\n" + d.parent.parent.data.key + "\n" + d.parent.data.key + "\n" + d.data.key; });
+
+
+		// return testing;
+	})
+
+	
 }
+
+
+treemap("2008", "Import");
