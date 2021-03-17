@@ -1,7 +1,7 @@
 Final Project - Visualizing Gene Expression in the Brain  
 ===
 Victoria Grasso, Josh Lovering, Nicole Shedd
-==
+-
 
 Link to project website: https://nshedd.github.io/final/index
 
