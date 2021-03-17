@@ -101,7 +101,7 @@
         </div>
 
         <div id="map">
-            <svg id="map_svg" width=960 height=600></svg>
+            <svg id="map_svg" width=1200 height=800></svg>
         </div>
 
         <button onclick="prev_week()">Load Previous Week</button>
@@ -112,8 +112,10 @@
 </body>
 <script>
     // Example code taken from http://bl.ocks.org/nikhilNathwani/5dca6c63a53934185d05
-    var width = 200
-    var height = 375
+    var modality_width = 200
+    var modality_height = 375
+    const map_width = 1200;
+    const map_height = 800;
 
 
 
@@ -147,8 +149,8 @@
             );
 
     var svg = d3.select("#modality").append("svg")
-        .attr("width", width)
-        .attr("height", height);
+        .attr("width", modality_width)
+        .attr("height", modality_height);
 
     // radio background
     var background = svg.append("rect")
@@ -198,7 +200,7 @@
             }
         });
 
-    var bWidth = width - 30; // button width
+    var bWidth = modality_width - 30; // button width
     var bHeight = 30; // button height
     var bSpace = 10; // space between buttons
     var x0 = 15; // x offset
@@ -344,8 +346,10 @@
             .on('zoom', zoomed);
 
         var zoomSettings = d3.zoomIdentity
-            .translate(410, 300)
-            .scale(210);
+            // .translate(520, 420)
+            .translate((map_width*.43),(map_height*.525))
+            // .scale(210);
+            .scale(290);
 
         d3.select('#map_svg')
             .call(mapZoom)
