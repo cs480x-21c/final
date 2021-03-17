@@ -21,6 +21,13 @@ function formatData(data) {
 		})
 }
 
+function getScatterTitle() {
+	var str = document.getElementById("swapType").innerHTML != 'Growth' ? 'Growth in ' : 'Net '
+	str += _impFilter ? 'Brazilian Imports from the USA' : 'Brazilian Exports to the USA'
+	console.log(str)
+	return str
+}
+
 Promise.all([
 	d3.csv("data/Tradedata.csv")
 ]).then(([data]) => {
@@ -41,6 +48,8 @@ function reduceFunc(allDates, d) {
 
 
 function buildScatterSum(data) {
+	document.getElementById('scattertitle').innerHTML = getScatterTitle()
+
 	scatter = d3.select("#my_dataviz")
         .append("svg")
         .attr("width", scatterwidth + scattermargin.left + scattermargin.right)
@@ -124,7 +133,7 @@ function buildScatterSum(data) {
 }
 
 function updateScatter(type) {
-    var data;
+	var data;
     var btnF = document.getElementById("swapButton");
     var btnT = document.getElementById("swapType");
 
@@ -145,6 +154,8 @@ function updateScatter(type) {
 		}
     }
     fill = btnF.innerHTML == "Exports" ? "#69b3a2" : "#C81414"
+
+	document.getElementById('scattertitle').innerHTML = getScatterTitle()
     
     var fill;
     //var lineDat = [{Date : 2008, Value: 0}, {Date : 2019, Value: 0}];

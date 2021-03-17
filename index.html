@@ -13,16 +13,17 @@
 	<svg id='chart'></svg><br>
 
 
-
-	<div id="my_dataviz"></div>
+	<h1 id='scattertitle'></h1>
+	<h3 style='display: inline-block'>Click this button to switch between growth over time and total value: </h3>
 	<button onclick="updateScatter(1)" id="swapType">Growth</button>
+	<div id="my_dataviz"></div>
 </div>
 
 
 <div id='right' style='float:left'>
 	<div class="slidecontainer">
+		<p style='margin:0'>Year: <span id="demo"></span></p>
 		<input type="range" min="2008" max="2019" value="2008" class="slider" id="myRange" oninput='updateYear()'>
-		<p>Year: <span id="demo"></span></p>
 	</div><br>
 
 	<div class="card" id="kek" style='float:left'></div>

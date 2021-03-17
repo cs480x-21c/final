@@ -22,7 +22,7 @@ Promise.all([
 	buildChart()
 })
 
-function getTitle() {
+function getStackTitle() {
 	var str = _impFilter ? 'Brazilian Imports from the USA: ' : 'Brazilian Exports to the USA: '
 	str += _aggLevel == 0 ? 'Overall' : _sicTable[_aggFilter]
 	return str
@@ -30,7 +30,7 @@ function getTitle() {
 
 function swapView() {
 	_impFilter = !_impFilter
-	document.getElementById('stacktitle').innerHTML = getTitle()
+	document.getElementById('stacktitle').innerHTML = getStackTitle()
 	
 	var data = parseSortFilter(_aggData[_aggLevel])
 
@@ -121,7 +121,7 @@ function validNextLayer(aggFilter=_aggFilter) {
 }
 
 function buildChart() {
-	document.getElementById('stacktitle').innerHTML = getTitle()
+	document.getElementById('stacktitle').innerHTML = getStackTitle()
 
 	d3.selectAll("#chart > *").remove() //to reset the SVG when drilling down / going back
 
