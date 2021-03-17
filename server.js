@@ -70,6 +70,9 @@ app.get('/redirectPage', function(req, res) {
     if (chartType === 'checkPositive') {
         res.sendFile(__dirname + '/views/positiveStatistics.html')
     }
+    if (chartType === 'checkAirport') {
+        res.sendFile(__dirname + '/views/airport.html')
+    }
 });
 
 app.get('/getIdTypeCsv', function( req, res ){

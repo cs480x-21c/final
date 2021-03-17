@@ -121,6 +121,7 @@ d3.json('us.json', function(error, data) {
 function selectThis(id){
     document.getElementById("checkDeath").checked = false
     document.getElementById("checkPositive").checked = false
+    document.getElementById("checkAirport").checked = false
 
     document.getElementById(id).checked = true;
     fetch("/postType", {
