@@ -110,13 +110,17 @@ function drawTreeMap() {
     }
 
     // rightClickCell function to remove course
-    let rightClickCell = function(d) {
-        d3.select(this)
-          .remove()
-        let clickIndex = e.sourceEvent.path
-            .findIndex(el => el.id === "treeContainer");
+    let rightClickCell = function(e, d) {
+        // Prevent right click context menu from showing up
+        e.preventDefault();
 
-        currCourses.splice(clickIndex, 1)
+        let department = d.id.split(" ")[0];
+        let code = d.id.split(" ")[1];
+
+        currCourses = currCourses.filter(course => {
+            return (course.department_code !== department) || (course.code !== code)
+        })
+
         drawTreeMap();
     }
 
