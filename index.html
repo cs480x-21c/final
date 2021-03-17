@@ -275,13 +275,15 @@
 
                 var country = master_json[d.id]
                 if (typeof (country) !== 'undefined') {
-                    console.log(country[week][mode])
-                    tooltip.transition()
-                        .duration(200)
-                        .style("opacity", 0.9);
-                    tooltip.html("Country: " + d.id + "<br/>" + mode + ": " + country[week][mode].toFixed(3))
-                        .style("left", (e.pageX) + "px")
-                        .style("top", (e.pageY) + "px")
+                    if (typeof (country[week]) !== 'undefined') {
+                        console.log(country[week][mode])
+                        tooltip.transition()
+                            .duration(200)
+                            .style("opacity", 0.9);
+                        tooltip.html("Country: " + d.id + "<br/>" + mode + ": " + country[week][mode].toFixed(3))
+                            .style("left", (e.pageX) + "px")
+                            .style("top", (e.pageY) + "px")
+                    }
                 }
             })
             .on("mouseout", function (d) {
@@ -291,18 +293,23 @@
             })
             .attr('fill', function (d) {
                 var country = master_json[d.id]
-
                 // not every country is represented in the data, so check whether or not we have data
                 if (typeof (country) !== 'undefined') {
-                    // console.log(country[week][mode])
-                    if (mode === 'tempo') {
-                        return tempoColor(country[week][mode]);
+                    if (typeof (country[week]) !== 'undefined') {
+                        // console.log(country[week][mode])
+                        if (mode === 'tempo') {
+                            return tempoColor(country[week][mode]);
+                        }
+                        else {
+                            return ccolor(country[week][mode]);
+                        }
                     }
                     else {
-                        return ccolor(country[week][mode]);
+                        return "#0000"
                     }
                 }
-                else{
+
+                else {
                     return "#0000"
                 }
             });
