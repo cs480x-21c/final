@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<script src="https://d3js.org/d3.v4.js"></script>
+<button type="button" onclick="goBack()">Back</button>
+<div id="vis"></div>
+<style>
+    .bubbles:hover {
+        stroke: black;
+    }
+</style>
+<script>
+    function goBack() {
+        window.location.href = "index.html";
+    }
+
+    console.log(d3);
+
+    // dimensions&&margins
+    var mgn = { top: 20, rgt: 20, btm: 60, lft: 90 },
+        wid = window.innerWidth - mgn.lft - mgn.rgt - 8,
+        hgt = window.innerHeight - mgn.top - mgn.btm - 80;
+
+    var svg = d3.select("#vis")
+        .append("svg")
+        .attr("width", wid + mgn.lft + mgn.rgt)
+        .attr("height", hgt + mgn.top + mgn.btm)
+        .append("g")
+        .attr("transform", "translate(" + mgn.lft + "," + mgn.top + ")");
+
+    // load csv
+    d3.csv("https://raw.githubusercontent.com/xchen0326/final/main/AirportStats.csv", function (data) {
+
+        // x&&y axes
+        var x = d3.scaleLinear()
+            .domain([0, 4])
+            .range([0, wid]);
+        svg.append("g")
+            .attr("transform", "translate(0, " + hgt + ")")
+            .call(d3.axisBottom(x));
+
+        var y = d3.scaleTime()
+            .domain([new Date("2020-03-06T01:00"), new Date("2021-03-07T01:00")])
+            .range([hgt, 0]);
+        svg.append("g")
+            .call(d3.axisLeft(y));
+
+
+        // bubble size&&color
+        var siz = d3.scaleLinear()
+            .domain([0, 60000])
+            .range([5, 9]);
+
+        // tooltip
+        var toolTip = d3.select("#vis")
+            .append("div")
+            .style("opacity", 0)
+            .attr("class", "tooltip")
+            .style("background-color", "black")
+            .style("border-radius", "5px")
+            .style("padding", "10px")
+            .style("color", "white")
+        var showTT = function (d) {
+            toolTip
+                .transition()
+                .duration(200)
+            toolTip
+                .style("opacity", 1)
+                .html("Current deaths in " + d.State + " : " + d.CurrentDeaths)
+                .style("left", (d3.mouse(this)[0] + 30) + "px")
+                .style("top", (d3.mouse(this)[1] + 30) + "px")
+        }
+        var moveTT = function (d) {
+            toolTip
+                .style("left", (d3.mouse(this)[0] + 30) + "px")
+                .style("top", (d3.mouse(this)[1] + 30) + "px")
+        }
+        var hideTT = function (d) {
+            toolTip
+                .transition()
+                .duration(100)
+                .style("opacity", 0)
+        }
+
+        // bubbles
+        svg.append('g')
+            .selectAll("dot")
+            .data(data)
+            .enter()
+            .append("circle")
+            .attr("class", "bubbles")
+            .attr("cx", function (d) { return x(d.AirportsPer1KPeople); })
+            .attr("cy", function (d) { return y(new Date(d.Date1000Deaths + "T01:00")); })
+            .attr("r", function (d) { return siz(d.CurrentDeaths); })
+            .style("fill", "#3344BB88")
+            .attr('stroke', "#00000088")
+            .attr('stroke-width', 2)
+            .on("mouseover", showTT)
+            .on("mousemove", moveTT)
+            .on("mouseleave", hideTT);
+
+        // axes labels
+        svg.append("text")
+            .attr("x", (mgn.lft + wid)/2)
+            .attr("y", mgn.top + hgt + 35)
+            .text("Airports per 1000 people")
+            .style("text-anchor", "middle")
+            .style("font-size", "20px");
+        svg.append("text")
+            .attr("x", -(mgn.top + hgt/2))
+            .attr("y", -70)
+            .attr("transform", "rotate(-90)")
+            .text("Date death toll reached 1000")
+            .style("text-anchor", "middle")
+            .style("font-size", "20px");
+
+    })
+</script>
