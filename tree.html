@@ -63,32 +63,7 @@ div.tooltip {
   <label for="Imports">Imports</label><br>
   <input type="radio" id="out" name="gender" value="Export" onclick="updateTree(this.value)">
   <label for="Exports">Exports</label><br>
-<script>
-var slider = document.getElementById("myRange");
-var output = document.getElementById("demo");
-output.innerHTML = slider.value;
-var inout = "Imports"
-var year = "2008"
-slider.oninput = function() {
-  output.innerHTML = this.value;
-  const myNode = document.getElementById("kek");
-  myNode.innerHTML = '';
-  year = this.value;
-  treemap(String(this.value), inout);
-}
-
-function updateTree(value){
-  inout = value;
-  const myNode = document.getElementById("kek");
-  myNode.innerHTML = '';
-  treemap(String(year), value);
-}
-
-</script>
   
-<p>
-  dasfasdf
-</p>
 <div>
 <!-- <svg id="treemap" width="1260" height="1060"></svg> -->
 </div>

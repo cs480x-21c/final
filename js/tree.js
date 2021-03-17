@@ -1,3 +1,24 @@
+var slider = document.getElementById("myRange");
+var output = document.getElementById("demo");
+output.innerHTML = slider.value;
+var inout = "Imports"
+var year = "2008"
+slider.oninput = function() {
+  output.innerHTML = this.value;
+  const myNode = document.getElementById("kek");
+  myNode.innerHTML = '';
+  year = this.value;
+  treemap(String(this.value), inout);
+}
+
+function updateTree(value){
+  inout = value;
+  const myNode = document.getElementById("kek");
+  myNode.innerHTML = '';
+  treemap(String(year), value);
+}
+
+
 function treemap(year, dir){
 
 var svg = d3.select("#treemap")
