@@ -81,5 +81,3 @@ Resources
 [4] https://www.oecd.org/social/expenditure.htm><br>
 [5] https://www.thebalance.com/u-s-military-budget-components-challenges-growth-3306320<br>
 [6] https://www.usgovernmentrevenue.com/downloadbr>
-
-![image](https://user-images.githubusercontent.com/45675564/111183794-ad079800-8586-11eb-933a-8268332903a3.png)
