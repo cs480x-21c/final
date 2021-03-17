@@ -14,7 +14,7 @@ def lambda_handler(event, context):
         'statusCode': 200,
         'headers': {
             'Access-Control-Allow-Headers': 'application/json',
-            'Access-Control-Allow-Origin': 'https://philologybot.github.io',
+            'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
         },
         'body': runQuery(words),
