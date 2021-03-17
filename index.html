@@ -4,16 +4,18 @@
 
 <link rel="stylesheet" href="css/style.css">
 
+<h1>Brazilian trade with the United States</h1>
+<h3 style='display: inline-block'>Click this button to switch between imports and exports: </h3>
 <button type='button' onclick='updateAll()' id='swapButton'>Exports</button>
 <br>
 
 <div id='left' style='float:left'>
-	<h1 id='stacktitle'></h1>
+	<h2 id='stacktitle'></h2>
 	<h3>Left click to drill down. Right click to go back to previous aggregation level</h3>
 	<svg id='chart'></svg><br>
 
 
-	<h1 id='scattertitle'></h1>
+	<h2 id='scattertitle'></h2>
 	<h3 style='display: inline-block'>Click this button to switch between growth over time and total value: </h3>
 	<button onclick="updateScatter(true)" id="swapType">Growth</button>
 	<div id="my_dataviz"></div>
@@ -21,7 +23,7 @@
 
 
 <div id='right' style='float:left'>
-	<h1 id='treetitle'></h1>
+	<h2 id='treetitle'></h2>
 	<h3>Move slider to look at different years. Hover over a product for more details.</h3>
 	<div class="slidecontainer">
 		<p style='margin:0'>Year: <span id="demo"></span></p>
@@ -29,7 +31,7 @@
 	</div>
 	<h3>Move slider to look at different aggregation levels.</h3>
 	<div class="slidecontainer">
-		<p style='margin:0'>Aggregation Level: <span id="Agg"></span></p>
+		<p style='margin:0'>Aggregation Level: <span id="Agg">1</span></p>
 		<input type="range" min="1" max="4" value="1" class="slider" id="myAgg" oninput='updateAgg()'>
 	</div><br>
 
