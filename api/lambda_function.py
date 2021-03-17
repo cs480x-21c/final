@@ -12,6 +12,11 @@ def lambda_handler(event, context):
     print(words)
     return {
         'statusCode': 200,
+        'headers': {
+            'Access-Control-Allow-Headers': 'Content-Type',
+            'Access-Control-Allow-Origin': 'https://philologybot.github.io',
+            'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
+        },
         'body': runQuery(words),
         'event': event
     }
