@@ -15,6 +15,8 @@ Related Work
 ---
 Anything that inspired you, such as a paper, a web site, visualizations we discussed in class, etc.
 
+![Historic Borders inspiration](historicborders.png)
+
 Questions
 ---
 What questions are you trying to answer? How did these questions evolve over the course of the project? What new questions did you consider in the course of your analysis?
@@ -25,7 +27,9 @@ insert data discussion here
 
 ### Sources
 
-Spotifycharts.com
+- Spotify Data Catalogue (Web API pulls from here)
+- Spotifycharts.com
+
 
 ### Scraping
 
@@ -43,9 +47,22 @@ What visualizations did you use to initially look at your data? What insights di
 
 Design Evolution
 ---
-What are the different visualizations you considered? Justify the design decisions you made using the perceptual and design principles you learned in the course. Did you deviate from your proposal?
+Initially, we were considering keeping the data local to one country. However, we all wanted to experiement with geospatial data representations and map/choropleth visualizations. Due to the granularity of the data (only resolves on the country level), we opted to expand our project to a global scale.
 
-Initially, we were considering keeping the data local to one country. However, we all wanted to experiement with geospatial data representations and map/choropleth visualizations. Due to the granularity of the data (only resolves on the country level), we opted to expand our project to a global scale. 
+Because each song in Spotify has many normalized characteristics such as loudness (how loud a song is) and valence (how "happy" a song is), we wanted to make a visualization that could easily allow the viewer to see the differences in values for each of these characteristics for each country's top songs. We decided a color scale would work best to show these differences in values for each characteristic. Given that each country's top songs would be averaged together for each characteristic, we decided to make a choropleth map so as to best show these aggregate summaries. The idea here is that the user will be able to select a characteristic (modality) and a specific week from a timeline, and each country will average its top songs for the specified week to show the average value for that modality. Our hope for this is that we will be able to easily tell changes in average music valence, length, and so on over time, specifically over the course of the COVID-19 pandemic.
+
+Our first layout prototype for our web page looked like this:
+
+![First Prototype Layout](layout_prototype1.png)
+
+Rather than having a dedicated detail view panel, we decided tooltips would be more ideal, so we changed the layout prototype to this (and added some notes for each block's purpose):
+
+![Second Prototype Layout](layout_prototype2.png)
+
+Here was our initial implementation and testing of a choropleth map with a modality picker and timeline:
+
+![Initial progress](initial-design.png)
+
 
 Implementation
 ---
