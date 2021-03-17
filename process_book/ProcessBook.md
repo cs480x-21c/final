@@ -31,9 +31,9 @@ insert data discussion here
 - Spotifycharts.com
 
 
-### Scraping
+### Scraping and Data Processing
 
-insert scraping method(s) here
+To obtain our data, we wrote a scraping scripe in Python to repeatedly query the Spotifycharts.com webpage. Each query would return a CSV that we would then write to a file. Once we had our lists of songs, we stitched the separate CSVs into a single master 'songs' CSV. From this, we collapsed it into a smaller CSV of unique songs. Based on our unique songs, we used the track reference URL to pull the metadata for each track. We then created new files mapping our songs to the metadata, and were able to calculate summary statistics for each country's weekly top 200 songs. After this, we created a new JSON file that held each country's data keyed by the ISO3166 Alpha-3 country code. This format was then used by our visualization.
 
 ### Cleanup
 
