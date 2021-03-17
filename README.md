@@ -20,6 +20,10 @@ Outside Libraries/References
 * https://www.kaggle.com/unsdsn/world-happiness
 * https://stats.oecd.org/Index.aspx?DataSetCode=BLI
 * https://www.d3-graph-gallery.com/graph/choropleth_hover_effect.html
+* https://learning.oreilly.com/library/view/visualization-analysis-and/9781466508910/K14708_C010.xhtml
+* http://www.alexanderbastidasfry.com/happy/
+* https://mrkchoi.github.io/WHR_data_visualization/
+
 
 
 
