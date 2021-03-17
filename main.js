@@ -221,6 +221,7 @@ function drawTreeMap() {
         .verticalAlign("middle")
         .select(svg.node())
         .render();
+    initStatistics();
 }
 
 // initCourseCatalog() sets up the course catalog
@@ -317,6 +318,153 @@ function initCourseCatalog() {
 
 // initStatistics() sets up the statistics view
 function initStatistics() {
+    d3.select("#statContainer").selectAll("*").remove();
+    console.log("hello");
+    d3.select("#statContainer")
+        .append("div")
+        .attr("id","mainStat");
+    d3.select("#mainStat")
+        .append("div")
+        .attr("id","container1")
+        .attr("class","style1container");
+    d3.select("#mainStat")
+        .append("div")
+        .attr("id","container2")
+        .attr("class", "style2container");
+    d3.select("#mainStat")
+        .append("div")
+        .attr("id", "container3")
+        .attr("class","style2container");
+
+    const generalCredit = d3.select("#container1");
+    const neededCredit = d3.select("#container2");
+    const preRec = d3.select("#contianer3");
+    
+    function generalCreditData(){
+        console.log(currCourses);
+        let creditSum = 0;
+        var i;
+        for (i = 0; i < currCourses.length; i++) {
+            creditSum += parseFloat(currCourses[i].credits);
+        }
+        return creditSum;
+    };
+
+    $(function(){
+        var mainWidth = $('#mainStat').innerWidth();
+        var mainHeight = $('#mainStat').height();
+
+        $('.style2container').innerWidth(mainWidth*0.92);
+
+        $('.style2Header')
+            .css({
+                'height': (mainHeight * 0.1),
+                'width':'100%',
+                'box-sizing': 'border-box'
+            });
+
+
+        $('.minContainerStyle1').outerWidth(mainWidth*0.28);
+        $('.minContainerStyle1').css({
+            'margin-left': (mainWidth * 0.01),
+            'margin-right': (mainWidth * 0.01),
+            'height': (mainHeight * 0.18)
+        });
+        $(".testStyle1").css({
+            'height': (mainHeight * 0.1),
+            'width': (mainWidth * 0.84),
+            'margin-left': (mainWidth * 0.04),
+            'margin-right': (mainWidth * 0.04)
+        });
+    });
+
+    generalCredit
+        .append("div")
+        .attr("class","testStyle1")
+        .each(function(d){
+            const entry = d3.select(this);
+            entry.append("text").attr("class","overviewText")
+                .text("Credits " + generalCreditData() + "/135")
+                .attr("margins",10);
+
+        });
+
+    d3.selectAll("#container2")
+        .append("div")
+        .attr("class","style2Header")
+        .append("text")
+            .text("Current Credits");
+    d3.selectAll("#container3")
+        .append("div")
+        .attr("class","style2Header")
+        .append("text")
+            .text("Needed Credits");
+
+    const creditHours = function (){
+        var CScreditHours = 0;
+        var MAcreditHours = 0;
+        var OthercreditHours = 0;
+        var i;
+        for (i = 0; i<currCourses.length; i++) {
+            if(currCourses[i].department_code === "CS"){
+                CScreditHours += parseFloat(currCourses[i].credits);
+            }
+            else if(currCourses[i].department_code === "MA"){
+                MAcreditHours += parseFloat(currCourses[i].credits);
+            }
+            else{
+                OthercreditHours += parseFloat(currCourses[i].credits);
+            }
+
+        }
+        return [{"department":"CS","credits":CScreditHours,"neededCredits":54}, {"department":"MA","credits": MAcreditHours,"neededCredits":21},{"department":"Other","credits": OthercreditHours,"neededCredits":60}];
+    }
+
+
+
+    neededCredit.selectAll("svg")
+        .data(creditHours())
+        .enter()
+        .append("svg")
+        .attr("class", "minContainerStyle1")
+        .each(function(d){
+            const entry = d3.select(this);
+            entry.append("text")
+                .text(d.department)
+                .attr("text-fill","black")
+                .attr("font-size",20)
+                .attr("x",$('.minContainerStyle1').width()/2)
+                .attr("y",$('.minContainerStyle1').height()/4);
+
+            entry.append("text")
+                .text(d.credits)
+                .attr("text-fill","black")
+                .attr("font-size",20)
+                .attr("x",$('.minContainerStyle1').width()/2)
+                .attr("y",$('.minContainerStyle1').height()/2);
+        });
+
+    d3.select("#container3").selectAll("svg")
+        .data(creditHours())
+        .enter()
+        .append("svg")
+        .attr("class", "minContainerStyle1")
+        .each(function(d){
+            const entry = d3.select(this);
+            entry.append("text")
+                .text(d.department)
+                .attr("text-fill","black")
+                .attr("font-size",20)
+                .attr("x",$('.minContainerStyle1').width()/2)
+                .attr("y",$('.minContainerStyle1').height()/4);
+
+            entry.append("text")
+                .text(Math.max(d.neededCredits-d.credits, 0))
+                .attr("text-fill","black")
+                .attr("font-size",20)
+                .attr("x",$('.minContainerStyle1').width()/2)
+                .attr("y",$('.minContainerStyle1').height()/2);
+        });
 
 }
 
@@ -394,7 +542,6 @@ function main() {
     loadData().then(d => {
         drawTreeMap();
         initCourseCatalog();
-        initStatistics();
         mdc.autoInit();
     });
 
