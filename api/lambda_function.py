@@ -10,6 +10,8 @@ def lambda_handler(event, context):
     words = event["word"]
     print("test print")
     print(words)
+    data = runQuery(words)
+    
     return {
         'statusCode': 200,
         'headers': {
@@ -17,7 +19,7 @@ def lambda_handler(event, context):
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
         },
-        'body': runQuery(words),
+        'body': json.dumps(data),
         'event': event
     }
 
