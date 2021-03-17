@@ -2,7 +2,7 @@ Final Project - Interactive Data Visualization
 ===
 Team Members: Jean-Philippe Pierre, Joshua McKeen, Suryansh Goyal and Remy Allegro
 
-Link for the website: 
+Link for the website: https://suryanshg.github.io/final/
 
 Link for the screencast video: https://www.youtube.com/watch?v=1gstFIG0Gqs&t=1s
 
