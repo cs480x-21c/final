@@ -23,6 +23,17 @@ fs.createReadStream('./all-states-history.csv')
         //do something with csvData
         // console.log(csvData);
     });
+var populationData = []
+fs.createReadStream('./all-states-population.csv')
+    .pipe(parse({delimiter: ','}))
+    .on('data', function(csvrow) {
+        // console.log(csvrow);
+        populationData.push(csvrow);
+    })
+    .on('end',function() {
+        //do something with csvData
+        // console.log(populationData);
+    });
 
 
 
@@ -54,7 +65,7 @@ app.post('/postType',  bodyparser.json(), function( req, res ){
 
 app.get('/redirectPage', function(req, res) {
     if (chartType === 'checkDeath') {
-        res.sendFile(__dirname + '/views/deathStatistics.html')
+        res.sendFile(__dirname + '/views/index_final.html')
     }
     if (chartType === 'checkPositive') {
         res.sendFile(__dirname + '/views/positiveStatistics.html')
@@ -66,5 +77,17 @@ app.get('/getIdTypeCsv', function( req, res ){
         stateId: stateID,
         chartType: chartType,
         rawCsv: csvData
+    }))
+})
+
+app.get('/getCsv', function( req, res ){
+    res.end(JSON.stringify({
+        rawCsv: csvData
+    }))
+})
+
+app.get('/getPopulationCsv', function( req, res ){
+    res.end(JSON.stringify({
+        rawPopulationCsv: populationData
     }))
 })

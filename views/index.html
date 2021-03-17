@@ -21,10 +21,25 @@
         <input type="button" value="Get Value" onclick="redirectPage()"/>
     </label>
 </div>
+<div style="top: 50px; position: absolute;left: 50px">
+    <label for="colorType">
+        <input type="checkbox" id="colorTotal" name="colorType" value="total" onclick="colorselectThis(this.id)" checked/>Total Death
+        </br>
+        <input type="checkbox" id="colorPerPpl" name="colorType" value="perPpl" onclick="colorselectThis(this.id)"/>Death Per Ppl
+        </br>
+    </label>
+</div>
+<!--<div id="perArea" style="position: absolute">See k</div>-->
 <div id="tooltip" style="position: absolute">
     <!--hello world-->
 </div>
 
 </body>
+<script>
+    window.onload = function (){
+        document.getElementById('colorTotal').checked = true
+        document.getElementById('colorPerPpl').checked = false
+    }
+</script>
 <script defer src="/script.js"></script>
 </html>

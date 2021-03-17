@@ -6,6 +6,34 @@ body{
 #usMap, #deathStats{
     background-color: #efefef;
 }
-#positiveStats{
+#positiveStats, #positiveStatsLine{
     background-color: dimgray;
+}
+#perArea{
+    position: absolute;
+    left: 20px;
+    top: 20px;
+}
+
+/*svg {*/
+/*    font: 20px sans-serif;*/
+/*}*/
+
+.area {
+    fill: steelblue;
+}
+
+.axis path,
+.axis line {
+    fill: black;
+    stroke: #100;
+    shape-rendering: crispEdges;
+}
+
+
+
+.brush .extent {
+    stroke: #fff;
+    fill-opacity: .125;
+    shape-rendering: crispEdges;
 }

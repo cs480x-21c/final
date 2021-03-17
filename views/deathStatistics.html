@@ -4,17 +4,335 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="/style.css">
-    <script src="https://d3js.org/d3.v6.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
-    <script src="http://d3js.org/d3.v4.min.js"></script>
+<!--    <script src="http://d3js.org/d3.v3.min.js"></script>-->
+    <script src="http://d3js.org/d3.v3.min.js"></script>
 </head>
 <body>
-<svg id="deathStats"></svg>
+<!--<svg id="deathStats"></svg>-->
 </body>
 <script>
+    let stateName
+    let stateId
+    let stateMatchUp = {1:'AL', 2:'AK', 4:'AZ', 5:'AR', 6:'CA', 8:'CO', 9:'CT',
+        10:'DE', 11:'DC', 12:'FL', 13:'GA', 15:'HI', 16:'ID', 17:'IL', 18:'IN',
+        19:'IA', 20:'KS', 21:'KY', 22:'LA', 23:'ME', 24:'MD', 25:'MA', 26:'MI',
+        27:'MN', 28:'MS', 29:'MO', 30:'MT', 31:'NE', 32:'NV', 33:'NH', 34:'NJ',
+        35:'NM', 36:'NY', 37:'NC', 38:'ND', 39:'OH', 40:'OK', 41:'OR', 42:'PA',
+        44:'RI', 45:'SC', 46:'SD', 47:'TN', 48:'TX', 49:'UT', 50:'VT', 51:'VA',
+        53:'WA', 54:'WV', 55:'WI', 56:'WY'}
     window.onload = function(){
-        getIdTypeCsv()
+        fetch("/getIdTypeCsv", {
+            method: "Get",
+        })
+            .then(response => response.json())
+            .then(response => {
+                stateId = response.stateId
+            })
+        stateName = stateMatchUp[parseInt(stateId)]
+
+        brushing_plot(stateName)
     }
+
+    function brushing_plot(state){
+
+        const left_dis = 80
+        const right_dis = 10
+
+        const margin = {top: 10, right: right_dis, bottom: 400, left: left_dis},
+            margin2 = {top: 370, right: right_dis, bottom: 230, left: left_dis},
+            margin3 = {top: 530, right: right_dis, bottom: 100, left: left_dis},
+
+            width = 1300 - margin.left - margin.right,
+
+            height = 700 - margin.top - margin.bottom,    // y axis height of the first graph
+            height2 = 700 - margin2.top - margin2.bottom, // y axis height of the second graph
+            height3 = 700 - margin3.top - margin3.bottom; // y axis height of the second graph
+
+
+        const parseDate = d3.time.format("%Y-%m-%d").parse; // parse the date
+
+        const x = d3.time.scale().range([0, width]),
+            x2 = d3.time.scale().range([0, width]),
+            x3 = d3.time.scale().range([0, width]),
+
+            y = d3.scale.linear().range([height, 0]),
+            y2 = d3.scale.linear().range([height2, 0]),
+            y3 = d3.scale.linear().range([height3, 0])
+
+
+        //render axis
+        var xAxis = d3.svg.axis().scale(x).orient("bottom"),
+            xAxis2 = d3.svg.axis().scale(x2).orient("bottom"),
+            xAxis3 = d3.svg.axis().scale(x3).orient("bottom"),
+
+            yAxis = d3.svg.axis().scale(y).orient("left"),
+            yAxis2 = d3.svg.axis().scale(y2).orient("left").ticks(2),
+            yAxis3 = d3.svg.axis().scale(y3).orient("left").ticks(2);
+
+
+        const brush_DailyDeath_Time = d3.svg.brush()
+            .x(x2).on("brush", brushed_totalDeath_other);
+
+        const brush_TotalDeath_Time = d3.svg.brush()
+            .x(x).on("brush", brushed_other_totalDeath);
+
+
+        //create the area under the curve
+        const area = d3.svg.area()
+            .interpolate("step")
+            .x(function (d) {
+                return x(d.date);
+            })
+            .y0(height)
+            .y1(function (d) {
+                return y(d.death);
+            });
+
+
+        const area2 = d3.svg.area()
+            .interpolate("step")
+            .x(function (d) {
+                return x2(d.date);
+            })
+            .y0(height2)
+            .y1(function (d) {
+                return y2(d.deathIncrease);
+            });
+
+
+        const area3 = d3.svg.area()
+            .interpolate("step")
+            .x(function (d) {
+                return x3(d.date);
+            })
+            .y0(height3)
+            .y1(function (d) {
+                return y3(d.recovered);
+            });
+
+
+        // make some buttons to drive our zoom
+        d3.select("body").append("div")
+            .attr("id", "btnDiv")
+
+
+        // d3.select("#btnDiv")[0][0].innerHTML = [
+        //     '<h3>The example I used is: https://observablehq.com/@john-clarke/programmatically-control-a-d3-brush:</h3>',
+        //     '<ul>',
+        //     '<li>Name: Haowen Wei. Email:hwei@wpi.edu</li>',
+        //     '<li>Covid 19 visualization in MA</li>',
+        //     '</ul>'
+        // ].join('\n')
+
+
+        var btns = d3.select("#btnDiv").selectAll("button").data(['red', 'green', 'blue', 'black', 'steelblue'])
+
+        btns = btns.enter().append("button").style("display", "inline-block")
+
+        btns.each(function (d) {
+            this.innerText = d;
+        })
+
+        btns.on("click", changeColor);
+
+        // interact with button
+        function changeColor() {
+            console.log('John')
+
+            focus.selectAll('path').style("fill", this.innerText);
+            context1.selectAll('path').style("fill", this.innerText);
+            context2.selectAll('path').style("fill", this.innerText);
+
+
+        }
+
+
+        // initialize svg element
+        var svg = d3.select("body").append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom);
+
+        // this plotting method is much better than the one i used in my previous homework lmao
+        svg.append("defs").append("clipPath")
+            .attr("id", "clip")
+            .append("rect")
+            .attr("width", width)
+            .attr("height", height);
+
+
+        var focus = svg.append("g")
+            .attr("class", "focus")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        var context1 = svg.append("g")
+            .attr("class", "context")
+            .attr("transform", "translate(" + margin2.left + "," + margin2.top + ")");
+
+
+        var context2 = svg.append("g")
+            .attr("class", "context")
+            .attr("transform", "translate(" + margin3.left + "," + margin3.top + ")");
+
+
+        // var context = svg.append("g")
+        //     .attr("class", "context")
+        //     .attr("transform", "translate(" + margin2.left + "," + margin2.top + ")");
+
+        d3.csv("all-states-history.csv", type, function (d, data) {
+            // console.log('csv data: ',data)
+            x.domain(d3.extent(data.map(function (d) {
+                console.log('csv d: ',d)
+                return d.date;
+            })));
+            y.domain([0, d3.max(data.map(function (d) {
+                return d.death;
+            }))]);
+
+            x2.domain(d3.extent(data.map(function (d) {
+                return d.date;
+            })));
+            y2.domain([0, d3.max(data.map(function (d) {
+                return d.deathIncrease;
+            }))]);
+
+            x3.domain(d3.extent(data.map(function (d) {
+                return d.date;
+            })));
+            y3.domain([0, d3.max(data.map(function (d) {
+                return d.recovered;
+            }))]);
+
+
+            // first plot
+
+
+            focus.append("path")
+                .datum(data)
+                .attr("class", "area")
+                .attr("d", area);
+
+            focus.append("g")
+                .attr("class", "x axis")
+                .attr("transform", "translate(0," + height + ")")
+                .call(xAxis);
+
+            focus.append("g")
+                .attr("class", "y axis")
+                .call(yAxis);
+
+            focus.append("g")
+                .attr("class", "x brush")
+                .call(brush_TotalDeath_Time)
+                .selectAll("rect")
+                .attr("y", -6)
+                .attr("height", height + 7);
+
+            // second plot
+            context1.append("path")
+                .datum(data)
+                .attr("class", "area")
+                .attr("d", area2);
+
+            context1.append("g")
+                .attr("class", "x axis")
+                .attr("transform", "translate(0," + height2 + ")")
+                .call(xAxis2);
+
+            context1.append("g")
+                .attr("class", "y axis")
+                .call(yAxis2);
+
+
+            context1.append("g")
+                .attr("class", "x brush")
+                .call(brush_DailyDeath_Time)
+                .selectAll("rect")
+                .attr("y", -6)
+                .attr("height", height2 + 7);
+
+            // third plot
+            context2.append("path")
+                .datum(data)
+                .attr("class", "area")
+                .attr("d", area3);
+
+            context2.append("g")
+                .attr("class", "x axis")
+                .attr("transform", "translate(0," + height3 + ")")
+                .call(xAxis3);
+
+            context2.append("g")
+                .attr("class", "y axis")
+                .call(yAxis3);
+
+            context2.append("g")
+                .attr("class", "x brush")
+                .call(brush_DailyDeath_Time)
+                .selectAll("rect")
+                .attr("y", -6)
+                .attr("height", height3 + 7);
+
+
+            focus.append('text')
+                .attr('y', 10)
+                .attr('x', width / 2)
+                .attr('fill', 'red')
+                .text('Total Death vs Time')
+
+            context1.append('text')
+                .attr('x', width / 2).attr('y', -10)
+                .attr('fill', 'red')
+                .text('Daily Death vs Time')
+
+            context2.append('text')
+                .attr('x', width / 2).attr('y', -10)
+                .attr('fill', 'red')
+                .text('Total Recover vs Time')
+
+        });
+
+        function brushed_totalDeath_other() {
+            //make sure the other brush is empty
+            if (brush_TotalDeath_Time.empty()) {
+                // brush_DailyDeath_Time.clear()
+                //     .event(d3.select(".brush"));
+                x.domain(brush_DailyDeath_Time.empty() ? x3.domain() : brush_DailyDeath_Time.extent());
+                focus.select(".area").attr("d", area);
+                focus.select(".x.axis").call(xAxis);
+            }
+        }
+
+
+        function brushed_other_totalDeath() {
+            if (brush_DailyDeath_Time.empty()) {
+                // brush_DailyDeath_Time.clear()
+                //     .event(d3.select(".brush"));
+                x2.domain(brush_TotalDeath_Time.empty() ? x3.domain() : brush_TotalDeath_Time.extent());
+                context1.select(".area").attr("d", area2);
+                context1.select(".x.axis").call(xAxis2);
+            }
+        }
+
+
+        function type(d) {
+            if (d.state === state) {
+                d.death = +d.death;
+                d.deathIncrease = +d.deathIncrease;
+                d.recovered = +d.recovered;
+                console.log(d)
+                console.log(d.date)
+                d.date = parseDate(d.date);
+                console.log(d.date)
+
+                return d;
+            } else {
+                const a = 0;
+            }
+        }
+    }
+
+
 </script>
-<script defer src="/script.js"></script>
+<!--<script defer src="/script.js"></script>-->
 </html>

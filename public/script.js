@@ -1,21 +1,25 @@
 let margin = {top: 50, bottom: 50, left: (window.innerWidth-1000)/2, right: 50}, height = 600, width = 1000
 let tooltip = d3.select('#tooltip')
+let perArea = d3.select('#perArea')
 console.log(d3)
 let the_map = d3.select('#usMap')
     .attr('width', width)
     .attr('height', height)
     .attr('transform', 'translate('+margin.left+','+margin.top+')')
     .append('g')
-let deathStats = d3.select('#deathStats')
-    .attr('width', width)
-    .attr('height', height)
-    .attr('transform', 'translate('+margin.left+','+margin.top+')')
-    .append('g')
+
 let positiveStats = d3.select('#positiveStats')
     .attr('width', width)
     .attr('height', height)
     .attr('transform', 'translate('+margin.left+','+margin.top+')')
     .append('g')
+
+let positiveStatsLine = d3.select('#positiveStatsLine')
+    .attr('width', window.innerWidth-100)
+    .attr('height', height)
+    .attr('transform', 'translate(50'+','+margin.top+')')
+    .append('g')
+// perArea.attr('transform', 'translate('+String(margin.left-20)+','+margin.top+')')
 let colors = d3.interpolateReds
 
 let projection = d3.geoAlbersUsa()
@@ -35,6 +39,12 @@ let stateMatchUp = {1:'AL', 2:'AK', 4:'AZ', 5:'AR', 6:'CA', 8:'CO', 9:'CT',
 
 let states
 
+let rawCsvArr
+
+let totalDeath
+
+let thisState
+
 let path = d3.geoPath()
     .projection(projection)
 
@@ -51,12 +61,14 @@ d3.json('us.json', function(error, data) {
                 .append('path')
                 .attr('class', 'state')
                 .attr('d', path)
+                .attr('stroke-width', 0.5)
                 .on('click', function(d, i) {
                     console.log(states[i].id)
                     fetch("/postStateId", {
                         method: "POST",
                         body: JSON.stringify({
-                            stateId: states[i].id
+                            stateId: states[i].id,
+                            hello:'hello'
                         }),
                         headers: {
                             "Content-Type": "application/json"
@@ -65,9 +77,42 @@ d3.json('us.json', function(error, data) {
                         .then(response => response.json())
                         .then(response => {
                             console.log("sent");
-                            uid = response
+                            // uid = response
                             console.log(response)
                         })
+                })
+
+            fetch("/getCsv", {
+                method: "Get",
+            })
+                .then(response => response.json())
+                .then(response => {
+                    let deathArr = []
+                    rawCsvArr = response.rawCsv
+                    the_map.selectAll('.state')
+                        .attr('fill', function (d, i){
+                            thisState = ''
+                            totalDeath = 0
+                            // console.log(d)
+                            if (d.id !== 72 && d.id !== 78){
+                                thisState = stateMatchUp[d.id]
+                                for (let j = 0; j < rawCsvArr.length; j++){
+                                    if (thisState === rawCsvArr[j][1]
+                                        && rawCsvArr[j][0] === '2021-03-07'){
+                                        totalDeath = parseInt(rawCsvArr[j][2])
+                                        deathArr.push(totalDeath)
+                                    }
+                                }
+                            }
+                            // deathArr.sort((a, b) => a - b)
+                            // console.log(deathArr)
+                            let start = 208
+                            let end = 54124
+                            let interval = (end-start)/6
+
+                            return colors((totalDeath-start)*0.1167/interval+0.3)
+                        })
+                    // console.log('arr',rawCsvArr)
                 })
         }
         console.log(data)
@@ -95,13 +140,92 @@ function selectThis(id){
         })
 }
 
+function colorselectThis(id){
+    document.getElementById("colorTotal").checked = false
+    document.getElementById("colorPerPpl").checked = false
+    document.getElementById(id).checked = true;
+    thisState = ''
+    totalDeath = 0
+    if (document.getElementById("colorTotal").checked == true) {
+        the_map.selectAll('.state')
+            .attr('fill', function (d, i) {
+                // console.log(d)
+                if (d.id !== 72 && d.id !== 78) {
+                    thisState = stateMatchUp[d.id]
+                    for (let j = 0; j < rawCsvArr.length; j++) {
+                        if (thisState === rawCsvArr[j][1]
+                            && rawCsvArr[j][0] === '2021-03-07') {
+                            totalDeath = parseInt(rawCsvArr[j][2])
+                            // deathArr.push(totalDeath)
+                        }
+                    }
+                }
+                // deathArr.sort((a, b) => a - b)
+                // console.log(deathArr)
+                let start = 208
+                let end = 54124
+                let interval = (end - start) / 6
+
+                return colors((totalDeath - start) * 0.1167 / interval + 0.3)
+            })
+    }
+    else {
+        // let tmp = []
+        // console.log('switch')
+        let rawPplArr = []
+        totalDeath = 0
+        let average
+        fetch("/getPopulationCsv", {
+            method: "Get",
+        })
+            .then(response => response.json())
+            .then(response => {
+                rawPplArr = response.rawPopulationCsv
+                // console.log(rawPplArr)
+                the_map.selectAll('.state')
+                    .attr('fill', function (d, i) {
+                        // console.log(d.id)
+                        if (d.id !== 72 && d.id !== 78) {
+                            thisState = stateMatchUp[d.id]
+                            // console.log(thisState)
+                            for (let j = 0; j < rawCsvArr.length; j++) {
+                                if (thisState === rawCsvArr[j][1]
+                                    && rawCsvArr[j][0] === '2021-03-07') {
+                                    totalDeath = parseInt(rawCsvArr[j][2])
+                                    // console.log(totalDeath)
+                                    // deathArr.push(totalDeath)
+                                }
+                            }
+                            for (let j = 0; j < rawPplArr.length; j++) {
+                                if (thisState === rawPplArr[j][0]
+                                    && rawPplArr[j][1] === 'total' && rawPplArr[j][2] === '2013') {
+                                    // console.log(thisState)
+                                    average = (totalDeath/parseInt(rawPplArr[j][3])*1000).toFixed(2)
+                                    // tmp.push(average)
+                                    // console.log(average)
+                                    // deathArr.push(totalDeath)
+                                }
+                            }
+                        }
+                        // console.log(tmp.sort((a, b) => a - b))
+                        // console.log(deathArr)
+                        let start = 0.32
+                        let end = 2.65
+                        let interval = (end - start) / 6
+
+                        return colors((average - start) * 0.1167 / interval + 0.3)
+                    })
+            })
+
+    }
+}
+
 function redirectPage(){
     window.location.href="/redirectPage"
 }
 
 let stateId
 let chartType
-let rawCsvArr
 let revisedCsvData
 let keys = Object.keys(stateMatchUp);
 let val = ''
@@ -138,7 +262,7 @@ function getIdTypeCsv(){
                     csvItem.push(rawCsvArr[i][1])
                     // console.log('total: '+rawCsvArr[i][19])
                     if (chartType === 'checkPositive') {
-                        csvItem.push(rawCsvArr[i][19])
+                        csvItem.push(rawCsvArr[i][21])
                     }
                     // console.log('item: ',csvItem)
                     revisedCsvData.push(csvItem)
@@ -179,12 +303,10 @@ function getIdTypeCsv(){
                 console.log('final: ' + finalCsv[i])
             }
 
-            if (chartType === 'checkDeath'){
-                console.log('hello, checkDeath')
-            }
-            else if (chartType === 'checkPositive'){
+            if (chartType === 'checkPositive'){
                 console.log('hello, checkPositive')
                 drawPositivePie()
+                drawPositiveLine()
             }
         })
 }
@@ -234,7 +356,7 @@ function drawPositivePie(){
                 .attr('x', '650px')
                 .attr('y', '550px')
                 .attr('id', 'tooltip')
-                .text('# of People tested positive: '+values[i])
+                .text('# of Positive Increase: '+values[i])
         })
         .on('mouseout', function (d, i){
             positiveStats.select('#tooltip').remove()
@@ -265,10 +387,91 @@ function drawPositivePie(){
 
             return colors((values[i]-start)*0.083/interval)
         })
+}
+
+function drawPositiveLine(){
+    let csvArr1 = finalCsv.slice(0, 3)
+    let csvArr2 = finalCsv.slice(3, 12)
+    let csvBar = csvArr2.concat(csvArr1)
+    console.log('csv bar: ', csvBar)
+    let maxDeath = (finalCsv.sort((a, b) => parseInt(a[2]) - parseInt(b[2])))[11][2]
+    let minDeath = (finalCsv.sort((a, b) => parseInt(a[2]) - parseInt(b[2])))[0][2]
+    let orderedArr = [3,4,5,6,7,8,9,10,11,0,1,2]
+    // console.log('max death value: ',maxDeath)
+
+    let yScale = d3.scaleLinear()
+        .domain([0, maxDeath])
+        .range([550, 50])
+    let xScale = d3.scaleBand()
+        .domain(orderedArr.map(function (d){
+            if (d < 3) {
+                return '2021 '+monthArr[d]
+            }
+            return '2020 '+monthArr[d]
+        }))
+        .range([0, window.innerWidth-300])
+    let yAxis = positiveStatsLine.append('g')
+        .classed('yAxis', true)
+        .attr('transform', 'translate(100, 0)')
+        .call(d3.axisLeft(yScale))
+    let xAxis = positiveStatsLine.append('g')
+        .classed('xAxis', true)
+        .attr('transform', 'translate(100, 550)')
+        .call(d3.axisBottom(xScale))
+
+    let rectGrp = positiveStatsLine.append('g')
+        .attr('transform', 'translate(100, 50)')
+
+    rectGrp.selectAll('rect')
+        .data(csvBar)
+        .enter()
+        .append('rect')
+        .attr('width', xScale.bandwidth())
+        .attr('height', function (d, i){
+            return 500-yScale(d[2])
+            // return 50
+        })
+        .attr('x', function (d, i){
+            // console.log('x: ',d[0])
+            if (parseInt(d[0]) < 4) {
+                return xScale('2021 '+monthArr[parseInt(d[0]) - 1])
+            }
+            else {
+                return xScale('2020 '+monthArr[parseInt(d[0]) - 1])
+            }
+        })
+        .attr('y', function (d, i){
+            return yScale(parseInt(d[2]))
+        })
+        .attr('fill', function (d, i){
+            let interval = (maxDeath-minDeath)/12
+            return colors((parseInt(d[2])-minDeath)*0.083/interval)
+        })
+
+    positiveStatsLine.selectAll('rect')
+        .on('mouseover', function (d, i){
+            positiveStatsLine.append('g')
+                .append("text")
+                .attr('x', '650px')
+                .attr('y', '550px')
+                .attr('id', 'tooltip2')
+                .text('# of Positive Increase: '+d[2])
+        })
+        .on('mouseout', function (d, i){
+            positiveStatsLine.select('#tooltip2').remove()
+        })
+
 
 
 }
 
-
+function getPos(e){
+    x=e.clientX;
+    y=e.clientY;
+    let posArr = []
+    posArr.push(x)
+    posArr.push(y)
+    return posArr
+}
 
 
