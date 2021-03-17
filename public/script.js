@@ -235,6 +235,9 @@ let index = '01'
 let total = 0
 let count = 1
 function getIdTypeCsv(){
+    total = 0
+    index = '01'
+    finalCsv = []
     fetch("/getIdTypeCsv", {
         method: "Get",
     })
@@ -354,7 +357,7 @@ function drawPositivePie(){
         .on('mouseover', function (d, i){
             positiveStats.append('g')
                 .append("text")
-                .attr('x', '750px')
+                .attr('x', '730px')
                 .attr('y', '550px')
                 .attr('id', 'tooltip')
                 .text('# of Positive Increase: '+values[i])
@@ -454,7 +457,7 @@ function drawPositiveLine(){
         .on('mouseover', function (d, i){
             positiveStatsLine.append('g')
                 .append("text")
-                .attr('x', window.innerWidth-350)
+                .attr('x', window.innerWidth-370)
                 .attr('y', '50px')
                 .attr('id', 'tooltip2')
                 .text('# of Positive Increase: '+d[2])
