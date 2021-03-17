@@ -1,1 +1,289 @@
 <a href="./stacked.html">Stacked Area Chart</a>
+<script src="https://d3js.org/d3.v4.js"></script>
+<script src="yearlyExport.js"></script>
+<div id="my_dataviz"></div>
+<button onclick="update(reducedImp, 0)">Import</button>
+<button onclick="update(reducedExp, 1)">Export</button>
+<button onclick="update(growthImpNom, 2)">Growth Import</button>
+<button onclick="update(growthExpNom, 3)">Growth Export</button>
+
+
+
+<script>
+
+var margin = {top: 50, right: 30, bottom: 50, left: 70},
+width = 1080 - margin.left - margin.right,
+height = 720 - margin.top - margin.bottom;
+
+
+var svg = d3.select("#my_dataviz")
+        .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform",
+            "translate(" + margin.left + "," + margin.top + ")");
+
+
+        var x = d3.scaleLinear()
+            .domain([2008, 2019])
+            .range([ 0, width ]);
+
+        svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+
+        var y = d3.scaleLinear()
+            .domain( [50000000, 140000000]) 
+            .range([ height, 0 ]);
+            
+        svg.append("g")
+            .attr("id", "axis")
+            .call(d3.axisLeft(y));
+
+        svg.append("line")
+            .attr("id", "dashed")
+            .attr("opacity", 0)
+
+var reducedImp, reducedExp;
+var growthImpNom = [{Date: 2008, Value: 0}], growthExpNom = [{Date: 2008, Value: 0}];
+var growthImpPct, growthExpPct;
+
+d3.csv("data/Tradedata.csv",
+    function(d) {
+        return { Date : +d.Year, Value : d.TradeValueK, TradeFlowName : d.TradeFlowName}
+    },
+    function(data) {
+        buildScatterSum(data)
+    }
+)
+
+function buildScatterSum(data) {
+
+    var importData = data.filter(d => d.TradeFlowName == 'Import')
+    var exportData = data.filter(d => d.TradeFlowName == 'Export')
+
+    reducedImp = importData.reduce(function(allDates, d) {
+        if (allDates.some(function(e) {
+            return e.Date === d.Date
+        })) {
+            allDates.filter(function(e) {
+            return e.Date === d.Date
+            })[0].Value += +d.Value
+        } else {
+            allDates.push({
+            Date: d.Date,
+            Value: +d.Value
+            })
+        }
+    return allDates
+    }, []);
+
+    reducedExp = exportData.reduce(function(allDates, d) {
+        if (allDates.some(function(e) {
+            return e.Date === d.Date
+        })) {
+            allDates.filter(function(e) {
+            return e.Date === d.Date
+            })[0].Value += +d.Value
+        } else {
+            allDates.push({
+            Date: d.Date,
+            Value: +d.Value
+            })
+        }
+    return allDates
+    }, []);
+
+    for(var i = 0; i < reducedExp.length; i++) {
+        if(i > 0) {
+            growthImpNom.push({Date: reducedImp[i].Date, Value: (reducedImp[i].Value - reducedImp[i - 1].Value)})
+            growthExpNom.push({Date: reducedExp[i].Date, Value: (reducedExp[i].Value - reducedExp[i - 1].Value)})
+        }
+    }
+
+    console.log(growthExpNom)
+    console.log(growthImpNom)
+
+    svg.append("path")
+    .attr("id", "curvedPath")
+    .datum(reducedImp)
+    .attr("fill", "none")
+    .attr("stroke", "#69b3a2")
+    .attr("stroke-width", 3)
+    .attr("d", d3.line()
+        .curve(d3.curveCatmullRom)
+        .x(function(r) { return x(r.Date) })
+        .y(function(r) { return y(r.Value) })
+    )
+
+    svg.append("g")
+    .selectAll("dot")
+    .data(reducedImp)
+    .enter()
+    .append("circle")
+        .attr("cx", function(r) { return x(r.Date) } )
+        .attr("cy", function(r) { return y(r.Value) } )
+        .attr("r", 8)
+        .attr("fill", "#69b3a2")
+
+    svg.append("text")
+    .attr("text-anchor", "end")
+    .attr("x", width)
+    .attr("y", height+40)
+    .text("Time (year)");
+
+    svg.append("text")
+    .attr("text-anchor", "end")
+    .attr("x", -65)
+    .attr("y", -20 )
+    .text("Thousand Dollars")
+    .attr("text-anchor", "start")
+
+    update(reducedImp, 0)
+
+}
+
+function update(data, type) {
+    var fill;
+    var lineDat = [{Date : 2008, Value: 0}, {Date : 2019, Value: 0}];
+    if (type == 0 || type == 2) { fill = "#69b3a2"} else { fill = "#C81414"}
+
+    y.domain(d3.extent(data, function(d) { return +d.Value}))
+
+    svg.select("#axis")
+        .transition()
+        .duration(1000)
+        .call(d3.axisLeft(y))
+
+    var dashed = svg.select("#dashed")
+
+    if(type > 1) {
+        dashed
+            .enter()
+            .append("line")
+            .merge(dashed)
+            .transition()
+            .duration(1000)
+            .style("stroke-dasharray", ("3, 3"))
+            .attr("x1", 0)
+            .attr("x2", width)
+            .attr("y1", y(0))
+            .attr("y2", y(0))
+            .attr("id", "dashed")
+            .attr("stroke", "black")
+            .attr("opacity", 1)
+    } else {
+        dashed
+            .enter()
+            .append("line")
+            .merge(dashed)
+            .transition()
+            .duration(1000)
+            .attr("opacity", 0)
+    }
+
+
+    var circ = svg.selectAll("circle")
+        .data(data)
+
+    var path = svg.selectAll("#curvedPath")
+        .datum(data)
+
+    circ
+        .enter()
+        .append("dot")
+        .merge(circ)
+        .transition()
+        .duration(1000)
+            .attr("cx", function(d) { return x(d.Date); })
+            .attr("cy", function(d) { return y(d.Value); })
+            .attr("r", 8)
+            .attr("fill", fill)
+
+    path
+        .enter()
+        .append("path")
+        .merge(path)
+        .transition()
+        .duration(1000)
+        .attr("d", d3.line()
+            .curve(d3.curveCatmullRom)
+            .x(function(r) { return x(r.Date) })
+            .y(function(r) { return y(r.Value) }))
+        .attr("fill", "none")
+        .attr("stroke", fill)
+        .attr("stroke-width", 3)
+
+}
+
+
+ // Add X axis
+    
+
+    //Add the line
+    
+
+    // Add the points
+    
+
+
+        /**
+            0: "Nomenclature"
+            1: "ReporterISO3"
+            2: "ProductCode"
+            3: "ReporterName"
+            4: "PartnerISO3"
+            5: "PartnerName"            (Partner Exports TO Reporter) AND (Partner Imports FROM Reporter)
+            6: "Year"         
+            7: "TradeFlowName"                               ^^ (Export/Import) ^^
+            8: "TradeFlowCode"
+            9: "TradeValue in 1000 USD"
+            10: "Quantity"
+            11: "ProductDescription"
+            12: "QtyUnit"
+            13: "NetWeight in KGM"
+        */
+
+        /**
+                Aggregation Structure:
+
+                    Example:
+                    -0: Agricultural, forestry, and fishery products
+                        -01: Agricultural Products
+                            -011: Cash Grains and other crops
+                                -0111: Wheat
+                            -013: Field crops, except cash grains
+                                -0131: Cotton and cottonseed
+                        -02:
+                            etc
+                        -08:
+                            etc
+                        -09:
+                            etc
+
+                    -1: Mineral Commodities
+
+                    -2: Manufactured commodities
+
+                    -3: Manufactured commodities not identified by kind
+
+                    -9: Other commodities
+
+
+
+                    Structure:
+                        -Highest aggregation is single digit with 5 seperate categories listed above.
+                        -Anything within each category will start with that number followed by another number (always adding numbers to the end).
+                            -Continue with this pattern until 4 digit numbers where the final layer of aggregation is
+
+                    Example:
+                        Given the 4 digit number "3524"
+                            -Looking at "3" its identified as "Manufacture commodity not identified by kind"
+                            -Looking at "35" its identified as "Machinery, except electrical"
+                            -Looking at "352" its identified as "Farm and garden machinery equipment"
+                            -Looking at "3524" its identified as "Lawn and garden equipment, and parts, nspf" (nspf -- not specified)
+
+        */
+</script>
+>>>>>>> Luke_Data
