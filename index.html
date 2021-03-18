@@ -25,10 +25,10 @@
 <div id="settings" style="text-align:center;"></div>
 <div id ="legend">
 </div>
-<div >
-    <svg id = "graph1"></svg>
+<div id="graph1">
 </div>
-<div id = "graph2">
+<div>
+    <svg id = "graph2"></svg>
 </div>
 </body>
 </html>
@@ -90,6 +90,7 @@
 
         // Color stuff
         removeChildren('colorOutput')
+        removeChildren('graph2')
         showColors(formText, maxesDict, "colorOutput", colorsOn, fontsOn)
         addLegend()
 
@@ -125,7 +126,6 @@
     // the global variable frequencesDict contains the data for each individual word
     // its a dictionary in the format: {'word':[0.1,0.2,...0.5], 'banana':[0.0,0.3,...0.9]}
     // to access the array of frequencies for the word banana use: frequenciesDict['banana']
-    // todo
     function setGraph(word) {
         wordAgeGraph(word)
     }
@@ -135,7 +135,8 @@
         let width = 300;
         let height = 300;
 
-        let svg = d3.select('#graph1')
+        removeChildren('graph2')
+        let svg = d3.select('#graph2')
 
         svg.attr('height', height + margin.top + margin.bottom)
             .attr('width', width + margin.right + margin.left)
