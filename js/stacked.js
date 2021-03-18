@@ -9,11 +9,11 @@ var stackmargin = {top: 60, right: 300, bottom: 50, left: 70},
    stackheight = 400 - stackmargin.top - stackmargin.bottom;
 
 Promise.all([
-	d3.csv('data/BrazilTradeAggregationL0.csv'),
-	d3.csv('data/BrazilTradeAggregationL1.csv'),
-	d3.csv('data/BrazilTradeAggregationL2.csv'),
-	d3.csv('data/BrazilTradeAggregationL3.csv'),
-	d3.csv('data/SIC_table.csv')
+	d3.csv('./data/BrazilTradeAggregationL0.csv'),
+	d3.csv('./data/BrazilTradeAggregationL1.csv'),
+	d3.csv('./data/BrazilTradeAggregationL2.csv'),
+	d3.csv('./data/BrazilTradeAggregationL3.csv'),
+	d3.csv('./data/SIC_table.csv')
 ]).then(([l0, l1, l2, l3, sicTable]) => {
 	_aggData.push(l0,l1,l2,l3)
 	sicTable.forEach(d => {

@@ -53,7 +53,7 @@ function makeTreemap(year, dir, agg=0) {
 	
 
 	Promise.all([
-		d3.csv("data/TreeDataAggL"+agg+".csv")
+		d3.csv("./data/TreeDataAggL"+agg+".csv")
 	]).then(([data]) => {
 		var filtered = data.filter(d => d.Year == year).filter(d => d.TradeFlowName == dir);
 		
