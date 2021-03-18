@@ -75,13 +75,9 @@ function treemap(year, dir, agg=1) {
 	Promise.all([
 		d3.csv("https://gist.githubusercontent.com/FelChen/fa8e7c2148e000daf2fd5edb12b43ff6/raw/2940493146c74c08809a3d0c4633fd47420a6b88/cleanish.csv")
 	]).then(([data]) => {
-		//console.log(year)
-		var lel = data
-		// console.log(lel);
-		var filtered = lel.filter(d => d.Year == year);
+		var filtered = data.filter(d => d.Year == year);
 		filtered = filtered.filter(d => d.TradeFlowName == dir);
 
-		// console.log(filtered);
 		var root = d3.hierarchy({values: nest.entries(filtered)}, d => d.values)
 			.sum(d => d.value)
 			.sort((a, b) => b.value - a.value);
@@ -92,13 +88,10 @@ function treemap(year, dir, agg=1) {
 			.round(true);
 		var testing = treemap(root);
 
-
-		var div = d3.select('.tooltip')
-
+		var ttip = d3.select('.tooltip')
 
 		d3.select("#treemap").node()
-		//console.log(d3.select("#treemap").node())
-
+		
 		var node = d3.select("#kek")
 			.style('width', treewidth)
 			.style('height', treeheight)
@@ -115,15 +108,15 @@ function treemap(year, dir, agg=1) {
 				var top = d3.select(this).node().getBoundingClientRect().top + window.pageYOffset;
 				var left = d3.select(this).node().getBoundingClientRect().left + window.pageXOffset;
 				
-				div.transition()
+				ttip.transition()
 					.duration(200)
 					.style("opacity", .9);
-				div.html(i.data.key + "<br/>" + "Trade Value in USD: $" + numberWithCommas(Math.round((i.data.value*1000))))
+				ttip.html(i.data.key + "<br/>" + "Trade Value in USD: $" + numberWithCommas(Math.round((i.data.value*1000))))
 					.style("left", left + 3*(i.x1 - i.x0)/4)
-					.style("top", top);
+					.style("top", top-5);
 			})
 			.on("mouseout", function (d) {
-				div.transition()
+				ttip.transition()
 					.duration(500)
 					.style("opacity", 0);
 			});
@@ -132,12 +125,6 @@ function treemap(year, dir, agg=1) {
 			.attr("class", "node-label")
 			.text(d => d.data.key);
 
-		// node.append("div")
-		//     .attr("class", "node-value")
-		//     .text(function(d) { return d.parent.parent.parent.data.key + "\n" + d.parent.parent.data.key + "\n" + d.parent.data.key + "\n" + d.data.key; });
-
-
-		// return testing;
 	})
 
 	
