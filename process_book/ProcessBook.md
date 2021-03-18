@@ -25,6 +25,17 @@ Data
 ---
 insert data discussion here
 
+Our data consisted of the top 200 weekly Spotify songs from 55 countries over the past two years. Each song has associated metadata (known as audio features). Of these, we focused on 9: 
+- danceability
+- energy
+- loudness
+- speechiness
+- acousticness
+- instrumentalness
+- liveness
+- valence
+- tempo
+
 ### Sources
 
 - Spotify Data Catalogue (Web API pulls from here)
