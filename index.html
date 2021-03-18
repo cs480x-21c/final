@@ -5,8 +5,10 @@
 <link rel="stylesheet" href="css/style.css">
 
 <h1>Brazilian trade with the United States</h1>
-<h3 style='display: inline-block'>Click this button to switch between imports and exports: </h3>
-<button type='button' onclick='updateAll()' id='swapButton'>Exports</button>
+<div style='white-space: nowrap'>
+	<h3 style='display: inline-block'>Click this button to switch between imports and exports: </h3>
+	<button type='button' onclick='updateAll()' id='swapButton'>Exports</button>
+</div>
 <br>
 
 <div id='left' style='float:left'>
@@ -46,7 +48,7 @@
 
 <script>
 	function updateAll() {
-		document.getElementById('swapButton').innerHTML = _impFilter ? 'Exports' : 'Imports'
+		document.getElementById('swapButton').innerHTML = _impFilter ? 'Imports' : 'Exports'
 		swapView()
 		updateScatter(false)
 		updateTree()

@@ -2,20 +2,24 @@ h1 {
 	font: 40px avenir;
 	font-weight: bold;
 	margin-bottom: 0;
+	white-space: nowrap;
 }
 
 h2 {
 	font: 26px avenir;
 	font-weight: bold;
 	margin-bottom: 0;
+	white-space: nowrap;
 }
 
 h3 {
 	margin-bottom: 0;
+	white-space: nowrap;
 }
 
 p {
 	font: 14px avenir;
+	white-space: nowrap;
 }
 
 #right {

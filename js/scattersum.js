@@ -88,11 +88,7 @@ function buildScatterSum(data) {
 		.attr("id", "axis")
 		.call(d3.axisLeft(y));
 
-	scatter.append("line")
-		.attr("id", "dashed")
-		.attr("opacity", 0)
-
-    scatter.append("path")
+	scatter.append("path")
     .attr("id", "curvedPath")
     .datum(reducedImp)
     .attr("fill", "none")
@@ -127,8 +123,12 @@ function buildScatterSum(data) {
     .text("Thousand Dollars")
     .attr("text-anchor", "start")
 
-    //updateScatter(0)
-
+	scatter.append("line")
+		.attr("id", "dashed")
+		.attr("opacity", 0)
+        .style("stroke-dasharray", ("3, 3"))
+        .attr("stroke", "black")
+        .attr("opacity", 0)
 }
 
 function updateScatter(type) {
@@ -141,10 +141,10 @@ function updateScatter(type) {
 	}
 
 	data = btnT.innerHTML == 'Growth' 
-		? (btnF.innerHTML == 'Imports' ? reducedImp : reducedExp)
-		: (btnF.innerHTML == 'Imports' ? growthImpNom : growthExpNom) 
+		? (btnF.innerHTML == 'Imports' ? reducedExp : reducedImp)
+		: (btnF.innerHTML == 'Imports' ? growthExpNom : growthImpNom) 
 
-	var fill = btnF.innerHTML == "Exports" ? "#69b3a2" : "#C81414"
+	var fill = btnF.innerHTML == "Exports" ? "#C81414" : "#69b3a2"
 
 	document.getElementById('scattertitle').innerHTML = getScatterTitle()
     
@@ -160,42 +160,28 @@ function updateScatter(type) {
         .duration(750)
         .call(d3.axisLeft(y))
 
-    var dashed = scatter.select("#dashed")
-
-    if(btnT.innerHTML == "Total") {
-        dashed
-            .enter()
-            .append("line")
-            .merge(dashed)
-            .transition()
+    if (btnT.innerHTML == "Total") {
+        scatter.select("#dashed")
+			.transition()
             .duration(750)
-            .style("stroke-dasharray", ("3, 3"))
             .attr("x1", 0)
-            .attr("x2", scatterwidth)
-            .attr("y1", y(0))
-            .attr("y2", y(0))
-            .attr("id", "dashed")
-            .attr("stroke", "black")
+        	.attr("x2", scatterwidth)
+        	.attr("y1", y(0))
+        	.attr("y2", y(0))
             .attr("opacity", 1)
     } else {
-        dashed
-            .enter()
-            .append("line")
-            .merge(dashed)
-            .transition()
+        scatter.select("#dashed")
+			.transition()
             .duration(750)
             .attr("opacity", 0)
     }
 
 
-    var circ = scatter.selectAll("circle")
-        .data(data)
+    var circ = scatter.selectAll("circle").data(data)
 
-    var path = scatter.selectAll("#curvedPath")
-        .datum(data)
+    var path = scatter.selectAll("#curvedPath").datum(data)
 
-    circ
-        .enter()
+    circ.enter()
         .append("dot")
         .merge(circ)
         .transition()
@@ -205,8 +191,7 @@ function updateScatter(type) {
             .attr("r", 8)
             .attr("fill", fill)
 
-    path
-        .enter()
+    path.enter()
         .append("path")
         .merge(path)
         .transition()
