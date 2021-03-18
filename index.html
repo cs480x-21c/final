@@ -331,7 +331,11 @@
         removeChildren('lgdsvg')
 
         let start = 15
+        let xStart = 200
         let xChange = 120
+        if (!fontsOn) {
+            xChange = 50
+        }
         let yChange = 15
         let indent = 15
         let xUsed = 0
@@ -354,11 +358,11 @@
                 let t
                 if (fontsOn || colorsOn) {
                     c = legend.append("circle")
-                        .attr("cx", start + xChange * xUsed + indent * xUsed)
+                        .attr("cx", xStart + xChange * xUsed + indent * xUsed)
                         .attr("cy", start + yChange * yUsed[bucket])
                         .attr("r", 5)
                     t = legend.append("text")
-                        .attr("x", start + indent + xChange * xUsed + indent * xUsed)
+                        .attr("x", xStart + indent + xChange * xUsed + indent * xUsed)
                         .attr("y", start + yChange * yUsed[bucket])
                         .style("font-size", "12px")
                         .attr("alignment-baseline", "middle")
