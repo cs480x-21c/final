@@ -2,44 +2,55 @@
 <script src="https://d3js.org/d3-collection.v1.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="./css/style.css">
 
-<button type='button' onclick='updateAll()' id='swapButton'>Exports</button>
+<h1>Brazilian trade with the United States</h1>
+<div style='white-space: nowrap'>
+	<h3 style='display: inline-block'>Click this button to switch between imports and exports: </h3>
+	<button type='button' onclick='updateAll()' id='swapButton'>Exports</button>
+</div>
 <br>
 
 <div id='left' style='float:left'>
-	<h1 id='stacktitle'></h1>
+	<h2 id='stacktitle'></h2>
 	<h3>Left click to drill down. Right click to go back to previous aggregation level</h3>
 	<svg id='chart'></svg><br>
 
 
-	<h1 id='scattertitle'></h1>
+	<h2 id='scattertitle'></h2>
 	<h3 style='display: inline-block'>Click this button to switch between growth over time and total value: </h3>
-	<button onclick="updateScatter(1)" id="swapType">Growth</button>
+	<button onclick="updateScatter(true)" id="swapType">Growth</button>
 	<div id="my_dataviz"></div>
 </div>
 
 
 <div id='right' style='float:left'>
+	<h2 id='treetitle'></h2>
+	<h3>Move this slider to look at different years. Hover over a product for more details:</h3>
 	<div class="slidecontainer">
 		<p style='margin:0'>Year: <span id="demo"></span></p>
 		<input type="range" min="2008" max="2019" value="2008" class="slider" id="myRange" oninput='updateYear()'>
+	</div>
+	<h3>Move this slider to look at different aggregation levels:</h3>
+	<div class="slidecontainer">
+		<p style='margin:0'>Aggregation Level: <span id="Agg">0</span></p>
+		<input type="range" min="0" max="3" value="0" class="slider" id="myAgg" oninput='updateAgg()'>
 	</div><br>
 
 	<div class="card" id="kek" style='float:left'></div>
 	<div class='tooltip' style='opacity: 0'></div>
 </div>
 
-<script src='js/stacked.js'></script>
-<script src="js/scattersum.js"></script>
-<script src='js/tree.js'></script>
+<script src='./js/stacked.js'></script>
+<script src="./js/scattersum.js"></script>
+<script src='./js/tree.js'></script>
 
 
 <script>
 	function updateAll() {
-		document.getElementById('swapButton').innerHTML = _impFilter ? 'Exports' : 'Imports'
+		document.getElementById('swapButton').innerHTML = _impFilter ? 'Imports' : 'Exports'
 		swapView()
-		updateScatter(0)
+		updateScatter(false)
 		updateTree()
 	}
 
