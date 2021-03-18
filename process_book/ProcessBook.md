@@ -19,11 +19,10 @@ Anything that inspired you, such as a paper, a web site, visualizations we discu
 
 Questions
 ---
-What questions are you trying to answer? How did these questions evolve over the course of the project? What new questions did you consider in the course of your analysis?
+With COVID-19 running amok, we were curious to see if we could find any decernable trends in the type of music people were streaming. Furthermore, we were curious as to whether or not the location (different countries) impacted the style of music, as well as whether it would be possible to see the rollout of lockdowns across the world in the data.
 
 Data
 ---
-insert data discussion here
 
 Our data consisted of the top 200 weekly Spotify songs from 55 countries over the past two years. Each song has associated metadata (known as audio features). Of these, we focused on 9: 
 - danceability
@@ -47,8 +46,6 @@ Our data consisted of the top 200 weekly Spotify songs from 55 countries over th
 To obtain our data, we wrote a scraping scripe in Python to repeatedly query the Spotifycharts.com webpage. Each query would return a CSV that we would then write to a file. Once we had our lists of songs, we stitched the separate CSVs into a single master 'songs' CSV. From this, we collapsed it into a smaller CSV of unique songs. Based on our unique songs, we used the track reference URL to pull the metadata for each track. We then created new files mapping our songs to the metadata, and were able to calculate summary statistics for each country's weekly top 200 songs. After this, we created a new JSON file that held each country's data keyed by the ISO3166 Alpha-3 country code. This format was then used by our visualization.
 
 ### Cleanup
-
-insert cleanup method(s) here
 
 Some responses from Spotifycharts.com returned an html page rather than a csv, which was unusable for our project. To clean our response data, we would check the first line of the data - if it was an html tag, we would omit it. Otherwise, we would use the data. Fortunately, this was the only data cleaning we had to do. 
 
