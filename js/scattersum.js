@@ -28,7 +28,7 @@ function getScatterTitle() {
 }
 
 Promise.all([
-	d3.csv("./data/Tradedata.csv")
+	d3.csv("./data/TradeData.csv")
 ]).then(([data]) => {
 	buildScatterSum(formatData(data))
 })
