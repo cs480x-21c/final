@@ -33,7 +33,7 @@ The other two files in the root directory are world.geojson and world.topojson -
 
 
 
-
+[hot_dog.gif](hot_dog.gif)
 
 
 The README file must give an overview of what you are handing in: which parts are your code, which parts are libraries, and so on. The README must contain URLs to your project websites and screencast videos. The README must also explain any non-obvious features of your interface.
