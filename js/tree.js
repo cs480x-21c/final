@@ -5,7 +5,7 @@ var outputAgg = document.getElementById("Agg");
 output.innerHTML = slider.value;
 var year = "2008"
 var treewidth = 1000, treeheight = 800;
-var agg = 1;
+var agg = 0;
 d3.select('#right').style('width', treewidth)
 
 function numberWithCommas(x) {
@@ -31,50 +31,32 @@ function getTreeTitle() {
 }
 
 function updateTree() {
-	var imp = document.getElementById('swapButton').innerHTML.slice(0, -1)
+	var imp = document.getElementById('swapButton').innerHTML == 'Imports' ? 'Export' : 'Import'
 	var myNode = document.getElementById("kek");
 	myNode.innerHTML = '';
-	treemap(String(year), imp, agg);
+	makeTreemap(String(year), imp, agg);
 }
 
 
-function treemap(year, dir, agg=1) {
+function makeTreemap(year, dir, agg=0) {
 	document.getElementById('treetitle').innerHTML = getTreeTitle()
 
 	color = d3.scaleSequential([8, 0], d3.interpolateMagma)
-	var nest
-	if (agg == 1){
-		nest = d3.nest()
-		.key(d => d.first)
-		.rollup(d => d3.sum(d, a => a.TradeValue_in_1000_USD));
-	} else if (agg == 2){
-		nest = d3.nest()
-		.key(d => d.first)
-		.key(d => d.second)
-		.rollup(d => d3.sum(d, a => a.TradeValue_in_1000_USD));
-	} else if (agg == 3){
-		nest = d3.nest()
-		.key(d => d.first)
-		.key(d => d.second)
-		.key(d => d.third)
-		.rollup(d => d3.sum(d, a => a.TradeValue_in_1000_USD));
-	} else if (agg == 4){
-		nest = d3.nest()
+	var nest = d3.nest()
 		.key(d => d.first)
 		.key(d => d.second)
 		.key(d => d.third)
 		.key(d => d.fourth)
-		.rollup(d => d3.sum(d, a => a.TradeValue_in_1000_USD));
-	}
+		.rollup(d => d3.sum(d, a => a.TradeValueK));
 
 
+	
 
 	Promise.all([
-		d3.csv("https://gist.githubusercontent.com/FelChen/fa8e7c2148e000daf2fd5edb12b43ff6/raw/2940493146c74c08809a3d0c4633fd47420a6b88/cleanish.csv")
+		d3.csv("data/TreeDataAggL"+agg+".csv")
 	]).then(([data]) => {
-		var filtered = data.filter(d => d.Year == year);
-		filtered = filtered.filter(d => d.TradeFlowName == dir);
-
+		var filtered = data.filter(d => d.Year == year).filter(d => d.TradeFlowName == dir);
+		
 		var root = d3.hierarchy({values: nest.entries(filtered)}, d => d.values)
 			.sum(d => d.value)
 			.sort((a, b) => b.value - a.value);
@@ -104,6 +86,7 @@ function treemap(year, dir, agg=1) {
 			.on("mouseover", function (d, i) {
 				var top = d3.select(this).node().getBoundingClientRect().top + window.pageYOffset;
 				var left = d3.select(this).node().getBoundingClientRect().left + window.pageXOffset;
+
 				
 				ttip.transition()
 					.duration(200)
@@ -128,4 +111,4 @@ function treemap(year, dir, agg=1) {
 }
 
 
-treemap("2008", "Import");
+makeTreemap("2008", "Import");
