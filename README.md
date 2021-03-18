@@ -19,7 +19,7 @@ The majority of the code written for this scatter plot was from scratch. The bas
 ### Submission Materials
 
 - [Project Website](https://nyoma-diamond.github.io/cs4802-final/)
-- [Project Screen-Cast](url here)
+- [Project Screen-Cast](https://vimeo.com/525328731)
 
 ### References
 
