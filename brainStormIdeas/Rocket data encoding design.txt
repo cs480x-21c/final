@@ -1,0 +1,9 @@
+Data - https://www.kaggle.com/agirlcoding/all-space-missions-from-1957
+image - Rocket data encoding
+Important – location, number of launches, cost, company
+
+3D Globe on the right: can be rotated to look at different parts of the globe. Bars can show either # of rockets launched or the total cost of all the rockets launched at that location. A location/Bar can be selected and the view to the left of the globe will be updated. 
+
+The left bar chart will display the cost of each launch over time, and the bars will be colored depending on the company that funded the launch. One launch can be selected, and this will update a details page below.
+
+The bottom left details page will display any other information about the launch.

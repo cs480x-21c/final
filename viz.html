@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<head lang=en>
+  <link rel="shortcut icon" href="#">
+  <link rel="stylesheet" href="CSS/viz.css">
+  <script src="https://d3js.org/d3.v6.min.js"></script>
+  <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+  <script src="https://unpkg.com/d3-v6-tip@1.0.6/build/d3-v6-tip.js"></script>
+  <script src="https://unpkg.com/d3-sankey@0.12.3/dist/d3-sankey.min.js"></script>
+  <script src="scripts/worldmap.js"> </script>
+  <script src="scripts/sankey.js"> </script>
+  <script src="scripts/links.js"></script>
+  <title> World Map - Astronaut</title>
+</head>
+
+<body>
+<div class="block">
+  <div class="block">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="viz.html">Viz</a></li>
+    </ul>
+  </div>
+  <div id='map' class='map'> </div>
+  <div id="my_dataviz" class='sankey'> </div>
+</div>
+    <script>
+      Promise.all([
+        d3.json("data/worldmap.geo.json"),
+        d3.json("data/Astronaut Cities.geo.json"),
+        d3.csv("data/sankeyCompleteNoZero.csv")
+      ]).then(([countries, astronautCities, sankeydata]) => {
+        makeWorldMap(countries, astronautCities);
+        makeSankey(sankeydata);
+      });
+    </script>
+
+</body>

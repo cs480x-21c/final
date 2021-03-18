@@ -1,0 +1,17 @@
+{
+"nodes":[
+{"node":0,"category":"Start", "name":"Start"},
+{"node":1,"category":"Bachelors","name":"Physics"},
+{"node":2,"category":"Bachelors","name":"Mechanical Engineering"},
+{"node":3,"category":"Masters","name":"Physics"},
+{"node":4,"category":"End","name":"node4"}
+],
+"links":[
+{"source":0,"target":2,"value":2},
+{"source":1,"target":2,"value":2},
+{"source":1,"target":3,"value":2},
+{"source":0,"target":4,"value":2},
+{"source":2,"target":3,"value":2},
+{"source":2,"target":4,"value":2},
+{"source":3,"target":4,"value":4}
+]}
