@@ -43,25 +43,22 @@ function treemap(year, dir, agg=1) {
 
 	color = d3.scaleSequential([8, 0], d3.interpolateMagma)
 	var nest
-	if(agg == 1){
+	if (agg == 1){
 		nest = d3.nest()
 		.key(d => d.first)
 		.rollup(d => d3.sum(d, a => a.TradeValue_in_1000_USD));
-	}
-	else if(agg == 2){
+	} else if (agg == 2){
 		nest = d3.nest()
 		.key(d => d.first)
 		.key(d => d.second)
 		.rollup(d => d3.sum(d, a => a.TradeValue_in_1000_USD));
-	}
-	else if(agg == 3){
+	} else if (agg == 3){
 		nest = d3.nest()
 		.key(d => d.first)
 		.key(d => d.second)
 		.key(d => d.third)
 		.rollup(d => d3.sum(d, a => a.TradeValue_in_1000_USD));
-	}
-	else if(agg == 4){
+	} else if (agg == 4){
 		nest = d3.nest()
 		.key(d => d.first)
 		.key(d => d.second)
