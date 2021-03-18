@@ -4,8 +4,8 @@ var _aggLevel = 0
 var _impFilter = true
 var _aggFilter = ''
 
-var stackmargin = {top: 60, right: 300, bottom: 50, left: 70},
-   stackwidth = 1000 - stackmargin.left - stackmargin.right,
+var stackmargin = {top: 60, right: 350, bottom: 50, left: 70},
+   stackwidth = 1050 - stackmargin.left - stackmargin.right,
    stackheight = 400 - stackmargin.top - stackmargin.bottom;
 
 Promise.all([
@@ -24,7 +24,7 @@ Promise.all([
 
 function getStackTitle() {
 	var str = _impFilter ? 'Brazilian Imports from the USA: ' : 'Brazilian Exports to the USA: '
-	str += _aggLevel == 0 ? 'Overall' : _sicTable[_aggFilter]
+	str += _aggLevel == 0 ? 'Overall' : '\''+_sicTable[_aggFilter]+'\''
 	return str
 }
 
@@ -117,7 +117,7 @@ function parseSortFilter(data, aggFilter=_aggFilter) {
 
 
 function validNextLayer(aggFilter=_aggFilter) {
-	return _aggLevel < 3 && Object.keys(parseSortFilter(_aggData[_aggLevel+1], aggFilter)[0]).length > 1
+	return _aggLevel < 3 && !isNaN(aggFilter) && Object.keys(parseSortFilter(_aggData[_aggLevel+1], aggFilter)[0]).length > 1
 }
 
 function buildChart() {
@@ -182,13 +182,13 @@ function buildChart() {
 			.enter()
 			.append("path")
 				.attr("class", d => "myArea" + (validNextLayer(d.key) ? ' pointer' : ''))
-				.attr('id', d => 'area_'+d.key)
+				.attr('id', d => 'area_'+d.key.replace(/[\s:]/g,''))
 				.style("fill", d => color(d.key))
 				.attr("d", area)
 				//.attr('stroke-stackwidth', 0.5)
 				//.attr('stroke', '#252525')
-				.on('mouseover', (d, i) =>	highlight(d, i.key))
-				.on('mouseout', (d, i) => noHighlight(d, i.key))
+				.on('mouseover', (d, i) =>	highlight(d, i.key.replace(/[\s:]/g,'')))
+				.on('mouseout', (d, i) => noHighlight(d, i.key.replace(/[\s:]/g,'')))
 				.on('click', function(d, i) {
 					if (validNextLayer(i.key)) {
 						_aggLevel++
@@ -200,7 +200,7 @@ function buildChart() {
 					d.preventDefault();
 					if (_aggLevel > 0) {
 						_aggLevel--
-						_aggFilter = i.key.substring(0,i.key.length-2)
+						_aggFilter = i.key.slice(0,_aggLevel)
 						buildChart()
 					}
 				})
@@ -216,25 +216,26 @@ function buildChart() {
    		.attr("width", size)
    		.attr("height", size)
 			.attr('class', d => 'legendBox' + (validNextLayer(d) ? ' pointer' : ''))
-			.attr('id', d => 'legBox_'+d)
+			.attr('id', d => 'legBox_'+d.replace(/[\s:]/g,''))
    		.style("fill", d => color(d))
-   		.on("mouseover", highlight)
-   		.on("mouseleave", noHighlight)
-			.on('click', function(d,i) {
-				if (validNextLayer(i)) {
-					_aggLevel++
-					_aggFilter = i
-					buildChart()
-				}
-			})
-			.on('contextmenu', function(d, i) {
-				d.preventDefault();
-				if (_aggLevel > 0) {
-					_aggLevel--
-					_aggFilter = i.substring(0,i.length-2)
-					buildChart()
-				}
-			})
+   		.on("mouseover", (d, i) => highlight(d, i.replace(/[\s:]/g,'')))
+      	.on("mouseleave", (d, i) => noHighlight(d, i.replace(/[\s:]/g,'')))
+		.on('click', function(d,i) {
+			if (validNextLayer(i)) {
+				_aggLevel++
+				_aggFilter = i
+				buildChart()
+			}
+		})
+		.on('contextmenu', function(d, i) {
+			console.log(i)
+			d.preventDefault();
+			if (_aggLevel > 0) {
+				_aggLevel--
+				_aggFilter = i.slice(0,_aggLevel)
+				buildChart()
+			}
+		})
 
    // Add one dot in the legend for each name.
    stackarea.selectAll("mylabels")
@@ -244,28 +245,31 @@ function buildChart() {
       	.attr("x", stackwidth + stackmargin.right/20 + size*1.2)
       	.attr("y", (d,i) => 10 + i*(size+5) + (size/2)) // 100 is where the first dot appears. 25 is the distance between dots
 			.attr('class', d => 'legendText' + (validNextLayer(d) ? ' pointer' : ''))
-			.attr('id', d => 'legText_'+d)
+			.attr('id', d => 'legText_'+d.replace(/[\s:]/g,''))
       	.style("fill", d => color(d))
-      	.text(d => _sicTable[d])
+      	.text(d => {
+			var colonInd = d.indexOf(':')
+			return _sicTable[d.slice(0, colonInd != -1 ? colonInd : _aggLevel+1)] + (colonInd != -1 ? ': Other' : '')
+		})
       	.attr("text-anchor", "left")
       	.style("alignment-baseline", "middle")
-      	.on("mouseover", highlight)
-      	.on("mouseleave", noHighlight)
-			.on('click', function(d,i) {
-				if (validNextLayer(i)) {
-					_aggLevel++
-					_aggFilter = i
-					buildChart()
-				}
-			})
-			.on('contextmenu', function(d, i) {
-				d.preventDefault();
-				if (_aggLevel > 0) {
-					_aggLevel--
-					_aggFilter = i.substring(0,i.length-2)
-					buildChart()
-				}
-			})
+      	.on("mouseover", (d, i) => highlight(d, i.replace(/[\s:]/g,'')))
+      	.on("mouseleave", (d, i) => noHighlight(d, i.replace(/[\s:]/g,'')))
+		.on('click', function(d,i) {
+			if (validNextLayer(i)) {
+				_aggLevel++
+				_aggFilter = i
+				buildChart()
+			}
+		})
+		.on('contextmenu', function(d, i) {
+			d.preventDefault();
+			if (_aggLevel > 0) {
+				_aggLevel--
+				_aggFilter = i.slice(0,_aggLevel)
+				buildChart()
+			}
+		})
 
 
 

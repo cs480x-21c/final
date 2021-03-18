@@ -26,7 +26,12 @@ p {
 	padding-bottom: 50px;
 }
 
+.legendText {
+	cursor: default
+}
+
 .pointer {
+	cursor: unset;
 	cursor: pointer;
 }
 
