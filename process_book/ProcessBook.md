@@ -74,8 +74,6 @@ Here was our initial implementation and testing of a choropleth map with a modal
 
 Implementation
 ---
-Describe the intent and functionality of the interactive visualizations you implemented. Provide clear and well-referenced images showing the key design and interaction elements.
-
 For this project, we implemented a standard choropleth with each country shaded by its reported value for a week. Countries that had no reported data were left white. 
 
 ![No Data](No_data.png)
@@ -115,8 +113,12 @@ Along the top of the visualization is a scrollbar with a list of weeks. These we
 
 Evaluation
 ---
-What did you learn about the data by using your visualizations? How did you answer your questions? How well does your visualization work, and how could you further improve it?
+One thing we learned about the data, specifically the values for the audio features, is that, when normalized, we saw some audio features having higher ranges than others (for example, danceability and acousticness have high ranges) and some audio features such as tempo have low ranges (little to no variation across the board).
 
-Conclusion
+Through this visualization, we learned that the audio features for top tracks vary greatly by country. For example, we learned that track danceability remains relatively constant in Japan over time, while danceability for the United States varied greatly (especially during the holidays - maybe Christmas music is just bad for dancing).
+
+Our visualization works as we expected it to, however we wanted to add a feature that allowed the timeline to be automatically traversed from start to end, which would "animate" the choropleth map. Unfortunately we couldn't get this feature to work in time, but we recognize that it would definitely improve the visualization and better communicate to the viewer the changing trends in streaming over time.
+
+Final Thoughts
 ---
-insert concluding thoughts here
+We would like to thank professor Lane Harrison for all of his guidance on this project, especially for helping us out with the choropleth map.
