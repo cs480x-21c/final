@@ -8,6 +8,8 @@ Most of the code for the stacked area chart were written from scratch using D3. 
 
 ## Product Value Treemap
 
+We used [treemap example](https://bl.ocks.org/erlenstar/43d822f70e4c669f001ec72d23434fbf)
+
 ## Overall Trade Value / Growth Plot
 
 ## Links
