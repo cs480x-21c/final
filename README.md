@@ -31,6 +31,10 @@ The map after the rendering is finished:
 
 We color coded the map to the number of dead due to this covid pandamic and added three different visualizations to interact with the original map.
 
+Code
+---
+All the html, javascript, and json files are the code we wrote from scratch.
+
 External Libraries
 ---
 D3js.v4 & D3js.v6
