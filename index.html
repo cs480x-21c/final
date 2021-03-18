@@ -166,7 +166,15 @@
                 "translate(" + (margin.left + width/2) + " ," +
                 (height + margin.top + 30) + ")")
             .style("text-anchor", "middle")
-            .text("Time");
+            .text("Year");
+
+        //text label for x axis
+        svg.append("text")
+            .attr("transform",
+                "translate(" + (margin.left + width/2) + " ," +
+                (15) + ")")
+            .style("text-anchor", "middle")
+            .text("Graph of frequency over time for: " + word);
 
         //add Y axis
         var y = d3.scaleLinear()
@@ -221,7 +229,7 @@
             if (fontOn) {
                 wordSpan.className = colorFont[1]
             }
-            wordSpan.onclick = function () { setGraph(word);}
+            wordSpan.onmouseover = function () { setGraph(word);}
             para.appendChild(wordSpan)
         }
     }
