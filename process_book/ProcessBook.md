@@ -13,7 +13,7 @@ We decided to tackle this project due to our common passion for music as well as
 
 Related Work
 ---
-Anything that inspired you, such as a paper, a web site, visualizations we discussed in class, etc.
+Our visual was inspired by the timeline visualization from class 'Historic Country Borders'. Our final design loosely followed the same layout, with a timeline across the top and a map (in our case a choropleth) below.
 
 ![Historic Borders inspiration](historicborders.png)
 
