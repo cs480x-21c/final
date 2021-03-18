@@ -6,6 +6,8 @@ output.innerHTML = slider.value;
 var year = "2008"
 var treewidth = 1000, treeheight = 800;
 var agg = 0;
+var _sicTable = {}
+
 d3.select('#right').style('width', treewidth)
 
 function numberWithCommas(x) {
@@ -38,18 +40,31 @@ function updateTree() {
 }
 
 
+Promise.all([
+	d3.csv('./data/SIC_table.csv')
+]).then(([sics]) => {
+	sics.forEach(d => {
+		_sicTable[d.ProductCode] = d.ProductDescription
+	})
+})
+
+
+function getName(str) {
+	var colonInd = str.indexOf(':')
+	return _sicTable[str.slice(0, colonInd != -1 ? colonInd : agg+1)] + (colonInd != -1 ? ': Other' : '')
+}
+
+
 function makeTreemap(year, dir, agg=0) {
 	document.getElementById('treetitle').innerHTML = getTreeTitle()
 
-	color = d3.scaleSequential([8, 0], d3.interpolateMagma)
+	//color = d3.scaleSequential([8, 0], d3.interpolateMagma)
 	var nest = d3.nest()
-		.key(d => d.first)
-		.key(d => d.second)
-		.key(d => d.third)
-		.key(d => d.fourth)
+		.key(d => getName(d.first))
+		.key(d => getName(d.second))
+		.key(d => getName(d.third))
+		.key(d => getName(d.fourth))
 		.rollup(d => d3.sum(d, a => a.TradeValueK));
-
-
 	
 
 	Promise.all([
@@ -87,7 +102,6 @@ function makeTreemap(year, dir, agg=0) {
 				var top = d3.select(this).node().getBoundingClientRect().top + window.pageYOffset;
 				var left = d3.select(this).node().getBoundingClientRect().left + window.pageXOffset;
 
-				
 				ttip.transition()
 					.duration(200)
 					.style("opacity", .9);
