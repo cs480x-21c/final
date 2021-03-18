@@ -122,23 +122,30 @@ def runQuery(argumentString):
 
         wordList = query.split(',')
         wordList = set(wordList)
+        wordList = list(wordList)
 
         dataJSON = {}
 
         df_main = DataFrame()
         firstRow = True
+        
+        N = 12
+        twelveList = [wordList[n:n+N] for n in range(0, len(wordList), N)]
 
-        for word in wordList:
-            url, urlquery, df = getNgrams(word, corpus, startYear, endYear,
-                                smoothing, caseInsensitive)
+
+        for someList in twelveList:
+            commaString = ",".join(someList)
+            url, urlquery, df = getNgrams(commaString, corpus, startYear, endYear,
+                    smoothing, caseInsensitive)
             if (firstRow):
                 df_main['year'] = df['year']
                 firstRow = False
-            df_main[word] = df[word]
+            for word in df.keys():
+                df_main[word] = df[word]
             # dataJSON[word] = json.loads(df.to_json())
 
-        print(df_main)
-        print(df_main.size)
+        # print(df_main)
+        # print(df_main.size)
 
         # url, urlquery, df = getNgrams(query, corpus, startYear, endYear,
         #                               smoothing, caseInsensitive)
@@ -187,7 +194,7 @@ def runQuery(argumentString):
             if '&gt;' in col:
                 df[col.replace('&gt;', '>')] = df.pop(col)
         # print(('Data saved to %s' % filename))
-        return dataJSON
+        return df_main.to_json()
 
         if notifyUser:
             print(warningMessage)
