@@ -94,3 +94,7 @@ app.get('/getPopulationCsv', function( req, res ){
         rawPopulationCsv: populationData
     }))
 })
+
+app.get('/gotoVideo', function(req, res) {
+    res.sendFile(__dirname + '/views/video.html')
+});

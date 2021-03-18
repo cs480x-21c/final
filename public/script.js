@@ -1,6 +1,7 @@
 let margin = {top: 50, bottom: 50, left: (window.innerWidth-1000)/2, right: 50}, height = 600, width = 1000
 let tooltip = d3.select('#tooltip')
 let perArea = d3.select('#perArea')
+let page_stateName = document.getElementById('page_stateName')
 console.log(d3)
 let the_map = d3.select('#usMap')
     .attr('width', width)
@@ -277,6 +278,7 @@ function getIdTypeCsv(){
             }
             revisedCsvData.sort((a, b) => parseInt(a[0]) - parseInt(b[0]))
 
+            page_stateName.innerText = 'The statistics you are looking at is '+val
 
             for (let i = 0; i < revisedCsvData.length-1; i++){
                 if (revisedCsvData[i+1][0] !== index || i === revisedCsvData.length-2){
@@ -336,6 +338,11 @@ function drawPositivePie(){
 
     console.log('pie data: ',pieData)
 
+    let totalValue = 0
+    for (let i = 0; i < pieData.length; i++){
+        totalValue += pieData[i].value
+    }
+
     let segments = d3.arc().innerRadius(0).outerRadius(250).padAngle(0.05).padRadius(50)
 
     positiveStats.append('g')
@@ -361,13 +368,21 @@ function drawPositivePie(){
             positiveStats.append('g')
                 .append("text")
                 .attr('x', '730px')
-                .attr('y', '550px')
+                .attr('y', '520px')
                 .attr('id', 'tooltip')
                 .text('# of Positive Increase: '+values[i])
+                .attr('fill', 'yellow')
+            positiveStats.append('g')
+                .append("text")
+                .attr('x', '730px')
+                .attr('y', '570px')
+                .attr('id', 'tooltip3')
+                .text((100*values[i]/totalValue).toFixed(2)+'%')
                 .attr('fill', 'yellow')
         })
         .on('mouseout', function (d, i){
             positiveStats.select('#tooltip').remove()
+            positiveStats.select('#tooltip3').remove()
         })
 
     positiveStats

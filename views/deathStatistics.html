@@ -1,13 +1,20 @@
 <!DOCTYPE html>
-<meta charset="utf-8">
+<html lang="en">
+<head>
+    <meta charset="utf-8">
 
+    <script src="https://d3js.org/d3.v3.min.js"></script>
 
-<link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
 
 
 
 <body>
-<script src="https://d3js.org/d3.v3.min.js"></script>
+<p id="page_stateName"></p>
+
+</body>
 <script>
 
 
@@ -112,13 +119,10 @@
                     .attr("id", "btnDiv")
 
 
-                // d3.select("#btnDiv")[0][0].innerHTML = [
-                //     '<h3>The example I used is: https://observablehq.com/@john-clarke/programmatically-control-a-d3-brush:</h3>',
-                //     '<ul>',
-                //     '<li>Name: Haowen Wei. Email:hwei@wpi.edu</li>',
-                //     '<li>Covid 19 visualization in MA</li>',
-                //     '</ul>'
-                // ].join('\n')
+                d3.select("#btnDiv")[0][0].innerHTML = [
+                    'The state you are look at is',state,
+                    '<p></p>'
+                ].join('\n')
 
 
                 var btns = d3.select("#btnDiv").selectAll("button").data(['red', 'green', 'blue', 'black', 'steelblue'])
@@ -325,5 +329,6 @@
     brushing_plot()
 
 </script>
+</html>
 
 
