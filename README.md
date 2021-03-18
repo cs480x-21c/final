@@ -29,6 +29,12 @@ The map before the rendering is finished:
 The map after the rendering is finished:
 ![](img/img2.png)
 
+We color coded the map to the number of dead due to this covid pandamic and added three different visualizations to interact with the original map.
+
+Code
+---
+All the html, javascript, and json files are the code we wrote from scratch.
+
 External Libraries
 ---
 D3js.v4 & D3js.v6
@@ -43,8 +49,16 @@ References
 ---
 
 
-https://www.youtube.com/watch?v=G-VggTK-Wlg&t=917s
-
-https://www.youtube.com/watch?v=znBBk_M95QY
-
-https://www.youtube.com/watch?v=znBBk_M95QY
+- https://www.youtube.com/watch?v=G-VggTK-Wlg&t=917s
+- https://www.youtube.com/watch?v=znBBk_M95QY
+- https://www.youtube.com/watch?v=znBBk_M95QY
+- https://observablehq.com/@philippkoytek/d3-part-3-brushing-and-linking
+- https://bl.ocks.org/john-guerra/raw/2c00b2d675a6bf1c84a7b140f4536b0d/
+- https://github.com/d3/d3-brush
+- https://observablehq.com/collection/@d3/d3-brush
+- https://observablehq.com/@d3/focus-context?collection=@d3/d3-brush
+- http://bl.ocks.org/timelyportfolio/5c136de85de1c2abb6fc
+- https://vizhub.com/
+- https://observablehq.com/@john-clarke/programmatically-control-a-d3-brush
+- https://observablehq.com/@d3/pannable-chart
+- https://www.youtube.com/watch?v=_8V5o2UHG0E&t=45216s
