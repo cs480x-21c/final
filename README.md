@@ -19,7 +19,11 @@ Here is the link to our Process Book: https://docs.google.com/document/d/1HXgdx8
 
 Notice
 ---
-Everytime the user refreshes the page, it may take some time 
+-Click the Button at **top left** to watch the introduction vedio.
+
+-The "Total Recover vs Time" data in the death statistics is **not available** for some states, so it might be empty. 
+
+-Everytime the user refreshes the page, it may take some time 
 (2-3 seconds) for the color of the map to render. So please
 be a little bit patient. Thanks!
 
