@@ -55,6 +55,8 @@ We had previous explored some of these data attributes in a previous project, fo
 
 ![dance](dance.png)
 ![acoustic](acoustic.png)
+
+
 Design Evolution
 ---
 Initially, we were considering keeping the data local to one country. However, we all wanted to experiement with geospatial data representations and map/choropleth visualizations. Due to the granularity of the data (only resolves on the country level), we opted to expand our project to a global scale.
