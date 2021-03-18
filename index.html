@@ -46,6 +46,12 @@
             usedClasses = []
             numRequests = 0
             frequenciesDict = {}
+            removeChildren('colorOutput')
+            let loadingMessage = document.createElement("span")
+            loadingMessage.textContent = "Loading...."
+            // loadingMessage.style.fontSize = "20px"
+            document.getElementById('colorOutput').appendChild(loadingMessage)
+
 
             formText = document.getElementById('fname').value
             let words = wordsOnly(sentenceToParts(formText))
@@ -210,7 +216,7 @@
             "engravers", "typewriter", "baskerville", "playbill",
             "figaro", "mistral", "OCR-A", "friz", "LCD", "elephant", "monodon"]
         yearNums = [1800,1810,1820,1830,1840,1850,1860,1870,1880,1890,
-            1900,1920,1920,1930,1940,1950,1960,1970,1980,1990,2000]
+            1900,1910,1920,1930,1940,1950,1960,1970,1980,1990,2000]
         colors = [
             // purples
             '#bcbddc',
@@ -331,13 +337,14 @@
         removeChildren('lgdsvg')
 
         let start = 15
-        let xStart = 200
-        let xChange = 120
+        let xStart = 30
+        let xChange = 140
         if (!fontsOn) {
             xChange = 50
+            xStart = 200
         }
         let yChange = 15
-        let indent = 15
+        let indent = 10
         let xUsed = 0
         let yUsed = [0,0,0,0]
         usedClasses = usedClasses.sort(function(a, b) {
