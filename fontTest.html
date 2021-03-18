@@ -22,6 +22,7 @@
             Example passage
         </p>
     </div>
+    <div id="settings" style="text-align:center;"></div>
     <div id ="legend">
     </div>
     <div id = "graph1">
@@ -82,6 +83,11 @@
     let datajson = ""
     let usedClasses = []
     let numRequests = 0;
+    let fontsOn = true
+    let btnColors = ['lightblue','lightgray']
+    let fontTextOptions = ['Fonts ON','Fonts OFF']
+    let colorTextOptions = ['Colors ON','Colors OFF']
+    let colorsOn = true
 
     let legend = d3
         .select("#legend")
@@ -91,6 +97,75 @@
         .attr("viewBox", "0 0 600 400")
         .attr('id', 'lgdsvg')
         .classed("svg-content-responsive", true);
+
+    addButtons()
+
+    function addButtons() {
+        let buttons = d3.select("#settings")
+        let btnSvg = buttons.append('svg')
+            .attr('height', 60)
+        btnSvg.append('rect')
+            .attr('id', 'fontBtn')
+            .attr('x', 10)
+            .attr('y',20)
+            .attr('height', 30)
+            .attr('width', 100)
+            .attr('fill', 'lightblue')
+            .on('click', function() {
+                switchFonts()
+            })
+        btnSvg.append('text')
+            .attr('id', 'fontBtnText')
+            .attr('x', 30)
+            .attr('y',40)
+            .text("Fonts ON")
+            .attr('height', 30)
+            .attr('width', 100)
+            .on('click', function() {
+                switchFonts()
+            })
+        btnSvg.append('rect')
+            .attr('id', 'colorBtn')
+            .attr('x', 120)
+            .attr('y',20)
+            .attr('height', 30)
+            .attr('width', 100)
+            .attr('fill', 'lightblue')
+        btnSvg.append('text')
+            .attr('id', 'colorBtnText')
+            .attr('x', 130)
+            .attr('y',40)
+            .text("Colors ON")
+            .attr('height', 30)
+            .attr('width', 100)
+            .on('click', function() {
+                switchColors()
+            })
+    }
+
+    function switchFonts() {
+        fontsOn = !fontsOn
+        let clr = 1
+        if (fontsOn) {
+            clr = 0
+        }
+        d3.select('#fontBtn')
+            .attr('fill', btnColors[clr])
+        d3.select('#fontBtnText')
+            .text(fontTextOptions[clr])
+    }
+
+    function switchColors() {
+        colorsOn = !colorsOn
+        let clr = 1
+        if (colorsOn) {
+            clr = 0
+        }
+        d3.select('#colorBtn')
+            .attr('fill', btnColors[clr])
+        d3.select('#colorBtnText')
+            .text(colorTextOptions[clr])
+    }
 
     function formSubmit() {
         try {
@@ -105,22 +180,6 @@
         }
         return false
     }
-
-    // function fetchAll(words) {
-    //     let l = words.length
-    //     for (let i = 0; i < l;) {
-    //         if (l - i <= 12) {
-    //             addToLabel(wordsOnly(words.slice(i,l)))
-    //             ftch(wordsOnly(words.slice(i,l)), true)
-    //             i = l
-    //         }
-    //         else {
-    //             addToLabel(wordsOnly(words.slice(i,i+12)))
-    //             ftch(wordsOnly(words.slice(i,i+12)), false)
-    //             i += 12
-    //         }
-    //     }
-    // }
 
     function ftch(sentence) {
         let data = { "word": sentence };
@@ -146,7 +205,7 @@
     function restOfStuff() {
         removeChildren('colorOutput')
         let yearsDict = getMaxYears()
-        showColors(formText, yearsDict, "colorOutput", true, true)
+        showColors(formText, yearsDict, "colorOutput", colorsOn, fontsOn)
         addLegend()
     }
 
@@ -155,7 +214,7 @@
         removeChildren('lgdsvg')
 
         let start = 15
-        let xChange = 140
+        let xChange = 120
         let yChange = 15
         let indent = 15
         let xUsed = 0
@@ -174,17 +233,28 @@
                 if (prevBucket != bucket) {
                     xUsed +=1
                 }
-                legend.append("circle")
-                    .attr("cx",start + xChange*xUsed + indent * xUsed)
-                    .attr("cy",start + yChange*yUsed[bucket])
-                    .attr("r", 7).style("fill", colors[i])
-                legend.append("text")
-                    .attr("x", start + indent + xChange*xUsed + indent * xUsed)
-                    .attr("y", start + yChange*yUsed[bucket])
-                    .attr("class", legendClasses[i])
-                    .text(yearNums[i] + "s: " + fontNames[i])
-                    .style("font-size", "13px").attr("alignment-baseline","middle")
-                    .style("fill", colors[i])
+                let c
+                let t
+                if (fontsOn || colorsOn) {
+                    c = legend.append("circle")
+                        .attr("cx", start + xChange * xUsed + indent * xUsed)
+                        .attr("cy", start + yChange * yUsed[bucket])
+                        .attr("r", 5)
+                    t = legend.append("text")
+                        .attr("x", start + indent + xChange * xUsed + indent * xUsed)
+                        .attr("y", start + yChange * yUsed[bucket])
+                        .style("font-size", "12px")
+                        .attr("alignment-baseline", "middle")
+                }
+                if (colorsOn) {
+                    c.style("fill", colors[i])
+                    t.style("fill", colors[i])
+                    t.text(yearNums[i] + "s")
+                }
+                if (fontsOn) {
+                    t.text(yearNums[i] + "s: " + fontNames[i])
+                        .attr("class", legendClasses[i])
+                }
                 yUsed[bucket] += 1
                 prevBucket = bucket
             }
@@ -211,11 +281,13 @@
 
     function showColors(sentence, wordDict, paragraphId, colorOn, fontOn) {
         let para = document.getElementById(paragraphId)
+        para.style.lineHeight = "20px"
         let wordArr = sentenceToParts(sentence)
         for (let i = 0; i < wordArr.length; i++) {
             let word = wordArr[i]
             let wordSpan = document.createElement("span")
             wordSpan.textContent = word + " "
+            wordSpan.style.fontSize = "20px"
             let colorFont = getColorAndFont(wordDict, word)
             if (colorOn) {
                 wordSpan.style.color = colorFont[0]
