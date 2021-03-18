@@ -35,6 +35,28 @@ The map after the rendering is finished:
 
 We color coded the map to the number of dead due to this covid pandamic and added three different visualizations to interact with the original map.
 
+Design Achievement
+---
+Color coded map based on the covid death number, and they are liner scaled.
+Brushing view for the death statistics. This interaction helps the user to understand the relationship between different data.
+Pie Chart and Bar Chart. The color coded Bar Chart and Pie chart can interact with the user in real time when they hover over the charts.
+The Map on the main page interacts with user in real time and displays the state name.
+We have different views on different webpages, and users can jump between different visualization.
+
+
+
+
+Technical Acheivement
+---
+We used the nodejs server to host all the pages, deal with the get/post request and manage the page redirection;
+We created a brush view such that different charts can interact with each other and show the more detailed stuff on the same aspect
+We have many different type of interactions. (Four different visualizations with interactions)
+-Brushing
+=hover over with color change, data displayment
+=clicking
+-button
+=check box
+
 Code
 ---
 All the html, javascript, and json files are the code we wrote from scratch.
