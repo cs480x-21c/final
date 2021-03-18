@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PhilologyBot</title>
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Merienda&display=swap" rel="stylesheet">
+</head>
+<body>
+<p id="label"></p>
+<div id = "heading">
+    <h1> How old are the words you normally use?</h1>
+</div>
+<div id = "input">
+    <form onsubmit="return formSubmit()">
+        <input type="text" id="fname" name="fname" value="enter a passage to learn more about its history">
+    </form>
+</div>
+<div id = "output">
+    <p id="colorOutput">
+        Example passage
+    </p>
+</div>
+<div id="settings" style="text-align:center;"></div>
+<div id ="legend">
+</div>
+<div id="graph1">
+</div>
+<div>
+    <svg id = "graph2"></svg>
+</div>
+</body>
+</html>
+
+<script src="https://d3js.org/d3.v6.min.js"></script>
+
+<script>
+    // Color setup stuff
+    let classes, legendClasses, fontNames, yearNums, colors, formText,datajson, usedClasses,numRequests,
+        fontsOn, colorsOn, btnColors, fontTextOptions, colorTextOptions, maxesDict, frequenciesDict
+    colorsSetup()
+
+    // This function gets called when the form is submitted
+    function formSubmit() {
+        try {
+            usedClasses = []
+            numRequests = 0
+            frequenciesDict = {}
+            removeChildren('colorOutput')
+            let loadingMessage = document.createElement("span")
+            loadingMessage.textContent = "Loading...."
+            // loadingMessage.style.fontSize = "20px"
+            document.getElementById('colorOutput').appendChild(loadingMessage)
+
+
+            formText = document.getElementById('fname').value
+            let words = wordsOnly(sentenceToParts(formText))
+            ftch(words)
+        }
+        finally {
+        }
+        return false   // so that the page doesn't refresh on form submission
+    }
+
+    // Call the API to get the json of words
+    function ftch(sentence) {
+        let data = { "word": sentence };
+        fetch('https://hx4p0vdoz8.execute-api.us-east-2.amazonaws.com/deploy/getworddata', {
+            method: 'POST', // or 'PUT'
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data)
+                datajson = JSON.parse(JSON.parse(data.body))
+                restOfStuff()
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
+
+    // After receiving the response, update everything
+    function restOfStuff() {
+        maxesDict = getMaxYears()
+
+        // Color stuff
+        removeChildren('colorOutput')
+        removeChildren('graph2')
+        showColors(formText, maxesDict, "colorOutput", colorsOn, fontsOn)
+        addLegend()
+
+        // todo: graph stuff
+    }
+
+    function range(size, startAt = 0) {
+        return [...Array(size).keys()].map(i => i + startAt);
+    }
+
+    // Saves the year maxes and single year frequencies
+    function getMaxYears() {
+        let maxes = {}
+        let keys = Object.keys(datajson)
+        for (let word = 1; word < Object.keys(datajson).length; word++) {
+            let maxYear = 0
+            let maxVal = 0
+            let freqs = []
+            for (let y = 0; y < Object.keys(datajson.year).length; y++) {
+                if (datajson[keys[word]][y] > maxVal) {
+                    maxVal = datajson[keys[word]][y]
+                    maxYear = y
+                }
+                freqs.push(datajson[keys[word]][y])
+            }
+            maxes[keys[word]] = maxYear
+            frequenciesDict[keys[word]] = freqs
+        }
+        return maxes
+    }
+
+    // This is set as the function of each word in the output display - for single word graphs
+    // the global variable frequencesDict contains the data for each individual word
+    // its a dictionary in the format: {'word':[0.1,0.2,...0.5], 'banana':[0.0,0.3,...0.9]}
+    // to access the array of frequencies for the word banana use: frequenciesDict['banana']
+    function setGraph(word) {
+        wordAgeGraph(word)
+    }
+
+    function wordAgeGraph(word){
+        let margin =  {top: 20, right: 30, bottom: 60, left: 80}
+        let width = 300;
+        let height = 300;
+
+        removeChildren('graph2')
+        let svg = d3.select('#graph2')
+
+        svg.attr('height', height + margin.top + margin.bottom)
+            .attr('width', width + margin.right + margin.left)
+
+        //2D array holding year and frequency of word usage. pulled from the API
+        //assuming elements are "year" and "frequency"
+        let wordData = frequenciesDict[word]
+
+        //year where the word was used most frequently. also pulled from the API
+        let maxFreqYear = maxesDict[word]
+
+        //find the index of this year
+        maxIndex = wordData[maxFreqYear]
+
+        //add X axis
+        var x = d3.scaleLinear()
+            .domain([1800, 2000])
+            .range([0, width]);
+
+        svg.append("g")
+            .attr("transform", "translate(" + (margin.left) + "," + (margin.top + height) + ")")
+            .call(d3.axisBottom(x));
+
+        //text label for x axis
+        svg.append("text")
+            .attr("transform",
+                "translate(" + (margin.left + width/2) + " ," +
+                (height + margin.top + 30) + ")")
+            .style("text-anchor", "middle")
+            .text("Year");
+
+        //text label for x axis
+        svg.append("text")
+            .attr("transform",
+                "translate(" + (margin.left + width/2) + " ," +
+                (15) + ")")
+            .style("text-anchor", "middle")
+            .text("Graph of frequency over time for: " + word);
+
+        //add Y axis
+        var y = d3.scaleLinear()
+            .domain([0, maxIndex]) //sets the Y axis limit to the max frequency
+            .range([height, 0]);
+
+        svg.append("g")
+            .attr("transform", "translate(" + margin.left + ",20)")
+            .call(d3.axisLeft(y));
+
+        //text label for the y axis
+        svg.append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 0)
+            .attr("x", -170)
+            .attr("dy", "1em")
+            .style("text-anchor", "middle")
+            .text("Frequency of Word Usage");
+
+        let years = range(201,1800)
+
+        //add the line
+        i = -1
+        svg.append("path")
+            .datum(wordData)
+            .attr("fill", "none")
+            .attr("stroke", "black")
+            .attr("stroke-width", 1.5)
+            .attr("d", d3.line()
+                .x(function(d) {
+                    i += 1;
+                    return x(years[i]) + margin.left})
+                .y(function(d) {
+                    return y(d) +margin.top})
+            );
+    }
+
+    // Set colors
+    function showColors(sentence, wordDict, paragraphId, colorOn, fontOn) {
+        let para = document.getElementById(paragraphId)
+        para.style.lineHeight = "20px"
+        let wordArr = sentenceToParts(sentence)
+        for (let i = 0; i < wordArr.length; i++) {
+            let word = wordArr[i]
+            let wordSpan = document.createElement("span")
+            wordSpan.textContent = word + " "
+            wordSpan.style.fontSize = "20px"
+            let colorFont = getColorAndFont(wordDict, word)
+            if (colorOn) {
+                wordSpan.style.color = colorFont[0]
+            }
+            if (fontOn) {
+                wordSpan.className = colorFont[1]
+            }
+            wordSpan.onmouseover = function () { setGraph(word);}
+            para.appendChild(wordSpan)
+        }
+    }
+
+    /////////////// Parsing stuff
+    function wordsOnly(partsArr) {
+        let words = ""
+        for (let i = 0; i < partsArr.length; i++) {
+            let part = partsArr[i]
+            if (part.length === 1) {
+                if ("ai".includes(part)) {
+                    words += part + ","
+                }
+            }
+            else {
+                words += part + ","
+            }
+        }
+        return words
+    }
+
+    // tests
+    // addToLabel(sentenceToParts("this is a sentence"))
+    // addToLabel(sentenceToParts("this this is is a a sentence sentence"))
+    // addToLabel(sentenceToParts("this is a sentence. this is a new sentence"))
+    // addToLabel(sentenceToParts("this is an intentionally-hyphenated word! one may well ask?"))
+    function sentenceToParts(sentence) {
+        let words = []
+        let index = sentence.indexOf(" ")
+        let remainder = sentence.toLowerCase()
+        while (index > 0) {
+            let currWord = remainder.substring(0, index)
+            pushParts(currWord, words)
+            remainder = remainder.substring(index + 1)
+            index = remainder.indexOf(" ")
+        }
+        pushParts(remainder, words)
+        return words
+    }
+
+    function pushParts(word, wordsArr) {
+        let start = 0
+        for (let i = 0; i < word.length; i++) {
+            if (!"abcdefghijklmnopqrstuvwxyz-".includes(word.substring(i, i + 1))) {
+                wordsArr.push(word.substring(start, i))
+                wordsArr.push(word.substring(i, i + 1))
+                start = i + 1
+            }
+        }
+        if (start < word.length) {
+            wordsArr.push(word.substring(start))
+        }
+    }
+
+    ////////////////// Colors stuff
+    function colorsSetup() {
+        classes = ["eights", "eights-one","eights-two","eights-three","eights-four","eights-five",
+            "eights-six","eights-seven","eights-eight","eights-nine",
+            "nines",  "nines-one",  "nines-two",  "nines-three",  "nines-four",  "nines-five",
+            "nines-six",  "nines-seven",  "nines-eight",  "nines-nine",
+            "oughts"]
+        legendClasses = ["legEights", "legEights-one","legEights-two",
+            "legEights-three","legEights-four","legEights-five",
+            "legEights-six","legEights-seven","legEights-eight","legEights-nine",
+            "legNines",  "legNines-one",  "legNines-two",  "legNines-three",
+            "legNines-four",  "legNines-five",
+            "legNines-six",  "legNines-seven",  "legNines-eight",  "legNines-nine",
+            "legOughts"]
+        fontNames = ["fraktur", "antique", "egiziano", "thorowgood", "clarendon",
+            "bamberg", "normande", "ionic", "hattan", "morris",
+            "engravers", "typewriter", "baskerville", "playbill",
+            "figaro", "mistral", "OCR-A", "friz", "LCD", "elephant", "monodon"]
+        yearNums = [1800,1810,1820,1830,1840,1850,1860,1870,1880,1890,
+            1900,1910,1920,1930,1940,1950,1960,1970,1980,1990,2000]
+        colors = [
+            // purples
+            '#bcbddc',
+            '#9e9ac8',
+            '#807dba',
+            '#6a51a3',
+            '#54278f',
+            // blues
+            '#9ecae1',
+            '#6baed6',
+            '#4292c6',
+            '#2171b5',
+            '#08519c',
+            // greens
+            '#99d8c9',
+            '#66c2a4',
+            '#41ae76',
+            '#238b45',
+            '#006d2c',
+            // reds
+            '#fc9272',
+            '#fb6a4a',
+            '#ef3b2c',
+            '#cb181d',
+            '#a50f15']
+
+        formText = ""
+        datajson = ""
+        usedClasses = []
+        numRequests = 0;
+        fontsOn = true
+        btnColors = ['lightblue','lightgray']
+        fontTextOptions = ['Fonts ON','Fonts OFF']
+        colorTextOptions = ['Colors ON','Colors OFF']
+        colorsOn = true
+
+        legend = d3
+            .select("#legend")
+            .classed("svg-container", true)
+            .append("svg")
+            .attr("preserveAspectRatio", "xMinYMin meet")
+            .attr("viewBox", "0 0 600 120")
+            .attr('id', 'lgdsvg')
+            .classed("svg-content-responsive", true);
+
+        addButtons()
+    }
+
+    function addButtons() {
+        let buttons = d3.select("#settings")
+        let btnSvg = buttons.append('svg')
+            .attr('height', 60)
+        btnSvg.append('rect')
+            .attr('id', 'fontBtn')
+            .attr('x', 10)
+            .attr('y',20)
+            .attr('height', 30)
+            .attr('width', 100)
+            .attr('fill', 'lightblue')
+            .on('click', function() {
+                switchFonts()
+            })
+        btnSvg.append('text')
+            .attr('id', 'fontBtnText')
+            .attr('x', 30)
+            .attr('y',40)
+            .text("Fonts ON")
+            .attr('height', 30)
+            .attr('width', 100)
+            .on('click', function() {
+                switchFonts()
+            })
+        btnSvg.append('rect')
+            .attr('id', 'colorBtn')
+            .attr('x', 120)
+            .attr('y',20)
+            .attr('height', 30)
+            .attr('width', 100)
+            .attr('fill', 'lightblue')
+        btnSvg.append('text')
+            .attr('id', 'colorBtnText')
+            .attr('x', 130)
+            .attr('y',40)
+            .text("Colors ON")
+            .attr('height', 30)
+            .attr('width', 100)
+            .on('click', function() {
+                switchColors()
+            })
+    }
+
+    function switchFonts() {
+        fontsOn = !fontsOn
+        let clr = 1
+        if (fontsOn) {
+            clr = 0
+        }
+        d3.select('#fontBtn')
+            .attr('fill', btnColors[clr])
+        d3.select('#fontBtnText')
+            .text(fontTextOptions[clr])
+    }
+
+    function switchColors() {
+        colorsOn = !colorsOn
+        let clr = 1
+        if (colorsOn) {
+            clr = 0
+        }
+        d3.select('#colorBtn')
+            .attr('fill', btnColors[clr])
+        d3.select('#colorBtnText')
+            .text(colorTextOptions[clr])
+    }
+
+    function addLegend() {
+        let legend = d3.select('#lgdsvg')
+        removeChildren('lgdsvg')
+
+        let start = 15
+        let xStart = 30
+        let xChange = 140
+        if (!fontsOn) {
+            xChange = 50
+            xStart = 200
+        }
+        let yChange = 15
+        let indent = 10
+        let xUsed = 0
+        let yUsed = [0,0,0,0]
+        usedClasses = usedClasses.sort(function(a, b) {
+            return a - b;
+        })
+
+        let prevBucket = 0
+        for (let i = 0; i < 20; i++) {
+            if (usedClasses.includes(i)) {
+                let bucket = Math.floor(i / 5)
+                if (bucket > 3) {
+                    bucket = 3
+                }
+                if (prevBucket != bucket) {
+                    xUsed +=1
+                }
+                let c
+                let t
+                if (fontsOn || colorsOn) {
+                    c = legend.append("circle")
+                        .attr("cx", xStart + xChange * xUsed + indent * xUsed)
+                        .attr("cy", start + yChange * yUsed[bucket])
+                        .attr("r", 5)
+                    t = legend.append("text")
+                        .attr("x", xStart + indent + xChange * xUsed + indent * xUsed)
+                        .attr("y", start + yChange * yUsed[bucket])
+                        .style("font-size", "12px")
+                        .attr("alignment-baseline", "middle")
+                }
+                if (colorsOn) {
+                    c.style("fill", colors[i])
+                    t.style("fill", colors[i])
+                    t.text(yearNums[i] + "s")
+                }
+                if (fontsOn) {
+                    t.text(yearNums[i] + "s: " + fontNames[i])
+                        .attr("class", legendClasses[i])
+                }
+                yUsed[bucket] += 1
+                prevBucket = bucket
+            }
+        }
+    }
+
+    // tests
+    // addToLabel(getColorAndFont(wd, "the"))
+    // addToLabel(getColorAndFont(wd, "quick"))
+    // addToLabel(getColorAndFont(wd, "brown"))
+    // addToLabel(getColorAndFont(wd, "red"))
+    function getColorAndFont(wordDict, word) {
+        let year = wordDict[word]
+        if (year === undefined) {
+            return 'black'
+        }
+        let cl = Math.floor(year / 10)
+        if (cl == 20) {
+            cl = 19
+        }
+        usedClasses.push(cl)
+        return [getColorByYear(year), getFontByYear(year)]
+    }
+
+    function getColorByYear(year) {
+        let bucket = Math.floor(year / 50)
+        if (bucket > 3) {
+            bucket = 3
+        }
+        let division = Math.floor((year - bucket * 50) / 10)
+        if (division > 4) {
+            division = 4
+        }
+        return colors[bucket * 5 + division]
+    }
+
+    function getFontByYear(year) {
+        return classes[Math.floor(year / 10)]
+    }
+
+    //////////////////// Helpful functions
+    // Add the text to the label at the top of the page
+    function addToLabel(text) {
+        let label = document.getElementById("label")
+        label.appendChild(document.createElement("br"))
+        label.appendChild(document.createTextNode(text))
+    }
+
+    // Remove all of a node's children
+    function removeChildren(id) {
+        let node = document.getElementById(id)
+        while (node.hasChildNodes()) {
+            node.removeChild(node.childNodes[0])
+        }
+    }
+</script>
