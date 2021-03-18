@@ -20,13 +20,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="54a73371-823e-4f28-a0bf-112958db9104" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/views/video.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Process Book.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/img1.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/script.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/deathStatistics.html" beforeDir="false" afterPath="$PROJECT_DIR$/views/deathStatistics.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/views/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/positiveStatistics.html" beforeDir="false" afterPath="$PROJECT_DIR$/views/positiveStatistics.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,20 +55,21 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/img" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\rin\Desktop\final\img" />
+      <recent name="C:\Users\rin\Desktop\final" />
+      <recent name="C:\Users\rin\Desktop\final\views" />
+      <recent name="C:\Users\rin\Desktop\final\public" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\rin\Desktop\final\public" />
       <recent name="C:\Users\rin\Desktop\final\views" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\rin\Desktop\final\views" />
-      <recent name="C:\Users\rin\Desktop\final" />
-      <recent name="C:\Users\rin\Desktop\final\public" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -85,7 +83,7 @@
       <workItem from="1615785113220" duration="8339000" />
       <workItem from="1615822717143" duration="64267000" />
       <workItem from="1616010365515" duration="11000" />
-      <workItem from="1616010378011" duration="5119000" />
+      <workItem from="1616010378011" duration="7654000" />
     </task>
     <servers />
   </component>
@@ -105,10 +103,10 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="501" y="216" key="FileChooserDialogImpl" timestamp="1616010374183">
+    <state x="501" y="216" key="FileChooserDialogImpl" timestamp="1616032904378">
       <screen x="0" y="0" width="1440" height="920" />
     </state>
-    <state x="501" y="216" key="FileChooserDialogImpl/0.0.1440.920@0.0.1440.920" timestamp="1616010374183" />
+    <state x="501" y="216" key="FileChooserDialogImpl/0.0.1440.920@0.0.1440.920" timestamp="1616032904378" />
     <state width="1419" height="242" key="GridCell.Tab.0.bottom" timestamp="1615795522160">
       <screen x="0" y="0" width="1440" height="920" />
     </state>
