@@ -1,10 +1,13 @@
 Final Project - Interactive Data Visualization  
 ===
 
+
 Description
 ---
 
 [Link to live website](https://philologybot.github.io/final/)
+
+[Link to video](https://youtu.be/fh30fuPlaDo)
 
 By using PhilologyBot you are able to see what time a word was most frequently used. 
 
