@@ -1,0 +1,95 @@
+h1 {
+	font: 40px avenir;
+	font-weight: bold;
+	margin-bottom: 0;
+	white-space: nowrap;
+}
+
+h2 {
+	font: 26px avenir;
+	font-weight: bold;
+	margin-bottom: 0;
+	white-space: nowrap;
+}
+
+h3 {
+	margin-bottom: 0;
+	white-space: nowrap;
+}
+
+p {
+	font: 14px avenir;
+	white-space: nowrap;
+}
+
+#right {
+	padding-bottom: 50px;
+}
+
+.legendText {
+	cursor: default
+}
+
+.pointer {
+	cursor: unset;
+	cursor: pointer;
+}
+
+.axis path,
+.axis line {
+	fill: none;
+	stroke: #000;
+	shape-rendering: crispEdges;
+}
+
+.browser text {
+	text-anchor: end;
+}
+
+.node {
+	box-sizing: border-box;
+	line-height: 1em;
+	overflow: hidden;
+	position: absolute;
+	background: #ddd;
+}
+
+div.tooltip {
+	position: absolute;
+	text-align: left;
+	padding: 6px;
+	font: 12px sans-serif;
+	background: lightsteelblue;
+	border: 0px;
+	border-radius: 8px;
+	pointer-events: none;
+	font-weight: bold;
+}
+
+.card {
+	/*max-width: 800px;*/
+	margin: auto;
+	position: relative;
+	display: flex;
+}
+
+.node-label,
+.node-value {
+	margin: 4px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.node-value {
+	margin-top: -2px;
+}
+
+.node-value,
+.node-label {
+	font-weight: bold;
+}
+
+.node--hover {
+	stroke: #000;
+}
