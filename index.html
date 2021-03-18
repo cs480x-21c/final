@@ -94,8 +94,6 @@
         addLegend()
 
         // todo: graph stuff
-        addToLabel(maxesDict['enter'])
-        addToLabel(frequenciesDict['enter'][20])
     }
 
     function range(size, startAt = 0) {
@@ -133,9 +131,9 @@
     }
 
     function wordAgeGraph(word){
-        let margin =  {top: 20, right: 30, bottom: 60, left: 60}
-        let width = 400;
-        let height = 400;
+        let margin =  {top: 20, right: 30, bottom: 60, left: 80}
+        let width = 300;
+        let height = 300;
 
         let svg = d3.select('#graph1')
 
@@ -175,34 +173,34 @@
             .range([height, 0]);
 
         svg.append("g")
-            .attr("transform", "translate(60,20)")
+            .attr("transform", "translate(" + margin.left + ",20)")
             .call(d3.axisLeft(y));
 
         //text label for the y axis
         svg.append("text")
             .attr("transform", "rotate(-90)")
             .attr("y", 0)
-            .attr("x", -200)
+            .attr("x", -170)
             .attr("dy", "1em")
             .style("text-anchor", "middle")
             .text("Frequency of Word Usage");
 
-        let years = range(1800,201)
+        let years = range(201,1800)
 
         //add the line
         i = -1
-        // svg.append("path")
-        //     .datum(wordData)
-        //     .attr("fill", "none")
-        //     .attr("stroke", "black")
-        //     .attr("stroke-width", 1.5)
-        //     .attr("d", d3.line()
-        //         .x(function(d) {
-        //             i += 1;
-        //             addToLabel(years[i] + " " + x(years[i]))
-        //             return x(years[i]) })
-        //         .y(function(d) { return y(d.frequency) })
-        //     );
+        svg.append("path")
+            .datum(wordData)
+            .attr("fill", "none")
+            .attr("stroke", "black")
+            .attr("stroke-width", 1.5)
+            .attr("d", d3.line()
+                .x(function(d) {
+                    i += 1;
+                    return x(years[i]) + margin.left})
+                .y(function(d) {
+                    return y(d) +margin.top})
+            );
     }
 
     // Set colors
