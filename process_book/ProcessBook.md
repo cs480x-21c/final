@@ -13,7 +13,7 @@ We decided to tackle this project due to our common passion for music as well as
 
 Related Work
 ---
-As a group, we wanted to be able to visualize how the COVID-19 pandemic affected Spotify streaming on a global scale. For this, it made sense to consider the use of maps. One cool example of a map visualization we found was a map visualizing country borders over time. We ended up using this visualization to prototype the layout for our web page. (See it for yourself here: https://historicborders.app/)
+As a group, we wanted to be able to visualize how the COVID-19 pandemic affected Spotify streaming on a global scale. For this, it made sense to consider the use of maps. One cool example of a map visualization we found was a map visualizing country borders over time. We ended up using this visualization to prototype the layout for our web page. (See it for yourself here: https://historicborders.app/) Our final design loosely followed the same layout, with a timeline across the top and a map (in our case a choropleth) below.
 
 ![Historic Borders inspiration](historicborders.png)
 
