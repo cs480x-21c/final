@@ -45,7 +45,7 @@ svg.append("text")
 
 //add Y axis
 var y = d3.scaleLinear()
-    .domain([0, wordData[maxIndex].frequency) //sets the Y axis limit to the max frequency
+    .domain([0, wordData[maxIndex].frequency]) //sets the Y axis limit to the max frequency
     .range([height, 0]);
 	
 svg.append("g")

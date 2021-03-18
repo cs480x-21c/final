@@ -25,7 +25,8 @@
 <div id="settings" style="text-align:center;"></div>
 <div id ="legend">
 </div>
-<div id = "graph1">
+<div >
+    <svg id = "graph1"></svg>
 </div>
 <div id = "graph2">
 </div>
@@ -93,6 +94,12 @@
         addLegend()
 
         // todo: graph stuff
+        addToLabel(maxesDict['enter'])
+        addToLabel(frequenciesDict['enter'][20])
+    }
+
+    function range(size, startAt = 0) {
+        return [...Array(size).keys()].map(i => i + startAt);
     }
 
     // Saves the year maxes and single year frequencies
@@ -122,7 +129,79 @@
     // to access the array of frequencies for the word banana use: frequenciesDict['banana']
     // todo
     function setGraph(word) {
-        // dummy graph function
+        wordAgeGraph(word)
+    }
+
+    function wordAgeGraph(word){
+        let margin =  {top: 10, right: 30, bottom: 60, left: 60}
+        let width = 400;
+        let height = 400;
+
+        let svg = d3.select('#graph1')
+
+        svg.attr('height', height + margin.top + margin.bottom)
+            .attr('width', width + margin.right + margin.left)
+
+        //2D array holding year and frequency of word usage. pulled from the API
+        //assuming elements are "year" and "frequency"
+        let wordData = frequenciesDict[word]
+
+        //year where the word was used most frequently. also pulled from the API
+        let maxFreqYear = maxesDict[word]
+
+        //find the index of this year
+        maxIndex = wordData[maxFreqYear]
+
+        //add X axis
+        var x = d3.scaleLinear()
+            .domain([1800, 2000])
+            .range([0, width]);
+
+        svg.append("g")
+            .attr("transform", "translate(20," + height + ")")
+            .call(d3.axisBottom(x));
+
+        //text label for x axis
+        svg.append("text")
+            .attr("transform",
+                "translate(" + (10 + width/2) + " ," +
+                (height + 30) + ")")
+            .style("text-anchor", "middle")
+            .text("Time");
+
+        //add Y axis
+        var y = d3.scaleLinear()
+            .domain([0, maxIndex]) //sets the Y axis limit to the max frequency
+            .range([height, 0]);
+
+        svg.append("g")
+            .call(d3.axisLeft(y));
+
+        //text label for the y axis
+        svg.append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 0 - margin.left)
+            .attr("x", 0 - (height / 2))
+            .attr("dy", "1em")
+            .style("text-anchor", "middle")
+            .text("Frequency of Word Usage");
+
+        let years = range(1800,201)
+
+        //add the line
+        i = -1
+        // svg.append("path")
+        //     .datum(wordData)
+        //     .attr("fill", "none")
+        //     .attr("stroke", "black")
+        //     .attr("stroke-width", 1.5)
+        //     .attr("d", d3.line()
+        //         .x(function(d) {
+        //             i += 1;
+        //             addToLabel(years[i] + " " + x(years[i]))
+        //             return x(years[i]) })
+        //         .y(function(d) { return y(d.frequency) })
+        //     );
     }
 
     // Set colors
@@ -258,7 +337,7 @@
             .classed("svg-container", true)
             .append("svg")
             .attr("preserveAspectRatio", "xMinYMin meet")
-            .attr("viewBox", "0 0 600 400")
+            .attr("viewBox", "0 0 600 120")
             .attr('id', 'lgdsvg')
             .classed("svg-content-responsive", true);
 
