@@ -59,7 +59,7 @@ We have many different type of interactions. (Four different visualizations with
 
 Code
 ---
-All the html, javascript, and json files are the code we wrote from scratch.
+All the html, javascript, and css files are the code we wrote from scratch.
 
 External Libraries
 ---
