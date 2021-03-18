@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/style.css">
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+</head>
+<body>
+
+<svg id="usMap"></svg>
+<div style="top: 700px; position: absolute;left: 30%">
+    <label for="hobby">Detail to see:
+        <input type="checkbox" id="checkDeath" name="hobby" value="death" onclick="selectThis(this.id)"/>Death Statistics
+        <input type="checkbox" id="checkPositive" name="hobby" value="positive" onclick="selectThis(this.id)"/>Positive Increase Statistics
+        <input type="checkbox" id="checkAirport" name="hobby" value="running" onclick="selectThis(this.id)"/>Death vs Airports
+        </br></br>
+        <input type="button" value="Let's go!" onclick="redirectPage()" style="display: table; margin: 0 auto;
+height: 50px; width: 200px; font-size: 15px"/>
+    </label>
+</div>
+<div style="top: 50px; position: absolute;left: 50px">
+    <label for="colorType">
+        <input type="checkbox" id="colorTotal" name="colorType" value="total" onclick="colorselectThis(this.id)" checked/>Total Death
+        </br>
+        <input type="checkbox" id="colorPerPpl" name="colorType" value="perPpl" onclick="colorselectThis(this.id)"/>Death in Percentage
+        </br>
+    </label>
+</div>
+<!--<div id="perArea" style="position: absolute">See k</div>-->
+<div id="tooltip" style="position: absolute">
+    <!--hello world-->
+</div>
+<div style="width: 200px; height: 50px; background: cornflowerblue; font-size: 20px;
+position: absolute; left: 50px; top: 700px; text-align: center" onclick="seeVideo()">
+    Click On Me!!!!!
+    See Instruction Video!
+</div>
+</body>
+<script>
+    window.onload = function (){
+        alert('Remember to first click on a state and then go redirected if you would like' +
+            ' to see the Death Statistics and the Positive Increase Statistics!')
+        document.getElementById('colorTotal').checked = true
+        document.getElementById('colorPerPpl').checked = false
+    }
+    function seeVideo(){
+        window.location.href="/gotoVideo"
+    }
+</script>
+<script defer src="/script.js"></script>
+</html>
