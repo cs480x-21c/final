@@ -17,7 +17,8 @@ people are low but the death rates are high.
 
 Here is the link to our Process Book: https://docs.google.com/document/d/1HXgdx8TZP5KKBleuE8kCOYOEbLU6zn7q4I9oCg-YPPM/edit?usp=sharing
 
-Notice:
+Notice
+---
 Everytime the user refreshes the page, it may take some time 
 (2-3 seconds) for the color of the map to render. So please
 be a little bit patient. Thanks!
