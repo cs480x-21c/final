@@ -54,7 +54,9 @@ Exploratory Data Analysis
 We had previous explored some of these data attributes in a previous project, focusing on Spotify trends. From this, we already had some understanding of the audio features and how periodicity can impact the data. These previous visualizations were done using Microsoft Power BI.
 
 ![dance](dance.png)
-![acoustic](acoustic.png)
+![acoustic](acoustic.png)  
+![valence dashboard](valence_dashboard.png)  
+<br>
 Design Evolution
 ---
 Initially, we were considering keeping the data local to one country. However, we all wanted to experiement with geospatial data representations and map/choropleth visualizations. Due to the granularity of the data (only resolves on the country level), we opted to expand our project to a global scale.
