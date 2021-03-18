@@ -13,31 +13,27 @@ var margin = {}
 var width;
 var height;
 
+//2D array holding year and frequency of word usage. pulled from the API
+//assuming elements are "year" and "frequency"
+wordData = [];
 
-//pretend there's data here
-sentences = ["sentence 1.", "sentence 2?", "sentence 3!"]; //needs a method to create this data from the input, dummy data rn
+//year where the word was used most frequently. also pulled from the API
+maxFreqYear;
 
-//function for finding avg date of a sentence
-function getMaxDateFreq(sentence){
-	//TODO
-};
-
-//2D array holding sentences and date of each, initialized
-sentenceData = [];
-array.forEach(item => 
-	sentenceData.push({"sentenceNum":item, "date":getMaxDateFreq(item)});
+//find the index of this year
+maxIndex;
+wordData.forEach(item => 
+	if (item.year === maxFreqYear) { maxIndex = item.frequency };
 );
-
 
 //add X axis
 var x = d3.scaleLinear()
-	.domain([0, sentences.length])
+	.domain([1800, 2000])
 	.range([0, width]);
 	
 svg.append("g")
 	.attr("transform", "translate(0," + height + ")")
-    .call(d3.axisBottom(x))
-	.call(d3.svg.axis().tickValues([])); //don't show labels on this axis
+    .call(d3.axisBottom(x));
 
 //text label for x axis
 svg.append("text")             
@@ -45,34 +41,34 @@ svg.append("text")
         "translate(" + (width/2) + " ," + 
                        (height + margin.top) + ")")
       .style("text-anchor", "middle")
-      .text("Sentences");
+      .text("Time");
 
 //add Y axis
 var y = d3.scaleLinear()
-    .domain([1800, 2000])
+    .domain([0, wordData[maxIndex].frequency) //sets the Y axis limit to the max frequency
     .range([height, 0]);
 	
 svg.append("g")
     .call(d3.axisLeft(y));
 	
-// text label for the y axis
+//text label for the y axis
 svg.append("text")
       .attr("transform", "rotate(-90)")
       .attr("y", 0 - margin.left)
       .attr("x", 0 - (height / 2))
       .attr("dy", "1em")
       .style("text-anchor", "middle")
-      .text("Date"); 
+      .text("Frequency of Word Usage"); 
 
 //add the line
 svg.append("path")
-      .datum(sentenceData)
+      .datum(wordData)
       .attr("fill", "none")
       .attr("stroke", "black")
       .attr("stroke-width", 1.5)
       .attr("d", d3.line()
-        .x(function(d) { return x(d.sentenceNum) })
-        .y(function(d) { return y(d.date) })
+        .x(function(d) { return x(d.year) })
+        .y(function(d) { return y(d.frequency) })
         );
 
 </script>
