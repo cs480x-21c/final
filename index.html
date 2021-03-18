@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>SpotifyTrends</title>
+    <!-- Load d3.js -->
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+
+    <style>
+        h1 {
+            text-align: center;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        h3 {
+            text-align: center;
+        }
+
+        #box {
+            display: flex;
+            flex-flow: row wrap;
+            width: auto;
+            height: auto;
+            border: 4px solid green;
+            /* overflow: hidden; */
+        }
+
+        div {
+            border: 2px solid pink;
+            width: fit-content;
+            height: fit-content;
+            min-width: 50;
+            min-height: 50;
+            margin: auto;
+
+        }
+
+        #modality{
+            flex-flow: column-reverse wrap;
+        }
+
+        #modality_legend{
+            order: 1;
+        }
+
+        #modality_box{
+            order: 2;
+        }
+
+        * {
+
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        #timeline {
+            border: 2px solid black;
+            background-color: cadetblue;
+            width: auto;
+            height: 50px;
+            overflow: auto;
+            overflow-y: hidden;
+            margin: 0 auto;
+            white-space: nowrap
+        }
+
+        #map {
+            border: 2px solid orange;
+            width: min-content;
+            height: min-content;
+        }
+
+        svg {
+            border: 2px solid purple;
+        }
+
+        span {
+            margin: 10px;
+        }
+
+        div.tooltip {
+            position: absolute;
+            text-align: center;
+            min-width: 60px;
+            width: fit-content;
+            min-height: 28px;
+            height: fit-content;
+            padding: 2px;
+            font: 12px sans-serif;
+            color: black;
+            background-color: white;
+            border: 2px solid black;
+            border-radius: 8px;
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Spotify Trends</h1>
+    <h2>Examining music styles through COVID-19</h2>
+    <h3>By Nick, Hunter, and Clay</h3>
+    <div id="legend"></div>
+    <div id="box">
+
+        <div id="timeline"></div>
+
+        <div id="modality">
+            <!--Nick will make radio buttons for modality-->
+        </div>
+
+        <div id="map">
+            <svg id="map_svg" width=1200 height=800></svg>
+        </div>
+
+        <button onclick="prev_week()">Load Previous Week</button>
+        <button onclick="next_week()">Load Next Week</button>
+        <!-- <button onclick="play_viz()">Play Viz!</button> -->
+
+    </div>
+    <h2>Results and Conclusions</h2>
+    <p>One thing we learned about the data, specifically the values for the audio features, is that, when normalized, we saw some audio features having higher ranges than others (for example, danceability and acousticness have high ranges) and some audio features such as tempo have low ranges (little to no variation across the board).
+
+    </p>
+    <p>Through this visualization, we learned that the audio features for top tracks vary greatly by country. For example, we learned that track danceability remains relatively constant in Japan over time, while danceability for the United States varied greatly (especially during the holidays - maybe Christmas music is just bad for dancing).
+        
+    </p> 
+    <p>Our visualization works as we expected it to, however we wanted to add a feature that allowed the timeline to be automatically traversed from start to end, which would "animate" the choropleth map. Unfortunately we couldn't get this feature to work in time, but we recognize that it would definitely improve the visualization and better communicate to the viewer the changing trends in streaming over time.</p>
+</p>
+<p>We would like to thank professor Lane Harrison for all of his guidance on this project, especially for helping us out with the choropleth map.</p>
+</body>
+<script>
+    // Example code taken from http://bl.ocks.org/nikhilNathwani/5dca6c63a53934185d05
+    var modality_width = 200
+    var modality_height = 375
+    const map_width = 1200;
+    const map_height = 800;
+
+    var weekList;
+    var week = "2020-12-25--2021-01-01"
+    const getWeekIndex = (element) => element.week == week;
+    var master_json;
+    var mode_domains;
+    var mode = "danceability";
+    var countryList;
+    var proj = d3.geoEqualEarth()
+        .translate([250, 250])
+        .scale(120);
+
+
+    var gpath = d3.geoPath()
+        .projection(proj);
+    var ccolor =
+        d3.scaleSequentialQuantile(d3.interpolateReds)
+            .domain([0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1]);
+    // var lowColor =
+    //     d3.scaleSequentialQuantile(d3.interpolateReds)
+    //         .domain([0, 0.05, 0.1]
+
+    //         );
+    var tempoColor =
+        d3.scaleSequentialQuantile(d3.interpolateReds)
+            .domain([90, 95, 100, 105, 110, 115, 120, 125, 130, 135, 140, 145]);
+
+
+    //TODO: testing implementation of these scales
+    var dynamicColor =
+        d3.scaleSequentialQuantile(d3.interpolateGreens)
+            .domain([0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1]);
+
+    var modeColorRange = d3.scaleLinear().range([0, 1]);//no domain bc the lists haven't been populated yet
+
+
+
+    var svg = d3.select("#modality").append("svg")
+        .attr("width", modality_width)
+        .attr("height", modality_height)
+        .attr("id","modality_box");
+
+    var choropleth_legend = d3.select("#legend")
+
+
+    // radio background
+    var background = svg.append("rect")
+        .attr("width", "100%")
+        .attr("height", "100%")
+        .attr("x", 0)
+        .attr("y", 0)
+        .attr("rx", 5) // rx and ry give the buttons rounded corners
+        .attr("ry", 5)
+        .attr("fill", "#191414");
+
+        // container for buttons
+    var buttons = svg.append("g")
+        .attr("id", "buttons");
+
+    // colors for different button states 
+    var defaultColor = "#189a46"
+    var hoverColor = "#1db954"
+    var pressedColor = "#116e32"
+
+    var labels = ['danceability 💃', 'energy ⚡', 'loudness 🔊', 'speechiness 🗣️', 'acousticness 🎹', 'instrumentalness 🎺', 'liveness 🎤', 'valence 😊', 'tempo 🕰️'];
+
+    // groups for each button, holding rectangle and text
+    var buttonGroups = buttons.selectAll("g.button")
+        .data(labels)
+        .enter()
+        .append("g")
+        .style("cursor", "pointer")
+        .on("click", function (d, i) {
+            updateButtons(d3.select(this), d3.select(this.parentNode))
+            mode = i.replace(/[^0-9a-z]/gi, '')
+            console.log(mode)
+            updateLegend(mode)
+            drawMap(gpath, countryList, week, mode, ccolor, tempoColor)
+        })
+        .on("mouseover", function () {
+            if (d3.select(this).select("rect").attr("fill") != pressedColor) {
+                d3.select(this)
+                    .select("rect")
+                    .attr("fill", hoverColor);
+            }
+        })
+        .on("mouseout", function () {
+            if (d3.select(this).select("rect").attr("fill") != pressedColor) {
+                d3.select(this)
+                    .select("rect")
+                    .attr("fill", defaultColor);
+            }
+        });
+
+    var bWidth = modality_width - 30; // button width
+    var bHeight = 30; // button height
+    var bSpace = 10; // space between buttons
+    var x0 = 15; // x offset
+    var y0 = 10; // y offset
+
+    // adding a rect to each button group
+    buttonGroups.append("rect")
+        .attr("width", bWidth)
+        .attr("height", bHeight)
+        .attr("x", x0)
+        .attr("y", function (d, i) { return y0 + (bHeight + bSpace) * i; })
+        .attr("rx", 5) // rx and ry give the buttons rounded corners
+        .attr("ry", 5)
+        .attr("fill", defaultColor)
+
+    // add text to each button group
+    buttonGroups.append("text")
+        .attr("font-family", "Tahoma")
+        .attr("y", function (d, i) {
+            return y0 + (bHeight + bSpace) * i + bHeight / 2;
+        })
+        .attr("x", x0 + bWidth / 2)
+        .attr("text-anchor", "middle")
+        .attr("dominant-baseline", "central")
+        .attr("fill", "white")
+        .style("font-size", bWidth / 10 + "px")
+        .text(function (d) { return d; })
+
+    function updateButtons(button, parent) {
+        parent.selectAll("rect").attr("fill", defaultColor)
+        button.select("rect").attr("fill", pressedColor)
+    }
+
+
+    //modality color legend
+    // var modality_legend = d3.select("#modality")
+    //     .append('svg')
+    //     .attr('id', 'modality_legend')
+    //     // .attr('width', 50)
+    //     // .attr('height', modality_height);
+    //     .attr('width', legend_Width)
+    //     .attr('height', legend_Height);
+
+    // adapted for d3v6 from book, d3js in action
+
+
+    function clean_wk_id(string) {
+        new_str = string.replace(/-/g, " ");
+        new_str = new_str.split(" ").join("_");
+        new_str = "week_" + new_str;
+        return new_str;
+    }
+
+
+
+    //-------------------------PROMISE--------------------------------------------------------------------- 
+
+
+    Promise.all([
+        d3.json('world.geojson'),
+        d3.csv('Datasets/weeks_list.csv'),
+        d3.json('Datasets/country_key.json'),
+        d3.json('Datasets/mode_domains.json')
+    ]).then(([countries, weeks, master, m_domains]) => {
+        master_json = master
+        countryList = countries
+        weekList = weeks
+        mode_domains = m_domains
+        console.log(master_json)
+
+        createTimeline(weeks)
+        createMap(countryList, master_json, week, mode)
+        drawLegend(mode)
+    })
+
+    function drawLegend(mode) {
+        //Draw the rectangle and fill with gradient
+        console.log('drawing legend...')
+        key.append("g")
+        .attr("class", "y axis")
+        .attr("transform", "translate(0,30)")
+        .call(yAxis)
+        .append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 0)
+        .attr("dy", ".71em")
+        .style("text-anchor", "end")
+        .text(mode);
+        console.log(d3.interpolateGreens(0.66));
+    }
+    function drawMap(gpath, countries, week, mode, ccolor, tempoColor) {
+        console.log("drawing map...")
+        var legend = {
+            color: d3.scaleSequentialQuantile(Array.from({ length: 100 }, () => Math.random() ** 2), d3.interpolateBlues),
+            title: "Quantile",
+            tickFormat: ".2f"
+        }
+        var tooltip = d3.select("body").append("div")
+            .attr("class", "tooltip")
+            .style("opacity", 0);
+        // console.log("mode:",mode)
+        document.getElementById('map_svg').innerHTML = "";
+        d3.select('#map_svg')
+            .selectAll('path')
+            .data(countries.features)
+            .enter()
+            .append('path')
+            .attr('d', function (d) { return gpath(d); })
+            .attr('stroke-width', 1)
+            .attr('stroke', '#252525')
+            .attr('country', d => d.id)
+            .on('mouseover', function (e, d) {
+
+
+                var country = master_json[d.id]
+                if (typeof (country) !== 'undefined') {
+                    if (typeof (country[week]) !== 'undefined') {
+                        console.log(country[week][mode])
+                        tooltip.transition()
+                            .duration(200)
+                            .style("opacity", 0.9);
+                        //convert value to percentage
+                        stringed = country[week][mode].toString(10)
+                        percent = stringed.substring(2, 4) + "." + stringed.substring(4, 5) + "%";
+                        //render tooltip
+                        // if we're looking at tempo or loudness, we keep the tooltip as a number rather than a %
+                        if (mode === 'tempo' || mode === 'loudness') {
+                            tooltip.html("Country: " + d.id + "<br/>" + mode + ": " + country[week][mode].toFixed(3))
+                            // .style("left", (e.pageX) + "px")
+                            // .style("top", (e.pageY) + "px")
+                        } else {
+                            tooltip.html("Country: " + d.id + "<br/>" + mode + ": " + percent)
+                            // .style("left", (e.pageX) + "px")
+                            // .style("top", (e.pageY) + "px")
+                        }
+                        //tooltip is a var
+                        tooltip.style("left", (e.pageX) + "px").style("top", (e.pageY) + "px")
+                    }
+                }
+            })
+            .on("mouseout", function (d) {
+                tooltip.transition()
+                    .duration(500)
+                    .style("opacity", 0);
+            })
+            .attr('fill', function (d) {
+                var country = master_json[d.id]
+                // not every country is represented in the data, so check whether or not we have data
+                if (typeof (country) !== 'undefined') {
+                    if (typeof (country[week]) !== 'undefined') {
+                        // if (mode === 'tempo') {
+                        //     return tempoColor(country[week][mode]);
+                        // }
+                        // else {
+                        //     return ccolor(country[week][mode]);
+                        //     // return dynamicColor(country[week][mode]);
+                        // }
+                        updateLegend(mode)
+                        console.log(modeColorRange(country[week][mode]))
+                        return dynamicColor(modeColorRange(country[week][mode]))
+                    }
+                    else {
+                        return "#0000"
+                    }
+                }
+
+                else {
+                    return "#0000"
+                }
+            });
+    }
+    function createMap(countries, master_json, week, mode) {
+        console.log(countries)
+        console.log(master_json)
+        console.log(week)
+        console.log(mode)
+
+        console.log(gpath.area(countries.features[1]));
+
+        // draw country boundaries
+
+        drawMap(gpath, countries, week, mode, ccolor, tempoColor)
+
+        var mapZoom = d3.zoom()
+            .on('zoom', zoomed);
+
+        var zoomSettings = d3.zoomIdentity
+            // .translate(520, 420)
+            .translate((map_width * .43), (map_height * .525))
+            // .scale(210);
+            .scale(290);
+
+        d3.select('#map_svg')
+            .call(mapZoom)
+            .call(mapZoom.transform, zoomSettings);
+
+
+        function zoomed(e) {
+            proj
+                .translate([e.transform.x, e.transform.y])
+                .scale(e.transform.k);
+
+            console.log(e.transform.k);
+            if (e.transform.k > 400)
+                console.log('toggle adaptive map feature');
+
+            // redraw map with new projection settings
+            d3.selectAll('path')
+                .attr('d', gpath);
+
+            // d3.selectAll('circle')
+            //     .attr('cx', d => proj([d.x, d.y])[0])
+            //     .attr('cy', d => proj([d.x, d.y])[1])
+        }
+
+    }
+
+    function createTimeline(weeks) {
+        d3.select("#timeline")
+            .selectAll("p")
+            .data(weeks)
+            .enter()
+            .append("span")
+            .text(function (d) {
+                // console.log(d.week);
+                return d.week;
+            })
+            .attr("id", function (d) {
+                // return d.week;
+                console.log(clean_wk_id(d.week))
+                return clean_wk_id(d.week);
+            })
+            .on("click", function (e, d) {
+                // console.log("loading map for week "+d.week);
+                format_week_label(week, this.id)
+
+                week = d.week//updates the global "week" variables
+                d3.select("#" + this.id)//update current week text
+                    .style('background-color', 'black')
+                    .style("color", "red");
+                drawMap(gpath, countryList, d.week, mode, ccolor, tempoColor);
+            });
+    }
+
+    function updateLegend(mode) {
+        //update the domain of var modeColorRange to the min/max vals of 'mode'
+        // changeModeBuckets(mode)
+        console.log("updating legend...")
+        console.log("mode is: ", mode)
+        console.log(mode_domains[mode])
+        mode_min = mode_domains[mode]["min"]
+        mode_max = mode_domains[mode]["max"]
+
+        modeColorRange.domain([mode_min, mode_max]);
+        console.log("min:", mode_min, "max:", mode_max)
+        console.log("min (" + mode_min + ") maps to ", modeColorRange(mode_min))
+        console.log("max (" + mode_max + ") maps to ", modeColorRange(mode_max))
+        // modality_legend
+        // modality_legend.attr("fill","red")
+
+    }
+
+    // function changeModeBuckets(d_mode){
+    //     console.log("mode is: ",d_mode)
+    //     console.log(mode_domains.d_mode)
+    //     mode_min = mode_domains.d_mode.min
+    //     mode_max = mode_domains.d_mode.max
+    //     // switch(mode){
+    //     //     case 'danceability': 
+    //     //         modeColorRange.domain(min,max);
+    //     //         console.log("min:",min,"max:",max)
+    //     //         break;
+    //     //     case 'energy': break;
+    //     //     case 'loudness': break;
+    //     //     case 'speechiness': break;
+    //     //     case 'acousticness': break;
+    //     //     case 'instrumentalness': break;
+    //     //     case 'liveness': break;
+    //     //     case 'valence': break;
+    //     //     case 'tempo': break;
+    //     //     default:
+
+    //     // }
+    //     modeColorRange.domain([mode_min,mode_max]);
+    //     console.log("min:",mode_min,"max:",mode_max)
+    //     console.log("min ("+mode_min+") maps to ",modeColorRange(mode_min))
+    //     console.log("min ("+mode_max+") maps to ",modeColorRange(mode_max))
+    // }
+
+    function format_week_label(old_week, new_week) {
+        d3.select("#" + clean_wk_id(old_week))//reset previously selected week
+            .style('background-color', 'cadetblue')
+            .style("color", "black");
+        d3.select("#" + new_week)//update current week text
+            .style('background-color', 'black')
+            .style("color", "red");
+    }
+
+    function next_week() {
+        week_ind = weekList.findIndex(getWeekIndex)
+        if (week_ind == (weekList.length - 1)) {
+            window.alert("can't go any further forward")
+        } else {
+            format_week_label(week, clean_wk_id(weekList[week_ind + 1].week))
+            week = weekList[week_ind + 1].week
+            drawMap(gpath, countryList, week, mode, ccolor, tempoColor)
+        }
+    }
+
+    function prev_week() {
+        week_ind = weekList.findIndex(getWeekIndex)
+        if (week_ind == 0) {
+            window.alert("can't go back any further")
+        } else {
+            format_week_label(week, clean_wk_id(weekList[week_ind - 1].week))
+            week = weekList[week_ind - 1].week
+            drawMap(gpath, countryList, week, mode, ccolor, tempoColor)
+        }
+    }
+
+    //TODO: I dont work
+    function play_viz() {
+        window.alert("you should probably close the tab soon")
+        console.log("playing viz!")
+        for (w in weekList) {
+            // console.log(weekList[w].week)
+            // console.log("new week:",weekList[w].week)
+            (function (w) {
+                setTimeout(
+                    drawMap(gpath, countryList, weekList[w].week, mode, ccolor, tempoColor),
+                    500
+                );
+            })(w);
+            // setTimeout(drawMap(gpath, countryList, weekList[w].week, mode, ccolor, tempoColor), 750)
+        }
+    }
+
+
+    var legend_Width = 300;
+    var legend_Height = 50;
+
+    // var key = d3.select("#legend")
+    var key = d3.select("#modality")
+        .append("svg")
+        .attr("id","modality_legend")
+        .attr("width", legend_Width-10)
+        .attr("height", legend_Height);
+
+    var legend = key.append("defs")
+        .append("svg:linearGradient")
+        .attr("id", "gradient")
+        .attr("x1", "0%")
+        .attr("y1", "100%")
+        .attr("x2", "100%")
+        .attr("y2", "100%")
+        .attr("spreadMethod", "pad");
+
+    legend.append("stop")
+        .attr("offset", "0%")
+        .attr("stop-color", "rgb(247, 252, 245)")
+        .attr("stop-opacity", 1);
+
+    legend.append("stop")
+        .attr("offset", "33%")
+        .attr("stop-color", "rgb(174, 223, 168)")
+        .attr("stop-opacity", 1);
+
+    legend.append("stop")
+        .attr("offset", "66%")
+        .attr("stop-color", "rgb(58, 162, 86)")
+        .attr("stop-opacity", 1);
+
+    legend.append("stop")
+        .attr("offset", "100%")
+        .attr("stop-color", "rgb(0, 68,27)")
+        .attr("stop-opacity", 1);
+
+    key.append("rect")
+        .attr("width", legend_Width)
+        .attr("height", legend_Height - 30)
+        .style("fill", "url(#gradient)")
+        .attr("transform", "translate(0,10)");
+
+    var y = d3.scaleLinear()
+        .range([300, 0])
+        .domain([100, 0]);
+
+    var yAxis = d3.axisBottom()
+        .scale(y)
+        .ticks(5);
+
+</script>
+
+</html>
