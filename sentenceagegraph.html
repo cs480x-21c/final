@@ -13,9 +13,15 @@ var margin = {}
 var width;
 var height;
 
-
+function getSentences(sentences){
+    var specialChars = ['.', '!', '?'];
+    var specialRegex = new RegExp('[' + specialChars.join('') + ']');
+    var result = sentences.split(specialRegex)
+    return result
+}
 //pretend there's data here
-sentences = ["sentence 1.", "sentence 2?", "sentence 3!"]; //needs a method to create this data from the input, dummy data rn
+var sentences = getSentences(inputSentence)
+//sentences = ["sentence 1.", "sentence 2?", "sentence 3!"]; //needs a method to create this data from the input, dummy data rn
 
 //function for finding avg date of a sentence
 function getMaxDateFreq(sentence){
@@ -25,8 +31,7 @@ function getMaxDateFreq(sentence){
 //2D array holding sentences and date of each, initialized
 sentenceData = [];
 sentences.forEach(item => 
-	sentenceData.push({"sentenceNum":item, "date":getMaxDateFreq(item)});
-);
+	sentenceData.push({"sentenceNum":item, "date":getMaxDateFreq(item)}));
 
 
 //add X axis
