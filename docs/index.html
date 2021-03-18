@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<script src="https://d3js.org/d3.v4.js"></script>
+<script src="https://d3js.org/d3-color.v2.min.js"></script>
+<script src="https://d3js.org/d3-interpolate.v2.min.js"></script>
+<script src="https://d3js.org/d3-scale-chromatic.v2.min.js"></script>
+
+<html>
+<head>
+<style>
+.topNav {
+    overflow: hidden;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+}
+
+.topNav a {
+    padding: 10px;
+}
+
+.topNav img {
+    width: 64px;
+    height: 64px;
+    margin-left: -1%;
+    margin-top: 0.5%;
+}
+
+.topNav h1 {
+    margin-left: 1%;
+}
+
+.topDiv img {
+    width: 50%;
+}
+
+.topDiv {
+    display: flex;
+    justify-content: center;
+}
+
+.topDiv p {
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+    font-size: x-large;
+}
+
+.d3 {
+    margin-top: 2%;
+
+}
+
+.d3 svg {
+    display: block;
+    margin: 0 auto;
+}
+
+.botDiv {
+    display: flex;
+}
+.botDiv img {
+    width: 40%;
+}
+
+.botDiv p {
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+    font-size: x-large;
+}
+
+</style>
+
+<div class="topNav">
+    <img src="./img/wpi.svg">
+    <h1>Spices around the world</h1>
+    <a href="https://youtu.be/ywAWuampBNw"> Youtube Video </a>
+    <a href="https://docs.google.com/presentation/d/1hKS-NhZ-3-1bM7e4KAHaUlxSz8gFMeadyNzsxmucQLw/edit?usp=sharing"> Process Book </a>
+
+</div>
+<div class="topDiv">
+    <img src="./img/CorianderSeed.jpg">
+    <p>
+        Spices are something that is used by everyone in their daily life. From something as simple as salt and pepper on your eggs to something way more complex
+        such as cajun seasoning which is a blend of many spices each spice has its own origin and numerous places across the globe that it is used in. Most spices
+        nowadays have migrated to being used outside of just its native region and have evolved many culinary cuisenes across the globe away from its native area.
+    </p>
+</div>
+<div class="d3">
+    <svg id="svgMap"></svg>
+</div>
+<div class="botDiv">
+    <p>
+        Overall, it is interesting to see the migration of spices from its native region to places where it is commonly used within their
+        cuisenes. Non-native spices are used in a plethora of cuisenes across the global and have had major cultural and culinary influences 
+        across the globe, even if the distance from its native area is close or far. In the end, it is important to recognize where something has
+        come from to see how much it is widely used globally.
+    </p>
+    <img src="./img/Chili.jpeg">
+</div>
+
+</head>
+<body>
+</body>
+</html>
+
+<script src='https://unpkg.com/@turf/turf@6.3.0/turf.min.js'></script>
+<script>
+
+    let svgMap = d3.select('.d3')
+        .append('svg')
+        .attr('id', 'd3_svg')
+            .attr('width', 2000)
+            .attr('height', 1000)
+
+    widthMap = svgMap.attr('width')
+    heightMap = svgMap.attr('height')
+
+    let path = d3.geoPath()
+    let projection = d3.geoMercator()
+        .scale(250)
+        .translate([widthMap/2, heightMap/2*1.3])
+
+    let spices
+    let spice_locations = []
+    let origin_frequency = {}
+    // Queue up the Map data
+    d3.queue()
+        .defer(d3.json, 'finalCuisineMap.geojson')
+        .defer(d3.csv, 'data_spices.csv')
+        .await(doneLoading)
+
+    let loadedMap
+    let updatedMap
+    function doneLoading(error, map_loaded, spices_loaded) {
+        loadedMap = map_loaded
+        let mapFeatures = loadedMap.features
+        updatedMap = mapFeatures.map(function(f) {
+            return turf.rewind(f, {reverse: true});
+        })
+        spices = spices_loaded
+        spices.forEach(function (spice_history) {
+            /* spice_history
+                spice_history.Spice = Name
+                spice_history.Cuisine = Region Name
+                spice_history.Origin = Region Name
+            */
+            let origin;
+            let cuisine;
+
+            for (let i = 0; i < updatedMap.length; i++) {
+                let region = updatedMap[i]
+                /* region
+                    region.geometry.coordinates = array of arrays
+                    region.properties.name = Region Name
+                */
+
+                if  (origin != null && cuisine != null) break;
+                else {
+                    let coordinates = region.geometry.cooridnates
+                    if(region.properties.name === spice_history.Cuisine){
+                        let polygon = turf.polygon([updatedMap[i].geometry.coordinates[0]])
+                        //console.log('Polygon:', polygon)
+                        cuisine = turf.centroid(polygon)
+                        //console.log('Cuisine', cuisine)
+                        // TODO: get a good way to find the centroid coordinates
+                    }
+                    if (region.properties.name === spice_history.Origin) {
+                        // origin = d3.geo.centroid(region.geometry.cooridnates)
+                        //console.log(updatedMap[i].geometry.coordinates)
+                        //visted.push(region.properties.name)
+                        //console.log(visted)
+                        //console.log(updatedMap[i].geometry.type)
+                        if(updatedMap[i].geometry.type == 'MultiPolygon'){
+                            for(var j = 0; j < updatedMap[i].geometry.coordinates.length; j++){
+                                //console.log(updatedMap[i])
+                                //console.log(j)
+                                //console.log([updatedMap[i].geometry.coordinates])
+                                let coords = updatedMap[i].geometry.coordinates
+                                //console.log('Coords', coords)
+                                //console.log(coords[j][0])
+                                let polygon = turf.polygon([coords[j][0]])
+                                origin = turf.centroid(polygon)
+                                //console.log('Origin', origin, ' J Value: ', j, 'Area ', spice_history.Origin)
+                            }
+                        } else {
+                            //console.log('not multi', updatedMap[i])
+                           let polygon = turf.polygon([updatedMap[i].geometry.coordinates[0]])
+                           origin = turf.centroid(polygon)
+                           //console.log(origin)
+                        } 
+                        // console.log(origin)
+                    }
+                }
+            }
+             // Set spice lines
+            if (origin != null && cuisine != null) {
+                const xMultOrigin = 4.3
+                const yMultOrigin = -4
+                const xMultCuisene = 4
+                const yMultCuisene = -1
+                const wdth = widthMap/(2)
+                const hght = heightMap/(2*.8)
+
+                spice_locations.push([spice_history.Spice, {type: 'LineString', coordinates: [[origin.geometry.coordinates[0]*xMultOrigin + wdth,origin.geometry.coordinates[1]*yMultOrigin + hght],[cuisine.geometry.coordinates[0]*xMultCuisene + wdth,cuisine.geometry.coordinates[1]*yMultCuisene + hght]]}, spice_history.Origin])
+            }
+            // Set color brightness for locations
+            if (origin_frequency.hasOwnProperty(spice_history.Origin)) origin_frequency[spice_history.Origin]++
+            else origin_frequency[spice_history.Origin] = 1
+
+        })
+
+        makeMap()
+    }
+
+    let tooltipMap = d3.select('.d3')
+        .append('div')
+        .style("opacity", 0)
+        .attr("class", "tooltip")
+        .style("background-color", "white")
+        .style("border", "solid")
+        .style("border-width", "2px")
+        .style("border-radius", "5px")
+        .style("padding", "5px")
+
+    function makeMap() {
+        svgMap.append('g')
+            .selectAll('path')
+            .data(updatedMap)
+            .enter()
+            .append('path')
+            .attr('d', d3.geoPath().projection(projection))
+                .attr('fill', function (d) {
+                    return origin_frequency.hasOwnProperty(d.properties.name) !== false ? d3.interpolateOranges(origin_frequency[d.properties.name]/190) : '#636363'
+
+                })
+                .attr('id', d=> {return d.properties.name})
+                .style('stroke', 'transparent')
+                .style('opacity', function (d) {
+                    if (d.properties.region == 'True') return 0
+                    else return 0.8
+                })
+
+        function mouseover(d) {
+            d3.selectAll('.' + d[0].replace(/\s/g, '.'))
+                .style('opacity', 1)
+                .style('stroke', '#CC5500')
+            tooltipMap.style('opacity', 1)
+
+        }
+
+        function mouseleave(d) {
+            d3.selectAll('.' + d[0].replace(/\s/g, '.'))
+                .transition()
+                .duration(200)
+                .style('opacity', 0.05)
+                .style('stroke', '#026775')
+            tooltipMap.style('opacity', 0)
+        }
+
+        function mousemove(d) {
+            console.log(d)
+            tooltipMap
+                .html('The spice ' + (d[0]) + ' originates in ' + d[2])
+                .style("left", (d3.mouse(this)[0]) + "px")
+                .style("top", (d3.mouse(this)[1]) + "px")
+
+        }
+
+        svgMap.selectAll('myPath')
+            .data(spice_locations)
+            .enter()
+            .append('path')
+                .attr("d", function(d){ return path(d[1])})
+                .attr('class', function (d) { return d[0]})
+                .style("fill", "none")
+                .style('opacity', 0.05)
+                .style("stroke", "#026775")
+                .style("stroke-width", 5)
+                .on('mouseover', mouseover)
+                .on('mouseleave', mouseleave)
+                .on('mousemove', mousemove)
+    }
+</script>
