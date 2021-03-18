@@ -2,7 +2,7 @@
 
 Website: [https://dgcole.github.io/final/](https://dgcole.github.io/final/)
 
-Screencast: (TODO)
+Screencast: [](https://www.youtube.com/watch?v=ZE9PEuVveCY)
 
 Process book: (TODO)
 
