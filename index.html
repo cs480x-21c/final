@@ -133,7 +133,7 @@
     }
 
     function wordAgeGraph(word){
-        let margin =  {top: 10, right: 30, bottom: 60, left: 60}
+        let margin =  {top: 20, right: 30, bottom: 60, left: 60}
         let width = 400;
         let height = 400;
 
@@ -158,14 +158,14 @@
             .range([0, width]);
 
         svg.append("g")
-            .attr("transform", "translate(20," + height + ")")
+            .attr("transform", "translate(" + (margin.left) + "," + (margin.top + height) + ")")
             .call(d3.axisBottom(x));
 
         //text label for x axis
         svg.append("text")
             .attr("transform",
-                "translate(" + (10 + width/2) + " ," +
-                (height + 30) + ")")
+                "translate(" + (margin.left + width/2) + " ," +
+                (height + margin.top + 30) + ")")
             .style("text-anchor", "middle")
             .text("Time");
 
@@ -175,13 +175,14 @@
             .range([height, 0]);
 
         svg.append("g")
+            .attr("transform", "translate(60,20)")
             .call(d3.axisLeft(y));
 
         //text label for the y axis
         svg.append("text")
             .attr("transform", "rotate(-90)")
-            .attr("y", 0 - margin.left)
-            .attr("x", 0 - (height / 2))
+            .attr("y", 0)
+            .attr("x", -200)
             .attr("dy", "1em")
             .style("text-anchor", "middle")
             .text("Frequency of Word Usage");
